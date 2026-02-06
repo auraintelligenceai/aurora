@@ -1,0 +1,31 @@
+{
+  "name": "@aura_intelligence/nostr",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "aura_intelligence Nostr channel plugin for NIP-04 encrypted DMs",
+  "aura_intelligence": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "channel": {
+      "id": "nostr",
+      "label": "Nostr",
+      "selectionLabel": "Nostr (NIP-04 DMs)",
+      "docsPath": "/channels/nostr",
+      "docsLabel": "nostr",
+      "blurb": "Decentralized protocol; encrypted DMs via NIP-04.",
+      "order": 55,
+      "quickstartAllowFrom": true
+    },
+    "install": {
+      "npmSpec": "@aura_intelligence/nostr",
+      "localPath": "extensions/nostr",
+      "defaultChoice": "npm"
+    }
+  },
+  "dependencies": {
+    "aura_intelligence": "workspace:*",
+    "nostr-tools": "^2.20.0",
+    "zod": "^4.3.6"
+  }
+}

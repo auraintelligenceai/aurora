@@ -1,0 +1,11 @@
+{
+  "name": "@aura_intelligence/telegram",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "aura_intelligence Telegram channel plugin",
+  "aura_intelligence": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

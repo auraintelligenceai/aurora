@@ -1,0 +1,134 @@
+name: aura_intelligence
+options:
+  bundleIdPrefix: bot.molt
+  deploymentTarget:
+    iOS: "18.0"
+  xcodeVersion: "16.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+
+packages:
+  aura_intelligenceKit:
+    path: ../shared/aura_intelligenceKit
+  Swabble:
+    path: ../../Swabble
+
+schemes:
+  aura_intelligence:
+    shared: true
+    build:
+      targets:
+        aura_intelligence: all
+    test:
+      targets:
+        - aura_intelligenceTests
+
+targets:
+  aura_intelligence:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+    dependencies:
+      - package: aura_intelligenceKit
+      - package: aura_intelligenceKit
+        product: aura_intelligenceChatUI
+      - package: aura_intelligenceKit
+        product: aura_intelligenceProtocol
+      - package: Swabble
+        product: SwabbleKit
+      - sdk: AppIntents.framework
+    preBuildScripts:
+      - name: SwiftFormat (lint)
+        basedOnDependencyAnalysis: false
+        inputFileLists:
+          - $(SRCROOT)/SwiftSources.input.xcfilelist
+        script: |
+          set -euo pipefail
+          export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+          if ! command -v swiftformat >/dev/null 2>&1; then
+            echo "error: swiftformat not found (brew install swiftformat)" >&2
+            exit 1
+          fi
+          swiftformat --lint --config "$SRCROOT/../../.swiftformat" \
+            --filelist "$SRCROOT/SwiftSources.input.xcfilelist"
+      - name: SwiftLint
+        basedOnDependencyAnalysis: false
+        inputFileLists:
+          - $(SRCROOT)/SwiftSources.input.xcfilelist
+        script: |
+          set -euo pipefail
+          export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+          if ! command -v swiftlint >/dev/null 2>&1; then
+            echo "error: swiftlint not found (brew install swiftlint)" >&2
+            exit 1
+          fi
+          swiftlint lint --config "$SRCROOT/.swiftlint.yml" --use-script-input-file-lists
+    settings:
+      base:
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Manual
+        DEVELOPMENT_TEAM: Y5PE65HELJ
+        PRODUCT_BUNDLE_IDENTIFIER: bot.molt.ios
+        PROVISIONING_PROFILE_SPECIFIER: "bot.molt.ios Development"
+        SWIFT_VERSION: "6.0"
+        SWIFT_STRICT_CONCURRENCY: complete
+        ENABLE_APPINTENTS_METADATA: NO
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleDisplayName: aura_intelligence
+        CFBundleIconName: AppIcon
+        CFBundleShortVersionString: "2026.1.27-beta.1"
+        CFBundleVersion: "20260126"
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UIBackgroundModes:
+          - audio
+        NSLocalNetworkUsageDescription: aura_intelligence discovers and connects to your aura_intelligence gateway on the local network.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoadsInWebContent: true
+        NSBonjourServices:
+          - _aura_intelligence-gw._tcp
+        NSCameraUsageDescription: aura_intelligence can capture photos or short video clips when requested via the gateway.
+        NSLocationWhenInUseUsageDescription: aura_intelligence uses your location when you allow location sharing.
+        NSLocationAlwaysAndWhenInUseUsageDescription: aura_intelligence can share your location in the background when you enable Always.
+        NSMicrophoneUsageDescription: aura_intelligence needs microphone access for voice wake.
+        NSSpeechRecognitionUsageDescription: aura_intelligence uses on-device speech recognition for voice wake.
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+
+  aura_intelligenceTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: aura_intelligence
+      - package: Swabble
+        product: SwabbleKit
+      - sdk: AppIntents.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: bot.molt.ios.tests
+        SWIFT_VERSION: "6.0"
+        SWIFT_STRICT_CONCURRENCY: complete
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/aura_intelligence.app/aura_intelligence"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+    info:
+      path: Tests/Info.plist
+      properties:
+        CFBundleDisplayName: aura_intelligenceTests
+        CFBundleShortVersionString: "2026.1.27-beta.1"
+        CFBundleVersion: "20260126"

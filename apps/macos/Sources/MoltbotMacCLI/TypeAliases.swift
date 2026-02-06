@@ -1,0 +1,5 @@
+import aura_intelligenceKit
+import aura_intelligenceProtocol
+
+typealias ProtoAnyCodable = aura_intelligenceProtocol.AnyCodable
+typealias KitAnyCodable = aura_intelligenceKit.AnyCodable

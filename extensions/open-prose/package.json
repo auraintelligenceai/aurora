@@ -1,0 +1,11 @@
+{
+  "name": "@aura_intelligence/open-prose",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "OpenProse VM skill pack plugin (slash command + telemetry).",
+  "aura_intelligence": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

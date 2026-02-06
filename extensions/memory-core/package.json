@@ -1,0 +1,17 @@
+{
+  "name": "@aura_intelligence/memory-core",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "aura_intelligence core memory search plugin",
+  "aura_intelligence": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "aura_intelligence": ">=2026.1.26"
+  },
+  "devDependencies": {
+    "aura_intelligence": "workspace:*"
+  }
+}

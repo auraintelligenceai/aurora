@@ -1,0 +1,29 @@
+{
+  "name": "@aura_intelligence/line",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "aura_intelligence LINE channel plugin",
+  "aura_intelligence": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "channel": {
+      "id": "line",
+      "label": "LINE",
+      "selectionLabel": "LINE (Messaging API)",
+      "docsPath": "/channels/line",
+      "docsLabel": "line",
+      "blurb": "LINE Messaging API bot for Japan/Taiwan/Thailand markets.",
+      "order": 75,
+      "quickstartAllowFrom": true
+    },
+    "install": {
+      "npmSpec": "@aura_intelligence/line",
+      "localPath": "extensions/line",
+      "defaultChoice": "npm"
+    }
+  },
+  "devDependencies": {
+    "aura_intelligence": "workspace:*"
+  }
+}

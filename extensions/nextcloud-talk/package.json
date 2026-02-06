@@ -1,0 +1,30 @@
+{
+  "name": "@aura_intelligence/nextcloud-talk",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "aura_intelligence Nextcloud Talk channel plugin",
+  "aura_intelligence": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "channel": {
+      "id": "nextcloud-talk",
+      "label": "Nextcloud Talk",
+      "selectionLabel": "Nextcloud Talk (self-hosted)",
+      "docsPath": "/channels/nextcloud-talk",
+      "docsLabel": "nextcloud-talk",
+      "blurb": "Self-hosted chat via Nextcloud Talk webhook bots.",
+      "aliases": [
+        "nc-talk",
+        "nc"
+      ],
+      "order": 65,
+      "quickstartAllowFrom": true
+    },
+    "install": {
+      "npmSpec": "@aura_intelligence/nextcloud-talk",
+      "localPath": "extensions/nextcloud-talk",
+      "defaultChoice": "npm"
+    }
+  }
+}

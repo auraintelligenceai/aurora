@@ -1,0 +1,11 @@
+{
+  "name": "@aura_intelligence/llm-task",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "aura_intelligence JSON-only LLM task plugin",
+  "aura_intelligence": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
