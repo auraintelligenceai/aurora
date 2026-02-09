@@ -6,7 +6,10 @@ export type PluginEnableResult = {
   reason?: string;
 };
 
-function ensureAllowlisted(cfg: aura_intelligenceConfig, pluginId: string): aura_intelligenceConfig {
+function ensureAllowlisted(
+  cfg: aura_intelligenceConfig,
+  pluginId: string,
+): aura_intelligenceConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.includes(pluginId)) return cfg;
   return {
@@ -18,7 +21,10 @@ function ensureAllowlisted(cfg: aura_intelligenceConfig, pluginId: string): aura
   };
 }
 
-export function enablePluginInConfig(cfg: aura_intelligenceConfig, pluginId: string): PluginEnableResult {
+export function enablePluginInConfig(
+  cfg: aura_intelligenceConfig,
+  pluginId: string,
+): PluginEnableResult {
   if (cfg.plugins?.enabled === false) {
     return { config: cfg, enabled: false, reason: "plugins disabled" };
   }

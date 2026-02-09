@@ -175,7 +175,9 @@ export async function runConfigureWizard(
 ) {
   try {
     printWizardHeader(runtime);
-    intro(opts.command === "update" ? "aura_intelligence update wizard" : "aura_intelligence configure");
+    intro(
+      opts.command === "update" ? "aura_intelligence update wizard" : "aura_intelligence configure",
+    );
     const prompter = createClackPrompter();
 
     const snapshot = await readConfigFileSnapshot();

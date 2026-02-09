@@ -160,7 +160,9 @@ describe("security audit", () => {
   });
 
   it("flags Windows ACLs when Users can read the state dir", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-win-open-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-win-open-"),
+    );
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
     const configPath = path.join(stateDir, "aura_intelligence.json");
@@ -392,7 +394,9 @@ describe("security audit", () => {
 
   it("flags Discord native commands without a guild user allowlist", async () => {
     const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-"),
+    );
     process.env.CLAWDBOT_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -482,7 +486,9 @@ describe("security audit", () => {
 
   it("flags Discord slash commands when access-group enforcement is disabled and no users allowlist exists", async () => {
     const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-open-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-open-"),
+    );
     process.env.CLAWDBOT_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -566,7 +572,9 @@ describe("security audit", () => {
 
   it("flags Slack slash commands when access-group enforcement is disabled", async () => {
     const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-slack-open-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-slack-open-"),
+    );
     process.env.CLAWDBOT_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -606,7 +614,9 @@ describe("security audit", () => {
 
   it("flags Telegram group commands without a sender allowlist", async () => {
     const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-telegram-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-telegram-"),
+    );
     process.env.CLAWDBOT_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {

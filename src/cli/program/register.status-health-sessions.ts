@@ -122,7 +122,10 @@ export function registerStatusHealthSessionsCommands(program: Command) {
           ["aura_intelligence sessions", "List all sessions."],
           ["aura_intelligence sessions --active 120", "Only last 2 hours."],
           ["aura_intelligence sessions --json", "Machine-readable output."],
-          ["aura_intelligence sessions --store ./tmp/sessions.json", "Use a specific session store."],
+          [
+            "aura_intelligence sessions --store ./tmp/sessions.json",
+            "Use a specific session store.",
+          ],
         ])}\n\n${theme.muted(
           "Shows token usage per session when the agent reports it; set agents.defaults.contextTokens to see % of your model window.",
         )}`,

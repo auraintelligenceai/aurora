@@ -61,7 +61,10 @@ ${formatHelpExamples([
     'aura_intelligence agent --to +15555550123 --message "Trace logs" --verbose on --json',
     "Enable verbose logging and JSON output.",
   ],
-  ['aura_intelligence agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
+  [
+    'aura_intelligence agent --to +15555550123 --message "Summon reply" --deliver',
+    "Deliver reply.",
+  ],
   [
     'aura_intelligence agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
     "Send reply to a different channel/target.",
@@ -155,9 +158,18 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.molt.bot/cli/agent"
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['aura_intelligence agents set-identity --agent main --name "Clawd" --emoji "🦞"', "Set name + emoji."],
-  ["aura_intelligence agents set-identity --agent main --avatar avatars/clawd.png", "Set avatar path."],
-  ["aura_intelligence agents set-identity --workspace ~/clawd --from-identity", "Load from IDENTITY.md."],
+  [
+    'aura_intelligence agents set-identity --agent main --name "Clawd" --emoji "🦞"',
+    "Set name + emoji.",
+  ],
+  [
+    "aura_intelligence agents set-identity --agent main --avatar avatars/clawd.png",
+    "Set avatar path.",
+  ],
+  [
+    "aura_intelligence agents set-identity --workspace ~/clawd --from-identity",
+    "Load from IDENTITY.md.",
+  ],
   [
     "aura_intelligence agents set-identity --identity-file ~/clawd/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",

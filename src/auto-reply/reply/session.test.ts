@@ -335,7 +335,9 @@ describe("initSessionState reset policy", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 0, 18, 5, 0, 0));
     try {
-      const root = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-reset-thread-nosuffix-"));
+      const root = await fs.mkdtemp(
+        path.join(os.tmpdir(), "aura_intelligence-reset-thread-nosuffix-"),
+      );
       const storePath = path.join(root, "sessions.json");
       const sessionKey = "agent:main:discord:channel:c1";
       const existingSessionId = "thread-nosuffix";
@@ -370,7 +372,9 @@ describe("initSessionState reset policy", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 0, 18, 5, 0, 0));
     try {
-      const root = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-reset-type-default-"));
+      const root = await fs.mkdtemp(
+        path.join(os.tmpdir(), "aura_intelligence-reset-type-default-"),
+      );
       const storePath = path.join(root, "sessions.json");
       const sessionKey = "agent:main:whatsapp:dm:s4";
       const existingSessionId = "type-default-session";

@@ -38,7 +38,10 @@ function resolveAccountConfig(
   return accounts[accountId] as SignalAccountConfig | undefined;
 }
 
-function mergeSignalAccountConfig(cfg: aura_intelligenceConfig, accountId: string): SignalAccountConfig {
+function mergeSignalAccountConfig(
+  cfg: aura_intelligenceConfig,
+  accountId: string,
+): SignalAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.signal ?? {}) as SignalAccountConfig & {
     accounts?: unknown;
   };

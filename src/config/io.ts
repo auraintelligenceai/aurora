@@ -137,7 +137,10 @@ function stampConfigVersion(cfg: aura_intelligenceConfig): aura_intelligenceConf
   };
 }
 
-function warnIfConfigFromFuture(cfg: aura_intelligenceConfig, logger: Pick<typeof console, "warn">): void {
+function warnIfConfigFromFuture(
+  cfg: aura_intelligenceConfig,
+  logger: Pick<typeof console, "warn">,
+): void {
   const touched = cfg.meta?.lastTouchedVersion;
   if (!touched) return;
   const cmp = compareaura_intelligenceVersions(VERSION, touched);
@@ -227,10 +230,13 @@ export function createConfigIO(overrides: ConfigIoDeps = {}) {
       const resolvedConfig = substituted;
       warnOnConfigMiskeys(resolvedConfig, deps.logger);
       if (typeof resolvedConfig !== "object" || resolvedConfig === null) return {};
-      const preValidationDuplicates = findDuplicateAgentDirs(resolvedConfig as aura_intelligenceConfig, {
-        env: deps.env,
-        homedir: deps.homedir,
-      });
+      const preValidationDuplicates = findDuplicateAgentDirs(
+        resolvedConfig as aura_intelligenceConfig,
+        {
+          env: deps.env,
+          homedir: deps.homedir,
+        },
+      );
       if (preValidationDuplicates.length > 0) {
         throw new DuplicateAgentDirError(preValidationDuplicates);
       }

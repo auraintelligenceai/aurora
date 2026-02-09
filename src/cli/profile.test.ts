@@ -14,7 +14,13 @@ describe("parseCliProfileArgs", () => {
     ]);
     if (!res.ok) throw new Error(res.error);
     expect(res.profile).toBeNull();
-    expect(res.argv).toEqual(["node", "aura_intelligence", "gateway", "--dev", "--allow-unconfigured"]);
+    expect(res.argv).toEqual([
+      "node",
+      "aura_intelligence",
+      "gateway",
+      "--dev",
+      "--allow-unconfigured",
+    ]);
   });
 
   it("still accepts global --dev before subcommand", () => {
@@ -37,12 +43,26 @@ describe("parseCliProfileArgs", () => {
   });
 
   it("rejects combining --dev with --profile (dev first)", () => {
-    const res = parseCliProfileArgs(["node", "aura_intelligence", "--dev", "--profile", "work", "status"]);
+    const res = parseCliProfileArgs([
+      "node",
+      "aura_intelligence",
+      "--dev",
+      "--profile",
+      "work",
+      "status",
+    ]);
     expect(res.ok).toBe(false);
   });
 
   it("rejects combining --dev with --profile (profile first)", () => {
-    const res = parseCliProfileArgs(["node", "aura_intelligence", "--profile", "work", "--dev", "status"]);
+    const res = parseCliProfileArgs([
+      "node",
+      "aura_intelligence",
+      "--profile",
+      "work",
+      "--dev",
+      "status",
+    ]);
     expect(res.ok).toBe(false);
   });
 });
@@ -80,30 +100,34 @@ describe("applyCliProfileEnv", () => {
 
 describe("formatCliCommand", () => {
   it("returns command unchanged when no profile is set", () => {
-    expect(formatCliCommand("aura_intelligence doctor --fix", {})).toBe("aura_intelligence doctor --fix");
+    expect(formatCliCommand("aura_intelligence doctor --fix", {})).toBe(
+      "aura_intelligence doctor --fix",
+    );
   });
 
   it("returns command unchanged when profile is default", () => {
-    expect(formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "default" })).toBe(
-      "aura_intelligence doctor --fix",
-    );
+    expect(
+      formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "default" }),
+    ).toBe("aura_intelligence doctor --fix");
   });
 
   it("returns command unchanged when profile is Default (case-insensitive)", () => {
-    expect(formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "Default" })).toBe(
-      "aura_intelligence doctor --fix",
-    );
+    expect(
+      formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "Default" }),
+    ).toBe("aura_intelligence doctor --fix");
   });
 
   it("returns command unchanged when profile is invalid", () => {
-    expect(formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "bad profile" })).toBe(
-      "aura_intelligence doctor --fix",
-    );
+    expect(
+      formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "bad profile" }),
+    ).toBe("aura_intelligence doctor --fix");
   });
 
   it("returns command unchanged when --profile is already present", () => {
     expect(
-      formatCliCommand("aura_intelligence --profile work doctor --fix", { CLAWDBOT_PROFILE: "work" }),
+      formatCliCommand("aura_intelligence --profile work doctor --fix", {
+        CLAWDBOT_PROFILE: "work",
+      }),
     ).toBe("aura_intelligence --profile work doctor --fix");
   });
 
@@ -120,9 +144,9 @@ describe("formatCliCommand", () => {
   });
 
   it("trims whitespace from profile", () => {
-    expect(formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "  jbclawd  " })).toBe(
-      "aura_intelligence --profile jbclawd doctor --fix",
-    );
+    expect(
+      formatCliCommand("aura_intelligence doctor --fix", { CLAWDBOT_PROFILE: "  jbclawd  " }),
+    ).toBe("aura_intelligence --profile jbclawd doctor --fix");
   });
 
   it("handles command with no args after aura_intelligence", () => {

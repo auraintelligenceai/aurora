@@ -141,7 +141,10 @@ export function installUnhandledRejectionHandler(): void {
     }
 
     if (isConfigError(reason)) {
-      console.error("[aura_intelligence] CONFIGURATION ERROR - requires fix:", formatUncaughtError(reason));
+      console.error(
+        "[aura_intelligence] CONFIGURATION ERROR - requires fix:",
+        formatUncaughtError(reason),
+      );
       process.exit(1);
       return;
     }

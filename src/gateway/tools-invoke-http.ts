@@ -117,7 +117,9 @@ export async function handleToolsInvokeHttpRequest(
     !rawSessionKey || rawSessionKey === "main" ? resolveMainSessionKey(cfg) : rawSessionKey;
 
   // Resolve message channel/account hints (optional headers) for policy inheritance.
-  const messageChannel = normalizeMessageChannel(getHeader(req, "x-aura_intelligence-message-channel") ?? "");
+  const messageChannel = normalizeMessageChannel(
+    getHeader(req, "x-aura_intelligence-message-channel") ?? "",
+  );
   const accountId = getHeader(req, "x-aura_intelligence-account-id")?.trim() || undefined;
 
   const {

@@ -188,7 +188,10 @@ export const resetTestPluginRegistry = () => {
 };
 
 const testConfigRoot = {
-  value: path.join(os.tmpdir(), `aura_intelligence-gateway-test-${process.pid}-${crypto.randomUUID()}`),
+  value: path.join(
+    os.tmpdir(),
+    `aura_intelligence-gateway-test-${process.pid}-${crypto.randomUUID()}`,
+  ),
 };
 
 export const setTestConfigRoot = (root: string) => {

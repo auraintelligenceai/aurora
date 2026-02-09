@@ -110,11 +110,13 @@ describe("state + config path candidates", () => {
       else process.env.HOMEDRIVE = previousHomeDrive;
       if (previousHomePath === undefined) delete process.env.HOMEPATH;
       else process.env.HOMEPATH = previousHomePath;
-      if (previousaura_intelligenceConfig === undefined) delete process.env.aura_intelligence_CONFIG_PATH;
+      if (previousaura_intelligenceConfig === undefined)
+        delete process.env.aura_intelligence_CONFIG_PATH;
       else process.env.aura_intelligence_CONFIG_PATH = previousaura_intelligenceConfig;
       if (previousClawdbotConfig === undefined) delete process.env.CLAWDBOT_CONFIG_PATH;
       else process.env.CLAWDBOT_CONFIG_PATH = previousClawdbotConfig;
-      if (previousaura_intelligenceState === undefined) delete process.env.aura_intelligence_STATE_DIR;
+      if (previousaura_intelligenceState === undefined)
+        delete process.env.aura_intelligence_STATE_DIR;
       else process.env.aura_intelligence_STATE_DIR = previousaura_intelligenceState;
       if (previousClawdbotState === undefined) delete process.env.CLAWDBOT_STATE_DIR;
       else process.env.CLAWDBOT_STATE_DIR = previousClawdbotState;

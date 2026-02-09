@@ -97,7 +97,10 @@ function resolveDefaultAccountId(cfg: aura_intelligenceConfig, provider: Channel
   return resolveChannelDefaultAccountId({ plugin, cfg });
 }
 
-function shouldShowProviderEntry(entry: ProviderAccountStatus, cfg: aura_intelligenceConfig): boolean {
+function shouldShowProviderEntry(
+  entry: ProviderAccountStatus,
+  cfg: aura_intelligenceConfig,
+): boolean {
   const plugin = getChannelPlugin(entry.provider);
   if (!plugin) return Boolean(entry.configured);
   if (plugin.meta.showConfigured === false) {
@@ -116,7 +119,10 @@ function formatProviderEntry(entry: ProviderAccountStatus): string {
   return `${label}: ${formatProviderState(entry)}`;
 }
 
-export function summarizeBindings(cfg: aura_intelligenceConfig, bindings: AgentBinding[]): string[] {
+export function summarizeBindings(
+  cfg: aura_intelligenceConfig,
+  bindings: AgentBinding[],
+): string[] {
   if (bindings.length === 0) return [];
   const seen = new Map<string, string>();
   for (const binding of bindings) {

@@ -82,7 +82,10 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("CONFIG_PATH respects CLAWDBOT_CONFIG_PATH override", async () => {
       await withEnvOverride(
-        { aura_intelligence_CONFIG_PATH: undefined, CLAWDBOT_CONFIG_PATH: "/nix/store/abc/aura_intelligence.json" },
+        {
+          aura_intelligence_CONFIG_PATH: undefined,
+          CLAWDBOT_CONFIG_PATH: "/nix/store/abc/aura_intelligence.json",
+        },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
           expect(CONFIG_PATH).toBe(path.resolve("/nix/store/abc/aura_intelligence.json"));
@@ -106,7 +109,10 @@ describe("Nix integration (U3, U5, U9)", () => {
     it("CONFIG_PATH expands ~ in CLAWDBOT_CONFIG_PATH override", async () => {
       await withTempHome(async (home) => {
         await withEnvOverride(
-          { aura_intelligence_CONFIG_PATH: undefined, CLAWDBOT_CONFIG_PATH: "~/.clawdbot/custom.json" },
+          {
+            aura_intelligence_CONFIG_PATH: undefined,
+            CLAWDBOT_CONFIG_PATH: "~/.clawdbot/custom.json",
+          },
           async () => {
             const { CONFIG_PATH } = await import("./config.js");
             expect(CONFIG_PATH).toBe(path.join(home, ".clawdbot", "custom.json"));
@@ -125,7 +131,9 @@ describe("Nix integration (U3, U5, U9)", () => {
         },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toBe(path.join(path.resolve("/custom/state"), "aura_intelligence.json"));
+          expect(CONFIG_PATH).toBe(
+            path.join(path.resolve("/custom/state"), "aura_intelligence.json"),
+          );
         },
       );
     });

@@ -1,4 +1,8 @@
-import type { BrowserConfig, BrowserProfileConfig, aura_intelligenceConfig } from "../config/config.js";
+import type {
+  BrowserConfig,
+  BrowserProfileConfig,
+  aura_intelligenceConfig,
+} from "../config/config.js";
 import {
   deriveDefaultBrowserCdpPortRange,
   deriveDefaultBrowserControlPort,

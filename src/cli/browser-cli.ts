@@ -37,7 +37,9 @@ export function registerBrowserCli(program: Command) {
     .action(() => {
       browser.outputHelp();
       defaultRuntime.error(
-        danger(`Missing subcommand. Try: "${formatCliCommand("aura_intelligence browser status")}"`),
+        danger(
+          `Missing subcommand. Try: "${formatCliCommand("aura_intelligence browser status")}"`,
+        ),
       );
       defaultRuntime.exit(1);
     });

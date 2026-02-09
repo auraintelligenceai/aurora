@@ -1,4 +1,8 @@
-import type { aura_intelligenceConfig, HumanDelayConfig, IdentityConfig } from "../config/config.js";
+import type {
+  aura_intelligenceConfig,
+  HumanDelayConfig,
+  IdentityConfig,
+} from "../config/config.js";
 import { resolveAgentConfig } from "./agent-scope.js";
 
 const DEFAULT_ACK_REACTION = "👀";
@@ -17,14 +21,20 @@ export function resolveAckReaction(cfg: aura_intelligenceConfig, agentId: string
   return emoji || DEFAULT_ACK_REACTION;
 }
 
-export function resolveIdentityNamePrefix(cfg: aura_intelligenceConfig, agentId: string): string | undefined {
+export function resolveIdentityNamePrefix(
+  cfg: aura_intelligenceConfig,
+  agentId: string,
+): string | undefined {
   const name = resolveAgentIdentity(cfg, agentId)?.name?.trim();
   if (!name) return undefined;
   return `[${name}]`;
 }
 
 /** Returns just the identity name (without brackets) for template context. */
-export function resolveIdentityName(cfg: aura_intelligenceConfig, agentId: string): string | undefined {
+export function resolveIdentityName(
+  cfg: aura_intelligenceConfig,
+  agentId: string,
+): string | undefined {
   return resolveAgentIdentity(cfg, agentId)?.name?.trim() || undefined;
 }
 
@@ -42,7 +52,10 @@ export function resolveMessagePrefix(
   return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[aura_intelligence]";
 }
 
-export function resolveResponsePrefix(cfg: aura_intelligenceConfig, agentId: string): string | undefined {
+export function resolveResponsePrefix(
+  cfg: aura_intelligenceConfig,
+  agentId: string,
+): string | undefined {
   const configured = cfg.messages?.responsePrefix;
   if (configured !== undefined) {
     if (configured === "auto") {

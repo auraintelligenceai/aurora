@@ -55,7 +55,8 @@ function safeFileName(input: string): string {
 }
 
 async function ensureaura_intelligenceExtensions(manifest: PackageManifest) {
-  const extensions = manifest.aura_intelligence?.extensions ?? manifest[LEGACY_MANIFEST_KEY]?.extensions;
+  const extensions =
+    manifest.aura_intelligence?.extensions ?? manifest[LEGACY_MANIFEST_KEY]?.extensions;
   if (!Array.isArray(extensions)) {
     throw new Error("package.json missing aura_intelligence.extensions");
   }

@@ -69,7 +69,9 @@ function summarizeGroupPolicy(cfg: aura_intelligenceConfig): {
   return { open, allowlist, other };
 }
 
-export function collectAttackSurfaceSummaryFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectAttackSurfaceSummaryFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const group = summarizeGroupPolicy(cfg);
   const elevated = cfg.tools?.elevated?.enabled !== false;
   const hooksEnabled = cfg.hooks?.enabled === true;
@@ -127,7 +129,9 @@ function looksLikeEnvRef(value: string): boolean {
   return v.startsWith("${") && v.endsWith("}");
 }
 
-export function collectSecretsInConfigFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectSecretsInConfigFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const password =
     typeof cfg.gateway?.auth?.password === "string" ? cfg.gateway.auth.password.trim() : "";
@@ -157,7 +161,9 @@ export function collectSecretsInConfigFindings(cfg: aura_intelligenceConfig): Se
   return findings;
 }
 
-export function collectHooksHardeningFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectHooksHardeningFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   if (cfg.hooks?.enabled !== true) return findings;
 
@@ -926,7 +932,9 @@ function listGroupPolicyOpen(cfg: aura_intelligenceConfig): string[] {
   return out;
 }
 
-export function collectExposureMatrixFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectExposureMatrixFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const openGroups = listGroupPolicyOpen(cfg);
   if (openGroups.length === 0) return findings;

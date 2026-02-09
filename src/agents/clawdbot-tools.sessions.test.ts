@@ -118,7 +118,9 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_list");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_list",
+    );
     expect(tool).toBeDefined();
     if (!tool) throw new Error("missing sessions_list tool");
 
@@ -155,7 +157,9 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_history",
+    );
     expect(tool).toBeDefined();
     if (!tool) throw new Error("missing sessions_history tool");
 
@@ -191,7 +195,9 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_history",
+    );
     expect(tool).toBeDefined();
     if (!tool) throw new Error("missing sessions_history tool");
 
@@ -218,7 +224,9 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_history",
+    );
     expect(tool).toBeDefined();
     if (!tool) throw new Error("missing sessions_history tool");
 

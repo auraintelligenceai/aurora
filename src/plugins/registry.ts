@@ -282,7 +282,10 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
     record.gatewayMethods.push(trimmed);
   };
 
-  const registerHttpHandler = (record: PluginRecord, handler: aura_intelligencePluginHttpHandler) => {
+  const registerHttpHandler = (
+    record: PluginRecord,
+    handler: aura_intelligencePluginHttpHandler,
+  ) => {
     record.httpHandlers += 1;
     registry.httpHandlers.push({
       pluginId: record.id,
@@ -406,7 +409,10 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
     });
   };
 
-  const registerCommand = (record: PluginRecord, command: aura_intelligencePluginCommandDefinition) => {
+  const registerCommand = (
+    record: PluginRecord,
+    command: aura_intelligencePluginCommandDefinition,
+  ) => {
     const name = command.name.trim();
     if (!name) {
       pushDiagnostic({

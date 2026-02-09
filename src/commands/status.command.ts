@@ -413,7 +413,9 @@ export async function statusCommand(
     }
   }
   runtime.log(theme.muted(`Full report: ${formatCliCommand("aura_intelligence security audit")}`));
-  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("aura_intelligence security audit --deep")}`));
+  runtime.log(
+    theme.muted(`Deep probe: ${formatCliCommand("aura_intelligence security audit --deep")}`),
+  );
 
   runtime.log("");
   runtime.log(theme.heading("Channels"));

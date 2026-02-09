@@ -8,7 +8,16 @@ export type VoiceWakeConfig = {
   updatedAtMs: number;
 };
 
-const DEFAULT_TRIGGERS = ["aura", "aurora", "aura intelligence","google","alexa","siri","cuddle pancake","computer"];
+const DEFAULT_TRIGGERS = [
+  "aura",
+  "aurora",
+  "aura intelligence",
+  "google",
+  "alexa",
+  "siri",
+  "cuddle pancake",
+  "computer",
+];
 
 function resolvePath(baseDir?: string) {
   const root = baseDir ?? resolveStateDir();

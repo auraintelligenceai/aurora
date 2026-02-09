@@ -102,7 +102,9 @@ export function registerDnsCli(program: Command) {
 
   dns
     .command("setup")
-    .description("Set up CoreDNS to serve aura_intelligence.internal for unicast DNS-SD (Wide-Area Bonjour)")
+    .description(
+      "Set up CoreDNS to serve aura_intelligence.internal for unicast DNS-SD (Wide-Area Bonjour)",
+    )
     .option(
       "--apply",
       "Install/update CoreDNS config and (re)start the service (requires sudo)",
@@ -150,7 +152,9 @@ export function registerDnsCli(program: Command) {
       defaultRuntime.log(
         theme.muted(`- Add nameserver: ${tailnetIPv4 ?? "<this machine's tailnet IPv4>"}`),
       );
-      defaultRuntime.log(theme.muted("- Restrict to domain (Split DNS): aura_intelligence.internal"));
+      defaultRuntime.log(
+        theme.muted("- Restrict to domain (Split DNS): aura_intelligence.internal"),
+      );
 
       if (!opts.apply) {
         defaultRuntime.log("");

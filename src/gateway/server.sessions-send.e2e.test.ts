@@ -86,7 +86,9 @@ describe("sessions_send gateway loopback", () => {
       });
     });
 
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_send");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_send",
+    );
     if (!tool) throw new Error("missing sessions_send tool");
 
     const result = await tool.execute("call-loopback", {
@@ -151,7 +153,9 @@ describe("sessions_send label lookup", () => {
       timeoutMs: 5000,
     });
 
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_send");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_send",
+    );
     if (!tool) throw new Error("missing sessions_send tool");
 
     // Send using label instead of sessionKey
@@ -171,7 +175,9 @@ describe("sessions_send label lookup", () => {
   });
 
   it("returns error when label not found", { timeout: 60_000 }, async () => {
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_send");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_send",
+    );
     if (!tool) throw new Error("missing sessions_send tool");
 
     const result = await tool.execute("call-missing-label", {
@@ -185,7 +191,9 @@ describe("sessions_send label lookup", () => {
   });
 
   it("returns error when neither sessionKey nor label provided", { timeout: 60_000 }, async () => {
-    const tool = createaura_intelligenceTools().find((candidate) => candidate.name === "sessions_send");
+    const tool = createaura_intelligenceTools().find(
+      (candidate) => candidate.name === "sessions_send",
+    );
     if (!tool) throw new Error("missing sessions_send tool");
 
     const result = await tool.execute("call-no-key", {

@@ -201,7 +201,10 @@ function setSlackChannelAllowlist(
   };
 }
 
-function setSlackAllowFrom(cfg: aura_intelligenceConfig, allowFrom: string[]): aura_intelligenceConfig {
+function setSlackAllowFrom(
+  cfg: aura_intelligenceConfig,
+  allowFrom: string[],
+): aura_intelligenceConfig {
   return {
     ...cfg,
     channels: {

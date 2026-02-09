@@ -10,7 +10,11 @@ vi.mock("../../gateway/call.js", () => ({
   callGateway: vi.fn(),
 }));
 
-function buildParams(commandBody: string, cfg: aura_intelligenceConfig, ctxOverrides?: Partial<MsgContext>) {
+function buildParams(
+  commandBody: string,
+  cfg: aura_intelligenceConfig,
+  ctxOverrides?: Partial<MsgContext>,
+) {
   const ctx = {
     Body: commandBody,
     CommandBody: commandBody,

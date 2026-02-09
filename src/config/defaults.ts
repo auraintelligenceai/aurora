@@ -53,7 +53,9 @@ function resolveModelCost(
   };
 }
 
-function resolveAnthropicDefaultAuthMode(cfg: aura_intelligenceConfig): AnthropicAuthDefaultsMode | null {
+function resolveAnthropicDefaultAuthMode(
+  cfg: aura_intelligenceConfig,
+): AnthropicAuthDefaultsMode | null {
   const profiles = cfg.auth?.profiles ?? {};
   const anthropicProfiles = Object.entries(profiles).filter(
     ([, profile]) => profile?.provider === "anthropic",

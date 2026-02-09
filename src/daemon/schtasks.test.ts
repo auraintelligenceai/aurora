@@ -64,7 +64,9 @@ describe("resolveTaskScriptPath", () => {
       CLAWDBOT_PROFILE: "rescue",
       CLAWDBOT_STATE_DIR: "C:\\State\\aura_intelligence",
     };
-    expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\State\\aura_intelligence", "gateway.cmd"));
+    expect(resolveTaskScriptPath(env)).toBe(
+      path.join("C:\\State\\aura_intelligence", "gateway.cmd"),
+    );
   });
 
   it("handles case-insensitive 'Default' profile", () => {

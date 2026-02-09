@@ -35,7 +35,11 @@ export type ParsedHookFrontmatter = Record<string, string>;
 export type Hook = {
   name: string;
   description: string;
-  source: "aura_intelligence-bundled" | "aura_intelligence-managed" | "aura_intelligence-workspace" | "aura_intelligence-plugin";
+  source:
+    | "aura_intelligence-bundled"
+    | "aura_intelligence-managed"
+    | "aura_intelligence-workspace"
+    | "aura_intelligence-plugin";
   pluginId?: string;
   filePath: string; // Path to HOOK.md
   baseDir: string; // Directory containing hook

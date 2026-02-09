@@ -73,7 +73,9 @@ export function buildGatewayRuntimeHints(
     hints.push(`Then reinstall: ${formatCliCommand("aura_intelligence gateway install", env)}`);
   }
   if (runtime.missingUnit) {
-    hints.push(`Service not installed. Run: ${formatCliCommand("aura_intelligence gateway install", env)}`);
+    hints.push(
+      `Service not installed. Run: ${formatCliCommand("aura_intelligence gateway install", env)}`,
+    );
     if (fileLog) hints.push(`File logs: ${fileLog}`);
     return hints;
   }

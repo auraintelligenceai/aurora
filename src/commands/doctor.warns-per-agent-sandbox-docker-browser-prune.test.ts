@@ -407,7 +407,11 @@ describe("doctor command", () => {
     const legacyPath = path.join("/Users/steipete", "aura_intelligence");
     const legacyAgentsPath = path.join(legacyPath, "AGENTS.md");
     const existsSpy = vi.spyOn(fs, "existsSync").mockImplementation((value) => {
-      if (value === "/Users/steipete/aura_intelligence" || value === legacyPath || value === legacyAgentsPath)
+      if (
+        value === "/Users/steipete/aura_intelligence" ||
+        value === legacyPath ||
+        value === legacyAgentsPath
+      )
         return true;
       return realExists(value as never);
     });
@@ -424,7 +428,9 @@ describe("doctor command", () => {
     expect(
       note.mock.calls.some(
         ([message, title]) =>
-          title === "Extra workspace" && typeof message === "string" && message.includes("aura_intelligence"),
+          title === "Extra workspace" &&
+          typeof message === "string" &&
+          message.includes("aura_intelligence"),
       ),
     ).toBe(true);
 

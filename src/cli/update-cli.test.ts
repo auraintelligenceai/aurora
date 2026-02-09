@@ -88,7 +88,8 @@ describe("update-cli", () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+    const { resolveaura_intelligencePackageRoot } =
+      await import("../infra/aura_intelligence-root.js");
     const { readConfigFileSnapshot } = await import("../config/config.js");
     const { checkUpdateStatus, fetchNpmTagVersion, resolveNpmChannelTag } =
       await import("../infra/update-check.js");
@@ -226,7 +227,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { checkUpdateStatus } = await import("../infra/update-check.js");
       const { updateCommand } = await import("./update-cli.js");
@@ -291,7 +293,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { readConfigFileSnapshot } = await import("../config/config.js");
       const { resolveNpmChannelTag } = await import("../infra/update-check.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
@@ -344,7 +347,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { updateCommand } = await import("./update-cli.js");
 
@@ -523,7 +527,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { resolveNpmChannelTag } = await import("../infra/update-check.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { defaultRuntime } = await import("../runtime.js");
@@ -576,7 +581,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { resolveNpmChannelTag } = await import("../infra/update-check.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { defaultRuntime } = await import("../runtime.js");

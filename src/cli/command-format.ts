@@ -1,7 +1,8 @@
 import { normalizeProfileName } from "./profile-utils.js";
 import { replaceCliName, resolveCliName } from "./cli-name.js";
 
-const CLI_PREFIX_RE = /^(?:pnpm|npm|bunx|npx)\s+(?:aura_intelligence|aura_intelligence)\b|^(?:aura_intelligence|aura_intelligence)\b/;
+const CLI_PREFIX_RE =
+  /^(?:pnpm|npm|bunx|npx)\s+(?:aura_intelligence|aura_intelligence)\b|^(?:aura_intelligence|aura_intelligence)\b/;
 const PROFILE_FLAG_RE = /(?:^|\s)--profile(?:\s|=|$)/;
 const DEV_FLAG_RE = /(?:^|\s)--dev(?:\s|$)/;
 

@@ -197,7 +197,9 @@ export type aura_intelligencePluginCliContext = {
   logger: PluginLogger;
 };
 
-export type aura_intelligencePluginCliRegistrar = (ctx: aura_intelligencePluginCliContext) => void | Promise<void>;
+export type aura_intelligencePluginCliRegistrar = (
+  ctx: aura_intelligencePluginCliContext,
+) => void | Promise<void>;
 
 export type aura_intelligencePluginServiceContext = {
   config: aura_intelligenceConfig;
@@ -252,10 +254,18 @@ export type aura_intelligencePluginApi = {
     opts?: aura_intelligencePluginHookOptions,
   ) => void;
   registerHttpHandler: (handler: aura_intelligencePluginHttpHandler) => void;
-  registerHttpRoute: (params: { path: string; handler: aura_intelligencePluginHttpRouteHandler }) => void;
-  registerChannel: (registration: aura_intelligencePluginChannelRegistration | ChannelPlugin) => void;
+  registerHttpRoute: (params: {
+    path: string;
+    handler: aura_intelligencePluginHttpRouteHandler;
+  }) => void;
+  registerChannel: (
+    registration: aura_intelligencePluginChannelRegistration | ChannelPlugin,
+  ) => void;
   registerGatewayMethod: (method: string, handler: GatewayRequestHandler) => void;
-  registerCli: (registrar: aura_intelligencePluginCliRegistrar, opts?: { commands?: string[] }) => void;
+  registerCli: (
+    registrar: aura_intelligencePluginCliRegistrar,
+    opts?: { commands?: string[] },
+  ) => void;
   registerService: (service: aura_intelligencePluginService) => void;
   registerProvider: (provider: ProviderPlugin) => void;
   /**

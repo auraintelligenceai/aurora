@@ -4,7 +4,9 @@ import type { aura_intelligenceConfig } from "../../config/config.js";
 import { getChannelPlugin, listChannelPlugins } from "./index.js";
 import type { ChannelMessageActionContext, ChannelMessageActionName } from "./types.js";
 
-export function listChannelMessageActions(cfg: aura_intelligenceConfig): ChannelMessageActionName[] {
+export function listChannelMessageActions(
+  cfg: aura_intelligenceConfig,
+): ChannelMessageActionName[] {
   const actions = new Set<ChannelMessageActionName>(["send", "broadcast"]);
   for (const plugin of listChannelPlugins()) {
     const list = plugin.actions?.listActions?.({ cfg });

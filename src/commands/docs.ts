@@ -151,7 +151,9 @@ export async function docsSearchCommand(queryParts: string[], runtime: RuntimeEn
     const docs = formatDocsLink("/", "docs.molt.bot");
     if (isRich()) {
       runtime.log(`${theme.muted("Docs:")} ${docs}`);
-      runtime.log(`${theme.muted("Search:")} ${formatCliCommand('aura_intelligence docs "your query"')}`);
+      runtime.log(
+        `${theme.muted("Search:")} ${formatCliCommand('aura_intelligence docs "your query"')}`,
+      );
     } else {
       runtime.log("Docs: https://docs.molt.bot/");
       runtime.log(`Search: ${formatCliCommand('aura_intelligence docs "your query"')}`);

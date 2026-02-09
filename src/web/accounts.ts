@@ -102,7 +102,10 @@ function legacyAuthExists(authDir: string): boolean {
   }
 }
 
-export function resolveWhatsAppAuthDir(params: { cfg: aura_intelligenceConfig; accountId: string }): {
+export function resolveWhatsAppAuthDir(params: {
+  cfg: aura_intelligenceConfig;
+  accountId: string;
+}): {
   authDir: string;
   isLegacy: boolean;
 } {
@@ -160,7 +163,9 @@ export function resolveWhatsAppAccount(params: {
   };
 }
 
-export function listEnabledWhatsAppAccounts(cfg: aura_intelligenceConfig): ResolvedWhatsAppAccount[] {
+export function listEnabledWhatsAppAccounts(
+  cfg: aura_intelligenceConfig,
+): ResolvedWhatsAppAccount[] {
   return listWhatsAppAccountIds(cfg)
     .map((accountId) => resolveWhatsAppAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

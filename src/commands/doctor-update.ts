@@ -6,7 +6,9 @@ import { note } from "../terminal/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import type { DoctorOptions } from "./doctor-prompter.js";
 
-async function detectaura_intelligenceGitCheckout(root: string): Promise<"git" | "not-git" | "unknown"> {
+async function detectaura_intelligenceGitCheckout(
+  root: string,
+): Promise<"git" | "not-git" | "unknown"> {
   const res = await runCommandWithTimeout(["git", "-C", root, "rev-parse", "--show-toplevel"], {
     timeoutMs: 5000,
   }).catch(() => null);
