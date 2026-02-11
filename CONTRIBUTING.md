@@ -1,6 +1,6 @@
 # Contributing to aura_intelligence
 
-Welcome to the lobster tank! 🦞
+Welcome to the lobster tank! 
 
 ## Quick Links
 - **GitHub:** https://github.com/auraintelligenceai/aurora
