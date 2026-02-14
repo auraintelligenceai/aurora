@@ -376,7 +376,7 @@ extension OnboardingView {
 
                 Text(
                     "This lets aura_intelligence use Claude immediately. Credentials are stored at " +
-                        "`~/.clawdbot/credentials/oauth.json` (owner-only).")
+                        "`~/.aura/credentials/oauth.json` (owner-only).")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -651,7 +651,7 @@ extension OnboardingView {
                                     let saved = await self.saveAgentWorkspace(AgentWorkspace.displayPath(for: url))
                                     if saved {
                                         self.workspaceStatus =
-                                            "Saved to ~/.clawdbot/aura_intelligence.json (agents.defaults.workspace)"
+                                            "Saved to ~/.aura/aura_intelligence.json (agents.defaults.workspace)"
                                     }
                                 }
                             }
@@ -720,7 +720,7 @@ extension OnboardingView {
                         title: "Remote gateway checklist",
                         subtitle: """
                         On your gateway host: install/update the `aura_intelligence` package and make sure credentials exist
-                        (typically `~/.clawdbot/credentials/oauth.json`). Then connect again if needed.
+                        (typically `~/.aura/credentials/oauth.json`). Then connect again if needed.
                         """,
                         systemImage: "network")
                     Divider()

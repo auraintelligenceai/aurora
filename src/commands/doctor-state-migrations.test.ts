@@ -329,7 +329,7 @@ describe("doctor legacy state migrations", () => {
 
   it("auto-migrates legacy state dir to ~/.aura_intelligence", async () => {
     const root = await makeTempRoot();
-    const legacyDir = path.join(root, ".clawdbot");
+    const legacyDir = path.join(root, ".aura");
     fs.mkdirSync(legacyDir, { recursive: true });
     fs.writeFileSync(path.join(legacyDir, "foo.txt"), "legacy", "utf-8");
 
@@ -348,7 +348,7 @@ describe("doctor legacy state migrations", () => {
 
   it("skips state dir migration when target exists", async () => {
     const root = await makeTempRoot();
-    const legacyDir = path.join(root, ".clawdbot");
+    const legacyDir = path.join(root, ".aura");
     const targetDir = path.join(root, ".aura_intelligence");
     fs.mkdirSync(legacyDir, { recursive: true });
     fs.mkdirSync(targetDir, { recursive: true });
@@ -364,7 +364,7 @@ describe("doctor legacy state migrations", () => {
 
   it("skips state dir migration when env override is set", async () => {
     const root = await makeTempRoot();
-    const legacyDir = path.join(root, ".clawdbot");
+    const legacyDir = path.join(root, ".aura");
     fs.mkdirSync(legacyDir, { recursive: true });
 
     const result = await autoMigrateLegacyStateDir({

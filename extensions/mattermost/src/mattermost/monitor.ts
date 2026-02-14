@@ -5,7 +5,7 @@ import type {
   aura_intelligenceConfig,
   ReplyPayload,
   RuntimeEnv,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 import {
   createReplyPrefixContext,
   createTypingCallbacks,
@@ -18,7 +18,7 @@ import {
   resolveControlCommandGate,
   resolveChannelMediaMaxBytes,
   type HistoryEntry,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { getMattermostRuntime } from "../runtime.js";
 import { resolveMattermostAccount } from "./accounts.js";

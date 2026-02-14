@@ -16,10 +16,10 @@ export function resolveIsNixMode(env: NodeJS.ProcessEnv = process.env): boolean 
 
 export const isNixMode = resolveIsNixMode();
 
-const LEGACY_STATE_DIRNAME = ".clawdbot";
+const LEGACY_STATE_DIRNAME = ".aura";
 const NEW_STATE_DIRNAME = ".aura_intelligence";
 const CONFIG_FILENAME = "aura_intelligence.json";
-const LEGACY_CONFIG_FILENAME = "clawdbot.json";
+const LEGACY_CONFIG_FILENAME = "aura.json";
 
 function legacyStateDir(homedir: () => string = os.homedir): string {
   return path.join(homedir(), LEGACY_STATE_DIRNAME);
@@ -40,8 +40,8 @@ export function resolveNewStateDir(homedir: () => string = os.homedir): string {
 /**
  * State directory for mutable data (sessions, logs, caches).
  * Can be overridden via aura_intelligence_STATE_DIR (preferred) or CLAWDBOT_STATE_DIR (legacy).
- * Default: ~/.clawdbot (legacy default for compatibility)
- * If ~/.aura_intelligence exists and ~/.clawdbot does not, prefer ~/.aura_intelligence.
+ * Default: ~/.aura (legacy default for compatibility)
+ * If ~/.aura_intelligence exists and ~/.aura does not, prefer ~/.aura_intelligence.
  */
 export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
@@ -72,7 +72,7 @@ export const STATE_DIR = resolveStateDir();
 /**
  * Config file path (JSON5).
  * Can be overridden via aura_intelligence_CONFIG_PATH (preferred) or CLAWDBOT_CONFIG_PATH (legacy).
- * Default: ~/.clawdbot/aura_intelligence.json (or $*_STATE_DIR/aura_intelligence.json)
+ * Default: ~/.aura/aura_intelligence.json (or $*_STATE_DIR/aura_intelligence.json)
  */
 export function resolveCanonicalConfigPath(
   env: NodeJS.ProcessEnv = process.env,
@@ -187,7 +187,7 @@ const OAUTH_FILENAME = "oauth.json";
  * Precedence:
  * - `CLAWDBOT_OAUTH_DIR` (explicit override)
  * - `$*_STATE_DIR/credentials` (canonical server/default)
- * - `~/.clawdbot/credentials` (legacy default)
+ * - `~/.aura/credentials` (legacy default)
  */
 export function resolveOAuthDir(
   env: NodeJS.ProcessEnv = process.env,

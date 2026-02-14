@@ -1,5 +1,5 @@
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "aura/plugin-sdk";
 
 import type { ResolvedZaloAccount, ZaloAccountConfig, ZaloConfig } from "./types.js";
 import { resolveZaloToken } from "./token.js";

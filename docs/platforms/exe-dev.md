@@ -50,7 +50,7 @@ Then connect:
 ssh <vm-name>.exe.xyz
 ```
 
-Tip: keep this VM **stateful**. aura_intelligence stores state under `~/.clawdbot/` and `~/clawd/`.
+Tip: keep this VM **stateful**. aura_intelligence stores state under `~/.aura/` and `~/clawd/`.
 
 ## 2) Install prerequisites (on the VM)
 

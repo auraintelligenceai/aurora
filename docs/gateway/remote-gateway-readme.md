@@ -116,7 +116,7 @@ The tunnel will now:
 - Restart if it crashes
 - Keep running in the background
 
-Legacy note: remove any leftover `com.clawdbot.ssh-tunnel` LaunchAgent if present.
+Legacy note: remove any leftover `com.aura.ssh-tunnel` LaunchAgent if present.
 
 ---
 

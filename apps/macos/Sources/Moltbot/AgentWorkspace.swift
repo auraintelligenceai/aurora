@@ -265,7 +265,7 @@ enum AgentWorkspace {
         - Timezone (optional)
         - Notes
 
-        3) ~/.clawdbot/aura_intelligence.json
+        3) ~/.aura/aura_intelligence.json
         Set identity.name, identity.theme, identity.emoji to match IDENTITY.md.
 
         ## Cleanup

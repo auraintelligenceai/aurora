@@ -23,7 +23,7 @@ Logs all command events (`/new`, `/reset`, `/stop`, etc.) to a centralized audit
 Every time you issue a command to the agent:
 
 1. **Captures event details** - Command action, timestamp, session key, sender ID, source
-2. **Appends to log file** - Writes a JSON line to `~/.clawdbot/logs/commands.log`
+2. **Appends to log file** - Writes a JSON line to `~/.aura/logs/commands.log`
 3. **Silent operation** - Runs in the background without user notifications
 
 ## Output Format
@@ -44,7 +44,7 @@ Log entries are written in JSONL (JSON Lines) format:
 
 ## Log File Location
 
-`~/.clawdbot/logs/commands.log`
+`~/.aura/logs/commands.log`
 
 ## Requirements
 
@@ -87,13 +87,13 @@ The hook does not automatically rotate logs. To manage log size, you can:
 1. **Manual rotation**:
 
    ```bash
-   mv ~/.clawdbot/logs/commands.log ~/.clawdbot/logs/commands.log.old
+   mv ~/.aura/logs/commands.log ~/.aura/logs/commands.log.old
    ```
 
 2. **Use logrotate** (Linux):
    Create `/etc/logrotate.d/aura_intelligence`:
    ```
-   /home/username/.clawdbot/logs/commands.log {
+   /home/username/.aura/logs/commands.log {
        weekly
        rotate 4
        compress
@@ -107,17 +107,17 @@ The hook does not automatically rotate logs. To manage log size, you can:
 View recent commands:
 
 ```bash
-tail -n 20 ~/.clawdbot/logs/commands.log
+tail -n 20 ~/.aura/logs/commands.log
 ```
 
 Pretty-print with jq:
 
 ```bash
-cat ~/.clawdbot/logs/commands.log | jq .
+cat ~/.aura/logs/commands.log | jq .
 ```
 
 Filter by action:
 
 ```bash
-grep '"action":"new"' ~/.clawdbot/logs/commands.log | jq .
+grep '"action":"new"' ~/.aura/logs/commands.log | jq .
 ```

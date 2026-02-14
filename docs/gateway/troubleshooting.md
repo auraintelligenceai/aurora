@@ -159,7 +159,7 @@ The gateway service runs with a **minimal PATH** to avoid shell/manager cruft:
 
 This intentionally excludes version managers (nvm/fnm/volta/asdf) and package
 managers (pnpm/npm) because the service does not load your shell init. Runtime
-variables like `DISPLAY` should live in `~/.clawdbot/.env` (loaded early by the
+variables like `DISPLAY` should live in `~/.aura/.env` (loaded early by the
 gateway).
 Exec runs on `host=gateway` merge your login-shell `PATH` into the exec environment,
 so missing tools usually mean your shell init isn’t exporting them (or set
@@ -243,7 +243,7 @@ only one workspace is active.
 
 ### Main chat running in a sandbox workspace
 
-Symptoms: `pwd` or file tools show `~/.clawdbot/sandboxes/...` even though you
+Symptoms: `pwd` or file tools show `~/.aura/sandboxes/...` even though you
 expected the host workspace.
 
 **Why:** `agents.defaults.sandbox.mode: "non-main"` keys off `session.mainKey` (default `"main"`).
@@ -292,7 +292,7 @@ Look for `AllowFrom: ...` in the output.
 # The message must match mentionPatterns or explicit mentions; defaults live in channel groups/guilds.
 # Multi-agent: `agents.list[].groupChat.mentionPatterns` overrides global patterns.
 grep -n "agents\\|groupChat\\|mentionPatterns\\|channels\\.whatsapp\\.groups\\|channels\\.telegram\\.groups\\|channels\\.imessage\\.groups\\|channels\\.discord\\.guilds" \
-  "${CLAWDBOT_CONFIG_PATH:-$HOME/.clawdbot/aura_intelligence.json}"
+  "${CLAWDBOT_CONFIG_PATH:-$HOME/.aura/aura_intelligence.json}"
 ```
 
 **Check 3:** Check the logs
@@ -332,7 +332,7 @@ Known issue: When you send an image with ONLY a mention (no other text), WhatsAp
 
 **Check 1:** Is the session file there?
 ```bash
-ls -la ~/.clawdbot/agents/<agentId>/sessions/
+ls -la ~/.aura/agents/<agentId>/sessions/
 ```
 
 **Check 2:** Is the reset window too short?
@@ -386,7 +386,7 @@ If you’re logged out / unlinked:
 
 ```bash
 aura_intelligence channels logout
-trash "${CLAWDBOT_STATE_DIR:-$HOME/.clawdbot}/credentials" # if logout can't cleanly remove everything
+trash "${CLAWDBOT_STATE_DIR:-$HOME/.aura}/credentials" # if logout can't cleanly remove everything
 aura_intelligence channels login --verbose       # re-scan QR
 ```
 
@@ -591,7 +591,7 @@ If the gateway is supervised by launchd, killing the PID will just respawn it. S
 ```bash
 aura_intelligence gateway status
 aura_intelligence gateway stop
-# Or: launchctl bootout gui/$UID/bot.molt.gateway (replace with bot.molt.<profile>; legacy com.clawdbot.* still works)
+# Or: launchctl bootout gui/$UID/bot.molt.gateway (replace with bot.molt.<profile>; legacy com.aura.* still works)
 ```
 
 **Fix 2: Port is busy (find the listener)**
@@ -619,7 +619,7 @@ Get verbose logging:
 
 ```bash
 # Turn on trace logging in config:
-#   ${CLAWDBOT_CONFIG_PATH:-$HOME/.clawdbot/aura_intelligence.json} -> { logging: { level: "trace" } }
+#   ${CLAWDBOT_CONFIG_PATH:-$HOME/.aura/aura_intelligence.json} -> { logging: { level: "trace" } }
 #
 # Then run verbose commands to mirror debug output to stdout:
 aura_intelligence gateway --verbose
@@ -631,7 +631,7 @@ aura_intelligence channels login --verbose
 | Log | Location |
 |-----|----------|
 | Gateway file logs (structured) | `/tmp/aura_intelligence/aura_intelligence-YYYY-MM-DD.log` (or `logging.file`) |
-| Gateway service logs (supervisor) | macOS: `$CLAWDBOT_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.clawdbot/logs/...`; profiles use `~/.clawdbot-<profile>/logs/...`)<br />Linux: `journalctl --user -u aura_intelligence-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "aura_intelligence Gateway (<profile>)" /V /FO LIST` |
+| Gateway service logs (supervisor) | macOS: `$CLAWDBOT_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.aura/logs/...`; profiles use `~/.aura-<profile>/logs/...`)<br />Linux: `journalctl --user -u aura_intelligence-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "aura_intelligence Gateway (<profile>)" /V /FO LIST` |
 | Session files | `$CLAWDBOT_STATE_DIR/agents/<agentId>/sessions/` |
 | Media cache | `$CLAWDBOT_STATE_DIR/media/` |
 | Credentials | `$CLAWDBOT_STATE_DIR/credentials/` |
@@ -667,7 +667,7 @@ aura_intelligence gateway stop
 # If you installed a service and want a clean install:
 # aura_intelligence gateway uninstall
 
-trash "${CLAWDBOT_STATE_DIR:-$HOME/.clawdbot}"
+trash "${CLAWDBOT_STATE_DIR:-$HOME/.aura}"
 aura_intelligence channels login         # re-pair WhatsApp
 aura_intelligence gateway restart           # or: aura_intelligence gateway
 ```

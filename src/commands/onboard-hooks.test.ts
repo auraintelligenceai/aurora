@@ -42,7 +42,7 @@ describe("onboard-hooks", () => {
 
   const createMockHookReport = (eligible = true): HookStatusReport => ({
     workspaceDir: "/mock/workspace",
-    managedHooksDir: "/mock/.clawdbot/hooks",
+    managedHooksDir: "/mock/.aura/hooks",
     hooks: [
       {
         name: "session-memory",

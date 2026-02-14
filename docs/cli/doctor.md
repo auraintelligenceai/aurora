@@ -23,7 +23,7 @@ aura_intelligence doctor --deep
 
 Notes:
 - Interactive prompts (like keychain/OAuth fixes) only run when stdin is a TTY and `--non-interactive` is **not** set. Headless runs (cron, Telegram, no terminal) will skip prompts.
-- `--fix` (alias for `--repair`) writes a backup to `~/.clawdbot/aura_intelligence.json.bak` and drops unknown config keys, listing each removal.
+- `--fix` (alias for `--repair`) writes a backup to `~/.aura/aura_intelligence.json.bak` and drops unknown config keys, listing each removal.
 
 ## macOS: `launchctl` env overrides
 

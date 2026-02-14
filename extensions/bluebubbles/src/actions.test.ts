@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 
 import { bluebubblesMessageActions } from "./actions.js";
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
 
 vi.mock("./accounts.js", () => ({
   resolveBlueBubblesAccount: vi.fn(({ cfg, accountId }) => {

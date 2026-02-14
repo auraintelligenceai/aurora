@@ -5,7 +5,7 @@ read_when:
 ---
 # Security 🔒
 
-## Quick check: `aura_intelligence security audit` (formerly `clawdbot security audit`)
+## Quick check: `aura_intelligence security audit` (formerly `aura security audit`)
 
 See also: [Formal Verification (Security Models)](/security/formal-verification/)
 
@@ -16,7 +16,7 @@ aura_intelligence security audit
 aura_intelligence security audit --deep
 aura_intelligence security audit --fix
 
-# (On older installs, the command is `clawdbot ...`.)
+# (On older installs, the command is `aura ...`.)
 ```
 
 It flags common footguns (Gateway auth exposure, browser control exposure, elevated allowlists, filesystem permissions).
@@ -561,7 +561,7 @@ or `"session"` for stricter per-session isolation. `scope: "shared"` uses a
 single container/workspace.
 
 Also consider agent workspace access inside the sandbox:
-- `agents.defaults.sandbox.workspaceAccess: "none"` (default) keeps the agent workspace off-limits; tools run against a sandbox workspace under `~/.clawdbot/sandboxes`
+- `agents.defaults.sandbox.workspaceAccess: "none"` (default) keeps the agent workspace off-limits; tools run against a sandbox workspace under `~/.aura/sandboxes`
 - `agents.defaults.sandbox.workspaceAccess: "ro"` mounts the agent workspace read-only at `/agent` (disables `write`/`edit`/`apply_patch`)
 - `agents.defaults.sandbox.workspaceAccess: "rw"` mounts the agent workspace read/write at `/workspace`
 

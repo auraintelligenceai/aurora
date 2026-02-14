@@ -34,8 +34,8 @@ Notes:
 - Know how you installed: **global** (npm/pnpm) vs **from source** (git clone).
 - Know how your Gateway is running: **foreground terminal** vs **supervised service** (launchd/systemd).
 - Snapshot your tailoring:
-  - Config: `~/.clawdbot/aura_intelligence.json`
-  - Credentials: `~/.clawdbot/credentials/`
+  - Config: `~/.aura/aura_intelligence.json`
+  - Credentials: `~/.aura/credentials/`
   - Workspace: `~/clawd`
 
 ## Update (global install)
@@ -158,7 +158,7 @@ aura_intelligence logs --follow
 ```
 
 If you’re supervised:
-- macOS launchd (app-bundled LaunchAgent): `launchctl kickstart -k gui/$UID/bot.molt.gateway` (use `bot.molt.<profile>`; legacy `com.clawdbot.*` still works)
+- macOS launchd (app-bundled LaunchAgent): `launchctl kickstart -k gui/$UID/bot.molt.gateway` (use `bot.molt.<profile>`; legacy `com.aura.*` still works)
 - Linux systemd user service: `systemctl --user restart aura_intelligence-gateway[-<profile>].service`
 - Windows (WSL2): `systemctl --user restart aura_intelligence-gateway[-<profile>].service`
   - `launchctl`/`systemctl` only work if the service is installed; otherwise run `aura_intelligence gateway install`.

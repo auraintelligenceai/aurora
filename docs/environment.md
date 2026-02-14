@@ -13,8 +13,8 @@ aura_intelligence pulls environment variables from multiple sources. The rule is
 
 1) **Process environment** (what the Gateway process already has from the parent shell/daemon).
 2) **`.env` in the current working directory** (dotenv default; does not override).
-3) **Global `.env`** at `~/.clawdbot/.env` (aka `$CLAWDBOT_STATE_DIR/.env`; does not override).
-4) **Config `env` block** in `~/.clawdbot/aura_intelligence.json` (applied only if missing).
+3) **Global `.env`** at `~/.aura/.env` (aka `$CLAWDBOT_STATE_DIR/.env`; does not override).
+4) **Config `env` block** in `~/.aura/aura_intelligence.json` (applied only if missing).
 5) **Optional login-shell import** (`env.shellEnv.enabled` or `CLAWDBOT_LOAD_SHELL_ENV=1`), applied only for missing expected keys.
 
 If the config file is missing entirely, step 4 is skipped; shell import still runs if enabled.

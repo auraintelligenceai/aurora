@@ -26,7 +26,7 @@ afterEach(() => {
 describe("stageSandboxMedia", () => {
   it("stages inbound media into the sandbox workspace", async () => {
     await withTempHome(async (home) => {
-      const inboundDir = join(home, ".clawdbot", "media", "inbound");
+      const inboundDir = join(home, ".aura", "media", "inbound");
       await fs.mkdir(inboundDir, { recursive: true });
       const mediaPath = join(inboundDir, "photo.jpg");
       await fs.writeFile(mediaPath, "test");

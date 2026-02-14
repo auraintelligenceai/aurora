@@ -22,7 +22,7 @@ enum aura_intelligencePaths {
             return URL(fileURLWithPath: override, isDirectory: true)
         }
         return FileManager().homeDirectoryForCurrentUser
-            .appendingPathComponent(".clawdbot", isDirectory: true)
+            .appendingPathComponent(".aura", isDirectory: true)
     }
 
     static var configURL: URL {

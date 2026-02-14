@@ -2,10 +2,10 @@ import Foundation
 
 enum GatewaySettingsStore {
     private static let gatewayService = "bot.molt.gateway"
-    private static let legacyGatewayService = "com.clawdbot.gateway"
-    private static let legacyBridgeService = "com.clawdbot.bridge"
+    private static let legacyGatewayService = "com.aura.gateway"
+    private static let legacyBridgeService = "com.aura.bridge"
     private static let nodeService = "bot.molt.node"
-    private static let legacyNodeService = "com.clawdbot.node"
+    private static let legacyNodeService = "com.aura.node"
 
     private static let instanceIdDefaultsKey = "node.instanceId"
     private static let preferredGatewayStableIDDefaultsKey = "gateway.preferredStableID"

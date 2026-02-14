@@ -174,7 +174,7 @@ describe("gateway-cli coverage", () => {
         instanceName: "Studio (aura_intelligence)",
         displayName: "Studio",
         domain: "aura_intelligence.internal.",
-        host: "studio.clawdbot.internal",
+        host: "studio.aura.internal",
         lanHost: "studio.local",
         tailnetDns: "studio.tailnet.ts.net",
         gatewayPort: 18789,
@@ -196,7 +196,7 @@ describe("gateway-cli coverage", () => {
     expect(out).toContain("Found 1 gateway(s)");
     expect(out).toContain("- Studio aura_intelligence.internal.");
     expect(out).toContain("  tailnet: studio.tailnet.ts.net");
-    expect(out).toContain("  host: studio.clawdbot.internal");
+    expect(out).toContain("  host: studio.aura.internal");
     expect(out).toContain("  ws: ws://studio.tailnet.ts.net:18789");
   });
 

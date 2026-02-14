@@ -16,7 +16,7 @@ aura_intelligence treats **wake words as a single global list** owned by the **G
 
 Wake words are stored on the gateway machine at:
 
-- `~/.clawdbot/settings/voicewake.json`
+- `~/.aura/settings/voicewake.json`
 
 Shape:
 

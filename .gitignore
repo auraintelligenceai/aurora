@@ -22,7 +22,7 @@ apps/macos/.build/
 apps/shared/aura_intelligenceKit/.build/
 **/ModuleCache/
 bin/
-bin/clawdbot-mac
+bin/aura-mac
 bin/docs-list
 apps/macos/.build-local/
 apps/macos/.swiftpm/

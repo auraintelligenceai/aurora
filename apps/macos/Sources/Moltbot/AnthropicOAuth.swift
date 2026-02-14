@@ -235,7 +235,7 @@ enum aura_intelligenceOAuthStore {
         }
 
         return FileManager().homeDirectoryForCurrentUser
-            .appendingPathComponent(".clawdbot", isDirectory: true)
+            .appendingPathComponent(".aura", isDirectory: true)
             .appendingPathComponent("credentials", isDirectory: true)
     }
 

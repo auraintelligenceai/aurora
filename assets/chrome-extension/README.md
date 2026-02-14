@@ -9,8 +9,8 @@ Purpose: attach Clawdbot to an existing Chrome tab so the Gateway can automate i
 3. Install the extension to a stable path:
 
    ```bash
-   clawdbot browser extension install
-   clawdbot browser extension path
+   aura browser extension install
+   aura browser extension path
    ```
 
 4. Chrome → `chrome://extensions` → enable “Developer mode”.

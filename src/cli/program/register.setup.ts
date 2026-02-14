@@ -10,7 +10,7 @@ import { runCommandWithRuntime } from "../cli-utils.js";
 export function registerSetupCommand(program: Command) {
   program
     .command("setup")
-    .description("Initialize ~/.clawdbot/aura_intelligence.json and the agent workspace")
+    .description("Initialize ~/.aura/aura_intelligence.json and the agent workspace")
     .addHelpText(
       "after",
       () =>

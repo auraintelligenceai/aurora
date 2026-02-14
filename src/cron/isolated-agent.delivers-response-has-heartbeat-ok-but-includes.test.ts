@@ -26,7 +26,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
 }
 
 async function writeSessionStore(home: string) {
-  const dir = path.join(home, ".clawdbot", "sessions");
+  const dir = path.join(home, ".aura", "sessions");
   await fs.mkdir(dir, { recursive: true });
   const storePath = path.join(dir, "sessions.json");
   await fs.writeFile(

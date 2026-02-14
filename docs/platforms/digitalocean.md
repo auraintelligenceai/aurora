@@ -180,12 +180,12 @@ htop
 ## Persistence
 
 All state lives in:
-- `~/.clawdbot/` — config, credentials, session data
+- `~/.aura/` — config, credentials, session data
 - `~/clawd/` — workspace (SOUL.md, memory, etc.)
 
 These survive reboots. Back them up periodically:
 ```bash
-tar -czvf aura_intelligence-backup.tar.gz ~/.clawdbot ~/clawd
+tar -czvf aura_intelligence-backup.tar.gz ~/.aura ~/clawd
 ```
 
 ---

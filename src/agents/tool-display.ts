@@ -1,6 +1,6 @@
 import { redactToolDetail } from "../logging/redact.js";
 import { shortenHomeInString } from "../utils.js";
-import TOOL_DISPLAY_JSON from "./tool-display.json" with { type: "json" };
+import TOOL_DISPLAY_JSON from "./tool-display.json";
 
 type ToolDisplayActionSpec = {
   label?: string;

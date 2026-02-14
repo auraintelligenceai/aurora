@@ -36,11 +36,11 @@ To reduce that, aura_intelligence treats `auth-profiles.json` as a **token sink*
 
 Secrets are stored **per-agent**:
 
-- Auth profiles (OAuth + API keys): `~/.clawdbot/agents/<agentId>/agent/auth-profiles.json`
-- Runtime cache (managed automatically; don’t edit): `~/.clawdbot/agents/<agentId>/agent/auth.json`
+- Auth profiles (OAuth + API keys): `~/.aura/agents/<agentId>/agent/auth-profiles.json`
+- Runtime cache (managed automatically; don’t edit): `~/.aura/agents/<agentId>/agent/auth.json`
 
 Legacy import-only file (still supported, but not the main store):
-- `~/.clawdbot/credentials/oauth.json` (imported into `auth-profiles.json` on first use)
+- `~/.aura/credentials/oauth.json` (imported into `auth-profiles.json` on first use)
 
 All of the above also respect `$CLAWDBOT_STATE_DIR` (state dir override). Full reference: [/gateway/configuration](/gateway/configuration#auth-storage-oauth--api-keys)
 

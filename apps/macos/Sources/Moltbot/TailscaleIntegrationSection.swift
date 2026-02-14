@@ -234,7 +234,7 @@ struct TailscaleIntegrationSection: View {
             .textFieldStyle(.roundedBorder)
             .frame(maxWidth: 240)
             .onSubmit { Task { await self.applySettings() } }
-        Text("Stored in ~/.clawdbot/aura_intelligence.json. Prefer CLAWDBOT_GATEWAY_PASSWORD for production.")
+        Text("Stored in ~/.aura/aura_intelligence.json. Prefer CLAWDBOT_GATEWAY_PASSWORD for production.")
             .font(.caption)
             .foregroundStyle(.secondary)
         Button("Update password") { Task { await self.applySettings() } }
@@ -293,9 +293,9 @@ struct TailscaleIntegrationSection: View {
         }
 
         if self.connectionMode == .local, !self.isPaused {
-            self.statusMessage = "Saved to ~/.clawdbot/aura_intelligence.json. Restarting gateway…"
+            self.statusMessage = "Saved to ~/.aura/aura_intelligence.json. Restarting gateway…"
         } else {
-            self.statusMessage = "Saved to ~/.clawdbot/aura_intelligence.json. Restart the gateway to apply."
+            self.statusMessage = "Saved to ~/.aura/aura_intelligence.json. Restart the gateway to apply."
         }
         self.restartGatewayIfNeeded()
     }

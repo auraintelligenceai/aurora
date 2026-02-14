@@ -92,9 +92,9 @@ Example:
 
 ## Session storage
 
-Session stores live under the state directory (default `~/.clawdbot`):
+Session stores live under the state directory (default `~/.aura`):
 
-- `~/.clawdbot/agents/<agentId>/sessions/sessions.json`
+- `~/.aura/agents/<agentId>/sessions/sessions.json`
 - JSONL transcripts live alongside the store
 
 You can override the store path via `session.store` and `{agentId}` templating.

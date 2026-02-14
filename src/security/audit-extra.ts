@@ -118,7 +118,7 @@ export function collectSyncedFolderFindings(params: {
       severity: "warn",
       title: "State/config path looks like a synced folder",
       detail: `stateDir=${params.stateDir}, configPath=${params.configPath}. Synced folders (iCloud/Dropbox/OneDrive/Google Drive) can leak tokens and transcripts onto other devices.`,
-      remediation: `Keep CLAWDBOT_STATE_DIR on a local-only volume and re-run "${formatCliCommand("aura_intelligence security audit --fix")}".`,
+      remediation: `Keep AURA_STATE_DIR on a local-only volume and re-run "${formatCliCommand("aura_intelligence security audit --fix")}".`,
     });
   }
   return findings;
@@ -143,7 +143,7 @@ export function collectSecretsInConfigFindings(
       detail:
         "gateway.auth.password is set in the config file; prefer environment variables for secrets when possible.",
       remediation:
-        "Prefer CLAWDBOT_GATEWAY_PASSWORD (env) and remove gateway.auth.password from disk.",
+        "Prefer AURA_GATEWAY_PASSWORD (env) and remove gateway.auth.password from disk.",
     });
   }
 

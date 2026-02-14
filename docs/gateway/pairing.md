@@ -74,10 +74,10 @@ If silent approval fails, it falls back to the normal “Approve/Reject” promp
 
 ## Storage (local, private)
 
-Pairing state is stored under the Gateway state directory (default `~/.clawdbot`):
+Pairing state is stored under the Gateway state directory (default `~/.aura`):
 
-- `~/.clawdbot/nodes/paired.json`
-- `~/.clawdbot/nodes/pending.json`
+- `~/.aura/nodes/paired.json`
+- `~/.aura/nodes/pending.json`
 
 If you override `CLAWDBOT_STATE_DIR`, the `nodes/` folder moves with it.
 

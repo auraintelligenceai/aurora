@@ -10,7 +10,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveTwitchToken, type TwitchTokenSource } from "./token.js";
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
 
 describe("token", () => {
   // Multi-account config for testing non-default accounts

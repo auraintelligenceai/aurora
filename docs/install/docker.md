@@ -53,7 +53,7 @@ After it finishes:
 - Paste the token into the Control UI (Settings → token).
 
 It writes config/workspace on the host:
-- `~/.clawdbot/`
+- `~/.aura/`
 - `~/clawd`
 
 Running on a VPS? See [Hetzner (Docker VPS)](/platforms/hetzner).
@@ -208,7 +208,7 @@ pnpm test:docker:qr
 ### Notes
 
 - Gateway bind defaults to `lan` for container use.
-- The gateway container is the source of truth for sessions (`~/.clawdbot/agents/<agentId>/sessions/`).
+- The gateway container is the source of truth for sessions (`~/.aura/agents/<agentId>/sessions/`).
 
 ## Agent Sandbox (host gateway + Docker tools)
 
@@ -244,7 +244,7 @@ precedence, and troubleshooting.
 
 - Image: `aura_intelligence-sandbox:bookworm-slim`
 - One container per agent
-- Agent workspace access: `workspaceAccess: "none"` (default) uses `~/.clawdbot/sandboxes`
+- Agent workspace access: `workspaceAccess: "none"` (default) uses `~/.aura/sandboxes`
   - `"ro"` keeps the sandbox workspace at `/workspace` and mounts the agent workspace read-only at `/agent` (disables `write`/`edit`/`apply_patch`)
   - `"rw"` mounts the agent workspace read/write at `/workspace`
 - Auto-prune: idle > 24h OR age > 7d
@@ -270,7 +270,7 @@ log a warning with the exact `aura_intelligence sandbox recreate ...` command.
         mode: "non-main", // off | non-main | all
         scope: "agent", // session | agent | shared (agent is default)
         workspaceAccess: "none", // none | ro | rw
-        workspaceRoot: "~/.clawdbot/sandboxes",
+        workspaceRoot: "~/.aura/sandboxes",
         docker: {
           image: "aura_intelligence-sandbox:bookworm-slim",
           workdir: "/workspace",

@@ -103,25 +103,25 @@ function defaultIndexHTML() {
       window.webkit &&
       window.webkit.messageHandlers &&
       (window.webkit.messageHandlers.aura_intelligenceCanvasA2UIAction ||
-        window.webkit.messageHandlers.clawdbotCanvasA2UIAction)
+        window.webkit.messageHandlers.auraCanvasA2UIAction)
     );
   const hasAndroid = () =>
     !!(
       (window.aura_intelligenceCanvasA2UIAction &&
         typeof window.aura_intelligenceCanvasA2UIAction.postMessage === "function") ||
-      (window.clawdbotCanvasA2UIAction &&
-        typeof window.clawdbotCanvasA2UIAction.postMessage === "function")
+      (window.auraCanvasA2UIAction &&
+        typeof window.auraCanvasA2UIAction.postMessage === "function")
     );
-  const legacySend = typeof window.clawdbotSendUserAction === "function" ? window.clawdbotSendUserAction : undefined;
+  const legacySend = typeof window.auraSendUserAction === "function" ? window.auraSendUserAction : undefined;
   if (!window.aura_intelligenceSendUserAction && legacySend) {
     window.aura_intelligenceSendUserAction = legacySend;
   }
-  if (!window.clawdbotSendUserAction && typeof window.aura_intelligenceSendUserAction === "function") {
-    window.clawdbotSendUserAction = window.aura_intelligenceSendUserAction;
+  if (!window.auraSendUserAction && typeof window.aura_intelligenceSendUserAction === "function") {
+    window.auraSendUserAction = window.aura_intelligenceSendUserAction;
   }
   const hasHelper = () =>
     typeof window.aura_intelligenceSendUserAction === "function" ||
-    typeof window.clawdbotSendUserAction === "function";
+    typeof window.auraSendUserAction === "function";
   statusEl.innerHTML =
     "Bridge: " +
     (hasHelper() ? "<span class='ok'>ready</span>" : "<span class='bad'>missing</span>") +
@@ -141,7 +141,7 @@ function defaultIndexHTML() {
     const sendUserAction =
       typeof window.aura_intelligenceSendUserAction === "function"
         ? window.aura_intelligenceSendUserAction
-        : window.clawdbotSendUserAction;
+        : window.auraSendUserAction;
     const ok = sendUserAction({
       name,
       surfaceId: "main",

@@ -50,7 +50,7 @@ on each restart.
 Use the dev profile to isolate state and spin up a safe, disposable setup for
 debugging. There are **two** `--dev` flags:
 
-- **Global `--dev` (profile):** isolates state under `~/.clawdbot-dev` and
+- **Global `--dev` (profile):** isolates state under `~/.aura-dev` and
   defaults the gateway port to `19001` (derived ports shift with it).
 - **`gateway --dev`: tells the Gateway to auto-create a default config +
   workspace** when missing (and skip BOOTSTRAP.md).
@@ -68,8 +68,8 @@ What this does:
 
 1) **Profile isolation** (global `--dev`)
    - `CLAWDBOT_PROFILE=dev`
-   - `CLAWDBOT_STATE_DIR=~/.clawdbot-dev`
-   - `CLAWDBOT_CONFIG_PATH=~/.clawdbot-dev/aura_intelligence.json`
+   - `CLAWDBOT_STATE_DIR=~/.aura-dev`
+   - `CLAWDBOT_CONFIG_PATH=~/.aura-dev/aura_intelligence.json`
    - `CLAWDBOT_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
 
 2) **Dev bootstrap** (`gateway --dev`)
@@ -118,19 +118,19 @@ pnpm gateway:watch --force --raw-stream
 Optional path override:
 
 ```bash
-pnpm gateway:watch --force --raw-stream --raw-stream-path ~/.clawdbot/logs/raw-stream.jsonl
+pnpm gateway:watch --force --raw-stream --raw-stream-path ~/.aura/logs/raw-stream.jsonl
 ```
 
 Equivalent env vars:
 
 ```bash
 CLAWDBOT_RAW_STREAM=1
-CLAWDBOT_RAW_STREAM_PATH=~/.clawdbot/logs/raw-stream.jsonl
+CLAWDBOT_RAW_STREAM_PATH=~/.aura/logs/raw-stream.jsonl
 ```
 
 Default file:
 
-`~/.clawdbot/logs/raw-stream.jsonl`
+`~/.aura/logs/raw-stream.jsonl`
 
 ## Raw chunk logging (pi-mono)
 

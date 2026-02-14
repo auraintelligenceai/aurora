@@ -53,8 +53,8 @@ This page describes the current CLI behavior. If commands change, update this do
 
 ## Global flags
 
-- `--dev`: isolate state under `~/.clawdbot-dev` and shift default ports.
-- `--profile <name>`: isolate state under `~/.clawdbot-<name>`.
+- `--dev`: isolate state under `~/.aura-dev` and shift default ports.
+- `--profile <name>`: isolate state under `~/.aura-<name>`.
 - `--no-color`: disable ANSI colors.
 - `--update`: shorthand for `aura_intelligence update` (source installs only).
 - `-V`, `--version`, `-v`: print version and exit.

@@ -30,7 +30,7 @@ read_when:
 - Markdown parse errors are not retried; they fall back to plain text.
 
 ## Configuration
-Set retry policy per provider in `~/.clawdbot/aura_intelligence.json`:
+Set retry policy per provider in `~/.aura/aura_intelligence.json`:
 
 ```json5
 {

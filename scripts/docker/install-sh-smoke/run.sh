@@ -6,11 +6,11 @@ SMOKE_PREVIOUS_VERSION="${CLAWDBOT_INSTALL_SMOKE_PREVIOUS:-}"
 SKIP_PREVIOUS="${CLAWDBOT_INSTALL_SMOKE_SKIP_PREVIOUS:-0}"
 DEFAULT_PACKAGE="aura_intelligence"
 if [[ -z "${CLAWDBOT_INSTALL_PACKAGE:-}" && "$INSTALL_URL" == *"clawd.bot"* ]]; then
-  DEFAULT_PACKAGE="clawdbot"
+  DEFAULT_PACKAGE="aura"
 fi
 PACKAGE_NAME="${CLAWDBOT_INSTALL_PACKAGE:-$DEFAULT_PACKAGE}"
 if [[ "$PACKAGE_NAME" == "aura_intelligence" ]]; then
-  ALT_PACKAGE_NAME="clawdbot"
+  ALT_PACKAGE_NAME="aura"
 else
   ALT_PACKAGE_NAME="aura_intelligence"
 fi

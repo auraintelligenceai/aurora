@@ -51,7 +51,7 @@ Set `browser.defaultProfile: "clawd"` if you want managed mode by default.
 
 ## Configuration
 
-Browser settings live in `~/.clawdbot/aura_intelligence.json`.
+Browser settings live in `~/.aura/aura_intelligence.json`.
 
 ```json5
 {

@@ -64,7 +64,7 @@ defaults write bot.molt.mac aura_intelligence.nixMode -bool true
 
 aura_intelligence reads JSON5 config from `CLAWDBOT_CONFIG_PATH` and stores mutable data in `CLAWDBOT_STATE_DIR`.
 
-- `CLAWDBOT_STATE_DIR` (default: `~/.clawdbot`)
+- `CLAWDBOT_STATE_DIR` (default: `~/.aura`)
 - `CLAWDBOT_CONFIG_PATH` (default: `$CLAWDBOT_STATE_DIR/aura_intelligence.json`)
 
 When running under Nix, set these explicitly to Nix-managed locations so runtime state and config

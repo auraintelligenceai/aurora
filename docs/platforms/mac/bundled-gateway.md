@@ -26,7 +26,7 @@ The macOS app’s **Install CLI** button runs the same flow via npm/pnpm (bun no
 ## Launchd (Gateway as LaunchAgent)
 
 Label:
-- `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.clawdbot.*` may remain)
+- `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.aura.*` may remain)
 
 Plist location (per‑user):
 - `~/Library/LaunchAgents/bot.molt.gateway.plist`

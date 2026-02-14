@@ -22,7 +22,7 @@ aura_intelligence gateway --force
 # dev loop (auto-reload on TS changes):
 pnpm gateway:watch
 ```
-- Config hot reload watches `~/.clawdbot/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`).
+- Config hot reload watches `~/.aura/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`).
   - Default mode: `gateway.reload.mode="hybrid"` (hot-apply safe changes, restart on critical).
   - Hot reload uses in-process restart via **SIGUSR1** when needed.
   - Disable with `gateway.reload.mode="off"`.
@@ -56,7 +56,7 @@ Usually unnecessary: one Gateway can serve multiple messaging channels and agent
 Supported if you isolate state + config and use unique ports. Full guide: [Multiple gateways](/gateway/multiple-gateways).
 
 Service names are profile-aware:
-- macOS: `bot.molt.<profile>` (legacy `com.clawdbot.*` may still exist)
+- macOS: `bot.molt.<profile>` (legacy `com.aura.*` may still exist)
 - Linux: `aura_intelligence-gateway-<profile>.service`
 - Windows: `aura_intelligence Gateway (<profile>)`
 
@@ -80,8 +80,8 @@ aura_intelligence --dev health
 ```
 
 Defaults (can be overridden via env/flags/config):
-- `CLAWDBOT_STATE_DIR=~/.clawdbot-dev`
-- `CLAWDBOT_CONFIG_PATH=~/.clawdbot-dev/aura_intelligence.json`
+- `CLAWDBOT_STATE_DIR=~/.aura-dev`
+- `CLAWDBOT_CONFIG_PATH=~/.aura-dev/aura_intelligence.json`
 - `CLAWDBOT_GATEWAY_PORT=19001` (Gateway WS + HTTP)
 - browser control service port = `19003` (derived: `gateway.port+2`, loopback only)
 - `canvasHost.port=19005` (derived: `gateway.port+4`)
@@ -108,8 +108,8 @@ aura_intelligence --profile rescue gateway install
 
 Example:
 ```bash
-CLAWDBOT_CONFIG_PATH=~/.clawdbot/a.json CLAWDBOT_STATE_DIR=~/.clawdbot-a aura_intelligence gateway --port 19001
-CLAWDBOT_CONFIG_PATH=~/.clawdbot/b.json CLAWDBOT_STATE_DIR=~/.clawdbot-b aura_intelligence gateway --port 19002
+CLAWDBOT_CONFIG_PATH=~/.aura/a.json CLAWDBOT_STATE_DIR=~/.aura-a aura_intelligence gateway --port 19001
+CLAWDBOT_CONFIG_PATH=~/.aura/b.json CLAWDBOT_STATE_DIR=~/.aura-b aura_intelligence gateway --port 19002
 ```
 
 ## Protocol (operator view)
@@ -182,7 +182,7 @@ See also: [Presence](/concepts/presence) for how presence is produced/deduped an
 - On failure, launchd restarts; fatal misconfig should keep exiting so the operator notices.
 - LaunchAgents are per-user and require a logged-in session; for headless setups use a custom LaunchDaemon (not shipped).
   - `aura_intelligence gateway install` writes `~/Library/LaunchAgents/bot.molt.gateway.plist`
-    (or `bot.molt.<profile>.plist`; legacy `com.clawdbot.*` is cleaned up).
+    (or `bot.molt.<profile>.plist`; legacy `com.aura.*` is cleaned up).
   - `aura_intelligence doctor` audits the LaunchAgent config and can update it to current defaults.
 
 ## Gateway service management (CLI)
@@ -213,7 +213,7 @@ Notes:
 
 Bundled mac app:
 - aura_intelligence.app can bundle a Node-based gateway relay and install a per-user LaunchAgent labeled
-  `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.clawdbot.*` labels still unload cleanly).
+  `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.aura.*` labels still unload cleanly).
 - To stop it cleanly, use `aura_intelligence gateway stop` (or `launchctl bootout gui/$UID/bot.molt.gateway`).
 - To restart, use `aura_intelligence gateway restart` (or `launchctl kickstart -k gui/$UID/bot.molt.gateway`).
   - `launchctl` only works if the LaunchAgent is installed; otherwise use `aura_intelligence gateway install` first.

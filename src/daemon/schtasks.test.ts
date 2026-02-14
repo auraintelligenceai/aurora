@@ -37,32 +37,32 @@ describe("schtasks runtime parsing", () => {
 });
 
 describe("resolveTaskScriptPath", () => {
-  it("uses default path when CLAWDBOT_PROFILE is default", () => {
-    const env = { USERPROFILE: "C:\\Users\\test", CLAWDBOT_PROFILE: "default" };
+  it("uses default path when AURA_PROFILE is default", () => {
+    const env = { USERPROFILE: "C:\\Users\\test", AURA_PROFILE: "default" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".clawdbot", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".aura", "gateway.cmd"),
     );
   });
 
-  it("uses default path when CLAWDBOT_PROFILE is unset", () => {
+  it("uses default path when AURA_PROFILE is unset", () => {
     const env = { USERPROFILE: "C:\\Users\\test" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".clawdbot", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".aura", "gateway.cmd"),
     );
   });
 
-  it("uses profile-specific path when CLAWDBOT_PROFILE is set to a custom value", () => {
-    const env = { USERPROFILE: "C:\\Users\\test", CLAWDBOT_PROFILE: "jbphoenix" };
+  it("uses profile-specific path when AURA_PROFILE is set to a custom value", () => {
+    const env = { USERPROFILE: "C:\\Users\\test", AURA_PROFILE: "jbphoenix" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".clawdbot-jbphoenix", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".aura-jbphoenix", "gateway.cmd"),
     );
   });
 
-  it("prefers CLAWDBOT_STATE_DIR over profile-derived defaults", () => {
+  it("prefers AURA_STATE_DIR over profile-derived defaults", () => {
     const env = {
       USERPROFILE: "C:\\Users\\test",
-      CLAWDBOT_PROFILE: "rescue",
-      CLAWDBOT_STATE_DIR: "C:\\State\\aura_intelligence",
+      AURA_PROFILE: "rescue",
+      AURA_STATE_DIR: "C:\\State\\aura_intelligence",
     };
     expect(resolveTaskScriptPath(env)).toBe(
       path.join("C:\\State\\aura_intelligence", "gateway.cmd"),
@@ -70,29 +70,29 @@ describe("resolveTaskScriptPath", () => {
   });
 
   it("handles case-insensitive 'Default' profile", () => {
-    const env = { USERPROFILE: "C:\\Users\\test", CLAWDBOT_PROFILE: "Default" };
+    const env = { USERPROFILE: "C:\\Users\\test", AURA_PROFILE: "Default" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".clawdbot", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".aura", "gateway.cmd"),
     );
   });
 
   it("handles case-insensitive 'DEFAULT' profile", () => {
-    const env = { USERPROFILE: "C:\\Users\\test", CLAWDBOT_PROFILE: "DEFAULT" };
+    const env = { USERPROFILE: "C:\\Users\\test", AURA_PROFILE: "DEFAULT" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".clawdbot", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".aura", "gateway.cmd"),
     );
   });
 
-  it("trims whitespace from CLAWDBOT_PROFILE", () => {
-    const env = { USERPROFILE: "C:\\Users\\test", CLAWDBOT_PROFILE: "  myprofile  " };
+  it("trims whitespace from AURA_PROFILE", () => {
+    const env = { USERPROFILE: "C:\\Users\\test", AURA_PROFILE: "  myprofile  " };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".clawdbot-myprofile", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".aura-myprofile", "gateway.cmd"),
     );
   });
 
   it("falls back to HOME when USERPROFILE is not set", () => {
-    const env = { HOME: "/home/test", CLAWDBOT_PROFILE: "default" };
-    expect(resolveTaskScriptPath(env)).toBe(path.join("/home/test", ".clawdbot", "gateway.cmd"));
+    const env = { HOME: "/home/test", AURA_PROFILE: "default" };
+    expect(resolveTaskScriptPath(env)).toBe(path.join("/home/test", ".aura", "gateway.cmd"));
   });
 });
 
@@ -100,7 +100,7 @@ describe("readScheduledTaskCommand", () => {
   it("parses basic command script", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".clawdbot", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".aura", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -108,7 +108,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, CLAWDBOT_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, AURA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["node", "gateway.js", "--port", "18789"],
@@ -121,7 +121,7 @@ describe("readScheduledTaskCommand", () => {
   it("parses script with working directory", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".clawdbot", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".aura", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -129,7 +129,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, CLAWDBOT_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, AURA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["node", "gateway.js"],
@@ -143,7 +143,7 @@ describe("readScheduledTaskCommand", () => {
   it("parses script with environment variables", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".clawdbot", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".aura", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -151,7 +151,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, CLAWDBOT_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, AURA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["node", "gateway.js"],
@@ -168,7 +168,7 @@ describe("readScheduledTaskCommand", () => {
   it("parses script with quoted arguments containing spaces", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".clawdbot", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".aura", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       // Use forward slashes which work in Windows cmd and avoid escape parsing issues
       await fs.writeFile(
@@ -177,7 +177,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, CLAWDBOT_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, AURA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["C:/Program Files/Node/node.exe", "gateway.js"],
@@ -190,7 +190,7 @@ describe("readScheduledTaskCommand", () => {
   it("returns null when script does not exist", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-schtasks-test-"));
     try {
-      const env = { USERPROFILE: tmpDir, CLAWDBOT_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, AURA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toBeNull();
     } finally {
@@ -201,7 +201,7 @@ describe("readScheduledTaskCommand", () => {
   it("returns null when script has no command", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".clawdbot", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".aura", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -209,7 +209,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, CLAWDBOT_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, AURA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toBeNull();
     } finally {
@@ -220,7 +220,7 @@ describe("readScheduledTaskCommand", () => {
   it("parses full script with all components", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".clawdbot", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".aura", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -229,20 +229,20 @@ describe("readScheduledTaskCommand", () => {
           "rem aura_intelligence Gateway",
           "cd /d C:\\Projects\\aura_intelligence",
           "set NODE_ENV=production",
-          "set CLAWDBOT_PORT=18789",
+          "set AURA_PORT=18789",
           "node gateway.js --verbose",
         ].join("\r\n"),
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, CLAWDBOT_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, AURA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["node", "gateway.js", "--verbose"],
         workingDirectory: "C:\\Projects\\aura_intelligence",
         environment: {
           NODE_ENV: "production",
-          CLAWDBOT_PORT: "18789",
+          AURA_PORT: "18789",
         },
       });
     } finally {

@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE_NAME="${CLAWDBOT_IMAGE:-aura_intelligence:local}"
-CONFIG_DIR="${CLAWDBOT_CONFIG_DIR:-$HOME/.clawdbot}"
+CONFIG_DIR="${CLAWDBOT_CONFIG_DIR:-$HOME/.aura}"
 WORKSPACE_DIR="${CLAWDBOT_WORKSPACE_DIR:-$HOME/clawd}"
 PROFILE_FILE="${CLAWDBOT_PROFILE_FILE:-$HOME/.profile}"
 
@@ -25,7 +25,7 @@ docker run --rm -t \
   -e CLAWDBOT_LIVE_GATEWAY_MODELS="${CLAWDBOT_LIVE_GATEWAY_MODELS:-all}" \
   -e CLAWDBOT_LIVE_GATEWAY_PROVIDERS="${CLAWDBOT_LIVE_GATEWAY_PROVIDERS:-}" \
   -e CLAWDBOT_LIVE_GATEWAY_MODEL_TIMEOUT_MS="${CLAWDBOT_LIVE_GATEWAY_MODEL_TIMEOUT_MS:-}" \
-  -v "$CONFIG_DIR":/home/node/.clawdbot \
+  -v "$CONFIG_DIR":/home/node/.aura \
   -v "$WORKSPACE_DIR":/home/node/clawd \
   "${PROFILE_MOUNT[@]}" \
   "$IMAGE_NAME" \

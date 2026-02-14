@@ -282,7 +282,7 @@ class aura_intelligenceA2UIHost extends LitElement {
       getSurfaces: () => Array.from(this.#processor.getSurfaces().keys()),
     };
     globalThis.aura_intelligenceA2UI = api;
-    globalThis.clawdbotA2UI = api;
+    globalThis.auraA2UI = api;
     this.addEventListener("a2uiaction", (evt) => this.#handleA2UIAction(evt));
     this.#statusListener = (evt) => this.#handleActionStatus(evt);
     globalThis.addEventListener("aura_intelligence:a2ui-action-status", this.#statusListener);
@@ -399,15 +399,15 @@ class aura_intelligenceA2UIHost extends LitElement {
 
     const handler =
       globalThis.webkit?.messageHandlers?.aura_intelligenceCanvasA2UIAction ??
-      globalThis.webkit?.messageHandlers?.clawdbotCanvasA2UIAction ??
+      globalThis.webkit?.messageHandlers?.auraCanvasA2UIAction ??
       globalThis.aura_intelligenceCanvasA2UIAction ??
-      globalThis.clawdbotCanvasA2UIAction;
+      globalThis.auraCanvasA2UIAction;
     if (handler?.postMessage) {
       try {
         // WebKit message handlers support structured objects; Android's JS interface expects strings.
         if (
           handler === globalThis.aura_intelligenceCanvasA2UIAction ||
-          handler === globalThis.clawdbotCanvasA2UIAction
+          handler === globalThis.auraCanvasA2UIAction
         ) {
           handler.postMessage(JSON.stringify({ userAction }));
         } else {

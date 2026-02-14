@@ -1,4 +1,4 @@
-import { emptyPluginConfigSchema } from "clawdbot/plugin-sdk";
+import { emptyPluginConfigSchema } from "aura/plugin-sdk";
 
 import { loginGeminiCliOAuth } from "./oauth.js";
 

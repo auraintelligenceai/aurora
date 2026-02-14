@@ -285,8 +285,8 @@ Live tests discover credentials the same way the CLI does. Practical implication
 - If the CLI works, live tests should find the same keys.
 - If a live test says “no creds”, debug the same way you’d debug `aura_intelligence models list` / model selection.
 
-- Profile store: `~/.clawdbot/credentials/` (preferred; what “profile keys” means in the tests)
-- Config: `~/.clawdbot/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`)
+- Profile store: `~/.aura/credentials/` (preferred; what “profile keys” means in the tests)
+- Config: `~/.aura/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`)
 
 If you want to rely on env keys (e.g. exported in your `~/.profile`), run local tests after `source ~/.profile`, or use the Docker runners below (they can mount `~/.profile` into the container).
 
@@ -307,7 +307,7 @@ These run `pnpm test:live` inside the repo Docker image, mounting your local con
 
 Useful env vars:
 
-- `CLAWDBOT_CONFIG_DIR=...` (default: `~/.clawdbot`) mounted to `/home/node/.clawdbot`
+- `CLAWDBOT_CONFIG_DIR=...` (default: `~/.aura`) mounted to `/home/node/.aura`
 - `CLAWDBOT_WORKSPACE_DIR=...` (default: `~/clawd`) mounted to `/home/node/clawd`
 - `CLAWDBOT_PROFILE_FILE=...` (default: `~/.profile`) mounted to `/home/node/.profile` and sourced before running tests
 - `CLAWDBOT_LIVE_GATEWAY_MODELS=...` / `CLAWDBOT_LIVE_MODELS=...` to narrow the run

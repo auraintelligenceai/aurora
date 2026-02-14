@@ -7,7 +7,7 @@ import {
   type ChannelOnboardingAdapter,
   type ChannelOnboardingDmPolicy,
   type WizardPrompter,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import {
   listNextcloudTalkAccountIds,

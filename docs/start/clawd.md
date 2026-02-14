@@ -77,7 +77,7 @@ aura_intelligence channels login
 aura_intelligence gateway --port 18789
 ```
 
-3) Put a minimal config in `~/.clawdbot/aura_intelligence.json`:
+3) Put a minimal config in `~/.aura/aura_intelligence.json`:
 
 ```json5
 {
@@ -171,8 +171,8 @@ Example:
 
 ## Sessions and memory
 
-- Session files: `~/.clawdbot/agents/<agentId>/sessions/{{SessionId}}.jsonl`
-- Session metadata (token usage, last route, etc): `~/.clawdbot/agents/<agentId>/sessions/sessions.json` (legacy: `~/.clawdbot/sessions/sessions.json`)
+- Session files: `~/.aura/agents/<agentId>/sessions/{{SessionId}}.jsonl`
+- Session metadata (token usage, last route, etc): `~/.aura/agents/<agentId>/sessions/sessions.json` (legacy: `~/.aura/sessions/sessions.json`)
 - `/new` or `/reset` starts a fresh session for that chat (configurable via `resetTriggers`). If sent alone, the agent replies with a short hello to confirm the reset.
 - `/compact [instructions]` compacts the session context and reports the remaining context budget.
 

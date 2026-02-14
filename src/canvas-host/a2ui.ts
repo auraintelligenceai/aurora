@@ -132,8 +132,8 @@ export function injectCanvasLiveReload(html: string): string {
   globalThis.aura_intelligence.sendUserAction = sendUserAction;
   globalThis.aura_intelligencePostMessage = postToNode;
   globalThis.aura_intelligenceSendUserAction = sendUserAction;
-  globalThis.clawdbotPostMessage = postToNode;
-  globalThis.clawdbotSendUserAction = sendUserAction;
+  globalThis.auraPostMessage = postToNode;
+  globalThis.auraSendUserAction = sendUserAction;
 
   try {
     const proto = location.protocol === "https:" ? "wss" : "ws";

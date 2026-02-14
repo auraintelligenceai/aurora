@@ -3,13 +3,13 @@ import type {
   ChannelOnboardingDmPolicy,
   aura_intelligenceConfig,
   WizardPrompter,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 import {
   addWildcardAllowFrom,
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   promptAccountId,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import {
   listZaloAccountIds,

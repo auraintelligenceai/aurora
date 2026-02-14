@@ -37,7 +37,7 @@ The onboarding wizard generates a gateway token by default, so paste it here on 
 - Skills: status, enable/disable, install, API key updates (`skills.*`)
 - Nodes: list + caps (`node.list`)
 - Exec approvals: edit gateway or node allowlists + ask policy for `exec host=gateway/node` (`exec.approvals.*`)
-- Config: view/edit `~/.clawdbot/aura_intelligence.json` (`config.get`, `config.set`)
+- Config: view/edit `~/.aura/aura_intelligence.json` (`config.get`, `config.set`)
 - Config: apply + restart with validation (`config.apply`) and wake the last active session
 - Config writes include a base-hash guard to prevent clobbering concurrent edits
 - Config schema + form rendering (`config.schema`, including plugin + channel schemas); Raw JSON editor remains available

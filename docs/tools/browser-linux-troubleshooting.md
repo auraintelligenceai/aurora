@@ -34,7 +34,7 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt --fix-broken install -y  # if there are dependency errors
 ```
 
-Then update your aura_intelligence config (`~/.clawdbot/aura_intelligence.json`):
+Then update your aura_intelligence config (`~/.aura/aura_intelligence.json`):
 
 ```json
 {
@@ -67,7 +67,7 @@ If you must use snap Chromium, configure aura_intelligence to attach to a manual
 ```bash
 chromium-browser --headless --no-sandbox --disable-gpu \
   --remote-debugging-port=18800 \
-  --user-data-dir=$HOME/.clawdbot/browser/clawd/user-data \
+  --user-data-dir=$HOME/.aura/browser/clawd/user-data \
   about:blank &
 ```
 
@@ -79,7 +79,7 @@ Description=Clawd Browser (Chrome CDP)
 After=network.target
 
 [Service]
-ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.clawdbot/browser/clawd/user-data about:blank
+ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.aura/browser/clawd/user-data about:blank
 Restart=on-failure
 RestartSec=5
 

@@ -155,7 +155,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
   let snapshot = await readConfigFileSnapshot();
   if (!hasExplicitConfigPath(process.env) && snapshot.exists) {
     const basename = path.basename(snapshot.path);
-    if (basename === "clawdbot.json") {
+    if (basename === "aura.json") {
       const canonicalPath = path.join(path.dirname(snapshot.path), "aura_intelligence.json");
       if (!fs.existsSync(canonicalPath)) {
         moveLegacyConfigFile(snapshot.path, canonicalPath);

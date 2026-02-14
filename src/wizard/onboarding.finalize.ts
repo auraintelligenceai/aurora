@@ -305,7 +305,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
     await prompter.note(
       [
         "Gateway token: shared auth for the Gateway + Control UI.",
-        "Stored in: ~/.clawdbot/aura_intelligence.json (gateway.auth.token) or CLAWDBOT_GATEWAY_TOKEN.",
+        "Stored in: ~/.aura/aura_intelligence.json (gateway.auth.token) or AURA_GATEWAY_TOKEN.",
         "Web UI stores a copy in this browser's localStorage (aura_intelligence.control.settings.v1).",
         `Get the tokenized link anytime: ${formatCliCommand("aura_intelligence dashboard --no-open")}`,
       ].join("\n"),

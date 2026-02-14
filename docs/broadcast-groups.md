@@ -296,7 +296,7 @@ Broadcast groups work alongside existing routing:
 
 **Debug:**
 ```bash
-tail -f ~/.clawdbot/logs/gateway.log | grep broadcast
+tail -f ~/.aura/logs/gateway.log | grep broadcast
 ```
 
 ### Only One Agent Responding

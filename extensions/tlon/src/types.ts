@@ -1,4 +1,4 @@
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
 
 export type TlonResolvedAccount = {
   accountId: string;

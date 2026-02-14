@@ -10,7 +10,7 @@ import {
   type ChannelMessageActionName,
   type ChannelToolSend,
   type aura_intelligenceConfig,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { resolveBlueBubblesAccount } from "./accounts.js";
 import { resolveBlueBubblesMessageId } from "./monitor.js";

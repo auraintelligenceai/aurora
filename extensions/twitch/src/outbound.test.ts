@@ -11,7 +11,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { twitchOutbound } from "./outbound.js";
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
 
 // Mock dependencies
 vi.mock("./config.js", () => ({

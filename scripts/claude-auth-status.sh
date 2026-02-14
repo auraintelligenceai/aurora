@@ -5,7 +5,7 @@
 set -euo pipefail
 
 CLAUDE_CREDS="$HOME/.claude/.credentials.json"
-CLAWDBOT_AUTH="$HOME/.clawdbot/agents/main/agent/auth-profiles.json"
+CLAWDBOT_AUTH="$HOME/.aura/agents/main/agent/auth-profiles.json"
 
 # Colors for terminal output
 RED='\033[0;31m'
@@ -228,7 +228,7 @@ else
 fi
 
 echo ""
-echo "aura_intelligence Auth (~/.clawdbot/agents/main/agent/auth-profiles.json):"
+echo "aura_intelligence Auth (~/.aura/agents/main/agent/auth-profiles.json):"
 if [ "$USE_JSON" -eq 1 ]; then
     best_profile=$(json_best_anthropic_profile)
     expires=$(json_expires_for_anthropic_any)

@@ -10,7 +10,7 @@ This guide migrates a aura_intelligence Gateway from one machine to another **wi
 
 The migration is simple conceptually:
 
-- Copy the **state directory** (`$CLAWDBOT_STATE_DIR`, default: `~/.clawdbot/`) — this includes config, auth, sessions, and channel state.
+- Copy the **state directory** (`$CLAWDBOT_STATE_DIR`, default: `~/.aura/`) — this includes config, auth, sessions, and channel state.
 - Copy your **workspace** (`~/clawd/` by default) — this includes your agent files (memory, prompts, etc.).
 
 But there are common footguns around **profiles**, **permissions**, and **partial copies**.
@@ -21,11 +21,11 @@ But there are common footguns around **profiles**, **permissions**, and **partia
 
 Most installs use the default:
 
-- **State dir:** `~/.clawdbot/`
+- **State dir:** `~/.aura/`
 
 But it may be different if you use:
 
-- `--profile <name>` (often becomes `~/.clawdbot-<profile>/`)
+- `--profile <name>` (often becomes `~/.aura-<profile>/`)
 - `CLAWDBOT_STATE_DIR=/some/path`
 
 If you’re not sure, run on the **old** machine:
@@ -78,12 +78,12 @@ aura_intelligence gateway stop
 ```bash
 # Adjust paths if you use a profile or custom locations
 cd ~
-tar -czf aura_intelligence-state.tgz .clawdbot
+tar -czf aura_intelligence-state.tgz .aura
 
 tar -czf clawd-workspace.tgz clawd
 ```
 
-If you have multiple profiles/state dirs (e.g. `~/.clawdbot-main`, `~/.clawdbot-work`), archive each.
+If you have multiple profiles/state dirs (e.g. `~/.aura-main`, `~/.aura-work`), archive each.
 
 ### Step 1 — Install aura_intelligence on the new machine
 
@@ -91,13 +91,13 @@ On the **new** machine, install the CLI (and Node if needed):
 
 - See: [Install](/install)
 
-At this stage, it’s OK if onboarding creates a fresh `~/.clawdbot/` — you will overwrite it in the next step.
+At this stage, it’s OK if onboarding creates a fresh `~/.aura/` — you will overwrite it in the next step.
 
 ### Step 2 — Copy the state dir + workspace to the new machine
 
 Copy **both**:
 
-- `$CLAWDBOT_STATE_DIR` (default `~/.clawdbot/`)
+- `$CLAWDBOT_STATE_DIR` (default `~/.aura/`)
 - your workspace (default `~/clawd/`)
 
 Common approaches:
@@ -108,7 +108,7 @@ Common approaches:
 
 After copying, ensure:
 
-- Hidden directories were included (e.g. `.clawdbot/`)
+- Hidden directories were included (e.g. `.aura/`)
 - File ownership is correct for the user running the gateway
 
 ### Step 3 — Run Doctor (migrations + service repair)

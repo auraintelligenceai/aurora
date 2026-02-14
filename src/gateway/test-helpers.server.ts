@@ -86,7 +86,7 @@ async function setupGatewayTestHome() {
   tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.CLAWDBOT_STATE_DIR = path.join(tempHome, ".clawdbot");
+  process.env.CLAWDBOT_STATE_DIR = path.join(tempHome, ".aura");
   delete process.env.CLAWDBOT_CONFIG_PATH;
 }
 
@@ -106,7 +106,7 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
   applyGatewaySkipEnv();
   tempConfigRoot = options.uniqueConfigRoot
     ? await fs.mkdtemp(path.join(tempHome, "aura_intelligence-test-"))
-    : path.join(tempHome, ".clawdbot-test");
+    : path.join(tempHome, ".aura-test");
   setTestConfigRoot(tempConfigRoot);
   sessionStoreSaveDelayMs.value = 0;
   testTailnetIPv4.value = undefined;

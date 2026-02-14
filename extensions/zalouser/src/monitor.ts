@@ -1,7 +1,7 @@
 import type { ChildProcess } from "node:child_process";
 
-import type { aura_intelligenceConfig, MarkdownTableMode, RuntimeEnv } from "clawdbot/plugin-sdk";
-import { mergeAllowlist, summarizeMapping } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig, MarkdownTableMode, RuntimeEnv } from "aura/plugin-sdk";
+import { mergeAllowlist, summarizeMapping } from "aura/plugin-sdk";
 import { sendMessageZalouser } from "./send.js";
 import type {
   ResolvedZalouserAccount,

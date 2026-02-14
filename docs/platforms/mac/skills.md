@@ -20,7 +20,7 @@ The macOS app surfaces aura_intelligence skills via the gateway; it does not par
   (brew when available, otherwise node manager from `skills.install`, default npm).
 
 ## Env/API keys
-- The app stores keys in `~/.clawdbot/aura_intelligence.json` under `skills.entries.<skillKey>`.
+- The app stores keys in `~/.aura/aura_intelligence.json` under `skills.entries.<skillKey>`.
 - `skills.update` patches `enabled`, `apiKey`, and `env`.
 
 ## Remote mode

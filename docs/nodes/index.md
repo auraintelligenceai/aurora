@@ -47,7 +47,7 @@ forwards `exec` calls to the **node host** when `host=node` is selected.
 ### What runs where
 - **Gateway host**: receives messages, runs the model, routes tool calls.
 - **Node host**: executes `system.run`/`system.which` on the node machine.
-- **Approvals**: enforced on the node host via `~/.clawdbot/exec-approvals.json`.
+- **Approvals**: enforced on the node host via `~/.aura/exec-approvals.json`.
 
 ### Start a node host (foreground)
 
@@ -75,7 +75,7 @@ aura_intelligence nodes list
 ```
 
 Naming options:
-- `--display-name` on `aura_intelligence node run` / `aura_intelligence node install` (persists in `~/.clawdbot/node.json` on the node).
+- `--display-name` on `aura_intelligence node run` / `aura_intelligence node install` (persists in `~/.aura/node.json` on the node).
 - `aura_intelligence nodes rename --node <id|name|ip> --name "Build Node"` (gateway override).
 
 ### Allowlist the commands
@@ -87,7 +87,7 @@ aura_intelligence approvals allowlist add --node <id|name|ip> "/usr/bin/uname"
 aura_intelligence approvals allowlist add --node <id|name|ip> "/usr/bin/sw_vers"
 ```
 
-Approvals live on the node host at `~/.clawdbot/exec-approvals.json`.
+Approvals live on the node host at `~/.aura/exec-approvals.json`.
 
 ### Point exec at the node
 
@@ -246,7 +246,7 @@ Notes:
 - macOS nodes drop `PATH` overrides; headless node hosts only accept `PATH` when it prepends the node host PATH.
 - On macOS node mode, `system.run` is gated by exec approvals in the macOS app (Settings → Exec approvals).
   Ask/allowlist/full behave the same as the headless node host; denied prompts return `SYSTEM_RUN_DENIED`.
-- On headless node host, `system.run` is gated by exec approvals (`~/.clawdbot/exec-approvals.json`).
+- On headless node host, `system.run` is gated by exec approvals (`~/.aura/exec-approvals.json`).
 
 ## Exec node binding
 
@@ -291,8 +291,8 @@ aura_intelligence node run --host <gateway-host> --port 18789
 
 Notes:
 - Pairing is still required (the Gateway will show a node approval prompt).
-- The node host stores its node id, token, display name, and gateway connection info in `~/.clawdbot/node.json`.
-- Exec approvals are enforced locally via `~/.clawdbot/exec-approvals.json`
+- The node host stores its node id, token, display name, and gateway connection info in `~/.aura/node.json`.
+- Exec approvals are enforced locally via `~/.aura/exec-approvals.json`
   (see [Exec approvals](/tools/exec-approvals)).
 - On macOS, the headless node host prefers the companion app exec host when reachable and falls
   back to local execution if the app is unavailable. Set `CLAWDBOT_NODE_EXEC_HOST=app` to require

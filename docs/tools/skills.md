@@ -13,22 +13,22 @@ aura_intelligence uses **[AgentSkills](https://agentskills.io)-compatible** skil
 Skills are loaded from **three** places:
 
 1) **Bundled skills**: shipped with the install (npm package or aura_intelligence.app)
-2) **Managed/local skills**: `~/.clawdbot/skills`
+2) **Managed/local skills**: `~/.aura/skills`
 3) **Workspace skills**: `<workspace>/skills`
 
 If a skill name conflicts, precedence is:
 
-`<workspace>/skills` (highest) → `~/.clawdbot/skills` → bundled skills (lowest)
+`<workspace>/skills` (highest) → `~/.aura/skills` → bundled skills (lowest)
 
 Additionally, you can configure extra skill folders (lowest precedence) via
-`skills.load.extraDirs` in `~/.clawdbot/aura_intelligence.json`.
+`skills.load.extraDirs` in `~/.aura/aura_intelligence.json`.
 
 ## Per-agent vs shared skills
 
 In **multi-agent** setups, each agent has its own workspace. That means:
 
 - **Per-agent skills** live in `<workspace>/skills` for that agent only.
-- **Shared skills** live in `~/.clawdbot/skills` (managed/local) and are visible
+- **Shared skills** live in `~/.aura/skills` (managed/local) and are visible
   to **all agents** on the same machine.
 - **Shared folders** can also be added via `skills.load.extraDirs` (lowest
   precedence) if you want a common skills pack used by multiple agents.
@@ -150,12 +150,12 @@ Notes:
   This only affects **skill installs**; the Gateway runtime should still be Node
   (Bun is not recommended for WhatsApp/Telegram).
 - Go installs: if `go` is missing and `brew` is available, the gateway installs Go via Homebrew first and sets `GOBIN` to Homebrew’s `bin` when possible.
- - Download installs: `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.clawdbot/tools/<skillKey>`).
+ - Download installs: `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.aura/tools/<skillKey>`).
 
 If no `metadata.aura_intelligence` is present, the skill is always eligible (unless
 disabled in config or blocked by `skills.allowBundled` for bundled skills).
 
-## Config overrides (`~/.clawdbot/aura_intelligence.json`)
+## Config overrides (`~/.aura/aura_intelligence.json`)
 
 Bundled/managed skills can be toggled and supplied with env values:
 
@@ -252,7 +252,7 @@ Notes:
 ## Managed skills lifecycle
 
 aura_intelligence ships a baseline set of skills as **bundled skills** as part of the
-install (npm package or aura_intelligence.app). `~/.clawdbot/skills` exists for local
+install (npm package or aura_intelligence.app). `~/.aura/skills` exists for local
 overrides (for example, pinning/patching a skill without changing the bundled
 copy). Workspace skills are user-owned and override both on name conflicts.
 

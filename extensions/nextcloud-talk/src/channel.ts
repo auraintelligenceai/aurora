@@ -9,7 +9,7 @@ import {
   type ChannelPlugin,
   type aura_intelligenceConfig,
   type ChannelSetupInput,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import {
   listNextcloudTalkAccountIds,

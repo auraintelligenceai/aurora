@@ -3,12 +3,12 @@ import type {
   ChannelPlugin,
   ChannelSetupInput,
   aura_intelligenceConfig,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { resolveTlonAccount, listTlonAccountIds } from "./types.js";
 import { formatTargetHint, normalizeShip, parseTlonTarget } from "./targets.js";

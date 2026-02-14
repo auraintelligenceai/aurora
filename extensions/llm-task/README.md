@@ -94,4 +94,4 @@ It is intended to ship as a **bundled** Clawdbot extension (like `lobster`) and
 be enabled via `plugins.entries` + tool allowlists.
 
 It is **not** currently designed to be copied into
-`~/.clawdbot/extensions` as a standalone plugin directory.
+`~/.aura/extensions` as a standalone plugin directory.

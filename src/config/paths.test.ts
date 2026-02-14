@@ -50,9 +50,9 @@ describe("state + config path candidates", () => {
     const home = "/home/test";
     const candidates = resolveDefaultConfigCandidates({} as NodeJS.ProcessEnv, () => home);
     expect(candidates[0]).toBe(path.join(home, ".aura_intelligence", "aura_intelligence.json"));
-    expect(candidates[1]).toBe(path.join(home, ".aura_intelligence", "clawdbot.json"));
-    expect(candidates[2]).toBe(path.join(home, ".clawdbot", "aura_intelligence.json"));
-    expect(candidates[3]).toBe(path.join(home, ".clawdbot", "clawdbot.json"));
+    expect(candidates[1]).toBe(path.join(home, ".aura_intelligence", "aura.json"));
+    expect(candidates[2]).toBe(path.join(home, ".aura", "aura_intelligence.json"));
+    expect(candidates[3]).toBe(path.join(home, ".aura", "aura.json"));
   });
 
   it("prefers ~/.aura_intelligence when it exists and legacy dir is missing", async () => {
@@ -78,9 +78,9 @@ describe("state + config path candidates", () => {
     const previousaura_intelligenceState = process.env.aura_intelligence_STATE_DIR;
     const previousClawdbotState = process.env.CLAWDBOT_STATE_DIR;
     try {
-      const legacyDir = path.join(root, ".clawdbot");
+      const legacyDir = path.join(root, ".aura");
       await fs.mkdir(legacyDir, { recursive: true });
-      const legacyPath = path.join(legacyDir, "clawdbot.json");
+      const legacyPath = path.join(legacyDir, "aura.json");
       await fs.writeFile(legacyPath, "{}", "utf-8");
 
       process.env.HOME = root;
@@ -128,7 +128,7 @@ describe("state + config path candidates", () => {
   it("respects state dir overrides when config is missing", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-config-override-"));
     try {
-      const legacyDir = path.join(root, ".clawdbot");
+      const legacyDir = path.join(root, ".aura");
       await fs.mkdir(legacyDir, { recursive: true });
       const legacyConfig = path.join(legacyDir, "aura_intelligence.json");
       await fs.writeFile(legacyConfig, "{}", "utf-8");

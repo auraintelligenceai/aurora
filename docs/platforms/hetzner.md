@@ -20,7 +20,7 @@ Hetzner pricing changes; pick the smallest Debian/Ubuntu VPS and scale up if you
 - Rent a small Linux server (Hetzner VPS)
 - Install Docker (isolated app runtime)
 - Start the aura_intelligence Gateway in Docker
-- Persist `~/.clawdbot` + `~/clawd` on the host (survives restarts/rebuilds)
+- Persist `~/.aura` + `~/clawd` on the host (survives restarts/rebuilds)
 - Access the Control UI from your laptop via an SSH tunnel
 
 The Gateway can be accessed via:
@@ -110,11 +110,11 @@ Docker containers are ephemeral.
 All long-lived state must live on the host.
 
 ```bash
-mkdir -p /root/.clawdbot
+mkdir -p /root/.aura
 mkdir -p /root/clawd
 
 # Set ownership to the container user (uid 1000):
-chown -R 1000:1000 /root/.clawdbot
+chown -R 1000:1000 /root/.aura
 chown -R 1000:1000 /root/clawd
 ```
 
@@ -130,11 +130,11 @@ CLAWDBOT_GATEWAY_TOKEN=change-me-now
 CLAWDBOT_GATEWAY_BIND=lan
 CLAWDBOT_GATEWAY_PORT=18789
 
-CLAWDBOT_CONFIG_DIR=/root/.clawdbot
+CLAWDBOT_CONFIG_DIR=/root/.aura
 CLAWDBOT_WORKSPACE_DIR=/root/clawd
 
 GOG_KEYRING_PASSWORD=change-me-now
-XDG_CONFIG_HOME=/home/node/.clawdbot
+XDG_CONFIG_HOME=/home/node/.aura
 ```
 
 Generate strong secrets:
@@ -170,7 +170,7 @@ services:
       - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
       - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.clawdbot
+      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.aura
       - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/clawd
     ports:
       # Recommended: keep the Gateway loopback-only on the VPS; access via SSH tunnel.
@@ -313,12 +313,12 @@ All long-lived state must survive restarts, rebuilds, and reboots.
 
 | Component | Location | Persistence mechanism | Notes |
 |---|---|---|---|
-| Gateway config | `/home/node/.clawdbot/` | Host volume mount | Includes `aura_intelligence.json`, tokens |
-| Model auth profiles | `/home/node/.clawdbot/` | Host volume mount | OAuth tokens, API keys |
-| Skill configs | `/home/node/.clawdbot/skills/` | Host volume mount | Skill-level state |
+| Gateway config | `/home/node/.aura/` | Host volume mount | Includes `aura_intelligence.json`, tokens |
+| Model auth profiles | `/home/node/.aura/` | Host volume mount | OAuth tokens, API keys |
+| Skill configs | `/home/node/.aura/skills/` | Host volume mount | Skill-level state |
 | Agent workspace | `/home/node/clawd/` | Host volume mount | Code and agent artifacts |
-| WhatsApp session | `/home/node/.clawdbot/` | Host volume mount | Preserves QR login |
-| Gmail keyring | `/home/node/.clawdbot/` | Host volume + password | Requires `GOG_KEYRING_PASSWORD` |
+| WhatsApp session | `/home/node/.aura/` | Host volume mount | Preserves QR login |
+| Gmail keyring | `/home/node/.aura/` | Host volume + password | Requires `GOG_KEYRING_PASSWORD` |
 | External binaries | `/usr/local/bin/` | Docker image | Must be baked at build time |
 | Node runtime | Container filesystem | Docker image | Rebuilt every image build |
 | OS packages | Container filesystem | Docker image | Do not install at runtime |

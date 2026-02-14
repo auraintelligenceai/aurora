@@ -21,7 +21,7 @@ describe("createCacheTrace", () => {
         diagnostics: {
           cacheTrace: {
             enabled: true,
-            filePath: "~/.clawdbot/logs/cache-trace.jsonl",
+            filePath: "~/.aura/logs/cache-trace.jsonl",
           },
         },
       },
@@ -33,7 +33,7 @@ describe("createCacheTrace", () => {
     });
 
     expect(trace).not.toBeNull();
-    expect(trace?.filePath).toBe(resolveUserPath("~/.clawdbot/logs/cache-trace.jsonl"));
+    expect(trace?.filePath).toBe(resolveUserPath("~/.aura/logs/cache-trace.jsonl"));
 
     trace?.recordStage("session:loaded", {
       messages: [],

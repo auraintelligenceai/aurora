@@ -75,7 +75,7 @@ describe("applyCliProfileEnv", () => {
       env,
       homedir: () => "/home/peter",
     });
-    const expectedStateDir = path.join("/home/peter", ".clawdbot-dev");
+    const expectedStateDir = path.join("/home/peter", ".aura-dev");
     expect(env.CLAWDBOT_PROFILE).toBe("dev");
     expect(env.CLAWDBOT_STATE_DIR).toBe(expectedStateDir);
     expect(env.CLAWDBOT_CONFIG_PATH).toBe(path.join(expectedStateDir, "aura_intelligence.json"));

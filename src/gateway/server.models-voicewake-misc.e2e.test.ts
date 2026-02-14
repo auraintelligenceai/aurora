@@ -98,7 +98,7 @@ describe("gateway server models + voicewake", () => {
     const prevHomeDrive = process.env.HOMEDRIVE;
     const prevHomePath = process.env.HOMEPATH;
     process.env.HOME = homeDir;
-    process.env.CLAWDBOT_STATE_DIR = path.join(homeDir, ".clawdbot");
+    process.env.CLAWDBOT_STATE_DIR = path.join(homeDir, ".aura");
     process.env.USERPROFILE = homeDir;
     if (process.platform === "win32") {
       const parsed = path.parse(homeDir);
@@ -171,7 +171,7 @@ describe("gateway server models + voicewake", () => {
       expect(after.payload?.triggers).toEqual(["hi", "there"]);
 
       const onDisk = JSON.parse(
-        await fs.readFile(path.join(homeDir, ".clawdbot", "settings", "voicewake.json"), "utf8"),
+        await fs.readFile(path.join(homeDir, ".aura", "settings", "voicewake.json"), "utf8"),
       ) as { triggers?: unknown; updatedAtMs?: unknown };
       expect(onDisk.triggers).toEqual(["hi", "there"]);
       expect(typeof onDisk.updatedAtMs).toBe("number");

@@ -51,7 +51,7 @@ Scan system services for extra gateway installs (launchd/systemd/schtasks).
 If you want to review changes before writing, open the config file first:
 
 ```bash
-cat ~/.clawdbot/aura_intelligence.json
+cat ~/.aura/aura_intelligence.json
 ```
 
 ## What it does (summary)
@@ -97,7 +97,7 @@ you to run `aura_intelligence doctor`.
 Doctor will:
 - Explain which legacy keys were found.
 - Show the migration it applied.
-- Rewrite `~/.clawdbot/aura_intelligence.json` with the updated schema.
+- Rewrite `~/.aura/aura_intelligence.json` with the updated schema.
 
 The Gateway also auto-runs doctor migrations on startup when it detects a
 legacy config format, so stale configs are repaired without manual intervention.
@@ -127,12 +127,12 @@ remove the override and restore per-model API routing + costs.
 ### 3) Legacy state migrations (disk layout)
 Doctor can migrate older on-disk layouts into the current structure:
 - Sessions store + transcripts:
-  - from `~/.clawdbot/sessions/` to `~/.clawdbot/agents/<agentId>/sessions/`
+  - from `~/.aura/sessions/` to `~/.aura/agents/<agentId>/sessions/`
 - Agent dir:
-  - from `~/.clawdbot/agent/` to `~/.clawdbot/agents/<agentId>/agent/`
+  - from `~/.aura/agent/` to `~/.aura/agents/<agentId>/agent/`
 - WhatsApp auth state (Baileys):
-  - from legacy `~/.clawdbot/credentials/*.json` (except `oauth.json`)
-  - to `~/.clawdbot/credentials/whatsapp/<accountId>/...` (default account id: `default`)
+  - from legacy `~/.aura/credentials/*.json` (except `oauth.json`)
+  - to `~/.aura/credentials/whatsapp/<accountId>/...` (default account id: `default`)
 
 These migrations are best-effort and idempotent; doctor will emit warnings when
 it leaves any legacy folders behind as backups. The Gateway/CLI also auto-migrates
@@ -155,12 +155,12 @@ Doctor checks:
   transcript files.
 - **Main session “1-line JSONL”**: flags when the main transcript has only one
   line (history is not accumulating).
-- **Multiple state dirs**: warns when multiple `~/.clawdbot` folders exist across
+- **Multiple state dirs**: warns when multiple `~/.aura` folders exist across
   home directories or when `CLAWDBOT_STATE_DIR` points elsewhere (history can
   split between installs).
 - **Remote mode reminder**: if `gateway.mode=remote`, doctor reminds you to run
   it on the remote host (the state lives there).
-- **Config file permissions**: warns if `~/.clawdbot/aura_intelligence.json` is
+- **Config file permissions**: warns if `~/.aura/aura_intelligence.json` is
   group/world readable and offers to tighten to `600`.
 
 ### 5) Model auth health (OAuth expiry)

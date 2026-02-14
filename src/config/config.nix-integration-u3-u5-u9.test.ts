@@ -35,12 +35,12 @@ describe("Nix integration (U3, U5, U9)", () => {
   });
 
   describe("U5: CONFIG_PATH and STATE_DIR env var overrides", () => {
-    it("STATE_DIR defaults to ~/.clawdbot when env not set", async () => {
+    it("STATE_DIR defaults to ~/.aura when env not set", async () => {
       await withEnvOverride(
         { aura_intelligence_STATE_DIR: undefined, CLAWDBOT_STATE_DIR: undefined },
         async () => {
           const { STATE_DIR } = await import("./config.js");
-          expect(STATE_DIR).toMatch(/\.clawdbot$/);
+          expect(STATE_DIR).toMatch(/\.aura$/);
         },
       );
     });
@@ -65,7 +65,7 @@ describe("Nix integration (U3, U5, U9)", () => {
       );
     });
 
-    it("CONFIG_PATH defaults to ~/.clawdbot/aura_intelligence.json when env not set", async () => {
+    it("CONFIG_PATH defaults to ~/.aura/aura_intelligence.json when env not set", async () => {
       await withEnvOverride(
         {
           aura_intelligence_CONFIG_PATH: undefined,
@@ -75,7 +75,7 @@ describe("Nix integration (U3, U5, U9)", () => {
         },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toMatch(/\.clawdbot[\\/]aura_intelligence\.json$/);
+          expect(CONFIG_PATH).toMatch(/\.aura[\\/]aura_intelligence\.json$/);
         },
       );
     });
@@ -111,11 +111,11 @@ describe("Nix integration (U3, U5, U9)", () => {
         await withEnvOverride(
           {
             aura_intelligence_CONFIG_PATH: undefined,
-            CLAWDBOT_CONFIG_PATH: "~/.clawdbot/custom.json",
+            CLAWDBOT_CONFIG_PATH: "~/.aura/custom.json",
           },
           async () => {
             const { CONFIG_PATH } = await import("./config.js");
-            expect(CONFIG_PATH).toBe(path.join(home, ".clawdbot", "custom.json"));
+            expect(CONFIG_PATH).toBe(path.join(home, ".aura", "custom.json"));
           },
         );
       });
@@ -142,7 +142,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U5b: tilde expansion for config paths", () => {
     it("expands ~ in common path-ish config fields", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".clawdbot");
+        const configDir = path.join(home, ".aura");
         await fs.mkdir(configDir, { recursive: true });
         const pluginDir = path.join(home, "plugins", "demo-plugin");
         await fs.mkdir(pluginDir, { recursive: true });
@@ -178,7 +178,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                   {
                     id: "main",
                     workspace: "~/ws-agent",
-                    agentDir: "~/.clawdbot/agents/main",
+                    agentDir: "~/.aura/agents/main",
                     sandbox: { workspaceRoot: "~/sandbox-root" },
                   },
                 ],
@@ -187,7 +187,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                 whatsapp: {
                   accounts: {
                     personal: {
-                      authDir: "~/.clawdbot/credentials/wa-personal",
+                      authDir: "~/.aura/credentials/wa-personal",
                     },
                   },
                 },
@@ -207,11 +207,11 @@ describe("Nix integration (U3, U5, U9)", () => {
         expect(cfg.agents?.defaults?.workspace).toBe(path.join(home, "ws-default"));
         expect(cfg.agents?.list?.[0]?.workspace).toBe(path.join(home, "ws-agent"));
         expect(cfg.agents?.list?.[0]?.agentDir).toBe(
-          path.join(home, ".clawdbot", "agents", "main"),
+          path.join(home, ".aura", "agents", "main"),
         );
         expect(cfg.agents?.list?.[0]?.sandbox?.workspaceRoot).toBe(path.join(home, "sandbox-root"));
         expect(cfg.channels?.whatsapp?.accounts?.personal?.authDir).toBe(
-          path.join(home, ".clawdbot", "credentials", "wa-personal"),
+          path.join(home, ".aura", "credentials", "wa-personal"),
         );
       });
     });
@@ -243,7 +243,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U9: telegram.tokenFile schema validation", () => {
     it("accepts config with only botToken", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".clawdbot");
+        const configDir = path.join(home, ".aura");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
           path.join(configDir, "aura_intelligence.json"),
@@ -263,7 +263,7 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with only tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".clawdbot");
+        const configDir = path.join(home, ".aura");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
           path.join(configDir, "aura_intelligence.json"),
@@ -283,7 +283,7 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with both botToken and tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".clawdbot");
+        const configDir = path.join(home, ".aura");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
           path.join(configDir, "aura_intelligence.json"),

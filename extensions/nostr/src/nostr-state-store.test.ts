@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 
 import { describe, expect, it } from "vitest";
-import type { PluginRuntime } from "clawdbot/plugin-sdk";
+import type { PluginRuntime } from "aura/plugin-sdk";
 
 import {
   readNostrBusState,
@@ -21,7 +21,7 @@ async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
       resolveStateDir: (env, homedir) => {
         const override = env.CLAWDBOT_STATE_DIR?.trim();
         if (override) return override;
-        return path.join(homedir(), ".clawdbot");
+        return path.join(homedir(), ".aura");
       },
     },
   } as PluginRuntime);

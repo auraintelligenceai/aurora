@@ -89,12 +89,12 @@ If you override any of these in config or env, you must keep them unique per ins
 ## Manual env example
 
 ```bash
-CLAWDBOT_CONFIG_PATH=~/.clawdbot/main.json \
-CLAWDBOT_STATE_DIR=~/.clawdbot-main \
+CLAWDBOT_CONFIG_PATH=~/.aura/main.json \
+CLAWDBOT_STATE_DIR=~/.aura-main \
 aura_intelligence gateway --port 18789
 
-CLAWDBOT_CONFIG_PATH=~/.clawdbot/rescue.json \
-CLAWDBOT_STATE_DIR=~/.clawdbot-rescue \
+CLAWDBOT_CONFIG_PATH=~/.aura/rescue.json \
+CLAWDBOT_STATE_DIR=~/.aura-rescue \
 aura_intelligence gateway --port 19001
 ```
 

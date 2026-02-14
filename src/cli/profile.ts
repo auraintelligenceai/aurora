@@ -82,7 +82,7 @@ export function parseCliProfileArgs(argv: string[]): CliProfileParseResult {
 
 function resolveProfileStateDir(profile: string, homedir: () => string): string {
   const suffix = profile.toLowerCase() === "default" ? "" : `-${profile}`;
-  return path.join(homedir(), `.clawdbot${suffix}`);
+  return path.join(homedir(), `.aura${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {

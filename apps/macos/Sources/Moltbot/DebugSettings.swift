@@ -423,7 +423,7 @@ struct DebugSettings: View {
                                     .font(.footnote)
                                     .foregroundStyle(.secondary)
                             } else {
-                                Text("Used by the CLI session loader; stored in ~/.clawdbot/aura_intelligence.json.")
+                                Text("Used by the CLI session loader; stored in ~/.aura/aura_intelligence.json.")
                                     .font(.footnote)
                                     .foregroundStyle(.secondary)
                             }
@@ -831,7 +831,7 @@ struct DebugSettings: View {
 
     private func configURL() -> URL {
         FileManager().homeDirectoryForCurrentUser
-            .appendingPathComponent(".clawdbot")
+            .appendingPathComponent(".aura")
             .appendingPathComponent("aura_intelligence.json")
     }
 }

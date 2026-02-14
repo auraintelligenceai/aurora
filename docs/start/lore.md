@@ -88,7 +88,7 @@ At 5am, Anthropic's email arrived. By 6:14am, Peter called it: "fuck it, let's g
 
 Then the chaos began.
 
-**The Handle Snipers:** Within SECONDS of the Twitter rename, automated bots sniped @clawdbot. The squatter immediately posted a crypto wallet address. Peter's contacts at X were called in.
+**The Handle Snipers:** Within SECONDS of the Twitter rename, automated bots sniped @aura. The squatter immediately posted a crypto wallet address. Peter's contacts at X were called in.
 
 **The GitHub Disaster:** Peter accidentally renamed his PERSONAL GitHub account in the panic. Bots sniped `steipete` within minutes. GitHub's SVP was contacted.
 

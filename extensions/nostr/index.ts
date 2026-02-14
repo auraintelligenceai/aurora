@@ -1,5 +1,5 @@
-import type { aura_intelligencePluginApi, aura_intelligenceConfig } from "clawdbot/plugin-sdk";
-import { emptyPluginConfigSchema } from "clawdbot/plugin-sdk";
+import type { aura_intelligencePluginApi, aura_intelligenceConfig } from "aura/plugin-sdk";
+import { emptyPluginConfigSchema } from "aura/plugin-sdk";
 
 import { nostrPlugin } from "./src/channel.js";
 import { setNostrRuntime, getNostrRuntime } from "./src/runtime.js";

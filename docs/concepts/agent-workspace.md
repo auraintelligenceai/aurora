@@ -9,7 +9,7 @@ read_when:
 The workspace is the agent's home. It is the only working directory used for
 file tools and for workspace context. Keep it private and treat it as memory.
 
-This is separate from `~/.clawdbot/`, which stores config, credentials, and
+This is separate from `~/.aura/`, which stores config, credentials, and
 sessions.
 
 **Important:** the workspace is the **default cwd**, not a hard sandbox. Tools
@@ -17,14 +17,14 @@ resolve relative paths against the workspace, but absolute paths can still reach
 elsewhere on the host unless sandboxing is enabled. If you need isolation, use
 [`agents.defaults.sandbox`](/gateway/sandboxing) (and/or per‑agent sandbox config).
 When sandboxing is enabled and `workspaceAccess` is not `"rw"`, tools operate
-inside a sandbox workspace under `~/.clawdbot/sandboxes`, not your host workspace.
+inside a sandbox workspace under `~/.aura/sandboxes`, not your host workspace.
 
 ## Default location
 
 - Default: `~/clawd`
 - If `CLAWDBOT_PROFILE` is set and not `"default"`, the default becomes
   `~/clawd-<profile>`.
-- Override in `~/.clawdbot/aura_intelligence.json`:
+- Override in `~/.aura/aura_intelligence.json`:
 
 ```json5
 {
@@ -120,12 +120,12 @@ files.
 
 ## What is NOT in the workspace
 
-These live under `~/.clawdbot/` and should NOT be committed to the workspace repo:
+These live under `~/.aura/` and should NOT be committed to the workspace repo:
 
-- `~/.clawdbot/aura_intelligence.json` (config)
-- `~/.clawdbot/credentials/` (OAuth tokens, API keys)
-- `~/.clawdbot/agents/<agentId>/sessions/` (session transcripts + metadata)
-- `~/.clawdbot/skills/` (managed skills)
+- `~/.aura/aura_intelligence.json` (config)
+- `~/.aura/credentials/` (OAuth tokens, API keys)
+- `~/.aura/agents/<agentId>/sessions/` (session transcripts + metadata)
+- `~/.aura/skills/` (managed skills)
 
 If you need to migrate sessions or config, copy them separately and keep them
 out of version control.
@@ -199,11 +199,11 @@ git push
 Even in a private repo, avoid storing secrets in the workspace:
 
 - API keys, OAuth tokens, passwords, or private credentials.
-- Anything under `~/.clawdbot/`.
+- Anything under `~/.aura/`.
 - Raw dumps of chats or sensitive attachments.
 
 If you must store sensitive references, use placeholders and keep the real
-secret elsewhere (password manager, environment variables, or `~/.clawdbot/`).
+secret elsewhere (password manager, environment variables, or `~/.aura/`).
 
 Suggested `.gitignore` starter:
 
@@ -218,9 +218,9 @@ Suggested `.gitignore` starter:
 ## Moving the workspace to a new machine
 
 1. Clone the repo to the desired path (default `~/clawd`).
-2. Set `agents.defaults.workspace` to that path in `~/.clawdbot/aura_intelligence.json`.
+2. Set `agents.defaults.workspace` to that path in `~/.aura/aura_intelligence.json`.
 3. Run `aura_intelligence setup --workspace <path>` to seed any missing files.
-4. If you need sessions, copy `~/.clawdbot/agents/<agentId>/sessions/` from the
+4. If you need sessions, copy `~/.aura/agents/<agentId>/sessions/` from the
    old machine separately.
 
 ## Advanced notes

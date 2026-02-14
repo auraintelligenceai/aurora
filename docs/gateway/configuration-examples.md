@@ -19,7 +19,7 @@ Examples below are aligned with the current config schema. For the exhaustive re
 }
 ```
 
-Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that number.
+Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number.
 
 ### Recommended starter
 ```json5
@@ -155,7 +155,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
       discord: { mode: "idle", idleMinutes: 10080 }
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.clawdbot/agents/default/sessions/sessions.json",
+    store: "~/.aura/agents/default/sessions/sessions.json",
     typingIntervalSeconds: 5,
     sendPolicy: {
       default: "allow",
@@ -273,7 +273,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
       sandbox: {
         mode: "non-main",
         perSession: true,
-        workspaceRoot: "~/.clawdbot/sandboxes",
+        workspaceRoot: "~/.aura/sandboxes",
         docker: {
           image: "aura_intelligence-sandbox:bookworm-slim",
           workdir: "/workspace",
@@ -340,7 +340,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
   // Cron jobs
   cron: {
     enabled: true,
-    store: "~/.clawdbot/cron/cron.json",
+    store: "~/.aura/cron/cron.json",
     maxConcurrentRuns: 2
   },
 
@@ -350,7 +350,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
     path: "/hooks",
     token: "shared-secret",
     presets: ["gmail"],
-    transformsDir: "~/.clawdbot/hooks",
+    transformsDir: "~/.aura/hooks",
     mappings: [
       {
         id: "gmail-hook",

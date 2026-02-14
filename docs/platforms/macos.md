@@ -33,7 +33,7 @@ The app does not spawn the Gateway as a child process.
 ## Launchd control
 
 The app manages a per‑user LaunchAgent labeled `bot.molt.gateway`
-(or `bot.molt.<profile>` when using `--profile`/`CLAWDBOT_PROFILE`; legacy `com.clawdbot.*` still unloads).
+(or `bot.molt.<profile>` when using `--profile`/`CLAWDBOT_PROFILE`; legacy `com.aura.*` still unloads).
 
 ```bash
 launchctl kickstart -k gui/$UID/bot.molt.gateway
@@ -74,7 +74,7 @@ Gateway -> Node Service (WS)
 Security + ask + allowlist are stored locally on the Mac in:
 
 ```
-~/.clawdbot/exec-approvals.json
+~/.aura/exec-approvals.json
 ```
 
 Example:

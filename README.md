@@ -395,7 +395,7 @@ Runbook: [iOS connect](https://docs.auraintelligence.ai/platforms/ios).
 
 ## Configuration
 
-Minimal `~/.clawdbot/aura_intelligence.json` (model + defaults):
+Minimal `~/.aura/aura_intelligence.json` (model + defaults):
 
 ```json5
 {
@@ -417,7 +417,7 @@ Details: [Security guide](https://docs.auraintelligence.ai/gateway/security) · 
 
 ### [WhatsApp](https://docs.auraintelligence.ai/channels/whatsapp)
 
-- Link the device: `pnpm aura_intelligence channels login` (stores creds in `~/.clawdbot/credentials`).
+- Link the device: `pnpm aura_intelligence channels login` (stores creds in `~/.aura/credentials`).
 - Allowlist who can talk to the assistant via `channels.whatsapp.allowFrom`.
 - If `channels.whatsapp.groups` is set, it becomes a group allowlist; include `"*"` to allow all.
 

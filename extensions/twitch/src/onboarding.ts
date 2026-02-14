@@ -8,11 +8,11 @@ import {
   type ChannelOnboardingAdapter,
   type ChannelOnboardingDmPolicy,
   type WizardPrompter,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, getAccountConfig } from "./config.js";
 import { isAccountConfigured } from "./utils/twitch.js";
 import type { TwitchAccountConfig, TwitchRole } from "./types.js";
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
 
 const channel = "twitch" as const;
 

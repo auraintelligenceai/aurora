@@ -47,7 +47,7 @@ final class PeekabooBridgeHostCoordinator {
             allowlistedBundles: allowlistedBundles)
 
         let host = PeekabooBridgeHost(
-            socketPath: PeekabooBridgeConstants.clawdbotSocketPath,
+            socketPath: PeekabooBridgeConstants.auraSocketPath,
             server: server,
             allowedTeamIDs: allowlistedTeamIDs,
             requestTimeoutSec: 10)
@@ -57,7 +57,7 @@ final class PeekabooBridgeHostCoordinator {
 
         await host.start()
         self.logger
-            .info("PeekabooBridge host started at \(PeekabooBridgeConstants.clawdbotSocketPath, privacy: .public)")
+            .info("PeekabooBridge host started at \(PeekabooBridgeConstants.auraSocketPath, privacy: .public)")
     }
 
     private static func currentTeamID() -> String? {

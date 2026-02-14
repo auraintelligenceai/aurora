@@ -6,16 +6,16 @@ describe("buildPairingReply", () => {
   let previousProfile: string | undefined;
 
   beforeEach(() => {
-    previousProfile = process.env.CLAWDBOT_PROFILE;
-    process.env.CLAWDBOT_PROFILE = "isolated";
+    previousProfile = process.env.AURA_PROFILE;
+    process.env.AURA_PROFILE = "isolated";
   });
 
   afterEach(() => {
     if (previousProfile === undefined) {
-      delete process.env.CLAWDBOT_PROFILE;
+      delete process.env.AURA_PROFILE;
       return;
     }
-    process.env.CLAWDBOT_PROFILE = previousProfile;
+    process.env.AURA_PROFILE = previousProfile;
   });
 
   const cases = [
@@ -51,7 +51,7 @@ describe("buildPairingReply", () => {
       const text = buildPairingReply(testCase);
       expect(text).toContain(testCase.idLine);
       expect(text).toContain(`Pairing code: ${testCase.code}`);
-      // CLI commands should respect CLAWDBOT_PROFILE when set (most tests run with isolated profile)
+      // CLI commands should respect AURA_PROFILE when set (most tests run with isolated profile)
       const commandRe = new RegExp(
         `(?:aura_intelligence|aura_intelligence) --profile isolated pairing approve ${testCase.channel} <code>`,
       );

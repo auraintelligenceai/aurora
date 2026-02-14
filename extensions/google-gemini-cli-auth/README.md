@@ -7,7 +7,7 @@ OAuth provider plugin for **Gemini CLI** (Google Code Assist).
 Bundled plugins are disabled by default. Enable this one:
 
 ```bash
-clawdbot plugins enable google-gemini-cli-auth
+aura plugins enable google-gemini-cli-auth
 ```
 
 Restart the Gateway after enabling.
@@ -15,7 +15,7 @@ Restart the Gateway after enabling.
 ## Authenticate
 
 ```bash
-clawdbot models auth login --provider google-gemini-cli --set-default
+aura models auth login --provider google-gemini-cli --set-default
 ```
 
 ## Requirements

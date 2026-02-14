@@ -3,7 +3,7 @@ import type { AddressInfo } from "node:net";
 
 import { describe, expect, it } from "vitest";
 
-import type { aura_intelligenceConfig, PluginRuntime } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig, PluginRuntime } from "aura/plugin-sdk";
 import type { ResolvedZaloAccount } from "./types.js";
 import { handleZaloWebhookRequest, registerZaloWebhookTarget } from "./monitor.js";
 

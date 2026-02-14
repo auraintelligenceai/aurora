@@ -11,7 +11,7 @@ aura_intelligence runs a single embedded agent runtime derived from **p-mono**.
 
 aura_intelligence uses a single agent workspace directory (`agents.defaults.workspace`) as the agent’s **only** working directory (`cwd`) for tools and context.
 
-Recommended: use `aura_intelligence setup` to create `~/.clawdbot/aura_intelligence.json` if missing and initialize the workspace files.
+Recommended: use `aura_intelligence setup` to create `~/.aura/aura_intelligence.json` if missing and initialize the workspace files.
 
 Full workspace layout + backup guide: [Agent workspace](/concepts/agent-workspace)
 
@@ -54,7 +54,7 @@ guidance for how *you* want them used.
 
 aura_intelligence loads skills from three locations (workspace wins on name conflict):
 - Bundled (shipped with the install)
-- Managed/local: `~/.clawdbot/skills`
+- Managed/local: `~/.aura/skills`
 - Workspace: `<workspace>/skills`
 
 Skills can be gated by config/env (see `skills` in [Gateway configuration](/gateway/configuration)).
@@ -69,7 +69,7 @@ aura_intelligence reuses pieces of the p-mono codebase (models/tools), but **ses
 ## Sessions
 
 Session transcripts are stored as JSONL at:
-- `~/.clawdbot/agents/<agentId>/sessions/<SessionId>.jsonl`
+- `~/.aura/agents/<agentId>/sessions/<SessionId>.jsonl`
 
 The session ID is stable and chosen by aura_intelligence.
 Legacy Pi/Tau session folders are **not** read.

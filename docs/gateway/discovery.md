@@ -66,7 +66,7 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
 
 Disable/override:
 - `CLAWDBOT_DISABLE_BONJOUR=1` disables advertising.
-- `gateway.bind` in `~/.clawdbot/aura_intelligence.json` controls the Gateway bind mode.
+- `gateway.bind` in `~/.aura/aura_intelligence.json` controls the Gateway bind mode.
 - `CLAWDBOT_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
 - `CLAWDBOT_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
 - `CLAWDBOT_CLI_PATH` overrides the advertised CLI path.

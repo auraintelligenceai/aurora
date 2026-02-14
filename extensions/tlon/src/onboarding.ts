@@ -5,11 +5,11 @@ import {
   normalizeAccountId,
   type ChannelOnboardingAdapter,
   type WizardPrompter,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { listTlonAccountIds, resolveTlonAccount } from "./types.js";
 import type { TlonResolvedAccount } from "./types.js";
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
 
 const channel = "tlon" as const;
 

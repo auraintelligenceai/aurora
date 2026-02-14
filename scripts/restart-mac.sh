@@ -19,7 +19,7 @@ NO_SIGN=0
 SIGN=0
 AUTO_DETECT_SIGNING=1
 GATEWAY_WAIT_SECONDS="${CLAWDBOT_GATEWAY_WAIT_SECONDS:-0}"
-LAUNCHAGENT_DISABLE_MARKER="${HOME}/.clawdbot/disable-launchagent"
+LAUNCHAGENT_DISABLE_MARKER="${HOME}/.aura/disable-launchagent"
 ATTACH_ONLY=1
 
 log()  { printf '%s\n' "$*"; }
@@ -100,7 +100,7 @@ for arg in "$@"; do
       log "  node aura_intelligence.mjs daemon restart"
       log ""
       log "Reset unsigned overrides:"
-      log "  rm ~/.clawdbot/disable-launchagent"
+      log "  rm ~/.aura/disable-launchagent"
       log ""
       log "Default behavior: Auto-detect signing keys, fallback to --no-sign if none found"
       exit 0
@@ -173,7 +173,7 @@ fi
 if [ "$NO_SIGN" -eq 1 ]; then
   export ALLOW_ADHOC_SIGNING=1
   export SIGN_IDENTITY="-"
-  mkdir -p "${HOME}/.clawdbot"
+  mkdir -p "${HOME}/.aura"
   run_step "disable launchagent writes" /usr/bin/touch "${LAUNCHAGENT_DISABLE_MARKER}"
 elif [ "$SIGN" -eq 1 ]; then
   if ! check_signing_keys; then
@@ -227,7 +227,7 @@ if [ "$NO_SIGN" -eq 1 ] && [ "$ATTACH_ONLY" -ne 1 ]; then
       const fs = require("node:fs");
       const path = require("node:path");
       try {
-        const raw = fs.readFileSync(path.join(process.env.HOME, ".clawdbot", "aura_intelligence.json"), "utf8");
+        const raw = fs.readFileSync(path.join(process.env.HOME, ".aura", "aura_intelligence.json"), "utf8");
         const cfg = JSON.parse(raw);
         const port = cfg && cfg.gateway && typeof cfg.gateway.port === "number" ? cfg.gateway.port : 18789;
         process.stdout.write(String(port));
