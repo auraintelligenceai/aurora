@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Configuration
-SUBSYSTEM="bot.molt"
+SUBSYSTEM="auraintelligence.ai"
 DEFAULT_LEVEL="info"
 
 # Colors for output
@@ -21,7 +21,7 @@ handle_sudo_error() {
     echo -e "\n${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${YELLOW}⚠️  Password Required for Log Access${NC}"
     echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
-    echo -e "clawlog needs to use sudo to show complete log data (Apple hides sensitive info by default)."
+    echo -e "auralog needs to use sudo to show complete log data (Apple hides sensitive info by default)."
     echo -e "\nTo avoid password prompts, configure passwordless sudo for the log command:"
     echo -e "See: ${BLUE}apple/docs/logging-private-fix.md${NC}\n"
     echo -e "Quick fix:"
@@ -48,17 +48,17 @@ SHOW_HELP=false
 # Function to show usage
 show_usage() {
     cat << EOF
-clawlog - aura_intelligence Logging Utility
+auralog - aura_intelligence Logging Utility
 
 USAGE:
-    clawlog [OPTIONS]
+    auralog [OPTIONS]
 
 DESCRIPTION:
     View aura_intelligence logs with full details (bypasses Apple's privacy redaction).
     Requires sudo access configured for /usr/bin/log command.
 
 LOG FLOW ARCHITECTURE:
-    aura_intelligence logs flow through the macOS unified log (subsystem: bot.molt).
+    aura_intelligence logs flow through the macOS unified log (subsystem: auraintelligence.ai).
 
 LOG CATEGORIES (examples):
     • voicewake           - Voice wake detection/test harness

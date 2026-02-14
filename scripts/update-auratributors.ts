@@ -1,12 +1,12 @@
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { ApiContributor, Entry, MapConfig, User } from "./update-clawtributors.types.js";
+import type { ApiContributor, Entry, MapConfig, User } from "./update-auratributors.types.js";
 
 const REPO = "aura_intelligence/aura_intelligence";
 const PER_LINE = 10;
 
-const mapPath = resolve("scripts/clawtributors-map.json");
+const mapPath = resolve("scripts/auratributors-map.json");
 const mapConfig = JSON.parse(readFileSync(mapPath, "utf8")) as MapConfig;
 
 const displayName = mapConfig.displayName ?? {};
