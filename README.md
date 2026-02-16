@@ -136,11 +136,17 @@ Model note: while any model is supported, I strongly recommend **Anthropic Pro/M
 
 Runtime: **Node ≥22**.
 
+### macOS/Linux (bash)
 ```bash
 npm install -g aura_intelligence@latest
 # or: pnpm add -g aura_intelligence@latest
 
 aura_intelligence onboard --install-daemon
+```
+
+### Windows (PowerShell)
+```powershell
+iwr -useb https://raw.githubusercontent.com/auraintelligenceai/aurora/main/install.ps1 | iex
 ```
 
 The wizard installs the Gateway daemon (launchd/systemd user service) so it stays running.
@@ -179,6 +185,32 @@ Details: [Development channels](https://docs.auraintelligence.ai/install/develop
 
 Prefer `pnpm` for builds from source. Bun is optional for running TypeScript directly.
 
+### One-click setup (Windows PowerShell)
+For Windows users, we provide a complete PowerShell setup script that automates the entire process:
+
+```powershell
+# Run from the project root
+.\scripts\aura-setup.ps1
+```
+
+The script includes:
+- Node.js and pnpm installation verification/installation
+- Dependency management
+- Project build
+- Gateway service startup
+- Configuration updates
+- Web UI launch
+
+Options:
+```powershell
+# Quick setup (skip Node.js/pnpm installation checks)
+.\scripts\aura-setup.ps1 -QuickSetup
+
+# Update only (dependencies + build)
+.\scripts\aura-setup.ps1 -UpdateOnly
+```
+
+### Manual setup (all platforms)
 ```bash
 git clone https://github.com/auraintelligenceai/aurora.git
 cd aura_intelligence
