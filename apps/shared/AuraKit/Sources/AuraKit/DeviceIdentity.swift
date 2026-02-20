@@ -16,7 +16,7 @@ public struct DeviceIdentity: Codable, Sendable {
 }
 
 enum DeviceIdentityPaths {
-    private static let stateDirEnv = "CLAWDBOT_STATE_DIR"
+    private static let stateDirEnv = "AURA_STATE_DIR"
 
     static func stateDirURL() -> URL {
         if let raw = getenv(self.stateDirEnv) {

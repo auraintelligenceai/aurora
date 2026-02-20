@@ -14,8 +14,8 @@ enum aura_intelligenceEnv {
 }
 
 enum aura_intelligencePaths {
-    private static let configPathEnv = "CLAWDBOT_CONFIG_PATH"
-    private static let stateDirEnv = "CLAWDBOT_STATE_DIR"
+    private static let configPathEnv = "AURA_CONFIG_PATH"
+    private static let stateDirEnv = "AURA_STATE_DIR"
 
     static var stateDirURL: URL {
         if let override = aura_intelligenceEnv.path(self.stateDirEnv) {

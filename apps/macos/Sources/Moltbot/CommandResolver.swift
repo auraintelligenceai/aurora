@@ -36,9 +36,9 @@ enum CommandResolver {
 
     static func errorCommand(with message: String) -> [String] {
         let script = """
-        cat <<'__CLAWDBOT_ERR__' >&2
+        cat <<'__AURA_ERR__' >&2
         \(message)
-        __CLAWDBOT_ERR__
+        __AURA_ERR__
         exit 1
         """
         return ["/bin/sh", "-c", script]

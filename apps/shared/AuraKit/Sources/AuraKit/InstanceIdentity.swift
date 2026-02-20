@@ -5,7 +5,7 @@ import UIKit
 #endif
 
 public enum InstanceIdentity {
-    private static let suiteName = "bot.molt.shared"
+    private static let suiteName = "aura.shared"
     private static let legacySuiteName = "com.aura.shared"
     private static let instanceIdKey = "instanceId"
 

@@ -285,7 +285,7 @@ private func bestEffortEndpoint(opts: ConnectOptions, config: GatewayConfig) -> 
 
 private func resolvedToken(opts: ConnectOptions, mode: String, config: GatewayConfig) -> String? {
     if let token = opts.token, !token.isEmpty { return token }
-    if let token = ProcessInfo.processInfo.environment["CLAWDBOT_GATEWAY_TOKEN"], !token.isEmpty {
+    if let token = ProcessInfo.processInfo.environment["AURA_GATEWAY_TOKEN"], !token.isEmpty {
         return token
     }
     if mode == "remote" {
@@ -296,7 +296,7 @@ private func resolvedToken(opts: ConnectOptions, mode: String, config: GatewayCo
 
 private func resolvedPassword(opts: ConnectOptions, mode: String, config: GatewayConfig) -> String? {
     if let password = opts.password, !password.isEmpty { return password }
-    if let password = ProcessInfo.processInfo.environment["CLAWDBOT_GATEWAY_PASSWORD"], !password.isEmpty {
+    if let password = ProcessInfo.processInfo.environment["AURA_GATEWAY_PASSWORD"], !password.isEmpty {
         return password
     }
     if mode == "remote" {

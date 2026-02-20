@@ -1,7 +1,7 @@
 import Foundation
 
 enum GatewayLaunchAgentManager {
-    private static let logger = Logger(subsystem: "bot.molt", category: "gateway.launchd")
+    private static let logger = Logger(subsystem: "aura", category: "gateway.launchd")
     private static let disableLaunchAgentMarker = ".aura/disable-launchagent"
 
     private static var disableLaunchAgentMarkerURL: URL {

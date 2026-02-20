@@ -14,7 +14,7 @@ struct aura_intelligenceOAuthStoreTests {
 
     @Test
     func usesEnvOverrideForaura_intelligenceOAuthDir() throws {
-        let key = "CLAWDBOT_OAUTH_DIR"
+        let key = "AURA_OAUTH_DIR"
         let previous = ProcessInfo.processInfo.environment[key]
         defer {
             if let previous {

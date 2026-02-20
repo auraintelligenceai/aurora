@@ -423,7 +423,7 @@ struct DebugSettings: View {
                                     .font(.footnote)
                                     .foregroundStyle(.secondary)
                             } else {
-                                Text("Used by the CLI session loader; stored in ~/.aura/aura_intelligence.json.")
+                                Text("Used by the CLI session loader; stored in ~/.aura_intelligence/aura_intelligence.json.")
                                     .font(.footnote)
                                     .foregroundStyle(.secondary)
                             }

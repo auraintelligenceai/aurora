@@ -1,4 +1,4 @@
-package bot.molt.android.node
+package aura.android.node
 
 import android.content.Context
 import android.hardware.display.DisplayManager
@@ -6,7 +6,7 @@ import android.media.MediaRecorder
 import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.util.Base64
-import bot.molt.android.ScreenCaptureRequester
+import aura.android.ScreenCaptureRequester
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -17,13 +17,13 @@ class ScreenRecordManager(private val context: Context) {
   data class Payload(val payloadJson: String)
 
   @Volatile private var screenCaptureRequester: ScreenCaptureRequester? = null
-  @Volatile private var permissionRequester: bot.molt.android.PermissionRequester? = null
+  @Volatile private var permissionRequester: aura.android.PermissionRequester? = null
 
   fun attachScreenCaptureRequester(requester: ScreenCaptureRequester) {
     screenCaptureRequester = requester
   }
 
-  fun attachPermissionRequester(requester: bot.molt.android.PermissionRequester) {
+  fun attachPermissionRequester(requester: aura.android.PermissionRequester) {
     permissionRequester = requester
   }
 

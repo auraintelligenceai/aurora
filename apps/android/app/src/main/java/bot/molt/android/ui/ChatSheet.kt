@@ -1,8 +1,8 @@
-package bot.molt.android.ui
+package aura.android.ui
 
 import androidx.compose.runtime.Composable
-import bot.molt.android.MainViewModel
-import bot.molt.android.ui.chat.ChatSheetContent
+import aura.android.MainViewModel
+import aura.android.ui.chat.ChatSheetContent
 
 @Composable
 fun ChatSheet(viewModel: MainViewModel) {

@@ -196,7 +196,7 @@ enum DebugActions {
     private static func resolveSessionStorePath() -> String {
         let defaultPath = SessionLoader.defaultStorePath
         let configURL = FileManager().homeDirectoryForCurrentUser
-            .appendingPathComponent(".aura/aura_intelligence.json")
+            .appendingPathComponent(".aura_intelligence/aura_intelligence.json")
         guard
             let data = try? Data(contentsOf: configURL),
             let parsed = try? JSONSerialization.jsonObject(with: data) as? [String: Any],

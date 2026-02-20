@@ -1,4 +1,4 @@
-package bot.molt.android
+package aura.android
 
 import android.content.Context
 import android.os.Build

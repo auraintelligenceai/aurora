@@ -651,7 +651,7 @@ extension OnboardingView {
                                     let saved = await self.saveAgentWorkspace(AgentWorkspace.displayPath(for: url))
                                     if saved {
                                         self.workspaceStatus =
-                                            "Saved to ~/.aura/aura_intelligence.json (agents.defaults.workspace)"
+                                            "Saved to ~/.aura_intelligence/aura_intelligence.json (agents.defaults.workspace)"
                                     }
                                 }
                             }

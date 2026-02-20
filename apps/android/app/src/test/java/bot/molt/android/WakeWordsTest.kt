@@ -1,4 +1,4 @@
-package bot.molt.android
+package aura.android
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull

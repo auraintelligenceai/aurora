@@ -36,7 +36,7 @@ actor CameraCaptureService {
         }
     }
 
-    private let logger = Logger(subsystem: "bot.molt", category: "camera")
+    private let logger = Logger(subsystem: "aura", category: "camera")
 
     func listDevices() -> [CameraDeviceInfo] {
         Self.availableCameras().map { device in

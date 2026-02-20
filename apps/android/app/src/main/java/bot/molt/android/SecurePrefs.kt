@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package bot.molt.android
+package aura.android
 
 import android.content.Context
 import androidx.core.content.edit

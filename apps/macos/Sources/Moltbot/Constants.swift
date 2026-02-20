@@ -1,7 +1,7 @@
 import Foundation
 
-let launchdLabel = "bot.molt.mac"
-let gatewayLaunchdLabel = "bot.molt.gateway"
+let launchdLabel = "aura.mac"
+let gatewayLaunchdLabel = "aura.gateway"
 let onboardingVersionKey = "aura_intelligence.onboardingVersion"
 let currentOnboardingVersion = 7
 let pauseDefaultsKey = "aura_intelligence.pauseEnabled"
