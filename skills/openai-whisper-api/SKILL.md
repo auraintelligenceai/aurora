@@ -30,7 +30,7 @@ Defaults:
 
 ## API key
 
-Set `OPENAI_API_KEY`, or configure it in `~/.aura/aura_intelligence.json`:
+Set `OPENAI_API_KEY`, or configure it in `~/.aura_intelligence/aura_intelligence.json`:
 
 ```json5
 {

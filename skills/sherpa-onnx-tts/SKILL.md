@@ -13,7 +13,7 @@ Local TTS using the sherpa-onnx offline CLI.
 1) Download the runtime for your OS (extracts into `~/.aura/tools/sherpa-onnx-tts/runtime`)
 2) Download a voice model (extracts into `~/.aura/tools/sherpa-onnx-tts/models`)
 
-Update `~/.aura/aura_intelligence.json`:
+Update `~/.aura_intelligence/aura_intelligence.json`:
 
 ```json5
 {
