@@ -12,7 +12,7 @@ import { setMSTeamsRuntime } from "./runtime.js";
 const runtimeStub = {
   state: {
     resolveStateDir: (env: NodeJS.ProcessEnv = process.env, homedir?: () => string) => {
-      const override = env.CLAWDBOT_STATE_DIR?.trim();
+      const override = env.AURA_STATE_DIR?.trim();
       if (override) return override;
       const resolvedHome = homedir ? homedir() : os.homedir();
       return path.join(resolvedHome, ".aura");
@@ -30,7 +30,7 @@ describe("msteams conversation store (fs)", () => {
 
     const env: NodeJS.ProcessEnv = {
       ...process.env,
-      CLAWDBOT_STATE_DIR: stateDir,
+      AURA_STATE_DIR: stateDir,
     };
 
     const store = createMSTeamsConversationStoreFs({ env, ttlMs: 1_000 });
