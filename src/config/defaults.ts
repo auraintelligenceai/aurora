@@ -14,7 +14,11 @@ type AnthropicAuthDefaultsMode = "api_key" | "oauth";
 const DEFAULT_MODEL_ALIASES: Readonly<Record<string, string>> = {
   // Anthropic (pi-ai catalog uses "latest" ids without date suffix)
   opus: "anthropic/claude-opus-4-5",
-  sonnet: "anthropic/claude-sonnet-4-5",
+  sonnet: "anthropic/claude-sonnet-4-6",
+  "sonnet-4-6": "anthropic/claude-sonnet-4-6",
+  "claude-3-7": "anthropic/claude-3-7-sonnet",
+  "claude-3-7-sonnet": "anthropic/claude-3-7-sonnet",
+  "claude-3-7-opus": "anthropic/claude-3-7-opus",
 
   // OpenAI
   gpt: "openai/gpt-5.2",
@@ -23,6 +27,21 @@ const DEFAULT_MODEL_ALIASES: Readonly<Record<string, string>> = {
   // Google Gemini (3.x are preview ids in the catalog)
   gemini: "google/gemini-3-pro-preview",
   "gemini-flash": "google/gemini-3-flash-preview",
+
+  // DeepSeek
+  deepseek: "deepseek/deepseek-chat",
+  "deepseek-coder": "deepseek/deepseek-coder",
+  "deepseek-llama": "deepseek/deepseek-llama",
+
+  // Qwen
+  qwen: "qwen/qwen-turbo",
+  "qwen-plus": "qwen/qwen-plus",
+  "qwen-max": "qwen/qwen-max",
+
+  // Z.AI Coding Plan
+  zai: "zai/zai-coding",
+  "z.ai": "zai/zai-coding",
+  "z-ai": "zai/zai-coding",
 };
 
 const DEFAULT_MODEL_COST: ModelDefinitionConfig["cost"] = {

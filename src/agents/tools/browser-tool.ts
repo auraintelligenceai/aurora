@@ -208,7 +208,7 @@ function resolveBrowserBaseUrl(params: {
   }
   if (!resolved.enabled) {
     throw new Error(
-      "Browser control is disabled. Set browser.enabled=true in ~/.aura/aura_intelligence.json.",
+      "Browser control is disabled. Set browser.enabled=true in ~/.aura_intelligence/aura_intelligence.json.",
     );
   }
   return undefined;

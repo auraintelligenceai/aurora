@@ -1,0 +1,34 @@
+﻿
+> export async function resolveApiKeyForProvider(params: {
+    provider: string;
+    cfg?: aura_intelligenceConfig;
+    profileId?: string;
+    preferredProfile?: string;
+    store?: AuthProfileStore;
+    agentDir?: string;
+  }): Promise<ResolvedProviderAuth> {
+    const { provider, cfg, profileId, preferredProfile } = params;
+    const store = params.store ?? ensureAuthProfileStore(params.agentDir);
+  
+    if (profileId) {
+      const resolved = await resolveApiKeyForProfile({
+        cfg,
+        store,
+        profileId,
+        agentDir: params.agentDir,
+      });
+      if (!resolved) {
+        throw new Error(`No credentials found for profile "${profileId}".`);
+      }
+      const mode = store.profiles[profileId]?.type;
+      return {
+        apiKey: resolved.apiKey,
+        profileId,
+        source: `profile:${profileId}`,
+        mode: mode === "oauth" ? "oauth" : mode === "token" ? "token" : "api-key",
+      };
+    }
+  
+    const authOverride = resolveProviderAuthOverride(cfg, provider);
+
+

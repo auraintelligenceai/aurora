@@ -80,7 +80,7 @@ describe("createCacheTrace", () => {
         },
       },
       env: {
-        CLAWDBOT_CACHE_TRACE: "0",
+        AURA_CACHE_TRACE: "0",
       },
       writer: {
         filePath: "memory",

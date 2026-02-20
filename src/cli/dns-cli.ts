@@ -136,7 +136,7 @@ export function registerDnsCli(program: Command) {
         }).trimEnd(),
       );
       defaultRuntime.log("");
-      defaultRuntime.log(theme.heading("Recommended ~/.aura/aura_intelligence.json:"));
+      defaultRuntime.log(theme.heading("Recommended ~/.aura_intelligence/aura_intelligence.json:"));
       defaultRuntime.log(
         JSON.stringify(
           {
@@ -237,7 +237,7 @@ export function registerDnsCli(program: Command) {
         defaultRuntime.log("");
         defaultRuntime.log(
           theme.muted(
-            "Note: enable discovery.wideArea.enabled in ~/.aura/aura_intelligence.json on the gateway and restart the gateway so it writes the DNS-SD zone.",
+            "Note: enable discovery.wideArea.enabled in ~/.aura_intelligence/aura_intelligence.json on the gateway and restart the gateway so it writes the DNS-SD zone.",
           ),
         );
       }

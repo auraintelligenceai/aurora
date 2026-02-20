@@ -206,6 +206,15 @@ export async function resolveApiKeyForProvider(params: {
     return resolveAwsSdkAuthInfo();
   }
 
+  if (normalized === "ollama" || normalized === "vllm") {
+    // Ollama and vLLM don't require an API key for local usage
+    return {
+      apiKey: undefined,
+      source: "none",
+      mode: "api-key",
+    };
+  }
+
   if (provider === "openai") {
     const hasCodex = listProfilesForProvider(store, "openai-codex").length > 0;
     if (hasCodex) {
@@ -269,6 +278,10 @@ export function resolveEnvApiKey(provider: string): EnvApiKeyResult | null {
     return pick("QWEN_OAUTH_TOKEN") ?? pick("QWEN_PORTAL_API_KEY");
   }
 
+  if (normalized === "vllm") {
+    return pick("VLLM_API_KEY") ?? pick("VLLM_TOKEN");
+  }
+
   const envMap: Record<string, string> = {
     openai: "OPENAI_API_KEY",
     google: "GEMINI_API_KEY",
@@ -285,6 +298,9 @@ export function resolveEnvApiKey(provider: string): EnvApiKeyResult | null {
     venice: "VENICE_API_KEY",
     mistral: "MISTRAL_API_KEY",
     opencode: "OPENCODE_API_KEY",
+    deepseek: "DEEPSEEK_API_KEY",
+    qwen: "QWEN_API_KEY",
+    vllm: "VLLM_API_KEY",
   };
   const envVar = envMap[normalized];
   if (!envVar) return null;
@@ -352,6 +368,13 @@ export async function getApiKeyForModel(params: {
 }
 
 export function requireApiKey(auth: ResolvedProviderAuth, provider: string): string {
+  const normalized = normalizeProviderId(provider);
+  
+  if (normalized === "ollama" || normalized === "vllm") {
+    // Ollama and vLLM don't require an API key for local usage
+    return "";
+  }
+  
   const key = auth.apiKey?.trim();
   if (key) return key;
   throw new Error(`No API key resolved for provider "${provider}" (auth mode: ${auth.mode}).`);

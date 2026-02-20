@@ -35,6 +35,9 @@ const hasAuthForProvider = (
   cfg: aura_intelligenceConfig,
   authStore: AuthProfileStore,
 ) => {
+  // Ollama doesn't require an API key for local usage
+  if (provider.toLowerCase() === "ollama") return true;
+  
   if (listProfilesForProvider(authStore, provider).length > 0) return true;
   if (provider === "amazon-bedrock" && resolveAwsSdkEnvVarName()) return true;
   if (resolveEnvApiKey(provider)) return true;

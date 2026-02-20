@@ -47,7 +47,7 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     )
     .option(
       "--profile <name>",
-      "Use a named profile (isolates CLAWDBOT_STATE_DIR/CLAWDBOT_CONFIG_PATH under ~/.aura-<name>)",
+      "Use a named profile (isolates AURA_STATE_DIR/AURA_CONFIG_PATH under ~/.aura-<name>)",
     );
 
   program.option("--no-color", "Disable ANSI colors", false);

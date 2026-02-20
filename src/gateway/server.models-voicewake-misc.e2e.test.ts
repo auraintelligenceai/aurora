@@ -93,12 +93,12 @@ const emptyRegistry = createRegistry([]);
 describe("gateway server models + voicewake", () => {
   const setTempHome = (homeDir: string) => {
     const prevHome = process.env.HOME;
-    const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
+    const prevStateDir = process.env.AURA_STATE_DIR;
     const prevUserProfile = process.env.USERPROFILE;
     const prevHomeDrive = process.env.HOMEDRIVE;
     const prevHomePath = process.env.HOMEPATH;
     process.env.HOME = homeDir;
-    process.env.CLAWDBOT_STATE_DIR = path.join(homeDir, ".aura");
+    process.env.AURA_STATE_DIR = path.join(homeDir, ".aura");
     process.env.USERPROFILE = homeDir;
     if (process.platform === "win32") {
       const parsed = path.parse(homeDir);
@@ -112,9 +112,9 @@ describe("gateway server models + voicewake", () => {
         process.env.HOME = prevHome;
       }
       if (prevStateDir === undefined) {
-        delete process.env.CLAWDBOT_STATE_DIR;
+        delete process.env.AURA_STATE_DIR;
       } else {
-        process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+        process.env.AURA_STATE_DIR = prevStateDir;
       }
       if (prevUserProfile === undefined) {
         delete process.env.USERPROFILE;
@@ -315,14 +315,14 @@ describe("gateway server models + voicewake", () => {
 
 describe("gateway server misc", () => {
   test("hello-ok advertises the gateway port for canvas host", async () => {
-    const prevToken = process.env.CLAWDBOT_GATEWAY_TOKEN;
-    const prevCanvasPort = process.env.CLAWDBOT_CANVAS_HOST_PORT;
-    process.env.CLAWDBOT_GATEWAY_TOKEN = "secret";
+    const prevToken = process.env.AURA_GATEWAY_TOKEN;
+    const prevCanvasPort = process.env.AURA_CANVAS_HOST_PORT;
+    process.env.AURA_GATEWAY_TOKEN = "secret";
     testTailnetIPv4.value = "100.64.0.1";
     testState.gatewayBind = "lan";
     const canvasPort = await getFreePort();
     testState.canvasHostPort = canvasPort;
-    process.env.CLAWDBOT_CANVAS_HOST_PORT = String(canvasPort);
+    process.env.AURA_CANVAS_HOST_PORT = String(canvasPort);
 
     const testPort = await getFreePort();
     const canvasHostUrl = resolveCanvasHostUrl({
@@ -332,14 +332,14 @@ describe("gateway server misc", () => {
     });
     expect(canvasHostUrl).toBe(`http://100.64.0.1:${canvasPort}`);
     if (prevToken === undefined) {
-      delete process.env.CLAWDBOT_GATEWAY_TOKEN;
+      delete process.env.AURA_GATEWAY_TOKEN;
     } else {
-      process.env.CLAWDBOT_GATEWAY_TOKEN = prevToken;
+      process.env.AURA_GATEWAY_TOKEN = prevToken;
     }
     if (prevCanvasPort === undefined) {
-      delete process.env.CLAWDBOT_CANVAS_HOST_PORT;
+      delete process.env.AURA_CANVAS_HOST_PORT;
     } else {
-      process.env.CLAWDBOT_CANVAS_HOST_PORT = prevCanvasPort;
+      process.env.AURA_CANVAS_HOST_PORT = prevCanvasPort;
     }
   });
 
@@ -375,8 +375,8 @@ describe("gateway server misc", () => {
   });
 
   test("auto-enables configured channel plugins on startup", async () => {
-    const configPath = process.env.CLAWDBOT_CONFIG_PATH;
-    if (!configPath) throw new Error("Missing CLAWDBOT_CONFIG_PATH");
+    const configPath = process.env.AURA_CONFIG_PATH;
+    if (!configPath) throw new Error("Missing AURA_CONFIG_PATH");
     await fs.mkdir(path.dirname(configPath), { recursive: true });
     await fs.writeFile(
       configPath,

@@ -150,7 +150,7 @@ export function createEventHandlers(context: EventHandlerContext) {
     if (evt.stream === "lifecycle") {
       if (!isActiveRun) return;
       const phase = typeof evt.data?.phase === "string" ? evt.data.phase : "";
-      if (phase === "start") setActivityStatus("running");
+      if (phase === "start") setActivityStatus("thinking...");
       if (phase === "end") setActivityStatus("idle");
       if (phase === "error") setActivityStatus("error");
       tui.requestRender();

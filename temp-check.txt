@@ -1,0 +1,30 @@
+﻿  }
+
+  if (getCustomProviderApiKey(cfg, resolved)) return "api-key";
+
+  return "unknown";
+}
+
+export async function getApiKeyForModel(params: {
+  model: Model<Api>;
+  cfg?: aura_intelligenceConfig;
+  profileId?: string;
+  preferredProfile?: string;
+  store?: AuthProfileStore;
+  agentDir?: string;
+}): Promise<ResolvedProviderAuth> {
+  return resolveApiKeyForProvider({
+    provider: params.model.provider,
+    cfg: params.cfg,
+    profileId: params.profileId,
+    preferredProfile: params.preferredProfile,
+    store: params.store,
+    agentDir: params.agentDir,
+  });
+}
+
+export function requireApiKey(auth: ResolvedProviderAuth, provider: string): string {
+  const key = auth.apiKey?.trim();
+  if (key) return key;
+  throw new Error(`No API key resolved for provider "${provider}" (auth mode: ${auth.mode}).`);
+}

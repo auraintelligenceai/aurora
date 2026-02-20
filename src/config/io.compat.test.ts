@@ -42,7 +42,7 @@ describe("config io compat (new + legacy folders)", () => {
     });
   });
 
-  it("falls back to ~/.aura/aura_intelligence.json when only legacy exists", async () => {
+  it("falls back to ~/.aura_intelligence/aura_intelligence.json when only legacy exists", async () => {
     await withTempHome(async (home) => {
       const legacyConfigPath = await writeConfig(home, ".aura", 20001);
 
@@ -91,7 +91,7 @@ describe("config io compat (new + legacy folders)", () => {
       const legacyConfigPath = await writeConfig(home, ".aura", 20002);
 
       const io = createConfigIO({
-        env: { CLAWDBOT_CONFIG_PATH: legacyConfigPath } as NodeJS.ProcessEnv,
+        env: { AURA_CONFIG_PATH: legacyConfigPath } as NodeJS.ProcessEnv,
         homedir: () => home,
       });
 

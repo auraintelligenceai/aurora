@@ -1,4 +1,4 @@
-import type { Client } from "@buape/carbon";
+full import type { Client } from "@buape/carbon";
 import { ChannelType, MessageType } from "@buape/carbon";
 import { Routes } from "discord-api-types/v10";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -74,7 +74,7 @@ describe("discord tool result dispatch", () => {
       },
       messages: {
         responsePrefix: "PFX",
-        groupChat: { mentionPatterns: ["\\bclawd\\b"] },
+        groupChat: { mentionPatterns: ["\\baura\\b"] },
       },
     } as ReturnType<typeof import("../config/config.js").loadConfig>;
 
@@ -154,7 +154,7 @@ describe("discord tool result dispatch", () => {
       },
       messages: {
         responsePrefix: "PFX",
-        groupChat: { mentionPatterns: ["\\bclawd\\b"] },
+        groupChat: { mentionPatterns: ["\\baura\\b"] },
       },
     } as ReturnType<typeof import("../config/config.js").loadConfig>;
 

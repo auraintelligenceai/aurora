@@ -5,6 +5,9 @@ import { theme } from "../terminal/theme.js";
 import { runTui } from "../tui/tui.js";
 import { parseTimeoutMs } from "./parse-timeout.js";
 
+// Export for use in register.subclis.ts
+export { defaultRuntime, runTui, parseTimeoutMs };
+
 export function registerTuiCli(program: Command) {
   program
     .command("tui")
@@ -48,3 +51,5 @@ export function registerTuiCli(program: Command) {
       }
     });
 }
+
+

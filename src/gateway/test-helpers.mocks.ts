@@ -196,7 +196,7 @@ const testConfigRoot = {
 
 export const setTestConfigRoot = (root: string) => {
   testConfigRoot.value = root;
-  process.env.CLAWDBOT_CONFIG_PATH = path.join(root, "aura_intelligence.json");
+  process.env.AURA_CONFIG_PATH = path.join(root, "aura_intelligence.json");
 };
 
 export const testTailnetIPv4 = hoisted.testTailnetIPv4;
@@ -563,5 +563,5 @@ vi.mock("../cli/deps.js", async () => {
   };
 });
 
-process.env.CLAWDBOT_SKIP_CHANNELS = "1";
-process.env.CLAWDBOT_SKIP_CRON = "1";
+process.env.AURA_SKIP_CHANNELS = "1";
+process.env.AURA_SKIP_CRON = "1";

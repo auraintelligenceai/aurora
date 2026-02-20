@@ -32,7 +32,7 @@ You can change the filename via hook config.
 
 ## Configuration
 
-Add this to your config (`~/.aura/aura_intelligence.json`):
+Add this to your config (`~/.aura_intelligence/aura_intelligence.json`):
 
 ```json
 {

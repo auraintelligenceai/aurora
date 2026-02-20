@@ -31,8 +31,11 @@ export function resolveTaskScriptPath(env: Record<string, string | undefined>): 
 }
 
 function quoteCmdArg(value: string): string {
-  if (!/[ \t"]/g.test(value)) return value;
-  return `"${value.replace(/"/g, '\\"')}"`;
+  // Ensure Windows paths have proper separators
+  const normalized = value.replace(/\//g, "\\");
+  
+  if (!/[ \t"]/g.test(normalized)) return normalized;
+  return `"${normalized.replace(/"/g, '\\"')}"`;
 }
 
 function resolveTaskUser(env: Record<string, string | undefined>): string | null {
@@ -139,6 +142,22 @@ export function parseSchtasksQuery(output: string): ScheduledTaskInfo {
   return info;
 }
 
+function escapeBatchVariable(value: string): string {
+  // Escape special characters for batch files: !, ^, &, |, <, >, (, ), etc.
+  return value.replace(/([!^&|<>()])/g, '^$1');
+}
+
+function isValidWindowsPath(path: string): boolean {
+  // Basic validation for Windows paths
+  const windowsPathRegex = /^[a-zA-Z]:[\\/](?:[^<>:"|?*]+[\\/])*[^<>:"|?*]*$/;
+  return windowsPathRegex.test(path);
+}
+
+function escapeBatchPath(path: string): string {
+  // Escape special characters in paths for batch files
+  return path.replace(/([!^&|<>()])/g, '^$1');
+}
+
 function buildTaskScript({
   description,
   programArguments,
@@ -155,12 +174,15 @@ function buildTaskScript({
     lines.push(`rem ${description.trim()}`);
   }
   if (workingDirectory) {
-    lines.push(`cd /d ${quoteCmdArg(workingDirectory)}`);
+    if (!isValidWindowsPath(workingDirectory)) {
+      throw new Error(`Invalid working directory path: ${workingDirectory}`);
+    }
+    lines.push(`cd /d ${quoteCmdArg(escapeBatchPath(workingDirectory))}`);
   }
   if (environment) {
     for (const [key, value] of Object.entries(environment)) {
       if (!value) continue;
-      lines.push(`set ${key}=${value}`);
+      lines.push(`set ${key}=${escapeBatchVariable(value)}`);
     }
   }
   const command = programArguments.map(quoteCmdArg).join(" ");
@@ -295,7 +317,16 @@ export async function uninstallScheduledTask({
 
 function isTaskNotRunning(res: { stdout: string; stderr: string; code: number }): boolean {
   const detail = `${res.stderr || res.stdout}`.toLowerCase();
-  return detail.includes("not running");
+  return detail.includes("not running") || 
+         detail.includes("could not find the task") || 
+         detail.includes("the task is not currently running");
+}
+
+function isTaskNotFound(res: { stdout: string; stderr: string; code: number }): boolean {
+  const detail = `${res.stderr || res.stdout}`.toLowerCase();
+  return detail.includes("cannot find the file") || 
+         detail.includes("could not find the task") || 
+         detail.includes("the specified task name was not found");
 }
 
 export async function stopScheduledTask({

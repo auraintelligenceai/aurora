@@ -96,16 +96,16 @@ export function applyCliProfileEnv(params: {
   if (!profile) return;
 
   // Convenience only: fill defaults, never override explicit env values.
-  env.CLAWDBOT_PROFILE = profile;
+  env.AURA_PROFILE = profile;
 
-  const stateDir = env.CLAWDBOT_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
-  if (!env.CLAWDBOT_STATE_DIR?.trim()) env.CLAWDBOT_STATE_DIR = stateDir;
+  const stateDir = env.AURA_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
+  if (!env.AURA_STATE_DIR?.trim()) env.AURA_STATE_DIR = stateDir;
 
-  if (!env.CLAWDBOT_CONFIG_PATH?.trim()) {
-    env.CLAWDBOT_CONFIG_PATH = path.join(stateDir, "aura_intelligence.json");
+  if (!env.AURA_CONFIG_PATH?.trim()) {
+    env.AURA_CONFIG_PATH = path.join(stateDir, "aura_intelligence.json");
   }
 
-  if (profile === "dev" && !env.CLAWDBOT_GATEWAY_PORT?.trim()) {
-    env.CLAWDBOT_GATEWAY_PORT = "19001";
+  if (profile === "dev" && !env.AURA_GATEWAY_PORT?.trim()) {
+    env.AURA_GATEWAY_PORT = "19001";
   }
 }

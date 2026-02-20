@@ -808,7 +808,7 @@ describe("security audit", () => {
       includeFilesystem: false,
       includeChannelSecurity: false,
       stateDir: "/Users/test/Dropbox/.aura",
-      configPath: "/Users/test/Dropbox/.aura/aura_intelligence.json",
+      configPath: "/Users/test/Dropbox/.aura_intelligence/aura_intelligence.json",
     });
 
     expect(res.findings).toEqual(

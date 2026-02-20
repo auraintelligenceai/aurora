@@ -78,7 +78,7 @@ function isaura_intelligenceGatewayLaunchdService(label: string, contents: strin
   if (hasGatewayServiceMarker(contents)) return true;
   const lowerContents = contents.toLowerCase();
   if (!lowerContents.includes("gateway")) return false;
-  return label.startsWith("bot.molt.") || label.startsWith("com.aura.");
+  return label.startsWith("aura.") || label.startsWith("com.aura.");
 }
 
 function isaura_intelligenceGatewaySystemdService(name: string, contents: string): boolean {

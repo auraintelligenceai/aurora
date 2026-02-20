@@ -64,19 +64,19 @@ export async function noteMacLaunchctlGatewayEnvOverrides(
   if (!hasConfigGatewayCreds(cfg)) return;
 
   const getenv = deps?.getenv ?? launchctlGetenv;
-  const envToken = await getenv("CLAWDBOT_GATEWAY_TOKEN");
-  const envPassword = await getenv("CLAWDBOT_GATEWAY_PASSWORD");
+  const envToken = await getenv("AURA_GATEWAY_TOKEN");
+  const envPassword = await getenv("AURA_GATEWAY_PASSWORD");
   if (!envToken && !envPassword) return;
 
   const lines = [
     "- launchctl environment overrides detected (can cause confusing unauthorized errors).",
-    envToken ? "- `CLAWDBOT_GATEWAY_TOKEN` is set; it overrides config tokens." : undefined,
+    envToken ? "- `AURA_GATEWAY_TOKEN` is set; it overrides config tokens." : undefined,
     envPassword
-      ? "- `CLAWDBOT_GATEWAY_PASSWORD` is set; it overrides config passwords."
+      ? "- `AURA_GATEWAY_PASSWORD` is set; it overrides config passwords."
       : undefined,
     "- Clear overrides and restart the app/gateway:",
-    envToken ? "  launchctl unsetenv CLAWDBOT_GATEWAY_TOKEN" : undefined,
-    envPassword ? "  launchctl unsetenv CLAWDBOT_GATEWAY_PASSWORD" : undefined,
+    envToken ? "  launchctl unsetenv AURA_GATEWAY_TOKEN" : undefined,
+    envPassword ? "  launchctl unsetenv AURA_GATEWAY_PASSWORD" : undefined,
   ].filter((line): line is string => Boolean(line));
 
   (deps?.noteFn ?? note)(lines.join("\n"), "Gateway (macOS)");

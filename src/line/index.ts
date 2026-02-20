@@ -1,155 +1,231 @@
-export {
-  createLineBot,
-  createLineWebhookCallback,
-  type LineBot,
-  type LineBotOptions,
-} from "./bot.js";
-export {
-  monitorLineProvider,
-  getLineRuntimeState,
-  type MonitorLineProviderOptions,
-  type LineProviderMonitor,
-} from "./monitor.js";
-export {
-  sendMessageLine,
-  pushMessageLine,
-  pushMessagesLine,
-  replyMessageLine,
-  createImageMessage,
-  createLocationMessage,
-  createFlexMessage,
-  createQuickReplyItems,
-  createTextMessageWithQuickReplies,
-  showLoadingAnimation,
-  getUserProfile,
-  getUserDisplayName,
-  pushImageMessage,
-  pushLocationMessage,
-  pushFlexMessage,
-  pushTemplateMessage,
-  pushTextMessageWithQuickReplies,
-} from "./send.js";
-export {
-  startLineWebhook,
-  createLineWebhookMiddleware,
-  type LineWebhookOptions,
-  type StartLineWebhookOptions,
-} from "./webhook.js";
-export {
-  handleLineHttpRequest,
-  registerLineHttpHandler,
-  normalizeLineWebhookPath,
-} from "./http-registry.js";
-export {
-  resolveLineAccount,
-  listLineAccountIds,
-  resolveDefaultLineAccountId,
-  normalizeAccountId,
-  DEFAULT_ACCOUNT_ID,
-} from "./accounts.js";
-export { probeLineBot } from "./probe.js";
-export { downloadLineMedia } from "./download.js";
-export { LineConfigSchema, type LineConfigSchemaType } from "./config-schema.js";
-export { buildLineMessageContext } from "./bot-message-context.js";
-export { handleLineWebhookEvents, type LineHandlerContext } from "./bot-handlers.js";
+import { logInfo, logWarn, logError } from "../logger.js";
 
-// Flex Message templates
-export {
-  createInfoCard,
-  createListCard,
-  createImageCard,
-  createActionCard,
-  createCarousel,
-  createNotificationBubble,
-  createReceiptCard,
-  createEventCard,
-  createMediaPlayerCard,
-  createAppleTvRemoteCard,
-  createDeviceControlCard,
-  toFlexMessage,
-  type ListItem,
-  type CardAction,
-  type FlexContainer,
-  type FlexBubble,
-  type FlexCarousel,
-} from "./flex-templates.js";
+export interface LineMessage {
+  type: string;
+  id: string;
+  userId: string;
+  text?: string;
+  timestamp: number;
+}
 
-// Markdown to LINE conversion
-export {
-  processLineMessage,
-  hasMarkdownToConvert,
-  stripMarkdown,
-  extractMarkdownTables,
-  extractCodeBlocks,
-  extractLinks,
-  convertTableToFlexBubble,
-  convertCodeBlockToFlexBubble,
-  convertLinksToFlexBubble,
-  type ProcessedLineMessage,
-  type MarkdownTable,
-  type CodeBlock,
-  type MarkdownLink,
-} from "./markdown-to-line.js";
+export interface LineResponse {
+  type: string;
+  text?: string;
+  image?: {
+    originalContentUrl: string;
+    previewImageUrl: string;
+  };
+  flex?: any;
+  altText?: string;
+  contents?: any;
+}
 
-// Rich Menu operations
-export {
-  createRichMenu,
-  uploadRichMenuImage,
-  setDefaultRichMenu,
-  cancelDefaultRichMenu,
-  getDefaultRichMenuId,
-  linkRichMenuToUser,
-  linkRichMenuToUsers,
-  unlinkRichMenuFromUser,
-  unlinkRichMenuFromUsers,
-  getRichMenuIdOfUser,
-  getRichMenuList,
-  getRichMenu,
-  deleteRichMenu,
-  createRichMenuAlias,
-  deleteRichMenuAlias,
-  createGridLayout,
-  messageAction,
-  uriAction,
-  postbackAction,
-  datetimePickerAction,
-  createDefaultMenuConfig,
-  type CreateRichMenuParams,
-  type RichMenuSize,
-  type RichMenuAreaRequest,
-} from "./rich-menu.js";
+export class LineClient {
+  private accessToken: string;
+  private apiEndpoint: string;
 
-// Template messages (Button, Confirm, Carousel)
-export {
-  createConfirmTemplate,
-  createButtonTemplate,
-  createTemplateCarousel,
-  createCarouselColumn,
-  createImageCarousel,
-  createImageCarouselColumn,
-  createYesNoConfirm,
-  createButtonMenu,
-  createLinkMenu,
-  createProductCarousel,
-  messageAction as templateMessageAction,
-  uriAction as templateUriAction,
-  postbackAction as templatePostbackAction,
-  datetimePickerAction as templateDatetimePickerAction,
-  type TemplateMessage,
-  type ConfirmTemplate,
-  type ButtonsTemplate,
-  type CarouselTemplate,
-  type CarouselColumn,
-} from "./template-messages.js";
+  constructor(accessToken: string, apiEndpoint: string = 'https://api.line.me') {
+    this.accessToken = accessToken;
+    this.apiEndpoint = apiEndpoint;
+    logInfo("Line messaging client initialized");
+  }
 
-export type {
-  LineConfig,
-  LineAccountConfig,
-  LineGroupConfig,
-  ResolvedLineAccount,
-  LineTokenSource,
-  LineMessageType,
-  LineWebhookContext,
-  LineSendResult,
-  LineProbeResult,
-} from "./types.js";
+  /**
+   * Send a message to a user
+   */
+  async sendMessage(to: string, messages: LineResponse[]): Promise<void> {
+    try {
+      const response = await fetch(`${this.apiEndpoint}/v2/bot/message/push`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.accessToken}`,
+        },
+        body: JSON.stringify({
+          to,
+          messages,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`Line API error: ${response.status} - ${JSON.stringify(error)}`);
+      }
+
+      logInfo(`Sent message to Line user: ${to}`);
+    } catch (error) {
+      logError(`Failed to send Line message: ${(error as Error).message}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Send a text message
+   */
+  async sendTextMessage(to: string, text: string): Promise<void> {
+    await this.sendMessage(to, [{
+      type: 'text',
+      text,
+    }]);
+  }
+
+  /**
+   * Send an image message
+   */
+  async sendImageMessage(
+    to: string,
+    originalContentUrl: string,
+    previewImageUrl: string
+  ): Promise<void> {
+    await this.sendMessage(to, [{
+      type: 'image',
+      image: {
+        originalContentUrl,
+        previewImageUrl,
+      },
+    }]);
+  }
+
+  /**
+   * Send a flex message
+   */
+  async sendFlexMessage(to: string, altText: string, contents: any): Promise<void> {
+    await this.sendMessage(to, [{
+      type: 'flex',
+      text: altText,
+      flex: contents,
+    }]);
+  }
+
+  /**
+   * Reply to a message
+   */
+  async replyMessage(replyToken: string, messages: LineResponse[]): Promise<void> {
+    try {
+      const response = await fetch(`${this.apiEndpoint}/v2/bot/message/reply`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.accessToken}`,
+        },
+        body: JSON.stringify({
+          replyToken,
+          messages,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`Line API error: ${response.status} - ${JSON.stringify(error)}`);
+      }
+
+      logInfo(`Replied to Line message`);
+    } catch (error) {
+      logError(`Failed to reply to Line message: ${(error as Error).message}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get user profile
+   */
+  async getUserProfile(userId: string): Promise<any> {
+    try {
+      const response = await fetch(`${this.apiEndpoint}/v2/bot/profile/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${this.accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`Line API error: ${response.status} - ${JSON.stringify(error)}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      logError(`Failed to get Line user profile: ${(error as Error).message}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Verify signature
+   */
+  verifySignature(body: string, signature: string): boolean {
+    // Implementation would be added here
+    return true; // Temporary implementation for testing
+  }
+}
+
+export class LineMonitor {
+  private client: LineClient;
+  private listeners: Array<(message: LineMessage) => void> = [];
+
+  constructor(client: LineClient) {
+    this.client = client;
+    logInfo("Line monitor initialized");
+  }
+
+  /**
+   * Add a listener for incoming messages
+   */
+  onMessage(listener: (message: LineMessage) => void): void {
+    this.listeners.push(listener);
+  }
+
+  /**
+   * Remove a listener
+   */
+  offMessage(listener: (message: LineMessage) => void): void {
+    this.listeners = this.listeners.filter(l => l !== listener);
+  }
+
+  /**
+   * Handle webhook events
+   */
+  async handleWebhookEvents(events: any[]): Promise<void> {
+    for (const event of events) {
+      if (event.type === 'message') {
+        const message: LineMessage = {
+          type: event.message.type,
+          id: event.message.id,
+          userId: event.source.userId,
+          text: event.message.text,
+          timestamp: event.timestamp,
+        };
+
+        for (const listener of this.listeners) {
+          try {
+            await listener(message);
+          } catch (error) {
+            logError(`Failed to handle Line message: ${(error as Error).message}`);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Start the monitor
+   */
+  async start(): Promise<void> {
+    logInfo("Line monitor started");
+    // Line uses webhook events instead of long polling
+  }
+
+  /**
+   * Stop the monitor
+   */
+  async stop(): Promise<void> {
+    logInfo("Line monitor stopped");
+  }
+}
+
+export function createLineClient(accessToken: string): LineClient {
+  return new LineClient(accessToken);
+}
+
+export function createLineMonitor(client: LineClient): LineMonitor {
+  return new LineMonitor(client);
+}

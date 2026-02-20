@@ -75,6 +75,16 @@ const OLLAMA_DEFAULT_COST = {
   cacheWrite: 0,
 };
 
+const VLLM_BASE_URL = "http://127.0.0.1:8000/v1";
+const VLLM_DEFAULT_CONTEXT_WINDOW = 128000;
+const VLLM_DEFAULT_MAX_TOKENS = 8192;
+const VLLM_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
 interface OllamaModel {
   name: string;
   modified_at: string;
@@ -97,17 +107,20 @@ async function discoverOllamaModels(): Promise<ModelDefinitionConfig[]> {
   }
   try {
     const response = await fetch(`${OLLAMA_API_BASE_URL}/api/tags`, {
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(30000), // Optimized timeout
     });
+    
     if (!response.ok) {
       console.warn(`Failed to discover Ollama models: ${response.status}`);
       return [];
     }
+    
     const data = (await response.json()) as OllamaTagsResponse;
     if (!data.models || data.models.length === 0) {
       console.warn("No Ollama models found on local instance");
       return [];
     }
+    
     return data.models.map((model) => {
       const modelId = model.name;
       const isReasoning =
@@ -350,6 +363,25 @@ async function buildVeniceProvider(): Promise<ProviderConfig> {
   };
 }
 
+async function buildVllmProvider(): Promise<ProviderConfig> {
+  // vLLM supports OpenAI-compatible API
+  return {
+    baseUrl: VLLM_BASE_URL,
+    api: "openai-completions",
+    models: [
+      {
+        id: "vllm-default",
+        name: "vLLM Default Model",
+        reasoning: false,
+        input: ["text"],
+        cost: VLLM_DEFAULT_COST,
+        contextWindow: VLLM_DEFAULT_CONTEXT_WINDOW,
+        maxTokens: VLLM_DEFAULT_MAX_TOKENS,
+      },
+    ],
+  };
+}
+
 async function buildOllamaProvider(): Promise<ProviderConfig> {
   const models = await discoverOllamaModels();
   return {
@@ -415,6 +447,12 @@ export async function resolveImplicitProviders(params: {
     resolveEnvApiKeyVarName("ollama") ??
     resolveApiKeyFromProfiles({ provider: "ollama", store: authStore });
   providers.ollama = { ...(await buildOllamaProvider()), apiKey: ollamaKey };
+
+  // vLLM provider - available by default for local usage (no API key required)
+  const vllmKey =
+    resolveEnvApiKeyVarName("vllm") ??
+    resolveApiKeyFromProfiles({ provider: "vllm", store: authStore });
+  providers.vllm = { ...(await buildVllmProvider()), apiKey: vllmKey };
 
   return providers;
 }

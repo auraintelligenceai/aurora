@@ -121,7 +121,7 @@ function noteOpencodeProviderOverrides(cfg: aura_intelligenceConfig) {
 }
 
 function hasExplicitConfigPath(env: NodeJS.ProcessEnv): boolean {
-  return Boolean(env.aura_intelligence_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim());
+  return Boolean(env.aura_intelligence_CONFIG_PATH?.trim() || env.AURA_CONFIG_PATH?.trim());
 }
 
 function moveLegacyConfigFile(legacyPath: string, canonicalPath: string) {

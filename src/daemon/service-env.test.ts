@@ -230,7 +230,7 @@ describe("buildServiceEnvironment", () => {
     expect(typeof env.AURA_SERVICE_VERSION).toBe("string");
     expect(env.AURA_SYSTEMD_UNIT).toBe("aura_intelligence-gateway.service");
     if (process.platform === "darwin") {
-      expect(env.AURA_LAUNCHD_LABEL).toBe("bot.molt.gateway");
+      expect(env.AURA_LAUNCHD_LABEL).toBe("aura.gateway");
     }
   });
 
@@ -241,7 +241,7 @@ describe("buildServiceEnvironment", () => {
     });
     expect(env.AURA_SYSTEMD_UNIT).toBe("aura_intelligence-gateway-work.service");
     if (process.platform === "darwin") {
-      expect(env.AURA_LAUNCHD_LABEL).toBe("bot.molt.work");
+      expect(env.AURA_LAUNCHD_LABEL).toBe("aura.work");
     }
   });
 });

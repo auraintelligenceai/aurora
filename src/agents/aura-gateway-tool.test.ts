@@ -19,11 +19,11 @@ describe("gateway tool", () => {
   it("schedules SIGUSR1 restart", async () => {
     vi.useFakeTimers();
     const kill = vi.spyOn(process, "kill").mockImplementation(() => true);
-    const previousStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const previousProfile = process.env.CLAWDBOT_PROFILE;
+    const previousStateDir = process.env.AURA_STATE_DIR;
+    const previousProfile = process.env.AURA_PROFILE;
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-test-"));
-    process.env.CLAWDBOT_STATE_DIR = stateDir;
-    process.env.CLAWDBOT_PROFILE = "isolated";
+    process.env.AURA_STATE_DIR = stateDir;
+    process.env.AURA_PROFILE = "isolated";
 
     try {
       const tool = createaura_intelligenceTools({
@@ -60,14 +60,14 @@ describe("gateway tool", () => {
       kill.mockRestore();
       vi.useRealTimers();
       if (previousStateDir === undefined) {
-        delete process.env.CLAWDBOT_STATE_DIR;
+        delete process.env.AURA_STATE_DIR;
       } else {
-        process.env.CLAWDBOT_STATE_DIR = previousStateDir;
+        process.env.AURA_STATE_DIR = previousStateDir;
       }
       if (previousProfile === undefined) {
-        delete process.env.CLAWDBOT_PROFILE;
+        delete process.env.AURA_PROFILE;
       } else {
-        process.env.CLAWDBOT_PROFILE = previousProfile;
+        process.env.AURA_PROFILE = previousProfile;
       }
     }
   });

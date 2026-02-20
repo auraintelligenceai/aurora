@@ -3,6 +3,8 @@ import type { aura_intelligenceConfig } from "../../config/config.js";
 import { isTruthyEnvValue } from "../../infra/env.js";
 import { buildParseArgv, getPrimaryCommand, hasHelpOrVersion } from "../argv.js";
 import { resolveActionArgs } from "./helpers.js";
+import { theme } from "../../terminal/theme.js";
+import { formatDocsLink } from "../../terminal/links.js";
 
 type SubCliRegistrar = (program: Command) => Promise<void> | void;
 
@@ -13,13 +15,13 @@ type SubCliEntry = {
 };
 
 const shouldRegisterPrimaryOnly = (argv: string[]) => {
-  if (isTruthyEnvValue(process.env.CLAWDBOT_DISABLE_LAZY_SUBCOMMANDS)) return false;
+  if (isTruthyEnvValue(process.env.AURA_DISABLE_LAZY_SUBCOMMANDS)) return false;
   if (hasHelpOrVersion(argv)) return false;
   return true;
 };
 
 const shouldEagerRegisterSubcommands = (_argv: string[]) => {
-  return isTruthyEnvValue(process.env.CLAWDBOT_DISABLE_LAZY_SUBCOMMANDS);
+  return isTruthyEnvValue(process.env.AURA_DISABLE_LAZY_SUBCOMMANDS);
 };
 
 const loadConfig = async (): Promise<aura_intelligenceConfig> => {
@@ -288,3 +290,4 @@ export function registerSubCliCommands(program: Command, argv: string[] = proces
     registerLazyCommand(program, candidate);
   }
 }
+

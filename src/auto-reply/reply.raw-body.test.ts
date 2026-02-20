@@ -24,7 +24,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     },
     {
       env: {
-        CLAWDBOT_AGENT_DIR: (home) => path.join(home, ".aura", "agent"),
+        AURA_AGENT_DIR: (home) => path.join(home, ".aura", "agent"),
         PI_CODING_AGENT_DIR: (home) => path.join(home, ".aura", "agent"),
       },
       prefix: "aura_intelligence-rawbody-",
