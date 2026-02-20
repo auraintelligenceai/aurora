@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Aura Intelligence Installer
-# Usage: curl -fsSL --proto '=https' --tlsv1.2 https://auraintelligence.ai/install.sh | bash -s -- [options]
+# Usage: curl -fsSL --proto '=https' --tlsv1.2 https://github.com/auraintelligenceai/aurora/install.sh | bash -s -- [options]
 
 AURA_VERSION="${AURA_VERSION:-latest}"
 SHARP_IGNORE_GLOBAL_LIBVIPS="${SHARP_IGNORE_GLOBAL_LIBVIPS:-1}"

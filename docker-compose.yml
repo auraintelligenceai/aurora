@@ -1,19 +1,19 @@
 services:
   aura_intelligence-gateway:
-    image: ${CLAWDBOT_IMAGE:-aura_intelligence:local}
+    image: ${AURA_IMAGE:-aura_intelligence:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      CLAWDBOT_GATEWAY_TOKEN: ${CLAWDBOT_GATEWAY_TOKEN}
+      AURA_GATEWAY_TOKEN: ${AURA_GATEWAY_TOKEN}
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.aura
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/aura
+      - ${AURA_CONFIG_DIR}:/home/node/.aura
+      - ${AURA_WORKSPACE_DIR}:/home/node/aura
     ports:
-      - "${CLAWDBOT_GATEWAY_PORT:-18789}:18789"
-      - "${CLAWDBOT_BRIDGE_PORT:-18790}:18790"
+      - "${AURA_GATEWAY_PORT:-18789}:18789"
+      - "${AURA_BRIDGE_PORT:-18790}:18790"
     init: true
     restart: unless-stopped
     command:
@@ -22,13 +22,13 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${CLAWDBOT_GATEWAY_BIND:-lan}",
+        "${AURA_GATEWAY_BIND:-lan}",
         "--port",
-        "${CLAWDBOT_GATEWAY_PORT:-18789}"
+        "${AURA_GATEWAY_PORT:-18789}"
       ]
 
   aura_intelligence-cli:
-    image: ${CLAWDBOT_IMAGE:-aura_intelligence:local}
+    image: ${AURA_IMAGE:-aura_intelligence:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -37,8 +37,8 @@ services:
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.aura
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/aura
+      - ${AURA_CONFIG_DIR}:/home/node/.aura
+      - ${AURA_WORKSPACE_DIR}:/home/node/aura
     stdin_open: true
     tty: true
     init: true

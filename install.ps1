@@ -1,6 +1,6 @@
 # aura_intelligence Installer for Windows
-# Usage: iwr -useb https://raw.githubusercontent.com/auraintelligenceai/aurora/main/install.ps1 | iex
-#        & ([scriptblock]::Create((iwr -useb https://raw.githubusercontent.com/auraintelligenceai/aurora/main/install.ps1))) -Tag beta -NoOnboard -DryRun
+# Usage: iwr -useb https://github.com/auraintelligenceai/aurora/install.ps1 | iex
+#        & ([scriptblock]::Create((iwr -useb https://github.com/auraintelligenceai/aurora/install.ps1))) -Tag beta -NoOnboard -DryRun
 
 param(
     [string]$Tag = "latest",
@@ -460,7 +460,7 @@ function Main {
             "Cozy. I've already read your calendar. We need to talk.",
             "Finally unpacked. Now point me at your problems.",
             "cracks claws Alright, what are we building?",
-            "The lobster has landed. Your terminal will never be the same.",
+            "Aura Intelligence has landed. Your terminal will never be the same.",
             "All done! I promise to only judge your code a little bit."
         )
         Write-Host (Get-Random -InputObject $completionMessages) -ForegroundColor Gray
