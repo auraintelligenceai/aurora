@@ -40,7 +40,7 @@ Supported keys:
 - `seed`, `normalize`, `lang`, `output_format`, `latency_tier`
 - `once`
 
-## Config (`~/.clawdbot/aura_intelligence.json`)
+## Config (`~/.aura_intelligence/aura_intelligence.json`)
 ```json5
 {
   "talk": {

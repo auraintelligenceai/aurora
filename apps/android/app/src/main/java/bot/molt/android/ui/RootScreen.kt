@@ -1,4 +1,4 @@
-package bot.molt.android.ui
+package aura.android.ui
 
 import android.annotation.SuppressLint
 import android.Manifest
@@ -65,8 +65,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import androidx.core.content.ContextCompat
-import bot.molt.android.CameraHudKind
-import bot.molt.android.MainViewModel
+import aura.android.CameraHudKind
+import aura.android.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

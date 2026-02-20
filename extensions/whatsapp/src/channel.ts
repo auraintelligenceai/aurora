@@ -28,7 +28,7 @@ import {
   type ChannelMessageActionName,
   type ChannelPlugin,
   type ResolvedWhatsAppAccount,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { getWhatsAppRuntime } from "./runtime.js";
 

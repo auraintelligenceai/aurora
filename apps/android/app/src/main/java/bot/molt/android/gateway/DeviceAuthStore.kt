@@ -1,6 +1,6 @@
-package bot.molt.android.gateway
+package aura.android.gateway
 
-import bot.molt.android.SecurePrefs
+import aura.android.SecurePrefs
 
 class DeviceAuthStore(private val prefs: SecurePrefs) {
   fun loadToken(deviceId: String, role: String): String? {

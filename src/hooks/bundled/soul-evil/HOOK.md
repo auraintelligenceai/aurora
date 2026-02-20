@@ -9,7 +9,8 @@ metadata:
         "emoji": "😈",
         "events": ["agent:bootstrap"],
         "requires": { "config": ["hooks.internal.entries.soul-evil.enabled"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with aura_intelligence" }],
+        "install":
+          [{ "id": "bundled", "kind": "bundled", "label": "Bundled with aura_intelligence" }],
       },
   }
 ---
@@ -31,7 +32,7 @@ You can change the filename via hook config.
 
 ## Configuration
 
-Add this to your config (`~/.clawdbot/aura_intelligence.json`):
+Add this to your config (`~/.aura_intelligence/aura_intelligence.json`):
 
 ```json
 {

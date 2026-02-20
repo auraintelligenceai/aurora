@@ -156,7 +156,7 @@ export async function setupSkills(
         runtime.log(
           `Tip: run \`${formatCliCommand("aura_intelligence doctor")}\` to review skills + requirements.`,
         );
-        runtime.log("Docs: https://docs.molt.bot/skills");
+        runtime.log("Docs: https://docs.auraintelligence.ai/skills");
       }
     }
   }

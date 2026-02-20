@@ -88,7 +88,8 @@ describe("update-cli", () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+    const { resolveaura_intelligencePackageRoot } =
+      await import("../infra/aura_intelligence-root.js");
     const { readConfigFileSnapshot } = await import("../config/config.js");
     const { checkUpdateStatus, fetchNpmTagVersion, resolveNpmChannelTag } =
       await import("../infra/update-check.js");
@@ -226,7 +227,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { checkUpdateStatus } = await import("../infra/update-check.js");
       const { updateCommand } = await import("./update-cli.js");
@@ -291,7 +293,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { readConfigFileSnapshot } = await import("../config/config.js");
       const { resolveNpmChannelTag } = await import("../infra/update-check.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
@@ -344,7 +347,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { updateCommand } = await import("./update-cli.js");
 
@@ -523,7 +527,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { resolveNpmChannelTag } = await import("../infra/update-check.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { defaultRuntime } = await import("../runtime.js");
@@ -576,7 +581,8 @@ describe("update-cli", () => {
         "utf-8",
       );
 
-      const { resolveaura_intelligencePackageRoot } = await import("../infra/aura_intelligence-root.js");
+      const { resolveaura_intelligencePackageRoot } =
+        await import("../infra/aura_intelligence-root.js");
       const { resolveNpmChannelTag } = await import("../infra/update-check.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
       const { defaultRuntime } = await import("../runtime.js");
@@ -637,10 +643,10 @@ describe("update-cli", () => {
 
   it("updateWizardCommand offers dev checkout and forwards selections", async () => {
     const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-update-wizard-"));
-    const previousGitDir = process.env.CLAWDBOT_GIT_DIR;
+    const previousGitDir = process.env.AURA_GIT_DIR;
     try {
       setTty(true);
-      process.env.CLAWDBOT_GIT_DIR = tempDir;
+      process.env.AURA_GIT_DIR = tempDir;
 
       const { checkUpdateStatus } = await import("../infra/update-check.js");
       const { runGatewayUpdate } = await import("../infra/update-runner.js");
@@ -671,7 +677,7 @@ describe("update-cli", () => {
       const call = vi.mocked(runGatewayUpdate).mock.calls[0]?.[0];
       expect(call?.channel).toBe("dev");
     } finally {
-      process.env.CLAWDBOT_GIT_DIR = previousGitDir;
+      process.env.AURA_GIT_DIR = previousGitDir;
       await fs.rm(tempDir, { recursive: true, force: true });
     }
   });

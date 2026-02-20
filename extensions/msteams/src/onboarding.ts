@@ -4,13 +4,13 @@ import type {
   aura_intelligenceConfig,
   DmPolicy,
   WizardPrompter,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 import {
   addWildcardAllowFrom,
   DEFAULT_ACCOUNT_ID,
   formatDocsLink,
   promptChannelAccessConfig,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { resolveMSTeamsCredentials } from "./token.js";
 import {

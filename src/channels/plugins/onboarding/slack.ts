@@ -54,7 +54,7 @@ function buildSlackManifest(botName: string) {
       },
       slash_commands: [
         {
-          command: "/clawd",
+          command: "/aura",
           description: "Send a message to aura_intelligence",
           should_escape: false,
         },
@@ -201,7 +201,10 @@ function setSlackChannelAllowlist(
   };
 }
 
-function setSlackAllowFrom(cfg: aura_intelligenceConfig, allowFrom: string[]): aura_intelligenceConfig {
+function setSlackAllowFrom(
+  cfg: aura_intelligenceConfig,
+  allowFrom: string[],
+): aura_intelligenceConfig {
   return {
     ...cfg,
     channels: {

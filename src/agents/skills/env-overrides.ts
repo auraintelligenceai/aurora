@@ -3,7 +3,10 @@ import { resolveSkillConfig } from "./config.js";
 import { resolveSkillKey } from "./frontmatter.js";
 import type { SkillEntry, SkillSnapshot } from "./types.js";
 
-export function applySkillEnvOverrides(params: { skills: SkillEntry[]; config?: aura_intelligenceConfig }) {
+export function applySkillEnvOverrides(params: {
+  skills: SkillEntry[];
+  config?: aura_intelligenceConfig;
+}) {
   const { skills, config } = params;
   const updates: Array<{ key: string; prev: string | undefined }> = [];
 

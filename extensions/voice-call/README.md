@@ -1,4 +1,4 @@
-# @clawdbot/voice-call
+# @aura/voice-call
 
 Official Voice Call plugin for **Clawdbot**.
 
@@ -16,7 +16,7 @@ Plugin system: `https://docs.molt.bot/plugin`
 ### Option A: install via Clawdbot (recommended)
 
 ```bash
-clawdbot plugins install @clawdbot/voice-call
+aura plugins install @aura/voice-call
 ```
 
 Restart the Gateway afterwards.
@@ -24,9 +24,9 @@ Restart the Gateway afterwards.
 ### Option B: copy into your global extensions folder (dev)
 
 ```bash
-mkdir -p ~/.clawdbot/extensions
-cp -R extensions/voice-call ~/.clawdbot/extensions/voice-call
-cd ~/.clawdbot/extensions/voice-call && pnpm install
+mkdir -p ~/.aura/extensions
+cp -R extensions/voice-call ~/.aura/extensions/voice-call
+cd ~/.aura/extensions/voice-call && pnpm install
 ```
 
 ## Config
@@ -100,13 +100,13 @@ Notes:
 ## CLI
 
 ```bash
-clawdbot voicecall call --to "+15555550123" --message "Hello from Clawdbot"
-clawdbot voicecall continue --call-id <id> --message "Any questions?"
-clawdbot voicecall speak --call-id <id> --message "One moment"
-clawdbot voicecall end --call-id <id>
-clawdbot voicecall status --call-id <id>
-clawdbot voicecall tail
-clawdbot voicecall expose --mode funnel
+aura voicecall call --to "+15555550123" --message "Hello from Clawdbot"
+aura voicecall continue --call-id <id> --message "Any questions?"
+aura voicecall speak --call-id <id> --message "One moment"
+aura voicecall end --call-id <id>
+aura voicecall status --call-id <id>
+aura voicecall tail
+aura voicecall expose --mode funnel
 ```
 
 ## Tool

@@ -1,4 +1,4 @@
-package bot.molt.android.gateway
+package aura.android.gateway
 
 object BonjourEscapes {
   fun decode(input: String): String {

@@ -23,7 +23,7 @@ actor GatewayEndpointStore {
         "custom",
     ]
     private static let remoteConnectingDetail = "Connecting to remote gateway…"
-    private static let staticLogger = Logger(subsystem: "bot.molt", category: "gateway-endpoint")
+    private static let staticLogger = Logger(subsystem: "aura", category: "gateway-endpoint")
     private enum EnvOverrideWarningKind: Sendable {
         case token
         case password
@@ -84,7 +84,7 @@ actor GatewayEndpointStore {
         env: [String: String],
         launchdSnapshot: LaunchAgentPlistSnapshot?) -> String?
     {
-        let raw = env["CLAWDBOT_GATEWAY_PASSWORD"] ?? ""
+        let raw = env["AURA_GATEWAY_PASSWORD"] ?? ""
         let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmed.isEmpty {
             if let configPassword = self.resolveConfigPassword(isRemote: isRemote, root: root),
@@ -92,7 +92,7 @@ actor GatewayEndpointStore {
             {
                 self.warnEnvOverrideOnce(
                     kind: .password,
-                    envVar: "CLAWDBOT_GATEWAY_PASSWORD",
+                    envVar: "AURA_GATEWAY_PASSWORD",
                     configKey: isRemote ? "gateway.remote.password" : "gateway.auth.password")
             }
             return trimmed
@@ -152,7 +152,7 @@ actor GatewayEndpointStore {
         env: [String: String],
         launchdSnapshot: LaunchAgentPlistSnapshot?) -> String?
     {
-        let raw = env["CLAWDBOT_GATEWAY_TOKEN"] ?? ""
+        let raw = env["AURA_GATEWAY_TOKEN"] ?? ""
         let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmed.isEmpty {
             if let configToken = self.resolveConfigToken(isRemote: isRemote, root: root),
@@ -161,7 +161,7 @@ actor GatewayEndpointStore {
             {
                 self.warnEnvOverrideOnce(
                     kind: .token,
-                    envVar: "CLAWDBOT_GATEWAY_TOKEN",
+                    envVar: "AURA_GATEWAY_TOKEN",
                     configKey: isRemote ? "gateway.remote.token" : "gateway.auth.token")
             }
             return trimmed
@@ -230,7 +230,7 @@ actor GatewayEndpointStore {
     }
 
     private let deps: Deps
-    private let logger = Logger(subsystem: "bot.molt", category: "gateway-endpoint")
+    private let logger = Logger(subsystem: "aura", category: "gateway-endpoint")
 
     private var state: GatewayEndpointState
     private var subscribers: [UUID: AsyncStream<GatewayEndpointState>.Continuation] = [:]
@@ -555,7 +555,7 @@ actor GatewayEndpointStore {
         root: [String: Any],
         env: [String: String]) -> String?
     {
-        if let envBind = env["CLAWDBOT_GATEWAY_BIND"] {
+        if let envBind = env["AURA_GATEWAY_BIND"] {
             let trimmed = envBind.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             if self.supportedBindModes.contains(trimmed) {
                 return trimmed
@@ -586,7 +586,7 @@ actor GatewayEndpointStore {
         root: [String: Any],
         env: [String: String]) -> String
     {
-        if let envValue = env["CLAWDBOT_GATEWAY_TLS"]?.trimmingCharacters(in: .whitespacesAndNewlines),
+        if let envValue = env["AURA_GATEWAY_TLS"]?.trimmingCharacters(in: .whitespacesAndNewlines),
            !envValue.isEmpty
         {
             return (envValue == "1" || envValue.lowercased() == "true") ? "wss" : "ws"

@@ -97,7 +97,10 @@ function resolveSandboxBrowserImage(cfg: aura_intelligenceConfig): string {
   return image ? image : DEFAULT_SANDBOX_BROWSER_IMAGE;
 }
 
-function updateSandboxDockerImage(cfg: aura_intelligenceConfig, image: string): aura_intelligenceConfig {
+function updateSandboxDockerImage(
+  cfg: aura_intelligenceConfig,
+  image: string,
+): aura_intelligenceConfig {
   return {
     ...cfg,
     agents: {
@@ -116,7 +119,10 @@ function updateSandboxDockerImage(cfg: aura_intelligenceConfig, image: string): 
   };
 }
 
-function updateSandboxBrowserImage(cfg: aura_intelligenceConfig, image: string): aura_intelligenceConfig {
+function updateSandboxBrowserImage(
+  cfg: aura_intelligenceConfig,
+  image: string,
+): aura_intelligenceConfig {
   return {
     ...cfg,
     agents: {

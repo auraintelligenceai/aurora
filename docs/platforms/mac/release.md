@@ -29,7 +29,7 @@ Notes:
 ```bash
 # From repo root; set release IDs so Sparkle feed is enabled.
 # APP_BUILD must be numeric + monotonic for Sparkle compare.
-BUNDLE_ID=bot.molt.mac \
+BUNDLE_ID=aura.mac \
 APP_VERSION=2026.1.27-beta.1 \
 APP_BUILD="$(git rev-list --count HEAD)" \
 BUILD_CONFIG=release \
@@ -47,7 +47,7 @@ scripts/create-dmg.sh dist/aura_intelligence.app dist/aura_intelligence-2026.1.2
 #   xcrun notarytool store-credentials "aura_intelligence-notary" \
 #     --apple-id "<apple-id>" --team-id "<team-id>" --password "<app-specific-password>"
 NOTARIZE=1 NOTARYTOOL_PROFILE=aura_intelligence-notary \
-BUNDLE_ID=bot.molt.mac \
+BUNDLE_ID=aura.mac \
 APP_VERSION=2026.1.27-beta.1 \
 APP_BUILD="$(git rev-list --count HEAD)" \
 BUILD_CONFIG=release \

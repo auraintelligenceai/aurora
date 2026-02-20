@@ -1,7 +1,7 @@
 import Foundation
 
-let launchdLabel = "bot.molt.mac"
-let gatewayLaunchdLabel = "bot.molt.gateway"
+let launchdLabel = "aura.mac"
+let gatewayLaunchdLabel = "aura.gateway"
 let onboardingVersionKey = "aura_intelligence.onboardingVersion"
 let currentOnboardingVersion = 7
 let pauseDefaultsKey = "aura_intelligence.pauseEnabled"
@@ -11,7 +11,7 @@ let swabbleTriggersKey = "aura_intelligence.swabbleTriggers"
 let voiceWakeTriggerChimeKey = "aura_intelligence.voiceWakeTriggerChime"
 let voiceWakeSendChimeKey = "aura_intelligence.voiceWakeSendChime"
 let showDockIconKey = "aura_intelligence.showDockIcon"
-let defaultVoiceWakeTriggers = ["clawd", "claude"]
+let defaultVoiceWakeTriggers = ["aura", "claude"]
 let voiceWakeMaxWords = 32
 let voiceWakeMaxWordLength = 64
 let voiceWakeMicKey = "aura_intelligence.voiceWakeMicID"

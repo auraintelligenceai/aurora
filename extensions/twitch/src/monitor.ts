@@ -5,7 +5,7 @@
  * resolves agent routes, and handles replies.
  */
 
-import type { ReplyPayload, aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { ReplyPayload, aura_intelligenceConfig } from "aura/plugin-sdk";
 import type { TwitchAccountConfig, TwitchChatMessage } from "./types.js";
 import { checkTwitchAccessControl } from "./access-control.js";
 import { getTwitchRuntime } from "./runtime.js";

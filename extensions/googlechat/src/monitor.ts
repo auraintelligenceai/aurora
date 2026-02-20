@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
-import { resolveMentionGatingWithBypass } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
+import { resolveMentionGatingWithBypass } from "aura/plugin-sdk";
 
 import {
   type ResolvedGoogleChatAccount

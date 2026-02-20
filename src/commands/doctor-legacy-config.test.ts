@@ -15,16 +15,16 @@ describe("normalizeLegacyConfigValues", () => {
   };
 
   beforeEach(() => {
-    previousOauthDir = process.env.CLAWDBOT_OAUTH_DIR;
+    previousOauthDir = process.env.AURA_OAUTH_DIR;
     tempOauthDir = fs.mkdtempSync(path.join(os.tmpdir(), "aura_intelligence-oauth-"));
-    process.env.CLAWDBOT_OAUTH_DIR = tempOauthDir;
+    process.env.AURA_OAUTH_DIR = tempOauthDir;
   });
 
   afterEach(() => {
     if (previousOauthDir === undefined) {
-      delete process.env.CLAWDBOT_OAUTH_DIR;
+      delete process.env.AURA_OAUTH_DIR;
     } else {
-      process.env.CLAWDBOT_OAUTH_DIR = previousOauthDir;
+      process.env.AURA_OAUTH_DIR = previousOauthDir;
     }
     if (tempOauthDir) {
       fs.rmSync(tempOauthDir, { recursive: true, force: true });

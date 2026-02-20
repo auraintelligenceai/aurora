@@ -88,7 +88,7 @@ function findPackageRoot(startDir: string, name: string): string | null {
 
 function resolveaura_intelligenceRoot(): string {
   if (coreRootCache) return coreRootCache;
-  const override = process.env.aura_intelligence_ROOT?.trim() || process.env.CLAWDBOT_ROOT?.trim();
+  const override = process.env.aura_intelligence_ROOT?.trim() || process.env.AURA_ROOT?.trim();
   if (override) {
     coreRootCache = override;
     return override;
@@ -117,7 +117,7 @@ function resolveaura_intelligenceRoot(): string {
   }
 
   throw new Error(
-    "Unable to resolve core root. Set aura_intelligence_ROOT (or legacy CLAWDBOT_ROOT) to the package root.",
+    "Unable to resolve core root. Set aura_intelligence_ROOT (or legacy AURA_ROOT) to the package root.",
   );
 }
 

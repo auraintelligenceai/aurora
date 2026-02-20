@@ -55,7 +55,9 @@ export function applyZaiConfig(cfg: aura_intelligenceConfig): aura_intelligenceC
   };
 }
 
-export function applyOpenrouterProviderConfig(cfg: aura_intelligenceConfig): aura_intelligenceConfig {
+export function applyOpenrouterProviderConfig(
+  cfg: aura_intelligenceConfig,
+): aura_intelligenceConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[OPENROUTER_DEFAULT_MODEL_REF] = {
     ...models[OPENROUTER_DEFAULT_MODEL_REF],
@@ -74,7 +76,9 @@ export function applyOpenrouterProviderConfig(cfg: aura_intelligenceConfig): aur
   };
 }
 
-export function applyVercelAiGatewayProviderConfig(cfg: aura_intelligenceConfig): aura_intelligenceConfig {
+export function applyVercelAiGatewayProviderConfig(
+  cfg: aura_intelligenceConfig,
+): aura_intelligenceConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF] = {
     ...models[VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF],
@@ -267,7 +271,9 @@ export function applyKimiCodeConfig(cfg: aura_intelligenceConfig): aura_intellig
   };
 }
 
-export function applySyntheticProviderConfig(cfg: aura_intelligenceConfig): aura_intelligenceConfig {
+export function applySyntheticProviderConfig(
+  cfg: aura_intelligenceConfig,
+): aura_intelligenceConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[SYNTHETIC_DEFAULT_MODEL_REF] = {
     ...models[SYNTHETIC_DEFAULT_MODEL_REF],

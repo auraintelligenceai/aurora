@@ -6,7 +6,7 @@ import type {
   ChannelPlugin,
   aura_intelligenceConfig,
   GroupToolPolicyConfig,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   buildChannelConfigSchema,
@@ -16,7 +16,7 @@ import {
   migrateBaseNameToDefaultAccount,
   normalizeAccountId,
   setAccountEnabledInConfigSection,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 import {
   listZalouserAccountIds,
   resolveDefaultZalouserAccountId,

@@ -29,6 +29,7 @@ export function normalizeProviderId(provider: string): string {
   if (normalized === "z.ai" || normalized === "z-ai") return "zai";
   if (normalized === "opencode-zen") return "opencode";
   if (normalized === "qwen") return "qwen-portal";
+  if (normalized === "vllm" || normalized === "vllm") return "vllm";
   return normalized;
 }
 
@@ -46,6 +47,13 @@ function normalizeAnthropicModelId(model: string): string {
   const lower = trimmed.toLowerCase();
   if (lower === "opus-4.5") return "claude-opus-4-5";
   if (lower === "sonnet-4.5") return "claude-sonnet-4-5";
+  if (lower === "sonnet-4.6") return "claude-sonnet-4-6";
+  if (lower === "claude-3.7") return "claude-3-7-sonnet";
+  if (lower === "claude-3-7") return "claude-3-7-sonnet";
+  if (lower === "claude-3.7-sonnet") return "claude-3-7-sonnet";
+  if (lower === "claude-3-7-sonnet") return "claude-3-7-sonnet";
+  if (lower === "claude-3.7-opus") return "claude-3-7-opus";
+  if (lower === "claude-3-7-opus") return "claude-3-7-opus";
   return trimmed;
 }
 

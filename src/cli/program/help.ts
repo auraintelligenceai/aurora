@@ -8,14 +8,23 @@ import type { ProgramContext } from "./context.js";
 const CLI_NAME = resolveCliName();
 
 const EXAMPLES = [
-  ["aura_intelligence channels login --verbose", "Link personal WhatsApp Web and show QR + connection logs."],
+  [
+    "aura_intelligence channels login --verbose",
+    "Link personal WhatsApp Web and show QR + connection logs.",
+  ],
   [
     'aura_intelligence message send --target +15555550123 --message "Hi" --json',
     "Send via your web session and print JSON result.",
   ],
   ["aura_intelligence gateway --port 18789", "Run the WebSocket Gateway locally."],
-  ["aura_intelligence --dev gateway", "Run a dev Gateway (isolated state/config) on ws://127.0.0.1:19001."],
-  ["aura_intelligence gateway --force", "Kill anything bound to the default gateway port, then start it."],
+  [
+    "aura_intelligence --dev gateway",
+    "Run a dev Gateway (isolated state/config) on ws://127.0.0.1:19001.",
+  ],
+  [
+    "aura_intelligence gateway --force",
+    "Kill anything bound to the default gateway port, then start it.",
+  ],
   ["aura_intelligence gateway ...", "Gateway control via WebSocket."],
   [
     'aura_intelligence agent --to +15555550123 --message "Run summary" --deliver',
@@ -34,11 +43,11 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     .version(ctx.programVersion)
     .option(
       "--dev",
-      "Dev profile: isolate state under ~/.clawdbot-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
+      "Dev profile: isolate state under ~/.aura-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
     )
     .option(
       "--profile <name>",
-      "Use a named profile (isolates CLAWDBOT_STATE_DIR/CLAWDBOT_CONFIG_PATH under ~/.clawdbot-<name>)",
+      "Use a named profile (isolates AURA_STATE_DIR/AURA_CONFIG_PATH under ~/.aura-<name>)",
     );
 
   program.option("--no-color", "Disable ANSI colors", false);

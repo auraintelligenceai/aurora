@@ -1,4 +1,4 @@
-package bot.molt.android.gateway
+package aura.android.gateway
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

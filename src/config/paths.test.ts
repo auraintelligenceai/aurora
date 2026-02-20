@@ -12,10 +12,10 @@ import {
 } from "./paths.js";
 
 describe("oauth paths", () => {
-  it("prefers CLAWDBOT_OAUTH_DIR over CLAWDBOT_STATE_DIR", () => {
+  it("prefers AURA_OAUTH_DIR over AURA_STATE_DIR", () => {
     const env = {
-      CLAWDBOT_OAUTH_DIR: "/custom/oauth",
-      CLAWDBOT_STATE_DIR: "/custom/state",
+      AURA_OAUTH_DIR: "/custom/oauth",
+      AURA_STATE_DIR: "/custom/state",
     } as NodeJS.ProcessEnv;
 
     expect(resolveOAuthDir(env, "/custom/state")).toBe(path.resolve("/custom/oauth"));
@@ -24,9 +24,9 @@ describe("oauth paths", () => {
     );
   });
 
-  it("derives oauth path from CLAWDBOT_STATE_DIR when unset", () => {
+  it("derives oauth path from AURA_STATE_DIR when unset", () => {
     const env = {
-      CLAWDBOT_STATE_DIR: "/custom/state",
+      AURA_STATE_DIR: "/custom/state",
     } as NodeJS.ProcessEnv;
 
     expect(resolveOAuthDir(env, "/custom/state")).toBe(path.join("/custom/state", "credentials"));
@@ -40,7 +40,7 @@ describe("state + config path candidates", () => {
   it("prefers aura_intelligence_STATE_DIR over legacy state dir env", () => {
     const env = {
       aura_intelligence_STATE_DIR: "/new/state",
-      CLAWDBOT_STATE_DIR: "/legacy/state",
+      AURA_STATE_DIR: "/legacy/state",
     } as NodeJS.ProcessEnv;
 
     expect(resolveStateDir(env, () => "/home/test")).toBe(path.resolve("/new/state"));
@@ -50,9 +50,9 @@ describe("state + config path candidates", () => {
     const home = "/home/test";
     const candidates = resolveDefaultConfigCandidates({} as NodeJS.ProcessEnv, () => home);
     expect(candidates[0]).toBe(path.join(home, ".aura_intelligence", "aura_intelligence.json"));
-    expect(candidates[1]).toBe(path.join(home, ".aura_intelligence", "clawdbot.json"));
-    expect(candidates[2]).toBe(path.join(home, ".clawdbot", "aura_intelligence.json"));
-    expect(candidates[3]).toBe(path.join(home, ".clawdbot", "clawdbot.json"));
+    expect(candidates[1]).toBe(path.join(home, ".aura_intelligence", "aura.json"));
+    expect(candidates[2]).toBe(path.join(home, ".aura", "aura_intelligence.json"));
+    expect(candidates[3]).toBe(path.join(home, ".aura", "aura.json"));
   });
 
   it("prefers ~/.aura_intelligence when it exists and legacy dir is missing", async () => {
@@ -74,13 +74,13 @@ describe("state + config path candidates", () => {
     const previousHomeDrive = process.env.HOMEDRIVE;
     const previousHomePath = process.env.HOMEPATH;
     const previousaura_intelligenceConfig = process.env.aura_intelligence_CONFIG_PATH;
-    const previousClawdbotConfig = process.env.CLAWDBOT_CONFIG_PATH;
+    const previousClawdbotConfig = process.env.AURA_CONFIG_PATH;
     const previousaura_intelligenceState = process.env.aura_intelligence_STATE_DIR;
-    const previousClawdbotState = process.env.CLAWDBOT_STATE_DIR;
+    const previousClawdbotState = process.env.AURA_STATE_DIR;
     try {
-      const legacyDir = path.join(root, ".clawdbot");
+      const legacyDir = path.join(root, ".aura");
       await fs.mkdir(legacyDir, { recursive: true });
-      const legacyPath = path.join(legacyDir, "clawdbot.json");
+      const legacyPath = path.join(legacyDir, "aura.json");
       await fs.writeFile(legacyPath, "{}", "utf-8");
 
       process.env.HOME = root;
@@ -91,9 +91,9 @@ describe("state + config path candidates", () => {
         process.env.HOMEPATH = root.slice(parsed.root.length - 1);
       }
       delete process.env.aura_intelligence_CONFIG_PATH;
-      delete process.env.CLAWDBOT_CONFIG_PATH;
+      delete process.env.AURA_CONFIG_PATH;
       delete process.env.aura_intelligence_STATE_DIR;
-      delete process.env.CLAWDBOT_STATE_DIR;
+      delete process.env.AURA_STATE_DIR;
 
       vi.resetModules();
       const { CONFIG_PATH } = await import("./paths.js");
@@ -110,14 +110,16 @@ describe("state + config path candidates", () => {
       else process.env.HOMEDRIVE = previousHomeDrive;
       if (previousHomePath === undefined) delete process.env.HOMEPATH;
       else process.env.HOMEPATH = previousHomePath;
-      if (previousaura_intelligenceConfig === undefined) delete process.env.aura_intelligence_CONFIG_PATH;
+      if (previousaura_intelligenceConfig === undefined)
+        delete process.env.aura_intelligence_CONFIG_PATH;
       else process.env.aura_intelligence_CONFIG_PATH = previousaura_intelligenceConfig;
-      if (previousClawdbotConfig === undefined) delete process.env.CLAWDBOT_CONFIG_PATH;
-      else process.env.CLAWDBOT_CONFIG_PATH = previousClawdbotConfig;
-      if (previousaura_intelligenceState === undefined) delete process.env.aura_intelligence_STATE_DIR;
+      if (previousClawdbotConfig === undefined) delete process.env.AURA_CONFIG_PATH;
+      else process.env.AURA_CONFIG_PATH = previousClawdbotConfig;
+      if (previousaura_intelligenceState === undefined)
+        delete process.env.aura_intelligence_STATE_DIR;
       else process.env.aura_intelligence_STATE_DIR = previousaura_intelligenceState;
-      if (previousClawdbotState === undefined) delete process.env.CLAWDBOT_STATE_DIR;
-      else process.env.CLAWDBOT_STATE_DIR = previousClawdbotState;
+      if (previousClawdbotState === undefined) delete process.env.AURA_STATE_DIR;
+      else process.env.AURA_STATE_DIR = previousClawdbotState;
       await fs.rm(root, { recursive: true, force: true });
       vi.resetModules();
     }
@@ -126,7 +128,7 @@ describe("state + config path candidates", () => {
   it("respects state dir overrides when config is missing", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-config-override-"));
     try {
-      const legacyDir = path.join(root, ".clawdbot");
+      const legacyDir = path.join(root, ".aura");
       await fs.mkdir(legacyDir, { recursive: true });
       const legacyConfig = path.join(legacyDir, "aura_intelligence.json");
       await fs.writeFile(legacyConfig, "{}", "utf-8");

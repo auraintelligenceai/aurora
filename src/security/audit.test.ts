@@ -160,7 +160,9 @@ describe("security audit", () => {
   });
 
   it("flags Windows ACLs when Users can read the state dir", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-win-open-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-win-open-"),
+    );
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
     const configPath = path.join(stateDir, "aura_intelligence.json");
@@ -391,9 +393,11 @@ describe("security audit", () => {
   });
 
   it("flags Discord native commands without a guild user allowlist", async () => {
-    const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-"));
-    process.env.CLAWDBOT_STATE_DIR = tmp;
+    const prevStateDir = process.env.AURA_STATE_DIR;
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-"),
+    );
+    process.env.AURA_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
       const cfg: aura_intelligenceConfig = {
@@ -429,17 +433,17 @@ describe("security audit", () => {
         ]),
       );
     } finally {
-      if (prevStateDir == null) delete process.env.CLAWDBOT_STATE_DIR;
-      else process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+      if (prevStateDir == null) delete process.env.AURA_STATE_DIR;
+      else process.env.AURA_STATE_DIR = prevStateDir;
     }
   });
 
   it("does not flag Discord slash commands when dm.allowFrom includes a Discord snowflake id", async () => {
-    const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
+    const prevStateDir = process.env.AURA_STATE_DIR;
     const tmp = await fs.mkdtemp(
       path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-allowfrom-snowflake-"),
     );
-    process.env.CLAWDBOT_STATE_DIR = tmp;
+    process.env.AURA_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
       const cfg: aura_intelligenceConfig = {
@@ -475,15 +479,17 @@ describe("security audit", () => {
         ]),
       );
     } finally {
-      if (prevStateDir == null) delete process.env.CLAWDBOT_STATE_DIR;
-      else process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+      if (prevStateDir == null) delete process.env.AURA_STATE_DIR;
+      else process.env.AURA_STATE_DIR = prevStateDir;
     }
   });
 
   it("flags Discord slash commands when access-group enforcement is disabled and no users allowlist exists", async () => {
-    const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-open-"));
-    process.env.CLAWDBOT_STATE_DIR = tmp;
+    const prevStateDir = process.env.AURA_STATE_DIR;
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-discord-open-"),
+    );
+    process.env.AURA_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
       const cfg: aura_intelligenceConfig = {
@@ -520,15 +526,15 @@ describe("security audit", () => {
         ]),
       );
     } finally {
-      if (prevStateDir == null) delete process.env.CLAWDBOT_STATE_DIR;
-      else process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+      if (prevStateDir == null) delete process.env.AURA_STATE_DIR;
+      else process.env.AURA_STATE_DIR = prevStateDir;
     }
   });
 
   it("flags Slack slash commands without a channel users allowlist", async () => {
-    const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
+    const prevStateDir = process.env.AURA_STATE_DIR;
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-slack-"));
-    process.env.CLAWDBOT_STATE_DIR = tmp;
+    process.env.AURA_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
       const cfg: aura_intelligenceConfig = {
@@ -559,15 +565,17 @@ describe("security audit", () => {
         ]),
       );
     } finally {
-      if (prevStateDir == null) delete process.env.CLAWDBOT_STATE_DIR;
-      else process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+      if (prevStateDir == null) delete process.env.AURA_STATE_DIR;
+      else process.env.AURA_STATE_DIR = prevStateDir;
     }
   });
 
   it("flags Slack slash commands when access-group enforcement is disabled", async () => {
-    const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-slack-open-"));
-    process.env.CLAWDBOT_STATE_DIR = tmp;
+    const prevStateDir = process.env.AURA_STATE_DIR;
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-slack-open-"),
+    );
+    process.env.AURA_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
       const cfg: aura_intelligenceConfig = {
@@ -599,15 +607,17 @@ describe("security audit", () => {
         ]),
       );
     } finally {
-      if (prevStateDir == null) delete process.env.CLAWDBOT_STATE_DIR;
-      else process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+      if (prevStateDir == null) delete process.env.AURA_STATE_DIR;
+      else process.env.AURA_STATE_DIR = prevStateDir;
     }
   });
 
   it("flags Telegram group commands without a sender allowlist", async () => {
-    const prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-security-audit-telegram-"));
-    process.env.CLAWDBOT_STATE_DIR = tmp;
+    const prevStateDir = process.env.AURA_STATE_DIR;
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "aura_intelligence-security-audit-telegram-"),
+    );
+    process.env.AURA_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
       const cfg: aura_intelligenceConfig = {
@@ -637,8 +647,8 @@ describe("security audit", () => {
         ]),
       );
     } finally {
-      if (prevStateDir == null) delete process.env.CLAWDBOT_STATE_DIR;
-      else process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+      if (prevStateDir == null) delete process.env.AURA_STATE_DIR;
+      else process.env.AURA_STATE_DIR = prevStateDir;
     }
   });
 
@@ -766,8 +776,8 @@ describe("security audit", () => {
   });
 
   it("warns when hooks token reuses the gateway env token", async () => {
-    const prevToken = process.env.CLAWDBOT_GATEWAY_TOKEN;
-    process.env.CLAWDBOT_GATEWAY_TOKEN = "shared-gateway-token-1234567890";
+    const prevToken = process.env.AURA_GATEWAY_TOKEN;
+    process.env.AURA_GATEWAY_TOKEN = "shared-gateway-token-1234567890";
     const cfg: aura_intelligenceConfig = {
       hooks: { enabled: true, token: "shared-gateway-token-1234567890" },
     };
@@ -785,8 +795,8 @@ describe("security audit", () => {
         ]),
       );
     } finally {
-      if (prevToken === undefined) delete process.env.CLAWDBOT_GATEWAY_TOKEN;
-      else process.env.CLAWDBOT_GATEWAY_TOKEN = prevToken;
+      if (prevToken === undefined) delete process.env.AURA_GATEWAY_TOKEN;
+      else process.env.AURA_GATEWAY_TOKEN = prevToken;
     }
   });
 
@@ -797,8 +807,8 @@ describe("security audit", () => {
       config: cfg,
       includeFilesystem: false,
       includeChannelSecurity: false,
-      stateDir: "/Users/test/Dropbox/.clawdbot",
-      configPath: "/Users/test/Dropbox/.clawdbot/aura_intelligence.json",
+      stateDir: "/Users/test/Dropbox/.aura",
+      configPath: "/Users/test/Dropbox/.aura_intelligence/aura_intelligence.json",
     });
 
     expect(res.findings).toEqual(
@@ -977,24 +987,24 @@ describe("security audit", () => {
   });
 
   describe("maybeProbeGateway auth selection", () => {
-    const originalEnvToken = process.env.CLAWDBOT_GATEWAY_TOKEN;
-    const originalEnvPassword = process.env.CLAWDBOT_GATEWAY_PASSWORD;
+    const originalEnvToken = process.env.AURA_GATEWAY_TOKEN;
+    const originalEnvPassword = process.env.AURA_GATEWAY_PASSWORD;
 
     beforeEach(() => {
-      delete process.env.CLAWDBOT_GATEWAY_TOKEN;
-      delete process.env.CLAWDBOT_GATEWAY_PASSWORD;
+      delete process.env.AURA_GATEWAY_TOKEN;
+      delete process.env.AURA_GATEWAY_PASSWORD;
     });
 
     afterEach(() => {
       if (originalEnvToken == null) {
-        delete process.env.CLAWDBOT_GATEWAY_TOKEN;
+        delete process.env.AURA_GATEWAY_TOKEN;
       } else {
-        process.env.CLAWDBOT_GATEWAY_TOKEN = originalEnvToken;
+        process.env.AURA_GATEWAY_TOKEN = originalEnvToken;
       }
       if (originalEnvPassword == null) {
-        delete process.env.CLAWDBOT_GATEWAY_PASSWORD;
+        delete process.env.AURA_GATEWAY_PASSWORD;
       } else {
-        process.env.CLAWDBOT_GATEWAY_PASSWORD = originalEnvPassword;
+        process.env.AURA_GATEWAY_PASSWORD = originalEnvPassword;
       }
     });
 
@@ -1033,7 +1043,7 @@ describe("security audit", () => {
     });
 
     it("prefers env token over local config token", async () => {
-      process.env.CLAWDBOT_GATEWAY_TOKEN = "env-token";
+      process.env.AURA_GATEWAY_TOKEN = "env-token";
       let capturedAuth: { token?: string; password?: string } | undefined;
       const cfg: aura_intelligenceConfig = {
         gateway: {
@@ -1139,7 +1149,7 @@ describe("security audit", () => {
     });
 
     it("ignores env token when gateway.mode is remote", async () => {
-      process.env.CLAWDBOT_GATEWAY_TOKEN = "env-token";
+      process.env.AURA_GATEWAY_TOKEN = "env-token";
       let capturedAuth: { token?: string; password?: string } | undefined;
       const cfg: aura_intelligenceConfig = {
         gateway: {
@@ -1215,7 +1225,7 @@ describe("security audit", () => {
     });
 
     it("prefers env password over remote password", async () => {
-      process.env.CLAWDBOT_GATEWAY_PASSWORD = "env-pass";
+      process.env.AURA_GATEWAY_PASSWORD = "env-pass";
       let capturedAuth: { token?: string; password?: string } | undefined;
       const cfg: aura_intelligenceConfig = {
         gateway: {

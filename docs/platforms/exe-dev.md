@@ -31,7 +31,7 @@ Shelley, [exe.dev](https://exe.dev)'s agent, can install aura_intelligence insta
 prompt. The prompt used is as below:
 
 ```
-Set up aura_intelligence (https://docs.molt.bot/install) on this VM. Use the non-interactive and accept-risk flags for aura_intelligence onboarding. Add the supplied auth or token as needed. Configure nginx to forward from the default port 18789 to the root location on the default enabled site config, making sure to enable Websocket support. Pairing is done by "aura_intelligence devices list" and "aura_intelligence device approve <request id>". Make sure the dashboard shows that aura_intelligence's health is OK. exe.dev handles forwarding from port 8000 to port 80/443 and HTTPS for us, so the final "reachable" should be <vm-name>.exe.xyz, without port specification.
+Set up aura_intelligence (https://github.com/auraintelligenceai/aurora/install) on this VM. Use the non-interactive and accept-risk flags for Aura Intelligence onboarding. Add the supplied auth or token as needed. Configure nginx to forward from the default port 18789 to the root location on the default enabled site config, making sure to enable Websocket support. Pairing is done by "aura_intelligence devices list" and "aura_intelligence device approve <request id>". Make sure the dashboard shows that aura_intelligence's health is OK. exe.dev handles forwarding from port 8000 to port 80/443 and HTTPS for us, so the final "reachable" should be <vm-name>.exe.xyz, without port specification.
 ```
 
 ## Manual installation
@@ -50,7 +50,7 @@ Then connect:
 ssh <vm-name>.exe.xyz
 ```
 
-Tip: keep this VM **stateful**. aura_intelligence stores state under `~/.clawdbot/` and `~/clawd/`.
+Tip: keep this VM **stateful**. aura_intelligence stores state under `~/.aura/` and `~/aura/`.
 
 ## 2) Install prerequisites (on the VM)
 
@@ -64,7 +64,7 @@ sudo apt-get install -y git curl jq ca-certificates openssl
 Run the aura_intelligence install script:
 
 ```bash
-curl -fsSL https://molt.bot/install.sh | bash
+curl -fsSL https://github.com/auraintelligenceai/aurora/install.sh | bash
 ```
 
 ## 4) Setup nginx to proxy aura_intelligence to port 8000

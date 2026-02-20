@@ -14,12 +14,12 @@ Examples below are aligned with the current config schema. For the exhaustive re
 ### Absolute minimum
 ```json5
 {
-  agent: { workspace: "~/clawd" },
+  agent: { workspace: "~/aura" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } }
 }
 ```
 
-Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that number.
+Save to `~/.aura_intelligence/aura_intelligence.json` and you can DM the bot from that number.
 
 ### Recommended starter
 ```json5
@@ -30,7 +30,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
     emoji: "🦞"
   },
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: { primary: "anthropic/claude-sonnet-4-5" }
   },
   channels: {
@@ -102,7 +102,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
   // Routing + queue
   routing: {
     groupChat: {
-      mentionPatterns: ["@clawd", "aura_intelligence"],
+      mentionPatterns: ["@aura", "aura_intelligence"],
       historyLimit: 50
     },
     queue: {
@@ -155,7 +155,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
       discord: { mode: "idle", idleMinutes: 10080 }
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.clawdbot/agents/default/sessions/sessions.json",
+    store: "~/.aura/agents/default/sessions/sessions.json",
     typingIntervalSeconds: 5,
     sendPolicy: {
       default: "allow",
@@ -190,7 +190,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
       dm: { enabled: true, allowFrom: ["steipete"] },
       guilds: {
         "123456789012345678": {
-          slug: "friends-of-clawd",
+          slug: "friends-of-aura",
           requireMention: false,
           channels: {
             general: { allow: true },
@@ -210,7 +210,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
       dm: { enabled: true, allowFrom: ["U123"] },
       slashCommand: {
         enabled: true,
-        name: "clawd",
+        name: "aura",
         sessionPrefix: "slack:slash",
         ephemeral: true
       }
@@ -220,7 +220,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
   // Agent runtime
   agents: {
     defaults: {
-      workspace: "~/clawd",
+      workspace: "~/aura",
       userTimezone: "America/Chicago",
       model: {
         primary: "anthropic/claude-sonnet-4-5",
@@ -273,7 +273,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
       sandbox: {
         mode: "non-main",
         perSession: true,
-        workspaceRoot: "~/.clawdbot/sandboxes",
+        workspaceRoot: "~/.aura/sandboxes",
         docker: {
           image: "aura_intelligence-sandbox:bookworm-slim",
           workdir: "/workspace",
@@ -340,7 +340,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
   // Cron jobs
   cron: {
     enabled: true,
-    store: "~/.clawdbot/cron/cron.json",
+    store: "~/.aura/cron/cron.json",
     maxConcurrentRuns: 2
   },
 
@@ -350,7 +350,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
     path: "/hooks",
     token: "shared-secret",
     presets: ["gmail"],
-    transformsDir: "~/.clawdbot/hooks",
+    transformsDir: "~/.aura/hooks",
     mappings: [
       {
         id: "gmail-hook",
@@ -426,7 +426,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
 ### Multi-platform setup
 ```json5
 {
-  agent: { workspace: "~/clawd" },
+  agent: { workspace: "~/aura" },
   channels: {
     whatsapp: { allowFrom: ["+15555550123"] },
     telegram: {
@@ -463,7 +463,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
     }
   },
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: {
       primary: "anthropic/claude-sonnet-4-5",
       fallbacks: ["anthropic/claude-opus-4-5"]
@@ -501,7 +501,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
     }
   },
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: {
       primary: "anthropic/claude-opus-4-5",
       fallbacks: ["minimax/MiniMax-M2.1"]
@@ -518,7 +518,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
     theme: "professional assistant"
   },
   agent: {
-    workspace: "~/work-clawd",
+    workspace: "~/work-aura",
     elevated: { enabled: false }
   },
   channels: {
@@ -538,7 +538,7 @@ Save to `~/.clawdbot/aura_intelligence.json` and you can DM the bot from that nu
 ```json5
 {
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: { primary: "lmstudio/minimax-m2.1-gs32" }
   },
   models: {

@@ -3,7 +3,7 @@ import {
   resolveControlCommandGate,
   type aura_intelligenceConfig,
   type RuntimeEnv,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import type { ResolvedNextcloudTalkAccount } from "./accounts.js";
 import {

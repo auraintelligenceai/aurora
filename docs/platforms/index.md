@@ -46,5 +46,5 @@ Use one of these (all supported):
 - Repair/migrate: `aura_intelligence doctor` (offers to install or fix the service)
 
 The service target depends on OS:
-- macOS: LaunchAgent (`bot.molt.gateway` or `bot.molt.<profile>`; legacy `com.clawdbot.*`)
+- macOS: LaunchAgent (`aura.gateway` or `aura.<profile>`; legacy `com.aura.*`)
 - Linux/WSL2: systemd user service (`aura_intelligence-gateway[-<profile>].service`)

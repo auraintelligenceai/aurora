@@ -209,7 +209,7 @@ export function loadaura_intelligencePlugins(options: PluginLoadOptions = {}): P
     ...(pluginSdkAlias
       ? {
           alias: {
-            "clawdbot/plugin-sdk": pluginSdkAlias,
+            "aura/plugin-sdk": pluginSdkAlias,
             "aura_intelligence/plugin-sdk": pluginSdkAlias,
           },
         }

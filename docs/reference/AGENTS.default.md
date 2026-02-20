@@ -8,33 +8,33 @@ read_when:
 
 ## First run (recommended)
 
-aura_intelligence uses a dedicated workspace directory for the agent. Default: `~/clawd` (configurable via `agents.defaults.workspace`).
+aura_intelligence uses a dedicated workspace directory for the agent. Default: `~/aura` (configurable via `agents.defaults.workspace`).
 
 1) Create the workspace (if it doesn’t already exist):
 
 ```bash
-mkdir -p ~/clawd
+mkdir -p ~/aura
 ```
 
 2) Copy the default workspace templates into the workspace:
 
 ```bash
-cp docs/reference/templates/AGENTS.md ~/clawd/AGENTS.md
-cp docs/reference/templates/SOUL.md ~/clawd/SOUL.md
-cp docs/reference/templates/TOOLS.md ~/clawd/TOOLS.md
+cp docs/reference/templates/AGENTS.md ~/aura/AGENTS.md
+cp docs/reference/templates/SOUL.md ~/aura/SOUL.md
+cp docs/reference/templates/TOOLS.md ~/aura/TOOLS.md
 ```
 
 3) Optional: if you want the personal assistant skill roster, replace AGENTS.md with this file:
 
 ```bash
-cp docs/reference/AGENTS.default.md ~/clawd/AGENTS.md
+cp docs/reference/AGENTS.default.md ~/aura/AGENTS.md
 ```
 
 4) Optional: choose a different workspace by setting `agents.defaults.workspace` (supports `~`):
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/clawd" } }
+  agents: { defaults: { workspace: "~/aura" } }
 }
 ```
 
@@ -71,7 +71,7 @@ cp docs/reference/AGENTS.default.md ~/clawd/AGENTS.md
 If you treat this workspace as Clawd’s “memory”, make it a git repo (ideally private) so `AGENTS.md` and your memory files are backed up.
 
 ```bash
-cd ~/clawd
+cd ~/aura
 git init
 git add AGENTS.md
 git commit -m "Add Clawd workspace"
@@ -108,6 +108,6 @@ git commit -m "Add Clawd workspace"
 - Run installs from the Skills tab; it hides the button if a binary is already present.
 - Keep heartbeats enabled so the assistant can schedule reminders, monitor inboxes, and trigger camera captures.
 - Canvas UI runs full-screen with native overlays. Avoid placing critical controls in the top-left/top-right/bottom edges; add explicit gutters in the layout and don’t rely on safe-area insets.
-- For browser-driven verification, use `aura_intelligence browser` (tabs/status/screenshot) with the clawd-managed Chrome profile.
+- For browser-driven verification, use `aura_intelligence browser` (tabs/status/screenshot) with the aura-managed Chrome profile.
 - For DOM inspection, use `aura_intelligence browser eval|query|dom|snapshot` (and `--json`/`--out` when you need machine output).
 - For interactions, use `aura_intelligence browser click|type|hover|drag|select|upload|press|wait|navigate|back|evaluate|run` (click/type require snapshot refs; use `evaluate` for CSS selectors).

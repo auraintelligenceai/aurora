@@ -1,4 +1,4 @@
-package bot.molt.android
+package aura.android
 
 import android.app.Application
 import android.os.StrictMode

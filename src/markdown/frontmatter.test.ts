@@ -65,7 +65,9 @@ metadata:
     expect(result.enabled).toBe("true");
     expect(result.retries).toBe("3");
     expect(JSON.parse(result.tags ?? "[]")).toEqual(["alpha", "beta"]);
-    const parsed = JSON5.parse(result.metadata ?? "") as { aura_intelligence?: { events?: string[] } };
+    const parsed = JSON5.parse(result.metadata ?? "") as {
+      aura_intelligence?: { events?: string[] };
+    };
     expect(parsed.aura_intelligence?.events).toEqual(["command:new"]);
   });
 

@@ -7,7 +7,9 @@ export function createQuietRuntime(runtime: RuntimeEnv): RuntimeEnv {
   return { ...runtime, log: () => {} };
 }
 
-export async function requireValidConfig(runtime: RuntimeEnv): Promise<aura_intelligenceConfig | null> {
+export async function requireValidConfig(
+  runtime: RuntimeEnv,
+): Promise<aura_intelligenceConfig | null> {
   const snapshot = await readConfigFileSnapshot();
   if (snapshot.exists && !snapshot.valid) {
     const issues =

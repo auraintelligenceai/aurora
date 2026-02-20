@@ -47,7 +47,10 @@ type NodeDaemonStatusOptions = {
 };
 
 function renderNodeServiceStartHints(): string[] {
-  const base = [formatCliCommand("aura_intelligence node install"), formatCliCommand("aura_intelligence node start")];
+  const base = [
+    formatCliCommand("aura_intelligence node install"),
+    formatCliCommand("aura_intelligence node start"),
+  ];
   switch (process.platform) {
     case "darwin":
       return [
@@ -169,7 +172,9 @@ export async function runNodeDaemonInstall(opts: NodeDaemonInstallOptions) {
     });
     if (!json) {
       defaultRuntime.log(`Node service already ${service.loadedText}.`);
-      defaultRuntime.log(`Reinstall with: ${formatCliCommand("aura_intelligence node install --force")}`);
+      defaultRuntime.log(
+        `Reinstall with: ${formatCliCommand("aura_intelligence node install --force")}`,
+      );
     }
     return;
   }
@@ -561,7 +566,7 @@ export async function runNodeDaemonStatus(opts: NodeDaemonStatusOptions = {}) {
   };
   const hintEnv = {
     ...baseEnv,
-    CLAWDBOT_LOG_PREFIX: baseEnv.CLAWDBOT_LOG_PREFIX ?? "node",
+    AURA_LOG_PREFIX: baseEnv.AURA_LOG_PREFIX ?? "node",
   } as NodeJS.ProcessEnv;
 
   if (runtime?.missingUnit) {

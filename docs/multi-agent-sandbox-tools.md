@@ -24,7 +24,7 @@ when the container is created.
 Auth is per-agent: each agent reads from its own `agentDir` auth store at:
 
 ```
-~/.clawdbot/agents/<agentId>/agent/auth-profiles.json
+~/.aura/agents/<agentId>/agent/auth-profiles.json
 ```
 
 Credentials are **not** shared between agents. Never reuse `agentDir` across agents.
@@ -47,13 +47,13 @@ For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevate
         "id": "main",
         "default": true,
         "name": "Personal Assistant",
-        "workspace": "~/clawd",
+        "workspace": "~/aura",
         "sandbox": { "mode": "off" }
       },
       {
         "id": "family",
         "name": "Family Bot",
-        "workspace": "~/clawd-family",
+        "workspace": "~/aura-family",
         "sandbox": {
           "mode": "all",
           "scope": "agent"
@@ -95,12 +95,12 @@ For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevate
     "list": [
       {
         "id": "personal",
-        "workspace": "~/clawd-personal",
+        "workspace": "~/aura-personal",
         "sandbox": { "mode": "off" }
       },
       {
         "id": "work",
-        "workspace": "~/clawd-work",
+        "workspace": "~/aura-work",
         "sandbox": {
           "mode": "all",
           "scope": "shared",
@@ -154,14 +154,14 @@ For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevate
     "list": [
       {
         "id": "main",
-        "workspace": "~/clawd",
+        "workspace": "~/aura",
         "sandbox": {
           "mode": "off"  // Override: main never sandboxed
         }
       },
       {
         "id": "public",
-        "workspace": "~/clawd-public",
+        "workspace": "~/aura-public",
         "sandbox": {
           "mode": "all",  // Override: public always sandboxed
           "scope": "agent"
@@ -245,7 +245,7 @@ Mitigation patterns:
 {
   "agents": {
     "defaults": {
-      "workspace": "~/clawd",
+      "workspace": "~/aura",
       "sandbox": {
         "mode": "non-main"
       }
@@ -270,7 +270,7 @@ Mitigation patterns:
       {
         "id": "main",
         "default": true,
-        "workspace": "~/clawd",
+        "workspace": "~/aura",
         "sandbox": { "mode": "off" }
       }
     ]
@@ -345,7 +345,7 @@ After configuring multi-agent sandbox and tools:
 
 4. **Monitor logs:**
    ```exec
-   tail -f "${CLAWDBOT_STATE_DIR:-$HOME/.clawdbot}/logs/gateway.log" | grep -E "routing|sandbox|tools"
+   tail -f "${AURA_STATE_DIR:-$HOME/.aura}/logs/gateway.log" | grep -E "routing|sandbox|tools"
    ```
 
 ---

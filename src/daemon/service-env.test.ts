@@ -223,25 +223,25 @@ describe("buildServiceEnvironment", () => {
     } else {
       expect(env.PATH).toContain("/usr/bin");
     }
-    expect(env.CLAWDBOT_GATEWAY_PORT).toBe("18789");
-    expect(env.CLAWDBOT_GATEWAY_TOKEN).toBe("secret");
-    expect(env.CLAWDBOT_SERVICE_MARKER).toBe("aura_intelligence");
-    expect(env.CLAWDBOT_SERVICE_KIND).toBe("gateway");
-    expect(typeof env.CLAWDBOT_SERVICE_VERSION).toBe("string");
-    expect(env.CLAWDBOT_SYSTEMD_UNIT).toBe("aura_intelligence-gateway.service");
+    expect(env.AURA_GATEWAY_PORT).toBe("18789");
+    expect(env.AURA_GATEWAY_TOKEN).toBe("secret");
+    expect(env.AURA_SERVICE_MARKER).toBe("aura_intelligence");
+    expect(env.AURA_SERVICE_KIND).toBe("gateway");
+    expect(typeof env.AURA_SERVICE_VERSION).toBe("string");
+    expect(env.AURA_SYSTEMD_UNIT).toBe("aura_intelligence-gateway.service");
     if (process.platform === "darwin") {
-      expect(env.CLAWDBOT_LAUNCHD_LABEL).toBe("bot.molt.gateway");
+      expect(env.AURA_LAUNCHD_LABEL).toBe("aura.gateway");
     }
   });
 
   it("uses profile-specific unit and label", () => {
     const env = buildServiceEnvironment({
-      env: { HOME: "/home/user", CLAWDBOT_PROFILE: "work" },
+      env: { HOME: "/home/user", AURA_PROFILE: "work" },
       port: 18789,
     });
-    expect(env.CLAWDBOT_SYSTEMD_UNIT).toBe("aura_intelligence-gateway-work.service");
+    expect(env.AURA_SYSTEMD_UNIT).toBe("aura_intelligence-gateway-work.service");
     if (process.platform === "darwin") {
-      expect(env.CLAWDBOT_LAUNCHD_LABEL).toBe("bot.molt.work");
+      expect(env.AURA_LAUNCHD_LABEL).toBe("aura.work");
     }
   });
 });

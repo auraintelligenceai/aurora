@@ -102,7 +102,9 @@ export function registerDnsCli(program: Command) {
 
   dns
     .command("setup")
-    .description("Set up CoreDNS to serve aura_intelligence.internal for unicast DNS-SD (Wide-Area Bonjour)")
+    .description(
+      "Set up CoreDNS to serve aura_intelligence.internal for unicast DNS-SD (Wide-Area Bonjour)",
+    )
     .option(
       "--apply",
       "Install/update CoreDNS config and (re)start the service (requires sudo)",
@@ -134,7 +136,7 @@ export function registerDnsCli(program: Command) {
         }).trimEnd(),
       );
       defaultRuntime.log("");
-      defaultRuntime.log(theme.heading("Recommended ~/.clawdbot/aura_intelligence.json:"));
+      defaultRuntime.log(theme.heading("Recommended ~/.aura_intelligence/aura_intelligence.json:"));
       defaultRuntime.log(
         JSON.stringify(
           {
@@ -150,7 +152,9 @@ export function registerDnsCli(program: Command) {
       defaultRuntime.log(
         theme.muted(`- Add nameserver: ${tailnetIPv4 ?? "<this machine's tailnet IPv4>"}`),
       );
-      defaultRuntime.log(theme.muted("- Restrict to domain (Split DNS): aura_intelligence.internal"));
+      defaultRuntime.log(
+        theme.muted("- Restrict to domain (Split DNS): aura_intelligence.internal"),
+      );
 
       if (!opts.apply) {
         defaultRuntime.log("");
@@ -233,7 +237,7 @@ export function registerDnsCli(program: Command) {
         defaultRuntime.log("");
         defaultRuntime.log(
           theme.muted(
-            "Note: enable discovery.wideArea.enabled in ~/.clawdbot/aura_intelligence.json on the gateway and restart the gateway so it writes the DNS-SD zone.",
+            "Note: enable discovery.wideArea.enabled in ~/.aura_intelligence/aura_intelligence.json on the gateway and restart the gateway so it writes the DNS-SD zone.",
           ),
         );
       }

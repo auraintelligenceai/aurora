@@ -304,7 +304,7 @@ export function resolveTtsConfig(cfg: aura_intelligenceConfig): ResolvedTtsConfi
 
 export function resolveTtsPrefsPath(config: ResolvedTtsConfig): string {
   if (config.prefsPath?.trim()) return resolveUserPath(config.prefsPath.trim());
-  const envPath = process.env.CLAWDBOT_TTS_PREFS?.trim();
+  const envPath = process.env.AURA_TTS_PREFS?.trim();
   if (envPath) return resolveUserPath(envPath);
   return path.join(CONFIG_DIR, "settings", "tts.json");
 }

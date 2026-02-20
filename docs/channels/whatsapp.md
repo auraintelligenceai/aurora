@@ -10,7 +10,7 @@ Status: WhatsApp Web via Baileys only. Gateway owns the session(s).
 
 ## Quick setup (beginner)
 1) Use a **separate phone number** if possible (recommended).
-2) Configure WhatsApp in `~/.clawdbot/aura_intelligence.json`.
+2) Configure WhatsApp in `~/.aura_intelligence/aura_intelligence.json`.
 3) Run `aura_intelligence channels login` to scan the QR code (Linked Devices).
 4) Start the gateway.
 
@@ -111,9 +111,9 @@ the prefix (use `""` to remove it).
 - Login command: `aura_intelligence channels login` (QR via Linked Devices).
 - Multi-account login: `aura_intelligence channels login --account <id>` (`<id>` = `accountId`).
 - Default account (when `--account` is omitted): `default` if present, otherwise the first configured account id (sorted).
-- Credentials stored in `~/.clawdbot/credentials/whatsapp/<accountId>/creds.json`.
+- Credentials stored in `~/.aura/credentials/whatsapp/<accountId>/creds.json`.
 - Backup copy at `creds.json.bak` (restored on corruption).
-- Legacy compatibility: older installs stored Baileys files directly in `~/.clawdbot/credentials/`.
+- Legacy compatibility: older installs stored Baileys files directly in `~/.aura/credentials/`.
 - Logout: `aura_intelligence channels logout` (or `--account <id>`) deletes WhatsApp auth state (but keeps shared `oauth.json`).
 - Logged-out socket => error instructs re-link.
 

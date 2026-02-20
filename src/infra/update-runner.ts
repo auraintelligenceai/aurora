@@ -502,7 +502,9 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
       }
 
       const manager = await detectPackageManager(gitRoot);
-      const preflightRoot = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-update-preflight-"));
+      const preflightRoot = await fs.mkdtemp(
+        path.join(os.tmpdir(), "aura_intelligence-update-preflight-"),
+      );
       const worktreeDir = path.join(preflightRoot, "worktree");
       const worktreeStep = await runStep(
         step(
@@ -692,7 +694,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
         "aura_intelligence doctor",
         managerScriptArgs(manager, "aura_intelligence", ["doctor", "--non-interactive"]),
         gitRoot,
-        { CLAWDBOT_UPDATE_IN_PROGRESS: "1" },
+        { AURA_UPDATE_IN_PROGRESS: "1" },
       ),
     );
     steps.push(doctorStep);

@@ -1,4 +1,4 @@
-package bot.molt.android.ui
+package aura.android.ui
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode

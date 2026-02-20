@@ -81,36 +81,36 @@ vi.mock("./progress.js", () => ({
 
 describe("daemon-cli coverage", () => {
   const originalEnv = {
-    CLAWDBOT_STATE_DIR: process.env.CLAWDBOT_STATE_DIR,
-    CLAWDBOT_CONFIG_PATH: process.env.CLAWDBOT_CONFIG_PATH,
-    CLAWDBOT_GATEWAY_PORT: process.env.CLAWDBOT_GATEWAY_PORT,
-    CLAWDBOT_PROFILE: process.env.CLAWDBOT_PROFILE,
+    AURA_STATE_DIR: process.env.AURA_STATE_DIR,
+    AURA_CONFIG_PATH: process.env.AURA_CONFIG_PATH,
+    AURA_GATEWAY_PORT: process.env.AURA_GATEWAY_PORT,
+    AURA_PROFILE: process.env.AURA_PROFILE,
   };
 
   beforeEach(() => {
-    process.env.CLAWDBOT_STATE_DIR = "/tmp/aura_intelligence-cli-state";
-    process.env.CLAWDBOT_CONFIG_PATH = "/tmp/aura_intelligence-cli-state/aura_intelligence.json";
-    delete process.env.CLAWDBOT_GATEWAY_PORT;
-    delete process.env.CLAWDBOT_PROFILE;
+    process.env.AURA_STATE_DIR = "/tmp/aura_intelligence-cli-state";
+    process.env.AURA_CONFIG_PATH = "/tmp/aura_intelligence-cli-state/aura_intelligence.json";
+    delete process.env.AURA_GATEWAY_PORT;
+    delete process.env.AURA_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
   });
 
   afterEach(() => {
-    if (originalEnv.CLAWDBOT_STATE_DIR !== undefined)
-      process.env.CLAWDBOT_STATE_DIR = originalEnv.CLAWDBOT_STATE_DIR;
-    else delete process.env.CLAWDBOT_STATE_DIR;
+    if (originalEnv.AURA_STATE_DIR !== undefined)
+      process.env.AURA_STATE_DIR = originalEnv.AURA_STATE_DIR;
+    else delete process.env.AURA_STATE_DIR;
 
-    if (originalEnv.CLAWDBOT_CONFIG_PATH !== undefined)
-      process.env.CLAWDBOT_CONFIG_PATH = originalEnv.CLAWDBOT_CONFIG_PATH;
-    else delete process.env.CLAWDBOT_CONFIG_PATH;
+    if (originalEnv.AURA_CONFIG_PATH !== undefined)
+      process.env.AURA_CONFIG_PATH = originalEnv.AURA_CONFIG_PATH;
+    else delete process.env.AURA_CONFIG_PATH;
 
-    if (originalEnv.CLAWDBOT_GATEWAY_PORT !== undefined)
-      process.env.CLAWDBOT_GATEWAY_PORT = originalEnv.CLAWDBOT_GATEWAY_PORT;
-    else delete process.env.CLAWDBOT_GATEWAY_PORT;
+    if (originalEnv.AURA_GATEWAY_PORT !== undefined)
+      process.env.AURA_GATEWAY_PORT = originalEnv.AURA_GATEWAY_PORT;
+    else delete process.env.AURA_GATEWAY_PORT;
 
-    if (originalEnv.CLAWDBOT_PROFILE !== undefined)
-      process.env.CLAWDBOT_PROFILE = originalEnv.CLAWDBOT_PROFILE;
-    else delete process.env.CLAWDBOT_PROFILE;
+    if (originalEnv.AURA_PROFILE !== undefined)
+      process.env.AURA_PROFILE = originalEnv.AURA_PROFILE;
+    else delete process.env.AURA_PROFILE;
   });
 
   it("probes gateway status by default", async () => {
@@ -140,12 +140,12 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        CLAWDBOT_PROFILE: "dev",
-        CLAWDBOT_STATE_DIR: "/tmp/aura_intelligence-daemon-state",
-        CLAWDBOT_CONFIG_PATH: "/tmp/aura_intelligence-daemon-state/aura_intelligence.json",
-        CLAWDBOT_GATEWAY_PORT: "19001",
+        AURA_PROFILE: "dev",
+        AURA_STATE_DIR: "/tmp/aura_intelligence-daemon-state",
+        AURA_CONFIG_PATH: "/tmp/aura_intelligence-daemon-state/aura_intelligence.json",
+        AURA_GATEWAY_PORT: "19001",
       },
-      sourcePath: "/tmp/bot.molt.gateway.plist",
+      sourcePath: "/tmp/aura.gateway.plist",
     });
 
     const { registerDaemonCli } = await import("./daemon-cli.js");

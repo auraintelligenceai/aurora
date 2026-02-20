@@ -36,7 +36,10 @@ function normalizeMentionPatterns(patterns: string[]): string[] {
   return patterns.map(normalizeMentionPattern);
 }
 
-function resolveMentionPatterns(cfg: aura_intelligenceConfig | undefined, agentId?: string): string[] {
+function resolveMentionPatterns(
+  cfg: aura_intelligenceConfig | undefined,
+  agentId?: string,
+): string[] {
   if (!cfg) return [];
   const agentConfig = agentId ? resolveAgentConfig(cfg, agentId) : undefined;
   const agentGroupChat = agentConfig?.groupChat;
@@ -51,7 +54,10 @@ function resolveMentionPatterns(cfg: aura_intelligenceConfig | undefined, agentI
   return derived.length > 0 ? derived : [];
 }
 
-export function buildMentionRegexes(cfg: aura_intelligenceConfig | undefined, agentId?: string): RegExp[] {
+export function buildMentionRegexes(
+  cfg: aura_intelligenceConfig | undefined,
+  agentId?: string,
+): RegExp[] {
   const patterns = normalizeMentionPatterns(resolveMentionPatterns(cfg, agentId));
   return patterns
     .map((pattern) => {

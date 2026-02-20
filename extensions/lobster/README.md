@@ -30,9 +30,9 @@ Enable it in an agent allowlist:
 }
 ```
 
-## Using `clawd.invoke` (Lobster → Clawdbot tools)
+## Using `aura.invoke` (Lobster → Clawdbot tools)
 
-Some Lobster pipelines may include a `clawd.invoke` step to call back into Clawdbot tools/plugins (for example: `gog` for Google Workspace, `gh` for GitHub, `message.send`, etc.).
+Some Lobster pipelines may include a `aura.invoke` step to call back into Clawdbot tools/plugins (for example: `gog` for Google Workspace, `gh` for GitHub, `message.send`, etc.).
 
 For this to work, the Clawdbot Gateway must expose the tool bridge endpoint and the target tool must be allowed by policy:
 
@@ -42,7 +42,7 @@ For this to work, the Clawdbot Gateway must expose the tool bridge endpoint and 
 
 ### Allowlisting recommended
 
-To avoid letting workflows call arbitrary tools, set a tight allowlist on the agent that will be used by `clawd.invoke`.
+To avoid letting workflows call arbitrary tools, set a tight allowlist on the agent that will be used by `aura.invoke`.
 
 Example (allow only a small set of tools):
 

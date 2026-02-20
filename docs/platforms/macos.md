@@ -32,15 +32,15 @@ The app does not spawn the Gateway as a child process.
 
 ## Launchd control
 
-The app manages a per‑user LaunchAgent labeled `bot.molt.gateway`
-(or `bot.molt.<profile>` when using `--profile`/`CLAWDBOT_PROFILE`; legacy `com.clawdbot.*` still unloads).
+The app manages a per‑user LaunchAgent labeled `aura.gateway`
+(or `aura.<profile>` when using `--profile`/`AURA_PROFILE`; legacy `com.aura.*` still unloads).
 
 ```bash
-launchctl kickstart -k gui/$UID/bot.molt.gateway
-launchctl bootout gui/$UID/bot.molt.gateway
+launchctl kickstart -k gui/$UID/aura.gateway
+launchctl bootout gui/$UID/aura.gateway
 ```
 
-Replace the label with `bot.molt.<profile>` when running a named profile.
+Replace the label with `aura.<profile>` when running a named profile.
 
 If the LaunchAgent isn’t installed, enable it from the app or run
 `aura_intelligence gateway install`.
@@ -74,7 +74,7 @@ Gateway -> Node Service (WS)
 Security + ask + allowlist are stored locally on the Mac in:
 
 ```
-~/.clawdbot/exec-approvals.json
+~/.aura/exec-approvals.json
 ```
 
 Example:

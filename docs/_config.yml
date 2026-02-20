@@ -23,7 +23,7 @@ nav:
   - title: "Home"
     url: "/"
   - title: "aura_intelligence Assistant"
-    url: "/start/clawd/"
+    url: "/start/aura/"
   - title: "Gateway"
     url: "/gateway/"
   - title: "Remote"

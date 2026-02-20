@@ -5,7 +5,7 @@ import { formatDocsLink } from "../terminal/links.js";
 import { isRich, theme } from "../terminal/theme.js";
 import { formatCliCommand } from "../cli/command-format.js";
 
-const SEARCH_TOOL = "https://docs.molt.bot/mcp.Searchaura_intelligence";
+const SEARCH_TOOL = "https://docs.auraintelligence.ai/mcp.Searchaura_intelligence";
 const SEARCH_TIMEOUT_MS = 30_000;
 const DEFAULT_SNIPPET_MAX = 220;
 
@@ -151,9 +151,11 @@ export async function docsSearchCommand(queryParts: string[], runtime: RuntimeEn
     const docs = formatDocsLink("/", "docs.molt.bot");
     if (isRich()) {
       runtime.log(`${theme.muted("Docs:")} ${docs}`);
-      runtime.log(`${theme.muted("Search:")} ${formatCliCommand('aura_intelligence docs "your query"')}`);
+      runtime.log(
+        `${theme.muted("Search:")} ${formatCliCommand('aura_intelligence docs "your query"')}`,
+      );
     } else {
-      runtime.log("Docs: https://docs.molt.bot/");
+      runtime.log("Docs: https://docs.auraintelligence.ai/");
       runtime.log(`Search: ${formatCliCommand('aura_intelligence docs "your query"')}`);
     }
     return;

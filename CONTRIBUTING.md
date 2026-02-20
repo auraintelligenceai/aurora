@@ -1,9 +1,9 @@
-# Contributing to aura_intelligence
+# Contributing to Aura Intelligence
 
-Welcome to the lobster tank! 🦞
+Welcome to the last personal assistant you will ever need! 
 
 ## Quick Links
-- **GitHub:** https://github.com/aura_intelligence/aura_intelligence
+- **GitHub:** https://github.com/auraintelligenceai/aurora
 - **Discord:** https://discord.gg/qkhbAGHRBT
 - **X/Twitter:** [@steipete](https://x.com/steipete) / [@aura_intelligence](https://x.com/aura_intelligence)
 
@@ -20,7 +20,7 @@ Welcome to the lobster tank! 🦞
 
 ## How to Contribute
 1. **Bugs & small fixes** → Open a PR!
-2. **New features / architecture** → Start a [GitHub Discussion](https://github.com/aura_intelligence/aura_intelligence/discussions) or ask in Discord first
+2. **New features / architecture** → Start a [GitHub Discussion](https://github.com/auraintelligenceai/aurora/discussions) or ask in Discord first
 3. **Questions** → Discord #setup-help
 
 ## Before You PR

@@ -121,7 +121,7 @@ function noteOpencodeProviderOverrides(cfg: aura_intelligenceConfig) {
 }
 
 function hasExplicitConfigPath(env: NodeJS.ProcessEnv): boolean {
-  return Boolean(env.aura_intelligence_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim());
+  return Boolean(env.aura_intelligence_CONFIG_PATH?.trim() || env.AURA_CONFIG_PATH?.trim());
 }
 
 function moveLegacyConfigFile(legacyPath: string, canonicalPath: string) {
@@ -155,7 +155,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
   let snapshot = await readConfigFileSnapshot();
   if (!hasExplicitConfigPath(process.env) && snapshot.exists) {
     const basename = path.basename(snapshot.path);
-    if (basename === "clawdbot.json") {
+    if (basename === "aura.json") {
       const canonicalPath = path.join(path.dirname(snapshot.path), "aura_intelligence.json");
       if (!fs.existsSync(canonicalPath)) {
         moveLegacyConfigFile(snapshot.path, canonicalPath);
@@ -210,7 +210,9 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = normalized.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("aura_intelligence doctor --fix")}" to apply these changes.`);
+      fixHints.push(
+        `Run "${formatCliCommand("aura_intelligence doctor --fix")}" to apply these changes.`,
+      );
     }
   }
 
@@ -222,7 +224,9 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = autoEnable.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("aura_intelligence doctor --fix")}" to apply these changes.`);
+      fixHints.push(
+        `Run "${formatCliCommand("aura_intelligence doctor --fix")}" to apply these changes.`,
+      );
     }
   }
 

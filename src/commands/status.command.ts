@@ -413,7 +413,9 @@ export async function statusCommand(
     }
   }
   runtime.log(theme.muted(`Full report: ${formatCliCommand("aura_intelligence security audit")}`));
-  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("aura_intelligence security audit --deep")}`));
+  runtime.log(
+    theme.muted(`Deep probe: ${formatCliCommand("aura_intelligence security audit --deep")}`),
+  );
 
   runtime.log("");
   runtime.log(theme.heading("Channels"));
@@ -560,8 +562,8 @@ export async function statusCommand(
   }
 
   runtime.log("");
-  runtime.log("FAQ: https://docs.molt.bot/faq");
-  runtime.log("Troubleshooting: https://docs.molt.bot/troubleshooting");
+  runtime.log("FAQ: https://docs.auraintelligence.ai/faq");
+  runtime.log("Troubleshooting: https://docs.auraintelligence.ai/troubleshooting");
   runtime.log("");
   const updateHint = formatUpdateAvailableHint(update);
   if (updateHint) {

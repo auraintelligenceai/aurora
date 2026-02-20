@@ -9,7 +9,9 @@ export function mapThinkingLevel(level?: ThinkLevel): ThinkingLevel {
   return level;
 }
 
-export function resolveExecToolDefaults(config?: aura_intelligenceConfig): ExecToolDefaults | undefined {
+export function resolveExecToolDefaults(
+  config?: aura_intelligenceConfig,
+): ExecToolDefaults | undefined {
   const tools = config?.tools;
   if (!tools?.exec) return undefined;
   return tools.exec;

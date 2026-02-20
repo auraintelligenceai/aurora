@@ -38,7 +38,7 @@ Supported channels: `telegram`, `whatsapp`, `signal`, `imessage`, `discord`, `sl
 
 ### Where the state lives
 
-Stored under `~/.clawdbot/credentials/`:
+Stored under `~/.aura/credentials/`:
 - Pending requests: `<channel>-pairing.json`
 - Approved allowlist store: `<channel>-allowFrom.json`
 
@@ -60,7 +60,7 @@ aura_intelligence devices reject <requestId>
 
 ### Where the state lives
 
-Stored under `~/.clawdbot/devices/`:
+Stored under `~/.aura/devices/`:
 - `pending.json` (short-lived; pending requests expire)
 - `paired.json` (paired devices + tokens)
 

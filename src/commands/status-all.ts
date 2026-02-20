@@ -138,10 +138,10 @@ export async function statusAllCommand(
           ? typeof remote?.token === "string" && remote.token.trim()
             ? remote.token.trim()
             : undefined
-          : process.env.CLAWDBOT_GATEWAY_TOKEN?.trim() ||
+          : process.env.AURA_GATEWAY_TOKEN?.trim() ||
             (typeof authToken === "string" && authToken.trim() ? authToken.trim() : undefined);
       const password =
-        process.env.CLAWDBOT_GATEWAY_PASSWORD?.trim() ||
+        process.env.AURA_GATEWAY_PASSWORD?.trim() ||
         (mode === "remote"
           ? typeof remote?.password === "string" && remote.password.trim()
             ? remote.password.trim()
@@ -372,7 +372,10 @@ export async function statusAllCommand(
         Item: "Gateway",
         Value: `${gatewayMode}${remoteUrlMissing ? " (remote.url missing)" : ""} · ${gatewayTarget} (${connection.urlSource}) · ${gatewayStatus}${gatewayAuth}`,
       },
-      { Item: "Security", Value: `Run: ${formatCliCommand("aura_intelligence security audit --deep")}` },
+      {
+        Item: "Security",
+        Value: `Run: ${formatCliCommand("aura_intelligence security audit --deep")}`,
+      },
       gatewaySelfLine
         ? { Item: "Gateway self", Value: gatewaySelfLine }
         : { Item: "Gateway self", Value: "unknown" },

@@ -131,7 +131,8 @@ const makeOpenAiConfig = (modelIds: string[]) =>
     },
   }) satisfies aura_intelligenceConfig;
 
-const ensureModels = (cfg: aura_intelligenceConfig) => ensureaura_intelligenceModelsJson(cfg, agentDir) as unknown;
+const ensureModels = (cfg: aura_intelligenceConfig) =>
+  ensureaura_intelligenceModelsJson(cfg, agentDir) as unknown;
 
 const nextSessionFile = () => {
   sessionCounter += 1;

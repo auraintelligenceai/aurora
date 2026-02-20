@@ -6,7 +6,7 @@ import { resolveUserPath } from "../utils.js";
 
 export function resolveaura_intelligenceAgentDir(): string {
   const override =
-    process.env.CLAWDBOT_AGENT_DIR?.trim() || process.env.PI_CODING_AGENT_DIR?.trim();
+    process.env.AURA_AGENT_DIR?.trim() || process.env.PI_CODING_AGENT_DIR?.trim();
   if (override) return resolveUserPath(override);
   const defaultAgentDir = path.join(resolveStateDir(), "agents", DEFAULT_AGENT_ID, "agent");
   return resolveUserPath(defaultAgentDir);
@@ -14,7 +14,7 @@ export function resolveaura_intelligenceAgentDir(): string {
 
 export function ensureaura_intelligenceAgentEnv(): string {
   const dir = resolveaura_intelligenceAgentDir();
-  if (!process.env.CLAWDBOT_AGENT_DIR) process.env.CLAWDBOT_AGENT_DIR = dir;
+  if (!process.env.AURA_AGENT_DIR) process.env.AURA_AGENT_DIR = dir;
   if (!process.env.PI_CODING_AGENT_DIR) process.env.PI_CODING_AGENT_DIR = dir;
   return dir;
 }

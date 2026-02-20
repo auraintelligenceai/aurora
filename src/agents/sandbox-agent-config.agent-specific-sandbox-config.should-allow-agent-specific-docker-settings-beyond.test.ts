@@ -75,7 +75,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/clawd-work",
+            workspace: "~/aura-work",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -113,7 +113,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "main",
-            workspace: "~/clawd",
+            workspace: "~/aura",
             sandbox: {
               mode: "off", // Agent override
             },
@@ -144,7 +144,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "family",
-            workspace: "~/clawd-family",
+            workspace: "~/aura-family",
             sandbox: {
               mode: "all", // Agent override
               scope: "agent",
@@ -177,7 +177,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/clawd-work",
+            workspace: "~/aura-work",
             sandbox: {
               mode: "all",
               scope: "agent", // Agent override

@@ -44,28 +44,28 @@ Reference the nix-aura_intelligence README for module options.
 
 ## Nix Mode Runtime Behavior
 
-When `CLAWDBOT_NIX_MODE=1` is set (automatic with nix-aura_intelligence):
+When `AURA_NIX_MODE=1` is set (automatic with nix-aura_intelligence):
 
 aura_intelligence supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
 Enable it by exporting:
 
 ```bash
-CLAWDBOT_NIX_MODE=1
+AURA_NIX_MODE=1
 ```
 
 On macOS, the GUI app does not automatically inherit shell env vars. You can
 also enable Nix mode via defaults:
 
 ```bash
-defaults write bot.molt.mac aura_intelligence.nixMode -bool true
+defaults write aura.mac aura_intelligence.nixMode -bool true
 ```
 
 ### Config + state paths
 
-aura_intelligence reads JSON5 config from `CLAWDBOT_CONFIG_PATH` and stores mutable data in `CLAWDBOT_STATE_DIR`.
+aura_intelligence reads JSON5 config from `AURA_CONFIG_PATH` and stores mutable data in `AURA_STATE_DIR`.
 
-- `CLAWDBOT_STATE_DIR` (default: `~/.clawdbot`)
-- `CLAWDBOT_CONFIG_PATH` (default: `$CLAWDBOT_STATE_DIR/aura_intelligence.json`)
+- `AURA_STATE_DIR` (default: `~/.aura`)
+- `AURA_CONFIG_PATH` (default: `$AURA_STATE_DIR/aura_intelligence.json`)
 
 When running under Nix, set these explicitly to Nix-managed locations so runtime state and config
 stay out of the immutable store.

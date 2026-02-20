@@ -305,7 +305,10 @@ function shouldSkipPreferredPluginAutoEnable(
   return false;
 }
 
-function ensureAllowlisted(cfg: aura_intelligenceConfig, pluginId: string): aura_intelligenceConfig {
+function ensureAllowlisted(
+  cfg: aura_intelligenceConfig,
+  pluginId: string,
+): aura_intelligenceConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.includes(pluginId)) return cfg;
   return {
@@ -317,7 +320,10 @@ function ensureAllowlisted(cfg: aura_intelligenceConfig, pluginId: string): aura
   };
 }
 
-function enablePluginEntry(cfg: aura_intelligenceConfig, pluginId: string): aura_intelligenceConfig {
+function enablePluginEntry(
+  cfg: aura_intelligenceConfig,
+  pluginId: string,
+): aura_intelligenceConfig {
   const entries = {
     ...cfg.plugins?.entries,
     [pluginId]: {

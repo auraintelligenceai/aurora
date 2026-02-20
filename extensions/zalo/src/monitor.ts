@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-import type { aura_intelligenceConfig, MarkdownTableMode } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig, MarkdownTableMode } from "aura/plugin-sdk";
 
 import type { ResolvedZaloAccount } from "./accounts.js";
 import {

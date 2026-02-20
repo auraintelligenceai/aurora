@@ -10,8 +10,8 @@ This guide migrates a aura_intelligence Gateway from one machine to another **wi
 
 The migration is simple conceptually:
 
-- Copy the **state directory** (`$CLAWDBOT_STATE_DIR`, default: `~/.clawdbot/`) — this includes config, auth, sessions, and channel state.
-- Copy your **workspace** (`~/clawd/` by default) — this includes your agent files (memory, prompts, etc.).
+- Copy the **state directory** (`$AURA_STATE_DIR`, default: `~/.aura/`) — this includes config, auth, sessions, and channel state.
+- Copy your **workspace** (`~/aura/` by default) — this includes your agent files (memory, prompts, etc.).
 
 But there are common footguns around **profiles**, **permissions**, and **partial copies**.
 
@@ -21,12 +21,12 @@ But there are common footguns around **profiles**, **permissions**, and **partia
 
 Most installs use the default:
 
-- **State dir:** `~/.clawdbot/`
+- **State dir:** `~/.aura/`
 
 But it may be different if you use:
 
-- `--profile <name>` (often becomes `~/.clawdbot-<profile>/`)
-- `CLAWDBOT_STATE_DIR=/some/path`
+- `--profile <name>` (often becomes `~/.aura-<profile>/`)
+- `AURA_STATE_DIR=/some/path`
 
 If you’re not sure, run on the **old** machine:
 
@@ -34,13 +34,13 @@ If you’re not sure, run on the **old** machine:
 aura_intelligence status
 ```
 
-Look for mentions of `CLAWDBOT_STATE_DIR` / profile in the output. If you run multiple gateways, repeat for each profile.
+Look for mentions of `AURA_STATE_DIR` / profile in the output. If you run multiple gateways, repeat for each profile.
 
 ### 2) Identify your workspace
 
 Common defaults:
 
-- `~/clawd/` (recommended workspace)
+- `~/aura/` (recommended workspace)
 - a custom folder you created
 
 Your workspace is where files like `MEMORY.md`, `USER.md`, and `memory/*.md` live.
@@ -61,7 +61,7 @@ If you copy **only** the workspace (e.g., via Git), you do **not** preserve:
 - credentials
 - channel logins
 
-Those live under `$CLAWDBOT_STATE_DIR`.
+Those live under `$AURA_STATE_DIR`.
 
 ## Migration steps (recommended)
 
@@ -78,12 +78,12 @@ aura_intelligence gateway stop
 ```bash
 # Adjust paths if you use a profile or custom locations
 cd ~
-tar -czf aura_intelligence-state.tgz .clawdbot
+tar -czf aura_intelligence-state.tgz .aura
 
-tar -czf clawd-workspace.tgz clawd
+tar -czf aura-workspace.tgz aura
 ```
 
-If you have multiple profiles/state dirs (e.g. `~/.clawdbot-main`, `~/.clawdbot-work`), archive each.
+If you have multiple profiles/state dirs (e.g. `~/.aura-main`, `~/.aura-work`), archive each.
 
 ### Step 1 — Install aura_intelligence on the new machine
 
@@ -91,14 +91,14 @@ On the **new** machine, install the CLI (and Node if needed):
 
 - See: [Install](/install)
 
-At this stage, it’s OK if onboarding creates a fresh `~/.clawdbot/` — you will overwrite it in the next step.
+At this stage, it’s OK if onboarding creates a fresh `~/.aura/` — you will overwrite it in the next step.
 
 ### Step 2 — Copy the state dir + workspace to the new machine
 
 Copy **both**:
 
-- `$CLAWDBOT_STATE_DIR` (default `~/.clawdbot/`)
-- your workspace (default `~/clawd/`)
+- `$AURA_STATE_DIR` (default `~/.aura/`)
+- your workspace (default `~/aura/`)
 
 Common approaches:
 
@@ -108,7 +108,7 @@ Common approaches:
 
 After copying, ensure:
 
-- Hidden directories were included (e.g. `.clawdbot/`)
+- Hidden directories were included (e.g. `.aura/`)
 - File ownership is correct for the user running the gateway
 
 ### Step 3 — Run Doctor (migrations + service repair)
@@ -132,7 +132,7 @@ aura_intelligence status
 
 ### Footgun: profile / state-dir mismatch
 
-If you ran the old gateway with a profile (or `CLAWDBOT_STATE_DIR`), and the new gateway uses a different one, you’ll see symptoms like:
+If you ran the old gateway with a profile (or `AURA_STATE_DIR`), and the new gateway uses a different one, you’ll see symptoms like:
 
 - config changes not taking effect
 - channels missing / logged out
@@ -148,10 +148,10 @@ aura_intelligence doctor
 
 `aura_intelligence.json` is not enough. Many providers store state under:
 
-- `$CLAWDBOT_STATE_DIR/credentials/`
-- `$CLAWDBOT_STATE_DIR/agents/<agentId>/...`
+- `$AURA_STATE_DIR/credentials/`
+- `$AURA_STATE_DIR/agents/<agentId>/...`
 
-Always migrate the entire `$CLAWDBOT_STATE_DIR` folder.
+Always migrate the entire `$AURA_STATE_DIR` folder.
 
 ### Footgun: permissions / ownership
 
@@ -168,7 +168,7 @@ If you’re in remote mode, migrate the **gateway host**.
 
 ### Footgun: secrets in backups
 
-`$CLAWDBOT_STATE_DIR` contains secrets (API keys, OAuth tokens, WhatsApp creds). Treat backups like production secrets:
+`$AURA_STATE_DIR` contains secrets (API keys, OAuth tokens, WhatsApp creds). Treat backups like production secrets:
 
 - store encrypted
 - avoid sharing over insecure channels

@@ -145,7 +145,7 @@ Follow the onboarding prompts to set up your model provider (Anthropic, OpenAI, 
 Edit the config file:
 
 ```bash
-nano ~/.clawdbot/aura_intelligence.json
+nano ~/.aura_intelligence/aura_intelligence.json
 ```
 
 Add your channels:

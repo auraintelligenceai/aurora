@@ -2,7 +2,7 @@ import Foundation
 
 enum LogLocator {
     private static var logDir: URL {
-        if let override = ProcessInfo.processInfo.environment["CLAWDBOT_LOG_DIR"], !override.isEmpty {
+        if let override = ProcessInfo.processInfo.environment["AURA_LOG_DIR"], !override.isEmpty {
             return URL(fileURLWithPath: override)
         }
 

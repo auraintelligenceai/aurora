@@ -30,7 +30,10 @@ const SANDBOX_EXAMPLES = {
   recreate: [
     ["aura_intelligence sandbox recreate --all", "Recreate all containers."],
     ["aura_intelligence sandbox recreate --session main", "Recreate a specific session."],
-    ["aura_intelligence sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
+    [
+      "aura_intelligence sandbox recreate --agent mybot",
+      "Recreate a specific agent (includes sub-agents).",
+    ],
     ["aura_intelligence sandbox recreate --browser --all", "Recreate only browser containers."],
     ["aura_intelligence sandbox recreate --all --force", "Skip confirmation."],
   ],

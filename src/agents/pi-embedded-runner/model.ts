@@ -57,8 +57,35 @@ export function resolveModel(
   modelRegistry: ReturnType<typeof discoverModels>;
 } {
   const resolvedAgentDir = agentDir ?? resolveaura_intelligenceAgentDir();
-  const authStorage = discoverAuthStorage(resolvedAgentDir);
-  const modelRegistry = discoverModels(authStorage, resolvedAgentDir);
+    const authStorage = discoverAuthStorage(resolvedAgentDir);
+    const modelRegistry = discoverModels(authStorage, resolvedAgentDir);
+    
+    // Override getApiKeyForProvider to return empty string for Ollama (no API key needed)
+    const originalGetApiKeyForProvider = modelRegistry.getApiKeyForProvider;
+     modelRegistry.getApiKeyForProvider = (provider: string): Promise<string> => {
+      const normalizedProvider = provider.toLowerCase();
+      if (normalizedProvider === "ollama" || normalizedProvider === "vllm") {
+        return Promise.resolve("dummy-key");
+      }
+      return originalGetApiKeyForProvider.call(modelRegistry, provider) as Promise<string>;
+    };
+  // For Ollama, always use fallback mechanism to ensure model is found
+  if (provider.toLowerCase() === "ollama") {
+    const fallbackModel: Model<Api> = normalizeModelCompat({
+      id: modelId,
+      name: modelId,
+      api: "openai-completions",
+      provider: "ollama",
+      baseUrl: "http://127.0.0.1:11434/v1",
+      reasoning: false,
+      input: ["text"],
+      cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+      contextWindow: 128000,
+      maxTokens: 8192,
+    } as Model<Api>);
+    return { model: fallbackModel, authStorage, modelRegistry };
+  }
+  
   const model = modelRegistry.find(provider, modelId) as Model<Api> | null;
   if (!model) {
     const providers = cfg?.models?.providers ?? {};

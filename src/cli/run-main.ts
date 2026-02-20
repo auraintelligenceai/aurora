@@ -25,6 +25,9 @@ export function rewriteUpdateFlagArgv(argv: string[]): string[] {
 
 export async function runCli(argv: string[] = process.argv) {
   const normalizedArgv = stripWindowsNodeExec(argv);
+  // Replace chat command with tui for compatibility
+  const modifiedArgv = normalizedArgv.map(arg => arg === "chat" ? "tui" : arg);
+  
   loadDotEnv({ quiet: true });
   normalizeEnv();
   ensureaura_intelligenceCliOnPath();
@@ -32,7 +35,7 @@ export async function runCli(argv: string[] = process.argv) {
   // Enforce the minimum supported runtime before doing any work.
   assertSupportedRuntime();
 
-  if (await tryRouteCli(normalizedArgv)) return;
+  if (await tryRouteCli(modifiedArgv)) return;
 
   // Capture all console output into structured logs while keeping stdout/stderr behavior.
   enableConsoleCapture();
@@ -49,7 +52,7 @@ export async function runCli(argv: string[] = process.argv) {
     process.exit(1);
   });
 
-  const parseArgv = rewriteUpdateFlagArgv(normalizedArgv);
+  const parseArgv = rewriteUpdateFlagArgv(modifiedArgv);
   // Register the primary subcommand if one exists (for lazy-loading)
   const primary = getPrimaryCommand(parseArgv);
   if (primary) {

@@ -6,7 +6,7 @@ read_when:
 ---
 # Skills Config
 
-All skills-related configuration lives under `skills` in `~/.clawdbot/aura_intelligence.json`.
+All skills-related configuration lives under `skills` in `~/.aura_intelligence/aura_intelligence.json`.
 
 ```json5
 {

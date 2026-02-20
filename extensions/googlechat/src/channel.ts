@@ -16,8 +16,8 @@ import {
   type ChannelMessageActionAdapter,
   type ChannelPlugin,
   type aura_intelligenceConfig,
-} from "clawdbot/plugin-sdk";
-import { GoogleChatConfigSchema } from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
+import { GoogleChatConfigSchema } from "aura/plugin-sdk";
 
 import {
   listGoogleChatAccountIds,

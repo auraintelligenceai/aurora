@@ -22,14 +22,10 @@ ollama pull qwen2.5-coder:32b
 ollama pull deepseek-r1:32b
 ```
 
-3) Enable Ollama for aura_intelligence (any value works; Ollama doesn't require a real key):
+3) Enable Ollama for aura_intelligence (no API key required):
 
 ```bash
-# Set environment variable
-export OLLAMA_API_KEY="ollama-local"
-
-# Or configure in your config file
-aura_intelligence config set models.providers.ollama.apiKey "ollama-local"
+# No API key needed - just install and run Ollama
 ```
 
 4) Use Ollama models:
@@ -38,7 +34,7 @@ aura_intelligence config set models.providers.ollama.apiKey "ollama-local"
 {
   agents: {
     defaults: {
-      model: { primary: "ollama/llama3.3" }
+      model: { primary: "ollama/mistral" }
     }
   }
 }

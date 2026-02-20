@@ -114,6 +114,13 @@ export async function maybeInstallDaemon(params: {
     if (installError) {
       note("Gateway service install failed: " + installError, "Gateway");
       note(gatewayInstallErrorHint(), "Gateway");
+      const skip = await confirm({
+        message: "Would you like to skip installing the Gateway service and continue?",
+        initialValue: true,
+      });
+      if (!skip) {
+        throw new Error("Gateway service install failed");
+      }
       return;
     }
     shouldCheckLinger = true;

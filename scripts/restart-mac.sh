@@ -4,22 +4,22 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_BUNDLE="${CLAWDBOT_APP_BUNDLE:-}"
+APP_BUNDLE="${AURA_APP_BUNDLE:-}"
 APP_PROCESS_PATTERN="aura_intelligence.app/Contents/MacOS/aura_intelligence"
 DEBUG_PROCESS_PATTERN="${ROOT_DIR}/apps/macos/.build/debug/aura_intelligence"
 LOCAL_PROCESS_PATTERN="${ROOT_DIR}/apps/macos/.build-local/debug/aura_intelligence"
 RELEASE_PROCESS_PATTERN="${ROOT_DIR}/apps/macos/.build/release/aura_intelligence"
-LAUNCH_AGENT="${HOME}/Library/LaunchAgents/bot.molt.mac.plist"
+LAUNCH_AGENT="${HOME}/Library/LaunchAgents/aura.mac.plist"
 LOCK_KEY="$(printf '%s' "${ROOT_DIR}" | shasum -a 256 | cut -c1-8)"
 LOCK_DIR="${TMPDIR:-/tmp}/aura_intelligence-restart-${LOCK_KEY}"
 LOCK_PID_FILE="${LOCK_DIR}/pid"
 WAIT_FOR_LOCK=0
-LOG_PATH="${CLAWDBOT_RESTART_LOG:-/tmp/aura_intelligence-restart.log}"
+LOG_PATH="${AURA_RESTART_LOG:-/tmp/aura_intelligence-restart.log}"
 NO_SIGN=0
 SIGN=0
 AUTO_DETECT_SIGNING=1
-GATEWAY_WAIT_SECONDS="${CLAWDBOT_GATEWAY_WAIT_SECONDS:-0}"
-LAUNCHAGENT_DISABLE_MARKER="${HOME}/.clawdbot/disable-launchagent"
+GATEWAY_WAIT_SECONDS="${AURA_GATEWAY_WAIT_SECONDS:-0}"
+LAUNCHAGENT_DISABLE_MARKER="${HOME}/.aura/disable-launchagent"
 ATTACH_ONLY=1
 
 log()  { printf '%s\n' "$*"; }
@@ -93,14 +93,14 @@ for arg in "$@"; do
       log "  --no-attach-only Launch app without attach-only override"
       log ""
       log "Env:"
-      log "  CLAWDBOT_GATEWAY_WAIT_SECONDS=0  Wait time before gateway port check (unsigned only)"
+      log "  AURA_GATEWAY_WAIT_SECONDS=0  Wait time before gateway port check (unsigned only)"
       log ""
       log "Unsigned recovery:"
       log "  node aura_intelligence.mjs daemon install --force --runtime node"
       log "  node aura_intelligence.mjs daemon restart"
       log ""
       log "Reset unsigned overrides:"
-      log "  rm ~/.clawdbot/disable-launchagent"
+      log "  rm ~/.aura/disable-launchagent"
       log ""
       log "Default behavior: Auto-detect signing keys, fallback to --no-sign if none found"
       exit 0
@@ -145,7 +145,7 @@ kill_all_aura_intelligence() {
 }
 
 stop_launch_agent() {
-  launchctl bootout gui/"$UID"/bot.molt.mac 2>/dev/null || true
+  launchctl bootout gui/"$UID"/aura.mac 2>/dev/null || true
 }
 
 # 1) Kill all running instances first.
@@ -173,7 +173,7 @@ fi
 if [ "$NO_SIGN" -eq 1 ]; then
   export ALLOW_ADHOC_SIGNING=1
   export SIGN_IDENTITY="-"
-  mkdir -p "${HOME}/.clawdbot"
+  mkdir -p "${HOME}/.aura"
   run_step "disable launchagent writes" /usr/bin/touch "${LAUNCHAGENT_DISABLE_MARKER}"
 elif [ "$SIGN" -eq 1 ]; then
   if ! check_signing_keys; then
@@ -204,7 +204,7 @@ choose_app_bundle() {
     return 0
   fi
 
-  fail "App bundle not found. Set CLAWDBOT_APP_BUNDLE to your installed aura_intelligence.app"
+  fail "App bundle not found. Set AURA_APP_BUNDLE to your installed aura_intelligence.app"
 }
 
 choose_app_bundle
@@ -227,7 +227,7 @@ if [ "$NO_SIGN" -eq 1 ] && [ "$ATTACH_ONLY" -ne 1 ]; then
       const fs = require("node:fs");
       const path = require("node:path");
       try {
-        const raw = fs.readFileSync(path.join(process.env.HOME, ".clawdbot", "aura_intelligence.json"), "utf8");
+        const raw = fs.readFileSync(path.join(process.env.HOME, ".aura", "aura_intelligence.json"), "utf8");
         const cfg = JSON.parse(raw);
         const port = cfg && cfg.gateway && typeof cfg.gateway.port === "number" ? cfg.gateway.port : 18789;
         process.stdout.write(String(port));
@@ -265,5 +265,5 @@ else
 fi
 
 if [ "$NO_SIGN" -eq 1 ] && [ "$ATTACH_ONLY" -ne 1 ]; then
-  run_step "show gateway launch agent args (unsigned)" bash -lc "/usr/bin/plutil -p '${HOME}/Library/LaunchAgents/bot.molt.gateway.plist' | head -n 40 || true"
+  run_step "show gateway launch agent args (unsigned)" bash -lc "/usr/bin/plutil -p '${HOME}/Library/LaunchAgents/aura.gateway.plist' | head -n 40 || true"
 fi

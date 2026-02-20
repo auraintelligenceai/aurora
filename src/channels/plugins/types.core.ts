@@ -14,7 +14,9 @@ export type ChannelOutboundTargetMode = "explicit" | "implicit" | "heartbeat";
 
 export type ChannelAgentTool = AgentTool<TSchema, unknown>;
 
-export type ChannelAgentToolFactory = (params: { cfg?: aura_intelligenceConfig }) => ChannelAgentTool[];
+export type ChannelAgentToolFactory = (params: {
+  cfg?: aura_intelligenceConfig;
+}) => ChannelAgentTool[];
 
 export type ChannelSetupInput = {
   name?: string;
@@ -266,7 +268,10 @@ export type ChannelMessagingAdapter = {
 };
 
 export type ChannelAgentPromptAdapter = {
-  messageToolHints?: (params: { cfg: aura_intelligenceConfig; accountId?: string | null }) => string[];
+  messageToolHints?: (params: {
+    cfg: aura_intelligenceConfig;
+    accountId?: string | null;
+  }) => string[];
 };
 
 export type ChannelDirectoryEntryKind = "user" | "group" | "channel";

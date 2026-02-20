@@ -1,6 +1,6 @@
 import { format } from "node:util";
 
-import type { RuntimeEnv, ReplyPayload, aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import type { RuntimeEnv, ReplyPayload, aura_intelligenceConfig } from "aura/plugin-sdk";
 
 import { getTlonRuntime } from "../runtime.js";
 import { resolveTlonAccount } from "../types.js";

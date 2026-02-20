@@ -58,7 +58,7 @@ describe("agents set-identity command", () => {
         "- Name: Clawd",
         "- Creature: helpful sloth",
         "- Emoji: :)",
-        "- Avatar: avatars/clawd.png",
+        "- Avatar: avatars/aura.png",
         "",
       ].join("\n"),
       "utf-8",
@@ -87,7 +87,7 @@ describe("agents set-identity command", () => {
       name: "Clawd",
       theme: "helpful sloth",
       emoji: ":)",
-      avatar: "avatars/clawd.png",
+      avatar: "avatars/aura.png",
     });
   });
 
@@ -126,7 +126,7 @@ describe("agents set-identity command", () => {
         "- Name: Clawd",
         "- Theme: space lobster",
         "- Emoji: :)",
-        "- Avatar: avatars/clawd.png",
+        "- Avatar: avatars/aura.png",
         "",
       ].join("\n"),
       "utf-8",
