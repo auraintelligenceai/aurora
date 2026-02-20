@@ -1,11 +1,11 @@
 ---
-summary: "All configuration options for ~/.aura/aura_intelligence.json with examples"
+summary: "All configuration options for ~/.aura_intelligence/aura_intelligence.json with examples"
 read_when:
   - Adding or modifying config fields
 ---
 # Configuration 🔧
 
-aura_intelligence reads an optional **JSON5** config from `~/.aura/aura_intelligence.json` (comments + trailing commas allowed).
+aura_intelligence reads an optional **JSON5** config from `~/.aura_intelligence/aura_intelligence.json` (comments + trailing commas allowed).
 
 If the file is missing, aura_intelligence uses safe-ish defaults (embedded Pi agent + per-sender sessions + workspace `~/aura`). You usually only need a config to:
 - restrict who can trigger the bot (`channels.whatsapp.allowFrom`, `channels.telegram.allowFrom`, etc.)
@@ -47,7 +47,7 @@ Use `config.apply` to validate + write the full config and restart the Gateway i
 It writes a restart sentinel and pings the last active session after the Gateway comes back.
 
 Warning: `config.apply` replaces the **entire config**. If you want to change only a few keys,
-use `config.patch` or `aura_intelligence config set`. Keep a backup of `~/.aura/aura_intelligence.json`.
+use `config.patch` or `aura_intelligence config set`. Keep a backup of `~/.aura_intelligence/aura_intelligence.json`.
 
 Params:
 - `raw` (string) — JSON5 payload for the entire config
@@ -146,7 +146,7 @@ Split your config into multiple files using the `$include` directive. This is us
 ### Basic usage
 
 ```json5
-// ~/.aura/aura_intelligence.json
+// ~/.aura_intelligence/aura_intelligence.json
 {
   gateway: { port: 18789 },
   
@@ -221,7 +221,7 @@ Included files can themselves contain `$include` directives (up to 10 levels dee
 ### Example: Multi-client legal setup
 
 ```json5
-// ~/.aura/aura_intelligence.json
+// ~/.aura_intelligence/aura_intelligence.json
 {
   gateway: { port: 18789, auth: { token: "secret" } },
   
@@ -270,7 +270,7 @@ aura_intelligence reads env vars from the parent process (shell, launchd/systemd
 
 Additionally, it loads:
 - `.env` from the current working directory (if present)
-- a global fallback `.env` from `~/.aura/.env` (aka `$CLAWDBOT_STATE_DIR/.env`)
+- a global fallback `.env` from `~/.aura/.env` (aka `$AURA_STATE_DIR/.env`)
 
 Neither `.env` file overrides existing env vars.
 
@@ -307,8 +307,8 @@ This effectively sources your shell profile.
 ```
 
 Env var equivalent:
-- `CLAWDBOT_LOAD_SHELL_ENV=1`
-- `CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000`
+- `AURA_LOAD_SHELL_ENV=1`
+- `AURA_SHELL_ENV_TIMEOUT_MS=15000`
 
 ### Env var substitution in config
 
@@ -326,7 +326,7 @@ You can reference environment variables directly in any config string value usin
   },
   gateway: {
     auth: {
-      token: "${CLAWDBOT_GATEWAY_TOKEN}"
+      token: "${AURA_GATEWAY_TOKEN}"
     }
   }
 }
@@ -360,7 +360,7 @@ aura_intelligence stores **per-agent** auth profiles (OAuth + API keys) in:
 See also: [/concepts/oauth](/concepts/oauth)
 
 Legacy OAuth imports:
-- `~/.aura/credentials/oauth.json` (or `$CLAWDBOT_STATE_DIR/credentials/oauth.json`)
+- `~/.aura/credentials/oauth.json` (or `$AURA_STATE_DIR/credentials/oauth.json`)
 
 The embedded Pi agent maintains a runtime cache at:
 - `<agentDir>/auth.json` (managed automatically; don’t edit manually)
@@ -369,8 +369,8 @@ Legacy agent dir (pre multi-agent):
 - `~/.aura/agent/*` (migrated by `aura_intelligence doctor` into `~/.aura/agents/<defaultAgentId>/agent/*`)
 
 Overrides:
-- OAuth dir (legacy import only): `CLAWDBOT_OAUTH_DIR`
-- Agent dir (default agent root override): `CLAWDBOT_AGENT_DIR` (preferred), `PI_CODING_AGENT_DIR` (legacy)
+- OAuth dir (legacy import only): `AURA_OAUTH_DIR`
+- Agent dir (default agent root override): `AURA_AGENT_DIR` (preferred), `PI_CODING_AGENT_DIR` (legacy)
 
 On first use, aura_intelligence imports `oauth.json` entries into `auth-profiles.json`.
 
@@ -2605,7 +2605,7 @@ Notes:
 - Supported APIs: `openai-completions`, `openai-responses`, `anthropic-messages`,
   `google-generative-ai`
 - Use `authHeader: true` + `headers` for custom auth needs.
-- Override the agent config root with `CLAWDBOT_AGENT_DIR` (or `PI_CODING_AGENT_DIR`)
+- Override the agent config root with `AURA_AGENT_DIR` (or `PI_CODING_AGENT_DIR`)
   if you want `models.json` stored elsewhere (default: `~/.aura/agents/main/agent`).
 
 ### `session`
@@ -2865,7 +2865,7 @@ Notes:
 - `aura_intelligence gateway` refuses to start unless `gateway.mode` is set to `local` (or you pass the override flag).
 - `gateway.port` controls the single multiplexed port used for WebSocket + HTTP (control UI, hooks, A2UI).
 - OpenAI Chat Completions endpoint: **disabled by default**; enable with `gateway.http.endpoints.chatCompletions.enabled: true`.
-- Precedence: `--port` > `CLAWDBOT_GATEWAY_PORT` > `gateway.port` > default `18789`.
+- Precedence: `--port` > `AURA_GATEWAY_PORT` > `gateway.port` > default `18789`.
 - Gateway auth is required by default (token/password or Tailscale Serve identity). Non-loopback binds require a shared token/password.
 - The onboarding wizard generates a gateway token by default (even on loopback).
 - `gateway.remote.token` is **only** for remote CLI calls; it does not enable local gateway auth. `gateway.token` is ignored.
@@ -2874,7 +2874,7 @@ Auth and Tailscale:
 - `gateway.auth.mode` sets the handshake requirements (`token` or `password`). When unset, token auth is assumed.
 - `gateway.auth.token` stores the shared token for token auth (used by the CLI on the same machine).
 - When `gateway.auth.mode` is set, only that method is accepted (plus optional Tailscale headers).
-- `gateway.auth.password` can be set here, or via `CLAWDBOT_GATEWAY_PASSWORD` (recommended).
+- `gateway.auth.password` can be set here, or via `AURA_GATEWAY_PASSWORD` (recommended).
 - `gateway.auth.allowTailscale` allows Tailscale Serve identity headers
   (`tailscale-user-login`) to satisfy auth when the request arrives on loopback
   with `x-forwarded-for`, `x-forwarded-proto`, and `x-forwarded-host`. aura_intelligence
@@ -2893,7 +2893,7 @@ Remote client defaults (CLI):
 - `gateway.remote.password` supplies the password for remote calls (leave unset for no auth).
 
 macOS app behavior:
-- aura_intelligence.app watches `~/.aura/aura_intelligence.json` and switches modes live when `gateway.mode` or `gateway.remote.url` changes.
+- aura_intelligence.app watches `~/.aura_intelligence/aura_intelligence.json` and switches modes live when `gateway.mode` or `gateway.remote.url` changes.
 - If `gateway.mode` is unset but `gateway.remote.url` is set, the macOS app treats it as remote mode.
 - When you change connection mode in the macOS app, it writes `gateway.mode` (and `gateway.remote.url` + `gateway.remote.transport` in remote mode) back to the config file.
 
@@ -2927,7 +2927,7 @@ Direct transport example (macOS app):
 
 ### `gateway.reload` (Config hot reload)
 
-The Gateway watches `~/.aura/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`) and applies changes automatically.
+The Gateway watches `~/.aura_intelligence/aura_intelligence.json` (or `AURA_CONFIG_PATH`) and applies changes automatically.
 
 Modes:
 - `hybrid` (default): hot-apply safe changes; restart the Gateway for critical changes.
@@ -2949,7 +2949,7 @@ Modes:
 #### Hot reload matrix (files + impact)
 
 Files watched:
-- `~/.aura/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`)
+- `~/.aura_intelligence/aura_intelligence.json` (or `AURA_CONFIG_PATH`)
 
 Hot-applied (no full gateway restart):
 - `hooks` (webhook auth/path/mappings) + `hooks.gmail` (Gmail watcher restarted)
@@ -2971,8 +2971,8 @@ Requires full Gateway restart:
 ### Multi-instance isolation
 
 To run multiple gateways on one host (for redundancy or a rescue bot), isolate per-instance state + config and use unique ports:
-- `CLAWDBOT_CONFIG_PATH` (per-instance config)
-- `CLAWDBOT_STATE_DIR` (sessions/creds)
+- `AURA_CONFIG_PATH` (per-instance config)
+- `AURA_STATE_DIR` (sessions/creds)
 - `agents.defaults.workspace` (memories)
 - `gateway.port` (unique per instance)
 
@@ -2985,8 +2985,8 @@ See [Multiple gateways](/gateway/multiple-gateways) for browser/CDP port isolati
 
 Example:
 ```bash
-CLAWDBOT_CONFIG_PATH=~/.aura/a.json \
-CLAWDBOT_STATE_DIR=~/.aura-a \
+AURA_CONFIG_PATH=~/.aura/a.json \
+AURA_STATE_DIR=~/.aura-a \
 aura_intelligence gateway --port 19001
 ```
 
@@ -3084,7 +3084,7 @@ Model override for Gmail hooks:
 Gateway auto-start:
 - If `hooks.enabled=true` and `hooks.gmail.account` is set, the Gateway starts
   `gog gmail watch serve` on boot and auto-renews the watch.
-- Set `CLAWDBOT_SKIP_GMAIL_WATCHER=1` to disable the auto-start (for manual runs).
+- Set `AURA_SKIP_GMAIL_WATCHER=1` to disable the auto-start (for manual runs).
 - Avoid running a separate `gog gmail watch serve` alongside the Gateway; it will
   fail with `listen tcp 127.0.0.1:8788: bind: address already in use`.
 
@@ -3126,7 +3126,7 @@ Changes to `canvasHost.*` require a gateway restart (config reload will restart)
 
 Disable with:
 - config: `canvasHost: { enabled: false }`
-- env: `CLAWDBOT_SKIP_CANVAS_HOST=1`
+- env: `AURA_SKIP_CANVAS_HOST=1`
 
 ### `bridge` (legacy TCP bridge, removed)
 

@@ -18,7 +18,7 @@ aura_intelligence has two log “surfaces”:
 
 - Default rolling log file is under `/tmp/aura_intelligence/` (one file per day): `aura_intelligence-YYYY-MM-DD.log`
   - Date uses the gateway host's local timezone.
-- The log file path and level can be configured via `~/.aura/aura_intelligence.json`:
+- The log file path and level can be configured via `~/.aura_intelligence/aura_intelligence.json`:
   - `logging.file`
   - `logging.level`
 

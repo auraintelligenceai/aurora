@@ -345,7 +345,7 @@ After configuring multi-agent sandbox and tools:
 
 4. **Monitor logs:**
    ```exec
-   tail -f "${CLAWDBOT_STATE_DIR:-$HOME/.aura}/logs/gateway.log" | grep -E "routing|sandbox|tools"
+   tail -f "${AURA_STATE_DIR:-$HOME/.aura}/logs/gateway.log" | grep -E "routing|sandbox|tools"
    ```
 
 ---

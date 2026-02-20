@@ -11,7 +11,7 @@ aura_intelligence runs a single embedded agent runtime derived from **p-mono**.
 
 aura_intelligence uses a single agent workspace directory (`agents.defaults.workspace`) as the agent’s **only** working directory (`cwd`) for tools and context.
 
-Recommended: use `aura_intelligence setup` to create `~/.aura/aura_intelligence.json` if missing and initialize the workspace files.
+Recommended: use `aura_intelligence setup` to create `~/.aura_intelligence/aura_intelligence.json` if missing and initialize the workspace files.
 
 Full workspace layout + backup guide: [Agent workspace](/concepts/agent-workspace)
 

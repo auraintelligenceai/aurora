@@ -34,7 +34,7 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt --fix-broken install -y  # if there are dependency errors
 ```
 
-Then update your aura_intelligence config (`~/.aura/aura_intelligence.json`):
+Then update your aura_intelligence config (`~/.aura_intelligence/aura_intelligence.json`):
 
 ```json
 {

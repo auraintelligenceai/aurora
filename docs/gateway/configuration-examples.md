@@ -19,7 +19,7 @@ Examples below are aligned with the current config schema. For the exhaustive re
 }
 ```
 
-Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number.
+Save to `~/.aura_intelligence/aura_intelligence.json` and you can DM the bot from that number.
 
 ### Recommended starter
 ```json5

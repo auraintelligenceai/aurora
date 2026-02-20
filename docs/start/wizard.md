@@ -70,7 +70,7 @@ Tip: `--json` does **not** imply non-interactive mode. Use `--non-interactive` (
 ## Flow details (local)
 
 1) **Existing config detection**
-   - If `~/.aura/aura_intelligence.json` exists, choose **Keep / Modify / Reset**.
+   - If `~/.aura_intelligence/aura_intelligence.json` exists, choose **Keep / Modify / Reset**.
    - Re-running the wizard does **not** wipe anything unless you explicitly choose **Reset**
      (or pass `--reset`).
    - If the config is invalid or contains legacy keys, the wizard stops and asks
@@ -292,7 +292,7 @@ Notes:
 
 ## What the wizard writes
 
-Typical fields in `~/.aura/aura_intelligence.json`:
+Typical fields in `~/.aura_intelligence/aura_intelligence.json`:
 - `agents.defaults.workspace`
 - `agents.defaults.model` / `models.providers` (if Minimax chosen)
 - `gateway.*` (mode, bind, auth, tailscale)

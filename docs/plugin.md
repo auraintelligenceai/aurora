@@ -168,7 +168,7 @@ registry export). Drop a JSON file at one of:
 - `~/.aura/mpm/catalog.json`
 - `~/.aura/plugins/catalog.json`
 
-Or point `CLAWDBOT_PLUGIN_CATALOG_PATHS` (or `CLAWDBOT_MPM_CATALOG_PATHS`) at
+Or point `AURA_PLUGIN_CATALOG_PATHS` (or `AURA_MPM_CATALOG_PATHS`) at
 one or more JSON files (comma/semicolon/`PATH`-delimited). Each file should
 contain `{ "entries": [ { "name": "@scope/pkg", "aura_intelligence": { "channel": {...}, "install": {...} } } ] }`.
 

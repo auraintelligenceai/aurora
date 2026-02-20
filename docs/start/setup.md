@@ -10,7 +10,7 @@ read_when:
 Last updated: 2026-01-01
 
 ## TL;DR
-- **Tailoring lives outside the repo:** `~/aura` (workspace) + `~/.aura/aura_intelligence.json` (config).
+- **Tailoring lives outside the repo:** `~/aura` (workspace) + `~/.aura_intelligence/aura_intelligence.json` (config).
 - **Stable workflow:** install the macOS app; let it run the bundled Gateway.
 - **Bleeding edge workflow:** run the Gateway yourself via `pnpm gateway:watch`, then let the macOS app attach in Local mode.
 
@@ -23,7 +23,7 @@ Last updated: 2026-01-01
 
 If you want “100% tailored to me” *and* easy updates, keep your customization in:
 
-- **Config:** `~/.aura/aura_intelligence.json` (JSON/JSON5-ish)
+- **Config:** `~/.aura_intelligence/aura_intelligence.json` (JSON/JSON5-ish)
 - **Workspace:** `~/aura` (skills, prompts, memories; make it a private git repo)
 
 Bootstrap once:

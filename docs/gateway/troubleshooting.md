@@ -25,7 +25,7 @@ Quick triage commands (in order):
 | `aura_intelligence gateway status` | Supervisor state (launchd/systemd/schtasks), runtime PID/exit, last gateway error | When the service “looks loaded” but nothing runs |
 | `aura_intelligence logs --follow` | Live logs (best signal for runtime issues) | When you need the actual failure reason |
 
-**Sharing output:** prefer `aura_intelligence status --all` (it redacts tokens). If you paste `aura_intelligence status`, consider setting `CLAWDBOT_SHOW_SECRETS=0` first (token previews).
+**Sharing output:** prefer `aura_intelligence status --all` (it redacts tokens). If you paste `aura_intelligence status`, consider setting `AURA_SHOW_SECRETS=0` first (token previews).
 
 See also: [Health checks](/gateway/health) and [Logging](/logging).
 
@@ -106,7 +106,7 @@ Doctor/service will show runtime state (PID/last exit) and log hints.
 **Logs:**
 - Preferred: `aura_intelligence logs --follow`
 - File logs (always): `/tmp/aura_intelligence/aura_intelligence-YYYY-MM-DD.log` (or your configured `logging.file`)
-- macOS LaunchAgent (if installed): `$CLAWDBOT_STATE_DIR/logs/gateway.log` and `gateway.err.log`
+- macOS LaunchAgent (if installed): `$AURA_STATE_DIR/logs/gateway.log` and `gateway.err.log`
 - Linux systemd (if installed): `journalctl --user -u aura_intelligence-gateway[-<profile>].service -n 200 --no-pager`
 - Windows: `schtasks /Query /TN "aura_intelligence Gateway (<profile>)" /V /FO LIST`
 
@@ -195,14 +195,14 @@ the Gateway likely refused to bind.
 - If you set `gateway.mode=remote`, the **CLI defaults** to a remote URL. The service can still be running locally, but your CLI may be probing the wrong place. Use `aura_intelligence gateway status` to see the service’s resolved port + probe target (or pass `--url`).
 - `aura_intelligence gateway status` and `aura_intelligence doctor` surface the **last gateway error** from logs when the service looks running but the port is closed.
 - Non-loopback binds (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) require auth:
-  `gateway.auth.token` (or `CLAWDBOT_GATEWAY_TOKEN`).
+  `gateway.auth.token` (or `AURA_GATEWAY_TOKEN`).
 - `gateway.remote.token` is for remote CLI calls only; it does **not** enable local auth.
 - `gateway.token` is ignored; use `gateway.auth.token`.
 
 **If `aura_intelligence gateway status` shows a config mismatch**
 - `Config (cli): ...` and `Config (service): ...` should normally match.
 - If they don’t, you’re almost certainly editing one config while the service is running another.
-- Fix: rerun `aura_intelligence gateway install --force` from the same `--profile` / `CLAWDBOT_STATE_DIR` you want the service to use.
+- Fix: rerun `aura_intelligence gateway install --force` from the same `--profile` / `AURA_STATE_DIR` you want the service to use.
 
 **If `aura_intelligence gateway status` reports service config issues**
 - The supervisor config (launchd/systemd/schtasks) is missing current defaults.
@@ -210,7 +210,7 @@ the Gateway likely refused to bind.
 
 **If `Last gateway error:` mentions “refusing to bind … without auth”**
 - You set `gateway.bind` to a non-loopback mode (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) but didn’t configure auth.
-- Fix: set `gateway.auth.mode` + `gateway.auth.token` (or export `CLAWDBOT_GATEWAY_TOKEN`) and restart the service.
+- Fix: set `gateway.auth.mode` + `gateway.auth.token` (or export `AURA_GATEWAY_TOKEN`) and restart the service.
 
 **If `aura_intelligence gateway status` says `bind=tailnet` but no tailnet interface was found**
 - The gateway tried to bind to a Tailscale IP (100.64.0.0/10) but none were detected on the host.
@@ -292,7 +292,7 @@ Look for `AllowFrom: ...` in the output.
 # The message must match mentionPatterns or explicit mentions; defaults live in channel groups/guilds.
 # Multi-agent: `agents.list[].groupChat.mentionPatterns` overrides global patterns.
 grep -n "agents\\|groupChat\\|mentionPatterns\\|channels\\.whatsapp\\.groups\\|channels\\.telegram\\.groups\\|channels\\.imessage\\.groups\\|channels\\.discord\\.guilds" \
-  "${CLAWDBOT_CONFIG_PATH:-$HOME/.aura/aura_intelligence.json}"
+  "${AURA_CONFIG_PATH:-$HOME/.aura_intelligence/aura_intelligence.json}"
 ```
 
 **Check 3:** Check the logs
@@ -386,7 +386,7 @@ If you’re logged out / unlinked:
 
 ```bash
 aura_intelligence channels logout
-trash "${CLAWDBOT_STATE_DIR:-$HOME/.aura}/credentials" # if logout can't cleanly remove everything
+trash "${AURA_STATE_DIR:-$HOME/.aura}/credentials" # if logout can't cleanly remove everything
 aura_intelligence channels login --verbose       # re-scan QR
 ```
 
@@ -576,7 +576,7 @@ If the app disappears or shows "Abort trap 6" when you click "Allow" on a privac
 
 **Fix 1: Reset TCC Cache**
 ```bash
-tccutil reset All bot.molt.mac.debug
+tccutil reset All aura.mac.debug
 ```
 
 **Fix 2: Force New Bundle ID**
@@ -591,7 +591,7 @@ If the gateway is supervised by launchd, killing the PID will just respawn it. S
 ```bash
 aura_intelligence gateway status
 aura_intelligence gateway stop
-# Or: launchctl bootout gui/$UID/bot.molt.gateway (replace with bot.molt.<profile>; legacy com.aura.* still works)
+# Or: launchctl bootout gui/$UID/aura.gateway (replace with aura.<profile>; legacy com.aura.* still works)
 ```
 
 **Fix 2: Port is busy (find the listener)**
@@ -619,7 +619,7 @@ Get verbose logging:
 
 ```bash
 # Turn on trace logging in config:
-#   ${CLAWDBOT_CONFIG_PATH:-$HOME/.aura/aura_intelligence.json} -> { logging: { level: "trace" } }
+#   ${AURA_CONFIG_PATH:-$HOME/.aura_intelligence/aura_intelligence.json} -> { logging: { level: "trace" } }
 #
 # Then run verbose commands to mirror debug output to stdout:
 aura_intelligence gateway --verbose
@@ -631,10 +631,10 @@ aura_intelligence channels login --verbose
 | Log | Location |
 |-----|----------|
 | Gateway file logs (structured) | `/tmp/aura_intelligence/aura_intelligence-YYYY-MM-DD.log` (or `logging.file`) |
-| Gateway service logs (supervisor) | macOS: `$CLAWDBOT_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.aura/logs/...`; profiles use `~/.aura-<profile>/logs/...`)<br />Linux: `journalctl --user -u aura_intelligence-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "aura_intelligence Gateway (<profile>)" /V /FO LIST` |
-| Session files | `$CLAWDBOT_STATE_DIR/agents/<agentId>/sessions/` |
-| Media cache | `$CLAWDBOT_STATE_DIR/media/` |
-| Credentials | `$CLAWDBOT_STATE_DIR/credentials/` |
+| Gateway service logs (supervisor) | macOS: `$AURA_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.aura/logs/...`; profiles use `~/.aura-<profile>/logs/...`)<br />Linux: `journalctl --user -u aura_intelligence-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "aura_intelligence Gateway (<profile>)" /V /FO LIST` |
+| Session files | `$AURA_STATE_DIR/agents/<agentId>/sessions/` |
+| Media cache | `$AURA_STATE_DIR/media/` |
+| Credentials | `$AURA_STATE_DIR/credentials/` |
 
 ## Health Check
 
@@ -667,7 +667,7 @@ aura_intelligence gateway stop
 # If you installed a service and want a clean install:
 # aura_intelligence gateway uninstall
 
-trash "${CLAWDBOT_STATE_DIR:-$HOME/.aura}"
+trash "${AURA_STATE_DIR:-$HOME/.aura}"
 aura_intelligence channels login         # re-pair WhatsApp
 aura_intelligence gateway restart           # or: aura_intelligence gateway
 ```

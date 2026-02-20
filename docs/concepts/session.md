@@ -92,7 +92,7 @@ Send these as standalone messages so they register.
 
 ## Configuration (optional rename example)
 ```json5
-// ~/.aura/aura_intelligence.json
+// ~/.aura_intelligence/aura_intelligence.json
 {
   session: {
     scope: "per-sender",      // keep group keys separate

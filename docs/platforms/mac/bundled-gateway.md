@@ -26,11 +26,11 @@ The macOS app’s **Install CLI** button runs the same flow via npm/pnpm (bun no
 ## Launchd (Gateway as LaunchAgent)
 
 Label:
-- `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.aura.*` may remain)
+- `aura.gateway` (or `aura.<profile>`; legacy `com.aura.*` may remain)
 
 Plist location (per‑user):
-- `~/Library/LaunchAgents/bot.molt.gateway.plist`
-  (or `~/Library/LaunchAgents/bot.molt.<profile>.plist`)
+- `~/Library/LaunchAgents/aura.gateway.plist`
+  (or `~/Library/LaunchAgents/aura.<profile>.plist`)
 
 Manager:
 - The macOS app owns LaunchAgent install/update in Local mode.
@@ -55,8 +55,8 @@ incompatible, update the global CLI to match the app version.
 ```bash
 aura_intelligence --version
 
-CLAWDBOT_SKIP_CHANNELS=1 \
-CLAWDBOT_SKIP_CANVAS_HOST=1 \
+AURA_SKIP_CHANNELS=1 \
+AURA_SKIP_CANVAS_HOST=1 \
 aura_intelligence gateway --port 18999 --bind loopback
 ```
 

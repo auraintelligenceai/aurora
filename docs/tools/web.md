@@ -80,7 +80,7 @@ current limits and pricing.
 ### Where to set the key (recommended)
 
 **Recommended:** run `aura_intelligence configure --section web`. It stores the key in
-`~/.aura/aura_intelligence.json` under `tools.web.search.apiKey`.
+`~/.aura_intelligence/aura_intelligence.json` under `tools.web.search.apiKey`.
 
 **Environment alternative:** set `BRAVE_API_KEY` in the Gateway process
 environment. For a gateway install, put it in `~/.aura/.env` (or your

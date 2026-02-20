@@ -44,7 +44,7 @@ Confirm in logs you see something like:
 
 For tailnet-only setups (recommended for Vienna ⇄ London), bind the gateway to the tailnet IP:
 
-- Set `gateway.bind: "tailnet"` in `~/.aura/aura_intelligence.json` on the gateway host.
+- Set `gateway.bind: "tailnet"` in `~/.aura_intelligence/aura_intelligence.json` on the gateway host.
 - Restart the Gateway / macOS menubar app.
 
 ### 2) Verify discovery (optional)

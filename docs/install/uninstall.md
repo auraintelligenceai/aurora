@@ -43,10 +43,10 @@ aura_intelligence gateway uninstall
 3) Delete state + config:
 
 ```bash
-rm -rf "${CLAWDBOT_STATE_DIR:-$HOME/.aura}"
+rm -rf "${AURA_STATE_DIR:-$HOME/.aura}"
 ```
 
-If you set `CLAWDBOT_CONFIG_PATH` to a custom location outside the state dir, delete that file too.
+If you set `AURA_CONFIG_PATH` to a custom location outside the state dir, delete that file too.
 
 4) Delete your workspace (optional, removes agent files):
 
@@ -69,7 +69,7 @@ rm -rf /Applications/aura_intelligence.app
 ```
 
 Notes:
-- If you used profiles (`--profile` / `CLAWDBOT_PROFILE`), repeat step 3 for each state dir (defaults are `~/.aura-<profile>`).
+- If you used profiles (`--profile` / `AURA_PROFILE`), repeat step 3 for each state dir (defaults are `~/.aura-<profile>`).
 - In remote mode, the state dir lives on the **gateway host**, so run steps 1-4 there too.
 
 ## Manual service removal (CLI not installed)
@@ -78,14 +78,14 @@ Use this if the gateway service keeps running but `aura_intelligence` is missing
 
 ### macOS (launchd)
 
-Default label is `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.aura.*` may still exist):
+Default label is `aura.gateway` (or `aura.<profile>`; legacy `com.aura.*` may still exist):
 
 ```bash
-launchctl bootout gui/$UID/bot.molt.gateway
-rm -f ~/Library/LaunchAgents/bot.molt.gateway.plist
+launchctl bootout gui/$UID/aura.gateway
+rm -f ~/Library/LaunchAgents/aura.gateway.plist
 ```
 
-If you used a profile, replace the label and plist name with `bot.molt.<profile>`. Remove any legacy `com.aura.*` plists if present.
+If you used a profile, replace the label and plist name with `aura.<profile>`. Remove any legacy `com.aura.*` plists if present.
 
 ### Linux (systemd user unit)
 

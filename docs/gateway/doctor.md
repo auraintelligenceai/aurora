@@ -51,7 +51,7 @@ Scan system services for extra gateway installs (launchd/systemd/schtasks).
 If you want to review changes before writing, open the config file first:
 
 ```bash
-cat ~/.aura/aura_intelligence.json
+cat ~/.aura_intelligence/aura_intelligence.json
 ```
 
 ## What it does (summary)
@@ -97,7 +97,7 @@ you to run `aura_intelligence doctor`.
 Doctor will:
 - Explain which legacy keys were found.
 - Show the migration it applied.
-- Rewrite `~/.aura/aura_intelligence.json` with the updated schema.
+- Rewrite `~/.aura_intelligence/aura_intelligence.json` with the updated schema.
 
 The Gateway also auto-runs doctor migrations on startup when it detects a
 legacy config format, so stale configs are repaired without manual intervention.
@@ -156,11 +156,11 @@ Doctor checks:
 - **Main session “1-line JSONL”**: flags when the main transcript has only one
   line (history is not accumulating).
 - **Multiple state dirs**: warns when multiple `~/.aura` folders exist across
-  home directories or when `CLAWDBOT_STATE_DIR` points elsewhere (history can
+  home directories or when `AURA_STATE_DIR` points elsewhere (history can
   split between installs).
 - **Remote mode reminder**: if `gateway.mode=remote`, doctor reminds you to run
   it on the remote host (the state lives there).
-- **Config file permissions**: warns if `~/.aura/aura_intelligence.json` is
+- **Config file permissions**: warns if `~/.aura_intelligence/aura_intelligence.json` is
   group/world readable and offers to tighten to `600`.
 
 ### 5) Model auth health (OAuth expiry)

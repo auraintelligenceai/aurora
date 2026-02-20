@@ -22,9 +22,9 @@ inside a sandbox workspace under `~/.aura/sandboxes`, not your host workspace.
 ## Default location
 
 - Default: `~/aura`
-- If `CLAWDBOT_PROFILE` is set and not `"default"`, the default becomes
+- If `AURA_PROFILE` is set and not `"default"`, the default becomes
   `~/aura-<profile>`.
-- Override in `~/.aura/aura_intelligence.json`:
+- Override in `~/.aura_intelligence/aura_intelligence.json`:
 
 ```json5
 {
@@ -122,7 +122,7 @@ files.
 
 These live under `~/.aura/` and should NOT be committed to the workspace repo:
 
-- `~/.aura/aura_intelligence.json` (config)
+- `~/.aura_intelligence/aura_intelligence.json` (config)
 - `~/.aura/credentials/` (OAuth tokens, API keys)
 - `~/.aura/agents/<agentId>/sessions/` (session transcripts + metadata)
 - `~/.aura/skills/` (managed skills)
@@ -218,7 +218,7 @@ Suggested `.gitignore` starter:
 ## Moving the workspace to a new machine
 
 1. Clone the repo to the desired path (default `~/aura`).
-2. Set `agents.defaults.workspace` to that path in `~/.aura/aura_intelligence.json`.
+2. Set `agents.defaults.workspace` to that path in `~/.aura_intelligence/aura_intelligence.json`.
 3. Run `aura_intelligence setup --workspace <path>` to seed any missing files.
 4. If you need sessions, copy `~/.aura/agents/<agentId>/sessions/` from the
    old machine separately.

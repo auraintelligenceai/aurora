@@ -16,8 +16,8 @@ If you need tighter coupling to the UI, run the Gateway manually in a terminal.
 
 ## Default behavior (launchd)
 
-- The app installs a per‑user LaunchAgent labeled `bot.molt.gateway`
-  (or `bot.molt.<profile>` when using `--profile`/`CLAWDBOT_PROFILE`; legacy `com.aura.*` is supported).
+- The app installs a per‑user LaunchAgent labeled `aura.gateway`
+  (or `aura.<profile>` when using `--profile`/`AURA_PROFILE`; legacy `com.aura.*` is supported).
 - When Local mode is enabled, the app ensures the LaunchAgent is loaded and
   starts the Gateway if needed.
 - Logs are written to the launchd gateway log path (visible in Debug Settings).
@@ -25,11 +25,11 @@ If you need tighter coupling to the UI, run the Gateway manually in a terminal.
 Common commands:
 
 ```bash
-launchctl kickstart -k gui/$UID/bot.molt.gateway
-launchctl bootout gui/$UID/bot.molt.gateway
+launchctl kickstart -k gui/$UID/aura.gateway
+launchctl bootout gui/$UID/aura.gateway
 ```
 
-Replace the label with `bot.molt.<profile>` when running a named profile.
+Replace the label with `aura.<profile>` when running a named profile.
 
 ## Unsigned dev builds
 

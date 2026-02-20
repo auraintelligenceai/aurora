@@ -133,8 +133,8 @@ If you don’t have a global install yet, run the onboarding step via `pnpm aura
 Multi-instance quickstart (optional):
 
 ```bash
-CLAWDBOT_CONFIG_PATH=~/.aura/a.json \
-CLAWDBOT_STATE_DIR=~/.aura-a \
+AURA_CONFIG_PATH=~/.aura/a.json \
+AURA_STATE_DIR=~/.aura-a \
 aura_intelligence gateway --port 19001
 ```
 
@@ -146,7 +146,7 @@ aura_intelligence message send --target +15555550123 --message "Hello from aura_
 
 ## Configuration (optional)
 
-Config lives at `~/.aura/aura_intelligence.json`.
+Config lives at `~/.aura_intelligence/aura_intelligence.json`.
 
 - If you **do nothing**, aura_intelligence uses the bundled Pi binary in RPC mode with per-sender sessions.
 - If you want to lock it down, start with `channels.whatsapp.allowFrom` and (for groups) mention rules.

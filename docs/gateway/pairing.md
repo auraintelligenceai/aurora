@@ -79,7 +79,7 @@ Pairing state is stored under the Gateway state directory (default `~/.aura`):
 - `~/.aura/nodes/paired.json`
 - `~/.aura/nodes/pending.json`
 
-If you override `CLAWDBOT_STATE_DIR`, the `nodes/` folder moves with it.
+If you override `AURA_STATE_DIR`, the `nodes/` folder moves with it.
 
 Security notes:
 - Tokens are secrets; treat `paired.json` as sensitive.

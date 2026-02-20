@@ -59,7 +59,7 @@ Recommended flow (dev profile + dev bootstrap):
 
 ```bash
 pnpm gateway:dev
-CLAWDBOT_PROFILE=dev aura_intelligence tui
+AURA_PROFILE=dev aura_intelligence tui
 ```
 
 If you don’t have a global install yet, run the CLI via `pnpm aura_intelligence ...`.
@@ -67,10 +67,10 @@ If you don’t have a global install yet, run the CLI via `pnpm aura_intelligenc
 What this does:
 
 1) **Profile isolation** (global `--dev`)
-   - `CLAWDBOT_PROFILE=dev`
-   - `CLAWDBOT_STATE_DIR=~/.aura-dev`
-   - `CLAWDBOT_CONFIG_PATH=~/.aura-dev/aura_intelligence.json`
-   - `CLAWDBOT_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
+   - `AURA_PROFILE=dev`
+   - `AURA_STATE_DIR=~/.aura-dev`
+   - `AURA_CONFIG_PATH=~/.aura-dev/aura_intelligence.json`
+   - `AURA_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
 
 2) **Dev bootstrap** (`gateway --dev`)
    - Writes a minimal config if missing (`gateway.mode=local`, bind loopback).
@@ -79,7 +79,7 @@ What this does:
    - Seeds the workspace files if missing:
      `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`.
    - Default identity: **C3‑PO** (protocol droid).
-   - Skips channel providers in dev mode (`CLAWDBOT_SKIP_CHANNELS=1`).
+   - Skips channel providers in dev mode (`AURA_SKIP_CHANNELS=1`).
 
 Reset flow (fresh start):
 
@@ -91,7 +91,7 @@ Note: `--dev` is a **global** profile flag and gets eaten by some runners.
 If you need to spell it out, use the env var form:
 
 ```bash
-CLAWDBOT_PROFILE=dev aura_intelligence gateway --dev --reset
+AURA_PROFILE=dev aura_intelligence gateway --dev --reset
 ```
 
 `--reset` wipes config, credentials, sessions, and the dev workspace (using
@@ -124,8 +124,8 @@ pnpm gateway:watch --force --raw-stream --raw-stream-path ~/.aura/logs/raw-strea
 Equivalent env vars:
 
 ```bash
-CLAWDBOT_RAW_STREAM=1
-CLAWDBOT_RAW_STREAM_PATH=~/.aura/logs/raw-stream.jsonl
+AURA_RAW_STREAM=1
+AURA_RAW_STREAM_PATH=~/.aura/logs/raw-stream.jsonl
 ```
 
 Default file:

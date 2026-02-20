@@ -324,7 +324,7 @@ The wizard now opens your browser with a tokenized dashboard URL right after onb
 **Localhost (same machine):**
 - Open `http://127.0.0.1:18789/`.
 - If it asks for auth, run `aura_intelligence dashboard` and use the tokenized link (`?token=...`).
-- The token is the same value as `gateway.auth.token` (or `CLAWDBOT_GATEWAY_TOKEN`) and is stored by the UI after first load.
+- The token is the same value as `gateway.auth.token` (or `AURA_GATEWAY_TOKEN`) and is stored by the UI after first load.
 
 **Not on localhost:**
 - **Tailscale Serve** (recommended): keep bind loopback, run `aura_intelligence gateway --tailscale serve`, open `https://<magicdns>/`. If `gateway.auth.allowTailscale` is `true`, identity headers satisfy auth (no token).
@@ -390,7 +390,7 @@ keeps your bot “exactly the same” (memory, session history, auth, and channe
 state) as long as you copy **both** locations:
 
 1) Install aura_intelligence on the new machine.
-2) Copy `$CLAWDBOT_STATE_DIR` (default: `~/.aura`) from the old machine.
+2) Copy `$AURA_STATE_DIR` (default: `~/.aura`) from the old machine.
 3) Copy your workspace (default: `~/aura`).
 4) Run `aura_intelligence doctor` and restart the Gateway service.
 
@@ -952,11 +952,11 @@ Showcase: https://molt.bot/showcase
 
 ### How do I customize skills without keeping the repo dirty
 
-Use managed overrides instead of editing the repo copy. Put your changes in `~/.aura/skills/<name>/SKILL.md` (or add a folder via `skills.load.extraDirs` in `~/.aura/aura_intelligence.json`). Precedence is `<workspace>/skills` > `~/.aura/skills` > bundled, so managed overrides win without touching git. Only upstream-worthy edits should live in the repo and go out as PRs.
+Use managed overrides instead of editing the repo copy. Put your changes in `~/.aura/skills/<name>/SKILL.md` (or add a folder via `skills.load.extraDirs` in `~/.aura_intelligence/aura_intelligence.json`). Precedence is `<workspace>/skills` > `~/.aura/skills` > bundled, so managed overrides win without touching git. Only upstream-worthy edits should live in the repo and go out as PRs.
 
 ### Can I load skills from a custom folder
 
-Yes. Add extra directories via `skills.load.extraDirs` in `~/.aura/aura_intelligence.json` (lowest precedence). Default precedence remains: `<workspace>/skills` → `~/.aura/skills` → bundled → `skills.load.extraDirs`. `clawdhub` installs into `./skills` by default, which aura_intelligence treats as `<workspace>/skills`.
+Yes. Add extra directories via `skills.load.extraDirs` in `~/.aura_intelligence/aura_intelligence.json` (lowest precedence). Default precedence remains: `<workspace>/skills` → `~/.aura/skills` → bundled → `skills.load.extraDirs`. `clawdhub` installs into `./skills` by default, which aura_intelligence treats as `<workspace>/skills`.
 
 ### How can I use different models for different tasks
 
@@ -986,7 +986,7 @@ Cron runs inside the Gateway process. If the Gateway is not running continuously
 scheduled jobs will not run.
 
 Checklist:
-- Confirm cron is enabled (`cron.enabled`) and `CLAWDBOT_SKIP_CRON` is not set.
+- Confirm cron is enabled (`cron.enabled`) and `AURA_SKIP_CRON` is not set.
 - Check the Gateway is running 24/7 (no sleep/restarts).
 - Verify timezone settings for the job (`--tz` vs host timezone).
 
@@ -1187,18 +1187,18 @@ Related: [Agent workspace](/concepts/agent-workspace), [Memory](/concepts/memory
 
 ### Where does aura_intelligence store its data
 
-Everything lives under `$CLAWDBOT_STATE_DIR` (default: `~/.aura`):
+Everything lives under `$AURA_STATE_DIR` (default: `~/.aura`):
 
 | Path | Purpose |
 |------|---------|
-| `$CLAWDBOT_STATE_DIR/aura_intelligence.json` | Main config (JSON5) |
-| `$CLAWDBOT_STATE_DIR/credentials/oauth.json` | Legacy OAuth import (copied into auth profiles on first use) |
-| `$CLAWDBOT_STATE_DIR/agents/<agentId>/agent/auth-profiles.json` | Auth profiles (OAuth + API keys) |
-| `$CLAWDBOT_STATE_DIR/agents/<agentId>/agent/auth.json` | Runtime auth cache (managed automatically) |
-| `$CLAWDBOT_STATE_DIR/credentials/` | Provider state (e.g. `whatsapp/<accountId>/creds.json`) |
-| `$CLAWDBOT_STATE_DIR/agents/` | Per‑agent state (agentDir + sessions) |
-| `$CLAWDBOT_STATE_DIR/agents/<agentId>/sessions/` | Conversation history & state (per agent) |
-| `$CLAWDBOT_STATE_DIR/agents/<agentId>/sessions/sessions.json` | Session metadata (per agent) |
+| `$AURA_STATE_DIR/aura_intelligence.json` | Main config (JSON5) |
+| `$AURA_STATE_DIR/credentials/oauth.json` | Legacy OAuth import (copied into auth profiles on first use) |
+| `$AURA_STATE_DIR/agents/<agentId>/agent/auth-profiles.json` | Auth profiles (OAuth + API keys) |
+| `$AURA_STATE_DIR/agents/<agentId>/agent/auth.json` | Runtime auth cache (managed automatically) |
+| `$AURA_STATE_DIR/credentials/` | Provider state (e.g. `whatsapp/<accountId>/creds.json`) |
+| `$AURA_STATE_DIR/agents/` | Per‑agent state (agentDir + sessions) |
+| `$AURA_STATE_DIR/agents/<agentId>/sessions/` | Conversation history & state (per agent) |
+| `$AURA_STATE_DIR/agents/<agentId>/sessions/sessions.json` | Session metadata (per agent) |
 
 Legacy single‑agent path: `~/.aura/agent/*` (migrated by `aura_intelligence doctor`).
 
@@ -1276,17 +1276,17 @@ Session state is owned by the **gateway host**. If you’re in remote mode, the 
 
 ### What format is the config Where is it
 
-aura_intelligence reads an optional **JSON5** config from `$CLAWDBOT_CONFIG_PATH` (default: `~/.aura/aura_intelligence.json`):
+aura_intelligence reads an optional **JSON5** config from `$AURA_CONFIG_PATH` (default: `~/.aura_intelligence/aura_intelligence.json`):
 
 ```
-$CLAWDBOT_CONFIG_PATH
+$AURA_CONFIG_PATH
 ```
 
 If the file is missing, it uses safe‑ish defaults (including a default workspace of `~/aura`).
 
 ### I set gatewaybind lan or tailnet and now nothing listens the UI says unauthorized
 
-Non-loopback binds **require auth**. Configure `gateway.auth.mode` + `gateway.auth.token` (or use `CLAWDBOT_GATEWAY_TOKEN`).
+Non-loopback binds **require auth**. Configure `gateway.auth.mode` + `gateway.auth.token` (or use `AURA_GATEWAY_TOKEN`).
 
 ```json5
 {
@@ -1515,7 +1515,7 @@ Yes. `config.apply` validates + writes the full config and restarts the Gateway 
 else is removed.
 
 Recover:
-- Restore from backup (git or a copied `~/.aura/aura_intelligence.json`).
+- Restore from backup (git or a copied `~/.aura_intelligence/aura_intelligence.json`).
 - If you have no backup, re-run `aura_intelligence doctor` and reconfigure channels/models.
 - If this was unexpected, file a bug and include your last known config or any backup.
 - A local coding agent can often reconstruct a working config from logs or history.
@@ -1583,7 +1583,7 @@ Docs: [Gateway protocol](/gateway/protocol), [Discovery](/gateway/discovery), [m
 aura_intelligence reads env vars from the parent process (shell, launchd/systemd, CI, etc.) and additionally loads:
 
 - `.env` from the current working directory
-- a global fallback `.env` from `~/.aura/.env` (aka `$CLAWDBOT_STATE_DIR/.env`)
+- a global fallback `.env` from `~/.aura/.env` (aka `$AURA_STATE_DIR/.env`)
 
 Neither `.env` file overrides existing env vars.
 
@@ -1619,7 +1619,7 @@ Two common fixes:
 ```
 
 This runs your login shell and imports only missing expected keys (never overrides). Env var equivalents:
-`CLAWDBOT_LOAD_SHELL_ENV=1`, `CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000`.
+`AURA_LOAD_SHELL_ENV=1`, `AURA_SHELL_ENV_TIMEOUT_MS=15000`.
 
 ### I set COPILOTGITHUBTOKEN but models status shows Shell env off Why
 
@@ -1711,7 +1711,7 @@ aura_intelligence onboard --install-daemon
 
 Notes:
 - The onboarding wizard also offers **Reset** if it sees an existing config. See [Wizard](/start/wizard).
-- If you used profiles (`--profile` / `CLAWDBOT_PROFILE`), reset each state dir (defaults are `~/.aura-<profile>`).
+- If you used profiles (`--profile` / `AURA_PROFILE`), reset each state dir (defaults are `~/.aura-<profile>`).
 - Dev reset: `aura_intelligence gateway --dev --reset` (dev-only; wipes dev config + credentials + sessions + workspace).
 
 ### Im getting context too large errors how do I reset or compact
@@ -1899,7 +1899,7 @@ Safe options:
 - `/model` in chat (quick, per-session)
 - `aura_intelligence models set ...` (updates just model config)
 - `aura_intelligence configure --section models` (interactive)
-- edit `agents.defaults.model` in `~/.aura/aura_intelligence.json`
+- edit `agents.defaults.model` in `~/.aura_intelligence/aura_intelligence.json`
 
 Avoid `config.apply` with a partial object unless you intend to replace the whole config.
 If you did overwrite config, restore from backup or re-run `aura_intelligence doctor` to repair.
@@ -2237,7 +2237,7 @@ The wizard explicitly supports Anthropic setup-token and OpenAI Codex OAuth and 
 Precedence:
 
 ```
---port > CLAWDBOT_GATEWAY_PORT > gateway.port > default 18789
+--port > AURA_GATEWAY_PORT > gateway.port > default 18789
 ```
 
 ### Why does aura_intelligence gateway status say Runtime running but RPC probe failed
@@ -2251,7 +2251,7 @@ Use `aura_intelligence gateway status` and trust these lines:
 
 ### Why does aura_intelligence gateway status show Config cli and Config service different
 
-You’re editing one config file while the service is running another (often a `--profile` / `CLAWDBOT_STATE_DIR` mismatch).
+You’re editing one config file while the service is running another (often a `--profile` / `AURA_STATE_DIR` mismatch).
 
 Fix:
 ```bash
@@ -2298,7 +2298,7 @@ Fix:
 - Fastest: `aura_intelligence dashboard` (prints + copies tokenized link, tries to open; shows SSH hint if headless).
 - If you don’t have a token yet: `aura_intelligence doctor --generate-gateway-token`.
 - If remote, tunnel first: `ssh -N -L 18789:127.0.0.1:18789 user@host` then open `http://127.0.0.1:18789/?token=...`.
-- Set `gateway.auth.token` (or `CLAWDBOT_GATEWAY_TOKEN`) on the gateway host.
+- Set `gateway.auth.token` (or `AURA_GATEWAY_TOKEN`) on the gateway host.
 - In the Control UI settings, paste the same token (or refresh with a one-time `?token=...` link).
 - Still stuck? Run `aura_intelligence status --all` and follow [Troubleshooting](/gateway/troubleshooting). See [Dashboard](/web/dashboard) for auth details.
 
@@ -2318,8 +2318,8 @@ Usually no - one Gateway can run multiple messaging channels and agents. Use mul
 
 Yes, but you must isolate:
 
-- `CLAWDBOT_CONFIG_PATH` (per‑instance config)
-- `CLAWDBOT_STATE_DIR` (per‑instance state)
+- `AURA_CONFIG_PATH` (per‑instance config)
+- `AURA_STATE_DIR` (per‑instance state)
 - `agents.defaults.workspace` (workspace isolation)
 - `gateway.port` (unique ports)
 
@@ -2328,7 +2328,7 @@ Quick setup (recommended):
 - Set a unique `gateway.port` in each profile config (or pass `--port` for manual runs).
 - Install a per-profile service: `aura_intelligence --profile <name> gateway install`.
 
-Profiles also suffix service names (`bot.molt.<profile>`; legacy `com.aura.*`, `aura_intelligence-gateway-<profile>.service`, `aura_intelligence Gateway (<profile>)`).
+Profiles also suffix service names (`aura.<profile>`; legacy `com.aura.*`, `aura_intelligence-gateway-<profile>.service`, `aura_intelligence Gateway (<profile>)`).
 Full guide: [Multiple gateways](/gateway/multiple-gateways).
 
 ### What does invalid handshake code 1008 mean
@@ -2373,7 +2373,7 @@ aura_intelligence logs --follow
 ```
 
 Service/supervisor logs (when the gateway runs via launchd/systemd):
-- macOS: `$CLAWDBOT_STATE_DIR/logs/gateway.log` and `gateway.err.log` (default: `~/.aura/logs/...`; profiles use `~/.aura-<profile>/logs/...`)
+- macOS: `$AURA_STATE_DIR/logs/gateway.log` and `gateway.err.log` (default: `~/.aura/logs/...`; profiles use `~/.aura-<profile>/logs/...`)
 - Linux: `journalctl --user -u aura_intelligence-gateway[-<profile>].service -n 200 --no-pager`
 - Windows: `schtasks /Query /TN "aura_intelligence Gateway (<profile>)" /V /FO LIST`
 

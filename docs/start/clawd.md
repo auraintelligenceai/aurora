@@ -77,7 +77,7 @@ aura_intelligence channels login
 aura_intelligence gateway --port 18789
 ```
 
-3) Put a minimal config in `~/.aura/aura_intelligence.json`:
+3) Put a minimal config in `~/.aura_intelligence/aura_intelligence.json`:
 
 ```json5
 {

@@ -95,7 +95,7 @@ gateway:
     - "127.0.0.1"  # if your proxy runs on localhost
   auth:
     mode: password
-    password: ${CLAWDBOT_GATEWAY_PASSWORD}
+    password: ${AURA_GATEWAY_PASSWORD}
 ```
 
 When `trustedProxies` is configured, the Gateway will use `X-Forwarded-For` headers to determine the real client IP for local client detection. Make sure your proxy overwrites (not appends to) incoming `X-Forwarded-For` headers to prevent spoofing.
@@ -165,7 +165,7 @@ Plugins run **in-process** with the Gateway. Treat them as trusted code:
 - Review plugin config before enabling.
 - Restart the Gateway after plugin changes.
 - If you install plugins from npm (`aura_intelligence plugins install <npm-spec>`), treat it like running untrusted code:
-  - The install path is `~/.aura_intelligence/extensions/<pluginId>/` (or `$CLAWDBOT_STATE_DIR/extensions/<pluginId>/`).
+  - The install path is `~/.aura_intelligence/extensions/<pluginId>/` (or `$AURA_STATE_DIR/extensions/<pluginId>/`).
   - aura_intelligence uses `npm pack` and then runs `npm install --omit=dev` in that directory (npm lifecycle scripts can execute code during install).
   - Prefer pinned, exact versions (`@scope/pkg@1.2.3`), and inspect the unpacked code on disk before enabling.
 
@@ -319,7 +319,7 @@ Keep config + state private on the gateway host:
 
 The Gateway multiplexes **WebSocket + HTTP** on a single port:
 - Default: `18789`
-- Config/flags/env: `gateway.port`, `--port`, `CLAWDBOT_GATEWAY_PORT`
+- Config/flags/env: `gateway.port`, `--port`, `AURA_GATEWAY_PORT`
 
 Bind mode controls where the Gateway listens:
 - `gateway.bind: "loopback"` (default): only local clients can connect.
@@ -369,7 +369,7 @@ The Gateway broadcasts its presence via mDNS (`_aura_intelligence-gw._tcp` on po
    }
    ```
 
-4. **Environment variable** (alternative): set `CLAWDBOT_DISABLE_BONJOUR=1` to disable mDNS without config changes.
+4. **Environment variable** (alternative): set `AURA_DISABLE_BONJOUR=1` to disable mDNS without config changes.
 
 In minimal mode, the Gateway still broadcasts enough for device discovery (`role`, `gatewayPort`, `transport`) but omits `cliPath` and `sshPort`. Apps that need CLI path information can fetch it via the authenticated WebSocket connection instead.
 
@@ -405,10 +405,10 @@ Local device pairing:
 
 Auth modes:
 - `gateway.auth.mode: "token"`: shared bearer token (recommended for most setups).
-- `gateway.auth.mode: "password"`: password auth (prefer setting via env: `CLAWDBOT_GATEWAY_PASSWORD`).
+- `gateway.auth.mode: "password"`: password auth (prefer setting via env: `AURA_GATEWAY_PASSWORD`).
 
 Rotation checklist (token/password):
-1. Generate/set a new secret (`gateway.auth.token` or `CLAWDBOT_GATEWAY_PASSWORD`).
+1. Generate/set a new secret (`gateway.auth.token` or `AURA_GATEWAY_PASSWORD`).
 2. Restart the Gateway (or restart the macOS app if it supervises the Gateway).
 3. Update any remote clients (`gateway.remote.token` / `.password` on machines that call into the Gateway).
 4. Verify you can no longer connect with the old credentials.
@@ -450,7 +450,7 @@ Avoid:
 
 ### 0.7) Secrets on disk (what’s sensitive)
 
-Assume anything under `~/.aura_intelligence/` (or `$CLAWDBOT_STATE_DIR/`) may contain secrets or private data:
+Assume anything under `~/.aura_intelligence/` (or `$AURA_STATE_DIR/`) may contain secrets or private data:
 
 - `aura_intelligence.json`: config may include tokens (gateway, remote gateway), provider settings, and allowlists.
 - `credentials/**`: channel credentials (example: WhatsApp creds), pairing allowlists, legacy OAuth imports.
@@ -683,7 +683,7 @@ If your AI does something bad:
 
 ### Rotate (assume compromise if secrets leaked)
 
-1. Rotate Gateway auth (`gateway.auth.token` / `CLAWDBOT_GATEWAY_PASSWORD`) and restart.
+1. Rotate Gateway auth (`gateway.auth.token` / `AURA_GATEWAY_PASSWORD`) and restart.
 2. Rotate remote client secrets (`gateway.remote.token` / `.password`) on any machine that can call the Gateway.
 3. Rotate provider/API credentials (WhatsApp creds, Slack/Discord tokens, model/API keys in `auth-profiles.json`).
 

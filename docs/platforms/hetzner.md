@@ -125,13 +125,13 @@ chown -R 1000:1000 /root/aura
 Create `.env` in the repository root.
 
 ```bash
-CLAWDBOT_IMAGE=aura_intelligence:latest
-CLAWDBOT_GATEWAY_TOKEN=change-me-now
-CLAWDBOT_GATEWAY_BIND=lan
-CLAWDBOT_GATEWAY_PORT=18789
+AURA_IMAGE=aura_intelligence:latest
+AURA_GATEWAY_TOKEN=change-me-now
+AURA_GATEWAY_BIND=lan
+AURA_GATEWAY_PORT=18789
 
-CLAWDBOT_CONFIG_DIR=/root/.aura
-CLAWDBOT_WORKSPACE_DIR=/root/aura
+AURA_CONFIG_DIR=/root/.aura
+AURA_WORKSPACE_DIR=/root/aura
 
 GOG_KEYRING_PASSWORD=change-me-now
 XDG_CONFIG_HOME=/home/node/.aura
@@ -154,7 +154,7 @@ Create or update `docker-compose.yml`.
 ```yaml
 services:
   aura_intelligence-gateway:
-    image: ${CLAWDBOT_IMAGE}
+    image: ${AURA_IMAGE}
     build: .
     restart: unless-stopped
     env_file:
@@ -163,19 +163,19 @@ services:
       - HOME=/home/node
       - NODE_ENV=production
       - TERM=xterm-256color
-      - CLAWDBOT_GATEWAY_BIND=${CLAWDBOT_GATEWAY_BIND}
-      - CLAWDBOT_GATEWAY_PORT=${CLAWDBOT_GATEWAY_PORT}
-      - CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN}
+      - AURA_GATEWAY_BIND=${AURA_GATEWAY_BIND}
+      - AURA_GATEWAY_PORT=${AURA_GATEWAY_PORT}
+      - AURA_GATEWAY_TOKEN=${AURA_GATEWAY_TOKEN}
       - GOG_KEYRING_PASSWORD=${GOG_KEYRING_PASSWORD}
       - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
       - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.aura
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/aura
+      - ${AURA_CONFIG_DIR}:/home/node/.aura
+      - ${AURA_WORKSPACE_DIR}:/home/node/aura
     ports:
       # Recommended: keep the Gateway loopback-only on the VPS; access via SSH tunnel.
       # To expose it publicly, remove the `127.0.0.1:` prefix and firewall accordingly.
-      - "127.0.0.1:${CLAWDBOT_GATEWAY_PORT}:18789"
+      - "127.0.0.1:${AURA_GATEWAY_PORT}:18789"
 
       # Optional: only if you run iOS/Android nodes against this VPS and need Canvas host.
       # If you expose this publicly, read /gateway/security and firewall accordingly.
@@ -186,9 +186,9 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${CLAWDBOT_GATEWAY_BIND}",
+        "${AURA_GATEWAY_BIND}",
         "--port",
-        "${CLAWDBOT_GATEWAY_PORT}"
+        "${AURA_GATEWAY_PORT}"
       ]
 ```
 

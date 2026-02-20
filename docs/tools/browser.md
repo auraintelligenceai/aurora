@@ -51,7 +51,7 @@ Set `browser.defaultProfile: "aura"` if you want managed mode by default.
 
 ## Configuration
 
-Browser settings live in `~/.aura/aura_intelligence.json`.
+Browser settings live in `~/.aura_intelligence/aura_intelligence.json`.
 
 ```json5
 {
@@ -78,7 +78,7 @@ Browser settings live in `~/.aura/aura_intelligence.json`.
 Notes:
 - The browser control service binds to loopback on a port derived from `gateway.port`
   (default: `18791`, which is gateway + 2). The relay uses the next port (`18792`).
-- If you override the Gateway port (`gateway.port` or `CLAWDBOT_GATEWAY_PORT`),
+- If you override the Gateway port (`gateway.port` or `AURA_GATEWAY_PORT`),
   the derived browser ports shift to stay in the same “family”.
 - `cdpUrl` defaults to the relay port when unset.
 - `remoteCdpTimeoutMs` applies to remote (non-loopback) CDP reachability checks.

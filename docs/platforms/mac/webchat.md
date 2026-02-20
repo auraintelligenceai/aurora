@@ -20,7 +20,7 @@ agent (with a session switcher for other sessions).
   ```bash
   dist/aura_intelligence.app/Contents/MacOS/aura_intelligence --webchat
   ```
-- Logs: `./scripts/clawlog.sh` (subsystem `bot.molt`, category `WebChatSwiftUI`).
+- Logs: `./scripts/clawlog.sh` (subsystem `aura`, category `WebChatSwiftUI`).
 
 ## How it’s wired
 

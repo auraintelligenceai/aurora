@@ -39,8 +39,8 @@ reach other host locations unless sandboxing is enabled. See
 
 ## Paths (quick map)
 
-- Config: `~/.aura/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`)
-- State dir: `~/.aura` (or `CLAWDBOT_STATE_DIR`)
+- Config: `~/.aura_intelligence/aura_intelligence.json` (or `AURA_CONFIG_PATH`)
+- State dir: `~/.aura` (or `AURA_STATE_DIR`)
 - Workspace: `~/aura` (or `~/aura-<agentId>`)
 - Agent dir: `~/.aura/agents/<agentId>/agent` (or `agents.list[].agentDir`)
 - Sessions: `~/.aura/agents/<agentId>/sessions`
@@ -51,7 +51,7 @@ If you do nothing, aura_intelligence runs a single agent:
 
 - `agentId` defaults to **`main`**.
 - Sessions are keyed as `agent:main:<mainKey>`.
-- Workspace defaults to `~/aura` (or `~/aura-<profile>` when `CLAWDBOT_PROFILE` is set).
+- Workspace defaults to `~/aura` (or `~/aura-<profile>` when `AURA_PROFILE` is set).
 - State defaults to `~/.aura/agents/main/agent`.
 
 ## Agent helper
@@ -139,7 +139,7 @@ multiple phone numbers without mixing sessions.
 
 ## Example: two WhatsApps → two agents
 
-`~/.aura/aura_intelligence.json` (JSON5):
+`~/.aura_intelligence/aura_intelligence.json` (JSON5):
 
 ```js
 {

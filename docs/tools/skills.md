@@ -21,7 +21,7 @@ If a skill name conflicts, precedence is:
 `<workspace>/skills` (highest) → `~/.aura/skills` → bundled skills (lowest)
 
 Additionally, you can configure extra skill folders (lowest precedence) via
-`skills.load.extraDirs` in `~/.aura/aura_intelligence.json`.
+`skills.load.extraDirs` in `~/.aura_intelligence/aura_intelligence.json`.
 
 ## Per-agent vs shared skills
 
@@ -155,7 +155,7 @@ Notes:
 If no `metadata.aura_intelligence` is present, the skill is always eligible (unless
 disabled in config or blocked by `skills.allowBundled` for bundled skills).
 
-## Config overrides (`~/.aura/aura_intelligence.json`)
+## Config overrides (`~/.aura_intelligence/aura_intelligence.json`)
 
 Bundled/managed skills can be toggled and supplied with env values:
 

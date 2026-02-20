@@ -295,8 +295,8 @@ Notes:
 - Exec approvals are enforced locally via `~/.aura/exec-approvals.json`
   (see [Exec approvals](/tools/exec-approvals)).
 - On macOS, the headless node host prefers the companion app exec host when reachable and falls
-  back to local execution if the app is unavailable. Set `CLAWDBOT_NODE_EXEC_HOST=app` to require
-  the app, or `CLAWDBOT_NODE_EXEC_FALLBACK=0` to disable fallback.
+  back to local execution if the app is unavailable. Set `AURA_NODE_EXEC_HOST=app` to require
+  the app, or `AURA_NODE_EXEC_FALLBACK=0` to disable fallback.
 - Add `--tls` / `--tls-fingerprint` when the Gateway WS uses TLS.
 
 ## Mac node mode
