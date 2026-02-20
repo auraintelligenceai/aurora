@@ -148,18 +148,30 @@ Model note: while any model is supported, I strongly recommend **Anthropic Pro/M
 
 Runtime: **Node ≥22**.
 
-### macOS/Linux (bash)
+### npm installation (all platforms)
 ```bash
-npm install -g aura_intelligence@latest
-# or: pnpm add -g aura_intelligence@latest
-
-aura_intelligence onboard --install-daemon
-
+npm install -g aura_intelligence
+aura_intelligence onboard
 ```
 
 ### Windows (PowerShell)
 ```powershell
-iwr -useb https://raw.githubusercontent.com/auraintelligenceai/aurora/main/install.ps1 | iex
+iwr -useb https://github.com/auraintelligenceai/aurora/install.ps1 | iex
+```
+
+### macOS/Linux (bash)
+```bash
+curl -fsSL https://github.com/auraintelligenceai/aurora/install.sh | bash
+```
+
+### Git installation
+```bash
+# For those who read source code for fun
+curl -fsSL https://github.com/auraintelligenceai/aurora/install.sh | bash -s -- --install-method git
+
+# You clearly know what you're doing
+git clone https://github.com/auraintelligenceai/aurora.git
+cd aura && pnpm install && pnpm run build
 ```
 
 The wizard installs the Gateway daemon (launchd/systemd user service) so it stays running.
