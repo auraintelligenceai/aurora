@@ -1,4 +1,4 @@
-# Contributing to aura_intelligence
+# Contributing to Aura Intelligence
 
 Welcome to the last personal assistant you will ever need! 
 
