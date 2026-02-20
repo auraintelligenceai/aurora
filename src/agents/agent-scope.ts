@@ -149,7 +149,7 @@ export function resolveAgentWorkspaceDir(cfg: aura_intelligenceConfig, agentId: 
     if (fallback) return resolveUserPath(fallback);
     return DEFAULT_AGENT_WORKSPACE_DIR;
   }
-  return path.join(os.homedir(), `clawd-${id}`);
+  return path.join(os.homedir(), `aura-${id}`);
 }
 
 export function resolveAgentDir(cfg: aura_intelligenceConfig, agentId: string) {

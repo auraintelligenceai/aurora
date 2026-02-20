@@ -17,7 +17,7 @@ Related:
 
 ```bash
 aura_intelligence setup
-aura_intelligence setup --workspace ~/clawd
+aura_intelligence setup --workspace ~/aura
 ```
 
 To run the wizard via setup:

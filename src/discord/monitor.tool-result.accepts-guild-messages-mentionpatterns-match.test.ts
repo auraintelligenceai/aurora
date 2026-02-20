@@ -61,7 +61,7 @@ describe("discord tool result dispatch", () => {
       agents: {
         defaults: {
           model: "anthropic/claude-opus-4-5",
-          workspace: "/tmp/clawd",
+          workspace: "/tmp/aura",
         },
       },
       session: { store: "/tmp/aura_intelligence-sessions.json" },
@@ -112,7 +112,7 @@ describe("discord tool result dispatch", () => {
       {
         message: {
           id: "m2",
-          content: "clawd: hello",
+          content: "aura: hello",
           channelId: "c1",
           timestamp: new Date().toISOString(),
           type: MessageType.Default,
@@ -141,7 +141,7 @@ describe("discord tool result dispatch", () => {
       agents: {
         defaults: {
           model: "anthropic/claude-opus-4-5",
-          workspace: "/tmp/clawd",
+          workspace: "/tmp/aura",
         },
       },
       session: { store: "/tmp/aura_intelligence-sessions.json" },
@@ -192,7 +192,7 @@ describe("discord tool result dispatch", () => {
       {
         message: {
           id: "m2",
-          content: "clawd: hello",
+          content: "aura: hello",
           channelId: "c1",
           timestamp: new Date().toISOString(),
           type: MessageType.Default,
@@ -221,7 +221,7 @@ describe("discord tool result dispatch", () => {
       agents: {
         defaults: {
           model: "anthropic/claude-opus-4-5",
-          workspace: "/tmp/clawd",
+          workspace: "/tmp/aura",
         },
       },
       session: { store: "/tmp/aura_intelligence-sessions.json" },
@@ -335,7 +335,7 @@ describe("discord tool result dispatch", () => {
       agents: {
         defaults: {
           model: "anthropic/claude-opus-4-5",
-          workspace: "/tmp/clawd",
+          workspace: "/tmp/aura",
         },
       },
       session: { store: "/tmp/aura_intelligence-sessions.json" },
@@ -446,7 +446,7 @@ describe("discord tool result dispatch", () => {
     });
 
     const cfg = {
-      agent: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/clawd" },
+      agent: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/aura" },
       session: { store: "/tmp/aura_intelligence-sessions.json" },
       channels: {
         discord: {
@@ -553,7 +553,7 @@ describe("discord tool result dispatch", () => {
       agents: {
         defaults: {
           model: "anthropic/claude-opus-4-5",
-          workspace: "/tmp/clawd",
+          workspace: "/tmp/aura",
         },
       },
       session: { store: "/tmp/aura_intelligence-sessions.json" },

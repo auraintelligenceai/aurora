@@ -54,7 +54,7 @@ function buildSlackManifest(botName: string) {
       },
       slash_commands: [
         {
-          command: "/clawd",
+          command: "/aura",
           description: "Send a message to aura_intelligence",
           should_escape: false,
         },

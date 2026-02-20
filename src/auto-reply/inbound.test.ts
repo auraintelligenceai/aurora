@@ -309,11 +309,11 @@ describe("mention helpers", () => {
       },
     });
     expect(regexes).toHaveLength(1);
-    expect(regexes[0]?.test("clawd")).toBe(true);
+    expect(regexes[0]?.test("aura")).toBe(true);
   });
 
   it("normalizes zero-width characters", () => {
-    expect(normalizeMentionText("cl\u200bawd")).toBe("clawd");
+    expect(normalizeMentionText("cl\u200bawd")).toBe("aura");
   });
 
   it("matches patterns case-insensitively", () => {

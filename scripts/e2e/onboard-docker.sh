@@ -280,7 +280,7 @@ TRASH
       --skip-health
 
     # Assert config + workspace scaffolding.
-    workspace_dir="$HOME/clawd"
+    workspace_dir="$HOME/aura"
     config_path="$HOME/.aura/aura_intelligence.json"
     sessions_dir="$HOME/.aura/agents/main/sessions"
 

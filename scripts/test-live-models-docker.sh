@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE_NAME="${CLAWDBOT_IMAGE:-aura_intelligence:local}"
 CONFIG_DIR="${CLAWDBOT_CONFIG_DIR:-$HOME/.aura}"
-WORKSPACE_DIR="${CLAWDBOT_WORKSPACE_DIR:-$HOME/clawd}"
+WORKSPACE_DIR="${CLAWDBOT_WORKSPACE_DIR:-$HOME/aura}"
 PROFILE_FILE="${CLAWDBOT_PROFILE_FILE:-$HOME/.profile}"
 
 PROFILE_MOUNT=()
@@ -27,7 +27,7 @@ docker run --rm -t \
   -e CLAWDBOT_LIVE_MODEL_TIMEOUT_MS="${CLAWDBOT_LIVE_MODEL_TIMEOUT_MS:-}" \
   -e CLAWDBOT_LIVE_REQUIRE_PROFILE_KEYS="${CLAWDBOT_LIVE_REQUIRE_PROFILE_KEYS:-}" \
   -v "$CONFIG_DIR":/home/node/.aura \
-  -v "$WORKSPACE_DIR":/home/node/clawd \
+  -v "$WORKSPACE_DIR":/home/node/aura \
   "${PROFILE_MOUNT[@]}" \
   "$IMAGE_NAME" \
   -lc "set -euo pipefail; [ -f \"$HOME/.profile\" ] && source \"$HOME/.profile\" || true; cd /app && pnpm test:live"

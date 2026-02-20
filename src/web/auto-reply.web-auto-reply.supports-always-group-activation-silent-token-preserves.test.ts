@@ -126,7 +126,7 @@ describe("web auto-reply", () => {
 
     setLoadConfigMock(() => ({
       messages: {
-        groupChat: { mentionPatterns: ["@clawd"] },
+        groupChat: { mentionPatterns: ["@aura"] },
       },
       session: { store: storePath },
     }));
@@ -248,9 +248,9 @@ describe("web auto-reply", () => {
 
     expect(resolver).not.toHaveBeenCalled();
 
-    // Text-based mentionPatterns still work (user can type "clawd" explicitly).
+    // Text-based mentionPatterns still work (user can type "aura" explicitly).
     await capturedOnMessage?.({
-      body: "clawd ping",
+      body: "aura ping",
       from: "123@g.us",
       conversationId: "123@g.us",
       chatId: "123@g.us",

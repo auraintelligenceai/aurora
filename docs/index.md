@@ -8,7 +8,7 @@ read_when:
 > *"EXFOLIATE! EXFOLIATE!"* — A space lobster, probably
 
 <p align="center">
-  <img src="whatsapp-clawd.jpg" alt="aura_intelligence" width="420" />
+  <img src="whatsapp-aura.jpg" alt="aura_intelligence" width="420" />
 </p>
 
 <p align="center">
@@ -21,11 +21,11 @@ read_when:
   <a href="https://github.com/aura_intelligence/aura_intelligence">GitHub</a> ·
   <a href="https://github.com/aura_intelligence/aura_intelligence/releases">Releases</a> ·
   <a href="/">Docs</a> ·
-  <a href="/start/clawd">aura_intelligence assistant setup</a>
+  <a href="/start/aura">aura_intelligence assistant setup</a>
 </p>
 
 aura_intelligence bridges WhatsApp (via WhatsApp Web / Baileys), Telegram (Bot API / grammY), Discord (Bot API / channels.discord.js), and iMessage (imsg CLI) to coding agents like [Pi](https://github.com/badlogic/pi-mono). Plugins add Mattermost (Bot API + WebSocket) and more.
-aura_intelligence also powers [Clawd](https://clawd.me), the space‑lobster assistant.
+aura_intelligence also powers [Clawd](https://aura.me), the space‑lobster assistant.
 
 ## Start here
 
@@ -161,7 +161,7 @@ Example:
       groups: { "*": { requireMention: true } }
     }
   },
-  messages: { groupChat: { mentionPatterns: ["@clawd"] } }
+  messages: { groupChat: { mentionPatterns: ["@aura"] } }
 }
 ```
 
@@ -177,7 +177,7 @@ Example:
   - [Updating / rollback](/install/updating)
   - [Pairing (DM + nodes)](/start/pairing)
   - [Nix mode](/install/nix)
-  - [aura_intelligence assistant setup (Clawd)](/start/clawd)
+  - [aura_intelligence assistant setup (Clawd)](/start/aura)
   - [Skills](/tools/skills)
   - [Skills config](/tools/skills-config)
   - [Workspace templates](/reference/templates/AGENTS)

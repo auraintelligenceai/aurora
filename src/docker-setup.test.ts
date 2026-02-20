@@ -62,7 +62,7 @@ describe("docker-setup.sh", () => {
       DOCKER_STUB_LOG: logPath,
       AURA_GATEWAY_TOKEN: "test-token",
       AURA_CONFIG_DIR: join(rootDir, "config"),
-      AURA_WORKSPACE_DIR: join(rootDir, "clawd"),
+      AURA_WORKSPACE_DIR: join(rootDir, "aura"),
     };
     delete env.AURA_DOCKER_APT_PACKAGES;
     delete env.AURA_EXTRA_MOUNTS;
@@ -113,7 +113,7 @@ describe("docker-setup.sh", () => {
       AURA_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
       AURA_GATEWAY_TOKEN: "test-token",
       AURA_CONFIG_DIR: join(rootDir, "config"),
-      AURA_WORKSPACE_DIR: join(rootDir, "clawd"),
+      AURA_WORKSPACE_DIR: join(rootDir, "aura"),
       AURA_EXTRA_MOUNTS: "",
       AURA_HOME_VOLUME: "",
     };

@@ -41,6 +41,9 @@ function hasAuthForProvider(
   cfg: aura_intelligenceConfig,
   store: ReturnType<typeof ensureAuthProfileStore>,
 ) {
+  // Ollama doesn't require an API key for local usage
+  if (provider.toLowerCase() === "ollama") return true;
+  
   if (listProfilesForProvider(store, provider).length > 0) return true;
   if (resolveEnvApiKey(provider)) return true;
   if (getCustomProviderApiKey(cfg, provider)) return true;

@@ -51,7 +51,7 @@ describe("gateway e2e", () => {
       const token = `test-${randomUUID()}`;
       process.env.AURA_GATEWAY_TOKEN = token;
 
-      const workspaceDir = path.join(tempHome, "clawd");
+      const workspaceDir = path.join(tempHome, "aura");
       await fs.mkdir(workspaceDir, { recursive: true });
 
       const nonceA = randomUUID();

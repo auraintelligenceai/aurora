@@ -11,7 +11,7 @@ This guide migrates a aura_intelligence Gateway from one machine to another **wi
 The migration is simple conceptually:
 
 - Copy the **state directory** (`$CLAWDBOT_STATE_DIR`, default: `~/.aura/`) — this includes config, auth, sessions, and channel state.
-- Copy your **workspace** (`~/clawd/` by default) — this includes your agent files (memory, prompts, etc.).
+- Copy your **workspace** (`~/aura/` by default) — this includes your agent files (memory, prompts, etc.).
 
 But there are common footguns around **profiles**, **permissions**, and **partial copies**.
 
@@ -40,7 +40,7 @@ Look for mentions of `CLAWDBOT_STATE_DIR` / profile in the output. If you run mu
 
 Common defaults:
 
-- `~/clawd/` (recommended workspace)
+- `~/aura/` (recommended workspace)
 - a custom folder you created
 
 Your workspace is where files like `MEMORY.md`, `USER.md`, and `memory/*.md` live.
@@ -80,7 +80,7 @@ aura_intelligence gateway stop
 cd ~
 tar -czf aura_intelligence-state.tgz .aura
 
-tar -czf clawd-workspace.tgz clawd
+tar -czf aura-workspace.tgz aura
 ```
 
 If you have multiple profiles/state dirs (e.g. `~/.aura-main`, `~/.aura-work`), archive each.
@@ -98,7 +98,7 @@ At this stage, it’s OK if onboarding creates a fresh `~/.aura/` — you will o
 Copy **both**:
 
 - `$CLAWDBOT_STATE_DIR` (default `~/.aura/`)
-- your workspace (default `~/clawd/`)
+- your workspace (default `~/aura/`)
 
 Common approaches:
 

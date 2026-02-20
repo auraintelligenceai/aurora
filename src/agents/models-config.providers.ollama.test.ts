@@ -5,11 +5,11 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 
 describe("Ollama provider", () => {
-  it("should not include ollama when no API key is configured", async () => {
-    const agentDir = mkdtempSync(join(tmpdir(), "clawd-test-"));
+  it("should include ollama by default without API key for local usage", async () => {
+    const agentDir = mkdtempSync(join(tmpdir(), "aura-test-"));
     const providers = await resolveImplicitProviders({ agentDir });
 
-    // Ollama requires explicit configuration via OLLAMA_API_KEY env var or profile
-    expect(providers?.ollama).toBeUndefined();
+    // Ollama is available by default for local usage without API key
+    expect(providers?.ollama).toBeDefined();
   });
 });

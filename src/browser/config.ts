@@ -43,7 +43,7 @@ export type ResolvedBrowserProfile = {
   cdpHost: string;
   cdpIsLoopback: boolean;
   color: string;
-  driver: "clawd" | "extension";
+  driver: "aura" | "extension";
 };
 
 function isLoopbackHost(host: string) {
@@ -98,7 +98,7 @@ export function parseHttpUrl(raw: string, label: string) {
 }
 
 /**
- * Ensure the default "clawd" profile exists in the profiles map.
+ * Ensure the default "aura" profile exists in the profiles map.
  * Auto-creates it with the legacy CDP port (from browser.cdpUrl) or first port if missing.
  */
 function ensureDefaultProfile(
@@ -132,7 +132,7 @@ function ensureDefaultChromeExtensionProfile(
   const relayPort = controlPort + 1;
   if (!Number.isFinite(relayPort) || relayPort <= 0 || relayPort > 65535) return result;
   // Avoid adding the built-in profile if the derived relay port is already used by another profile
-  // (legacy single-profile configs may use controlPort+1 for clawd CDP).
+  // (legacy single-profile configs may use controlPort+1 for aura CDP).
   if (getUsedPorts(result).has(relayPort)) return result;
   result.chrome = {
     driver: "extension",
@@ -236,7 +236,7 @@ export function resolveProfile(
   let cdpHost = resolved.cdpHost;
   let cdpPort = profile.cdpPort ?? 0;
   let cdpUrl = "";
-  const driver = profile.driver === "extension" ? "extension" : "clawd";
+  const driver = profile.driver === "extension" ? "extension" : "aura";
 
   if (rawProfileUrl) {
     const parsed = parseHttpUrl(rawProfileUrl, `browser.profiles.${profileName}.cdpUrl`);

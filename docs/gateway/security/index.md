@@ -501,7 +501,7 @@ Details: [Logging](/gateway/logging)
     "list": [
       {
         "id": "main",
-        "groupChat": { "mentionPatterns": ["@clawd", "@mybot"] }
+        "groupChat": { "mentionPatterns": ["@aura", "@mybot"] }
       }
     ]
   }
@@ -572,7 +572,7 @@ Important: `tools.elevated` is the global baseline escape hatch that runs exec o
 Enabling browser control gives the model the ability to drive a real browser.
 If that browser profile already contains logged-in sessions, the model can
 access those accounts and data. Treat browser profiles as **sensitive state**:
-- Prefer a dedicated profile for the agent (the default `clawd` profile).
+- Prefer a dedicated profile for the agent (the default `aura` profile).
 - Avoid pointing the agent at your personal daily-driver profile.
 - Keep host browser control disabled for sandboxed agents unless you trust them.
 - Treat browser downloads as untrusted input; prefer an isolated downloads directory.
@@ -602,7 +602,7 @@ Common use cases:
     list: [
       {
         id: "personal",
-        workspace: "~/clawd-personal",
+        workspace: "~/aura-personal",
         sandbox: { mode: "off" }
       }
     ]
@@ -618,7 +618,7 @@ Common use cases:
     list: [
       {
         id: "family",
-        workspace: "~/clawd-family",
+        workspace: "~/aura-family",
         sandbox: {
           mode: "all",
           scope: "agent",
@@ -642,7 +642,7 @@ Common use cases:
     list: [
       {
         id: "public",
-        workspace: "~/clawd-public",
+        workspace: "~/aura-public",
         sandbox: {
           mode: "all",
           scope: "agent",
@@ -749,7 +749,7 @@ Mario asking for find ~
 
 Found a vulnerability in aura_intelligence? Please report responsibly:
 
-1. Email: security@clawd.bot
+1. Email: security@aura.bot
 2. Don't post publicly until fixed
 3. We'll credit you (unless you prefer anonymity)
 

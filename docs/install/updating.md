@@ -36,7 +36,7 @@ Notes:
 - Snapshot your tailoring:
   - Config: `~/.aura/aura_intelligence.json`
   - Credentials: `~/.aura/credentials/`
-  - Workspace: `~/clawd`
+  - Workspace: `~/aura`
 
 ## Update (global install)
 
@@ -216,4 +216,4 @@ git pull
 
 - Run `aura_intelligence doctor` again and read the output carefully (it often tells you the fix).
 - Check: [Troubleshooting](/gateway/troubleshooting)
-- Ask in Discord: https://channels.discord.gg/clawd
+- Ask in Discord: https://channels.discord.gg/aura

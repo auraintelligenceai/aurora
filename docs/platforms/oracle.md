@@ -273,11 +273,11 @@ Most npm packages work fine. For binaries, look for `linux-arm64` or `aarch64` r
 
 All state lives in:
 - `~/.aura/` — config, credentials, session data
-- `~/clawd/` — workspace (SOUL.md, memory, artifacts)
+- `~/aura/` — workspace (SOUL.md, memory, artifacts)
 
 Back up periodically:
 ```bash
-tar -czvf aura_intelligence-backup.tar.gz ~/.aura ~/clawd
+tar -czvf aura_intelligence-backup.tar.gz ~/.aura ~/aura
 ```
 
 ---

@@ -83,7 +83,7 @@ Example configuration:
 
 The hook automatically:
 
-- Uses your workspace directory (`~/clawd` by default)
+- Uses your workspace directory (`~/aura` by default)
 - Uses your configured LLM for slug generation
 - Falls back to timestamp slugs if LLM is unavailable
 

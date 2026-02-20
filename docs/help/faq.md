@@ -29,7 +29,7 @@ Quick answers plus deeper troubleshooting for real-world setups (local dev, VPS,
   - [How do I install aura_intelligence on Linux?](#how-do-i-install-aura_intelligence-on-linux)
   - [How do I install aura_intelligence on a VPS?](#how-do-i-install-aura_intelligence-on-a-vps)
   - [Where are the cloud/VPS install guides?](#where-are-the-cloudvps-install-guides)
-  - [Can I ask Clawd to update itself?](#can-i-ask-clawd-to-update-itself)
+  - [Can I ask Clawd to update itself?](#can-i-ask-aura-to-update-itself)
   - [What does the onboarding wizard actually do?](#what-does-the-onboarding-wizard-actually-do)
   - [Do I need a Claude or OpenAI subscription to run this?](#do-i-need-a-claude-or-openai-subscription-to-run-this)
   - [Can I use Claude Max subscription without an API key](#can-i-use-claude-max-subscription-without-an-api-key)
@@ -137,7 +137,7 @@ Quick answers plus deeper troubleshooting for real-world setups (local dev, VPS,
   - [What model do you recommend?](#what-model-do-you-recommend)
   - [How do I switch models without wiping my config?](#how-do-i-switch-models-without-wiping-my-config)
   - [Can I use self-hosted models (llama.cpp, vLLM, Ollama)?](#can-i-use-selfhosted-models-llamacpp-vllm-ollama)
-  - [What do Clawd, Flawd, and Krill use for models?](#what-do-clawd-flawd-and-krill-use-for-models)
+  - [What do Clawd, Flawd, and Krill use for models?](#what-do-aura-flawd-and-krill-use-for-models)
   - [How do I switch models on the fly (without restarting)?](#how-do-i-switch-models-on-the-fly-without-restarting)
   - [Can I use GPT 5.2 for daily tasks and Codex 5.2 for coding](#can-i-use-gpt-52-for-daily-tasks-and-codex-52-for-coding)
   - [Why do I see “Model … is not allowed” and then no reply?](#why-do-i-see-model-is-not-allowed-and-then-no-reply)
@@ -391,7 +391,7 @@ state) as long as you copy **both** locations:
 
 1) Install aura_intelligence on the new machine.
 2) Copy `$CLAWDBOT_STATE_DIR` (default: `~/.aura`) from the old machine.
-3) Copy your workspace (default: `~/clawd`).
+3) Copy your workspace (default: `~/aura`).
 4) Run `aura_intelligence doctor` and restart the Gateway service.
 
 That preserves config, auth profiles, WhatsApp creds, sessions, and memory. If you’re in
@@ -797,7 +797,7 @@ Docs: [Getting started](/start/getting-started), [Updating](/install/updating).
 
 Yes. Install the other flavor, then run Doctor so the gateway service points at the new entrypoint.
 This **does not delete your data** - it only changes the aura_intelligence code install. Your state
-(`~/.aura`) and workspace (`~/clawd`) stay untouched.
+(`~/.aura`) and workspace (`~/aura`) stay untouched.
 
 From npm → git:
 
@@ -1202,7 +1202,7 @@ Everything lives under `$CLAWDBOT_STATE_DIR` (default: `~/.aura`):
 
 Legacy single‑agent path: `~/.aura/agent/*` (migrated by `aura_intelligence doctor`).
 
-Your **workspace** (AGENTS.md, memory files, skills, etc.) is separate and configured via `agents.defaults.workspace` (default: `~/clawd`).
+Your **workspace** (AGENTS.md, memory files, skills, etc.) is separate and configured via `agents.defaults.workspace` (default: `~/aura`).
 
 ### Where should AGENTSmd SOULmd USERmd MEMORYmd live
 
@@ -1213,11 +1213,11 @@ These files live in the **agent workspace**, not `~/.aura`.
 - **State dir (`~/.aura`)**: config, credentials, auth profiles, sessions, logs,
   and shared skills (`~/.aura/skills`).
 
-Default workspace is `~/clawd`, configurable via:
+Default workspace is `~/aura`, configurable via:
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/clawd" } }
+  agents: { defaults: { workspace: "~/aura" } }
 }
 ```
 
@@ -1282,7 +1282,7 @@ aura_intelligence reads an optional **JSON5** config from `$CLAWDBOT_CONFIG_PATH
 $CLAWDBOT_CONFIG_PATH
 ```
 
-If the file is missing, it uses safe‑ish defaults (including a default workspace of `~/clawd`).
+If the file is missing, it uses safe‑ish defaults (including a default workspace of `~/aura`).
 
 ### I set gatewaybind lan or tailnet and now nothing listens the UI says unauthorized
 
@@ -1530,7 +1530,7 @@ Docs: [Config](/cli/config), [Configure](/cli/configure), [Doctor](/gateway/doct
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/clawd" } },
+  agents: { defaults: { workspace: "~/aura" } },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } }
 }
 ```
@@ -2530,7 +2530,7 @@ Start the Gateway with `--verbose` to get more console detail. Then inspect the 
 
 ### My skill generated an imagePDF but nothing was sent
 
-Outbound attachments from the agent must include a `MEDIA:<path-or-url>` line (on its own line). See [aura_intelligence assistant setup](/start/clawd) and [Agent send](/tools/agent-send).
+Outbound attachments from the agent must include a `MEDIA:<path-or-url>` line (on its own line). See [aura_intelligence assistant setup](/start/aura) and [Agent send](/tools/agent-send).
 
 CLI sending:
 
@@ -2723,4 +2723,4 @@ You can add options like `debounce:2s cap:25 drop:summarize` for followup modes.
 
 ---
 
-Still stuck? Ask in [Discord](https://discord.com/invite/clawd) or open a [GitHub discussion](https://github.com/aura_intelligence/aura_intelligence/discussions).
+Still stuck? Ask in [Discord](https://discord.com/invite/aura) or open a [GitHub discussion](https://github.com/aura_intelligence/aura_intelligence/discussions).

@@ -214,8 +214,8 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       await prompter.note(
         [
           "Docs:",
-          "https://docs.molt.bot/gateway/health",
-          "https://docs.molt.bot/gateway/troubleshooting",
+          "https://docs.auraintelligence.ai/gateway/health",
+          "https://docs.auraintelligence.ai/gateway/troubleshooting",
         ].join("\n"),
         "Health check help",
       );
@@ -277,7 +277,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       tokenParam ? `Web UI (with token): ${authedUrl}` : undefined,
       `Gateway WS: ${links.wsUrl}`,
       gatewayStatusLine,
-      "Docs: https://docs.molt.bot/web/control-ui",
+      "Docs: https://docs.auraintelligence.ai/web/control-ui",
     ]
       .filter(Boolean)
       .join("\n"),
@@ -383,14 +383,14 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
   }
 
   await prompter.note(
-    ["Back up your agent workspace.", "Docs: https://docs.molt.bot/concepts/agent-workspace"].join(
+    ["Back up your agent workspace.", "Docs: https://docs.auraintelligence.ai/concepts/agent-workspace"].join(
       "\n",
     ),
     "Workspace backup",
   );
 
   await prompter.note(
-    "Running agents on your computer is risky — harden your setup: https://docs.molt.bot/security",
+    "Running agents on your computer is risky — harden your setup: https://docs.auraintelligence.ai/security",
     "Security",
   );
 
@@ -443,33 +443,33 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
           webSearchKey
             ? "API key: stored in config (tools.web.search.apiKey)."
             : "API key: provided via BRAVE_API_KEY env var (Gateway environment).",
-          "Docs: https://docs.molt.bot/tools/web",
+          "Docs: https://docs.auraintelligence.ai/tools/web",
         ].join("\n")
       : [
           "If you want your agent to be able to search the web, you’ll need an API key.",
           "",
-          "aura_intelligence uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
+          "Aura Intelligence uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
           "",
           "Set it up interactively:",
           `- Run: ${formatCliCommand("aura_intelligence configure --section web")}`,
           "- Enable web_search and paste your Brave Search API key",
           "",
           "Alternative: set BRAVE_API_KEY in the Gateway environment (no config changes).",
-          "Docs: https://docs.molt.bot/tools/web",
+          "Docs: https://docs.auraintelligence.ai/tools/web",
         ].join("\n"),
     "Web search (optional)",
   );
 
   await prompter.note(
-    'What now: https://molt.bot/showcase ("What People Are Building").',
+    'What now: https://auraintelligence.ai/showcase ("What People Are Building").',
     "What now",
   );
 
   await prompter.outro(
     controlUiOpened
-      ? "Onboarding complete. Dashboard opened with your token; keep that tab to control aura_intelligence."
+      ? "Onboarding complete. Dashboard opened with your token; keep that tab to control Aura Intelligence."
       : seededInBackground
         ? "Onboarding complete. Web UI seeded in the background; open it anytime with the tokenized link above."
-        : "Onboarding complete. Use the tokenized dashboard link above to control aura_intelligence.",
+        : "Onboarding complete. Use the tokenized dashboard link above to control Aura Intelligence.",
   );
 }

@@ -75,7 +75,7 @@ from your normal conversation.
 
 ## Agent bootstrap ritual
 
-On the first agent run, aura_intelligence bootstraps a workspace (default `~/clawd`):
+On the first agent run, aura_intelligence bootstraps a workspace (default `~/aura`):
 
 - Seeds `AGENTS.md`, `BOOTSTRAP.md`, `IDENTITY.md`, `USER.md`
 - Runs a short Q&A ritual (one question at a time)

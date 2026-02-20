@@ -32,7 +32,7 @@ run on host, set an explicit per-agent override:
   "routing": {
     "agents": {
       "main": {
-        "workspace": "~/clawd",
+        "workspace": "~/aura",
         "sandbox": { "mode": "off" }
       }
     }

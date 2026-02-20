@@ -9,7 +9,7 @@ read_when: "Browser control fails on Linux, especially with snap Chromium"
 
 aura_intelligence's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
 ```
-{"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"clawd\"."}
+{"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"aura\"."}
 ```
 
 ### Root Cause
@@ -67,19 +67,19 @@ If you must use snap Chromium, configure aura_intelligence to attach to a manual
 ```bash
 chromium-browser --headless --no-sandbox --disable-gpu \
   --remote-debugging-port=18800 \
-  --user-data-dir=$HOME/.aura/browser/clawd/user-data \
+  --user-data-dir=$HOME/.aura/browser/aura/user-data \
   about:blank &
 ```
 
 3. Optionally create a systemd user service to auto-start Chrome:
 ```ini
-# ~/.config/systemd/user/clawd-browser.service
+# ~/.config/systemd/user/aura-browser.service
 [Unit]
 Description=Clawd Browser (Chrome CDP)
 After=network.target
 
 [Service]
-ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.aura/browser/clawd/user-data about:blank
+ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.aura/browser/aura/user-data about:blank
 Restart=on-failure
 RestartSec=5
 
@@ -87,7 +87,7 @@ RestartSec=5
 WantedBy=default.target
 ```
 
-Enable with: `systemctl --user enable --now clawd-browser.service`
+Enable with: `systemctl --user enable --now aura-browser.service`
 
 ### Verifying the Browser Works
 
@@ -119,11 +119,11 @@ You’re using the `chrome` profile (extension relay). It expects the aura_intel
 browser extension to be attached to a live tab.
 
 Fix options:
-1. **Use the managed browser:** `aura_intelligence browser start --browser-profile clawd`
-   (or set `browser.defaultProfile: "clawd"`).
+1. **Use the managed browser:** `aura_intelligence browser start --browser-profile aura`
+   (or set `browser.defaultProfile: "aura"`).
 2. **Use the extension relay:** install the extension, open a tab, and click the
    aura_intelligence extension icon to attach it.
 
 Notes:
 - The `chrome` profile uses your **system default Chromium browser** when possible.
-- Local `clawd` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.
+- Local `aura` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.

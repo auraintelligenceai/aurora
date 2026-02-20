@@ -21,15 +21,15 @@ inside a sandbox workspace under `~/.aura/sandboxes`, not your host workspace.
 
 ## Default location
 
-- Default: `~/clawd`
+- Default: `~/aura`
 - If `CLAWDBOT_PROFILE` is set and not `"default"`, the default becomes
-  `~/clawd-<profile>`.
+  `~/aura-<profile>`.
 - Override in `~/.aura/aura_intelligence.json`:
 
 ```json5
 {
   agent: {
-    workspace: "~/clawd"
+    workspace: "~/aura"
   }
 }
 ```
@@ -144,7 +144,7 @@ If git is installed, brand-new workspaces are initialized automatically. If this
 workspace is not already a repo, run:
 
 ```bash
-cd ~/clawd
+cd ~/aura
 git init
 git add AGENTS.md SOUL.md TOOLS.md IDENTITY.md USER.md HEARTBEAT.md memory/
 git commit -m "Add agent workspace"
@@ -169,7 +169,7 @@ Option B: GitHub CLI (`gh`)
 
 ```bash
 gh auth login
-gh repo create clawd-workspace --private --source . --remote origin --push
+gh repo create aura-workspace --private --source . --remote origin --push
 ```
 
 Option C: GitLab web UI
@@ -217,7 +217,7 @@ Suggested `.gitignore` starter:
 
 ## Moving the workspace to a new machine
 
-1. Clone the repo to the desired path (default `~/clawd`).
+1. Clone the repo to the desired path (default `~/aura`).
 2. Set `agents.defaults.workspace` to that path in `~/.aura/aura_intelligence.json`.
 3. Run `aura_intelligence setup --workspace <path>` to seed any missing files.
 4. If you need sessions, copy `~/.aura/agents/<agentId>/sessions/` from the

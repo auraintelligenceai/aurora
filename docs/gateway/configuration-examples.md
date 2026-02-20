@@ -14,7 +14,7 @@ Examples below are aligned with the current config schema. For the exhaustive re
 ### Absolute minimum
 ```json5
 {
-  agent: { workspace: "~/clawd" },
+  agent: { workspace: "~/aura" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } }
 }
 ```
@@ -30,7 +30,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
     emoji: "🦞"
   },
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: { primary: "anthropic/claude-sonnet-4-5" }
   },
   channels: {
@@ -102,7 +102,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
   // Routing + queue
   routing: {
     groupChat: {
-      mentionPatterns: ["@clawd", "aura_intelligence"],
+      mentionPatterns: ["@aura", "aura_intelligence"],
       historyLimit: 50
     },
     queue: {
@@ -190,7 +190,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
       dm: { enabled: true, allowFrom: ["steipete"] },
       guilds: {
         "123456789012345678": {
-          slug: "friends-of-clawd",
+          slug: "friends-of-aura",
           requireMention: false,
           channels: {
             general: { allow: true },
@@ -210,7 +210,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
       dm: { enabled: true, allowFrom: ["U123"] },
       slashCommand: {
         enabled: true,
-        name: "clawd",
+        name: "aura",
         sessionPrefix: "slack:slash",
         ephemeral: true
       }
@@ -220,7 +220,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
   // Agent runtime
   agents: {
     defaults: {
-      workspace: "~/clawd",
+      workspace: "~/aura",
       userTimezone: "America/Chicago",
       model: {
         primary: "anthropic/claude-sonnet-4-5",
@@ -426,7 +426,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
 ### Multi-platform setup
 ```json5
 {
-  agent: { workspace: "~/clawd" },
+  agent: { workspace: "~/aura" },
   channels: {
     whatsapp: { allowFrom: ["+15555550123"] },
     telegram: {
@@ -463,7 +463,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
     }
   },
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: {
       primary: "anthropic/claude-sonnet-4-5",
       fallbacks: ["anthropic/claude-opus-4-5"]
@@ -501,7 +501,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
     }
   },
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: {
       primary: "anthropic/claude-opus-4-5",
       fallbacks: ["minimax/MiniMax-M2.1"]
@@ -518,7 +518,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
     theme: "professional assistant"
   },
   agent: {
-    workspace: "~/work-clawd",
+    workspace: "~/work-aura",
     elevated: { enabled: false }
   },
   channels: {
@@ -538,7 +538,7 @@ Save to `~/.aura/aura_intelligence.json` and you can DM the bot from that number
 ```json5
 {
   agent: {
-    workspace: "~/clawd",
+    workspace: "~/aura",
     model: { primary: "lmstudio/minimax-m2.1-gs32" }
   },
   models: {

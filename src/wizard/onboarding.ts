@@ -53,7 +53,7 @@ async function requireRiskAcknowledgement(params: {
     [
       "Security warning — please read.",
       "",
-      "aura_intelligence is a hobby project and still in beta. Expect sharp edges.",
+      "Aura Intelligence : next-generation autonomous AI agent engineered for enterprise-grade task execution, complex problem-solving, and intelligent workflow orchestration. Built upon advanced agentic architectures, Aura represents the culmination of sophisticated AI engineering designed for real-world impact.",
       "This bot can read files and run actions if tools are enabled.",
       "A bad prompt can trick it into doing unsafe things.",
       "",
@@ -70,7 +70,7 @@ async function requireRiskAcknowledgement(params: {
       "aura_intelligence security audit --deep",
       "aura_intelligence security audit --fix",
       "",
-      "Must read: https://docs.molt.bot/gateway/security",
+      "Must read: https://docs.auraintelligence.ai/gateway/security",
     ].join("\n"),
     "Security",
   );
@@ -90,7 +90,7 @@ export async function runOnboardingWizard(
   prompter: WizardPrompter,
 ) {
   printWizardHeader(runtime);
-  await prompter.intro("aura_intelligence onboarding");
+  await prompter.intro("Aura Intelligence Onboarding");
   await requireRiskAcknowledgement({ opts, prompter });
 
   const snapshot = await readConfigFileSnapshot();
@@ -103,7 +103,7 @@ export async function runOnboardingWizard(
         [
           ...snapshot.issues.map((iss) => `- ${iss.path}: ${iss.message}`),
           "",
-          "Docs: https://docs.molt.bot/gateway/configuration",
+          "Docs: https://docs.auraintelligence.ai/gateway/configuration",
         ].join("\n"),
         "Config issues",
       );

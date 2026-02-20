@@ -26,15 +26,15 @@ Related:
 
 ```bash
 aura_intelligence browser --browser-profile chrome tabs
-aura_intelligence browser --browser-profile clawd start
-aura_intelligence browser --browser-profile clawd open https://example.com
-aura_intelligence browser --browser-profile clawd snapshot
+aura_intelligence browser --browser-profile aura start
+aura_intelligence browser --browser-profile aura open https://example.com
+aura_intelligence browser --browser-profile aura snapshot
 ```
 
 ## Profiles
 
 Profiles are named browser routing configs. In practice:
-- `clawd`: launches/attaches to a dedicated aura_intelligence-managed Chrome instance (isolated user data dir).
+- `aura`: launches/attaches to a dedicated aura_intelligence-managed Chrome instance (isolated user data dir).
 - `chrome`: controls your existing Chrome tab(s) via the Chrome extension relay.
 
 ```bash

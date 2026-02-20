@@ -10,7 +10,7 @@ services:
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
       - ${CLAWDBOT_CONFIG_DIR}:/home/node/.aura
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/clawd
+      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/aura
     ports:
       - "${CLAWDBOT_GATEWAY_PORT:-18789}:18789"
       - "${CLAWDBOT_BRIDGE_PORT:-18790}:18790"
@@ -38,7 +38,7 @@ services:
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
       - ${CLAWDBOT_CONFIG_DIR}:/home/node/.aura
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/clawd
+      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/aura
     stdin_open: true
     tty: true
     init: true

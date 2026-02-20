@@ -325,8 +325,8 @@ aura_intelligence logs --follow | grep "pairing request"
 Known issue: When you send an image with ONLY a mention (no other text), WhatsApp sometimes doesn't include the mention metadata.
 
 **Workaround:** Add some text with the mention:
-- ❌ `@clawd` + image
-- ✅ `@clawd check this` + image
+- ❌ `@aura` + image
+- ✅ `@aura check this` + image
 
 ### Session Not Resuming
 

@@ -163,15 +163,15 @@ ${formatHelpExamples([
     "Set name + emoji.",
   ],
   [
-    "aura_intelligence agents set-identity --agent main --avatar avatars/clawd.png",
+    "aura_intelligence agents set-identity --agent main --avatar avatars/aura.png",
     "Set avatar path.",
   ],
   [
-    "aura_intelligence agents set-identity --workspace ~/clawd --from-identity",
+    "aura_intelligence agents set-identity --workspace ~/aura --from-identity",
     "Load from IDENTITY.md.",
   ],
   [
-    "aura_intelligence agents set-identity --identity-file ~/clawd/IDENTITY.md --agent main",
+    "aura_intelligence agents set-identity --identity-file ~/aura/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",
   ],
 ])}
