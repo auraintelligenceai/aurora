@@ -3,6 +3,7 @@ import http, { type IncomingMessage, type Server, type ServerResponse } from "no
 import type { Socket } from "node:net";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { Duplex } from "node:stream";
 
 import chokidar from "chokidar";
@@ -335,6 +336,15 @@ export async function createCanvasHostHandler(
         res.statusCode = 405;
         res.setHeader("Content-Type", "text/plain; charset=utf-8");
         res.end("Method Not Allowed");
+        return true;
+      }
+
+      // Serve Aura Avatar page
+      if (urlPath === "/avatar" || urlPath === "/avatar/") {
+        const avatarHtml = await fs.readFile(path.join(path.dirname(fileURLToPath(import.meta.url)), "aura-avatar.html"), "utf8");
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        res.end(liveReload ? injectCanvasLiveReload(avatarHtml) : avatarHtml);
         return true;
       }
 

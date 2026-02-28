@@ -117,7 +117,7 @@ If you want a personal, single-user assistant that feels local, fast, and always
 
 [Website](https://auraintelligence.ai) · [Docs](https://docs.auraintelligence.ai) · [Getting Started](https://docs.auraintelligence.ai/start/getting-started) · [Updating](https://docs.auraintelligence.ai/install/updating) · [Showcase](https://docs.auraintelligence.ai/start/showcase) · [FAQ](https://docs.auraintelligence.ai/start/faq) · [Wizard](https://docs.auraintelligence.ai/start/wizard) · [Nix](https://github.com/auraintelligenceai/nix-aurora) · [Docker](https://docs.auraintelligence.ai/install/docker) · [Discord](https://discord.gg/aura)
 
-Preferred setup: run the onboarding wizard (`aura_intelligence onboard`). It walks through gateway, workspace, channels, and skills. The CLI wizard is the recommended path and works on **macOS, Linux, and Windows (via WSL2; strongly recommended)**.
+Preferred setup: run the onboarding wizard (`aura_intelligence onboard`). It walks through gateway, workspace, channels, skills, and now offers the option to launch the Avatar Tool directly from the onboarding menu. The CLI wizard is the recommended path and works on **macOS, Linux, and Windows (via WSL2; strongly recommended)**.
 
 ### Quick Start Commands
 ```bash
@@ -128,6 +128,11 @@ aura_intelligence tui               # Open terminal UI
 aura_intelligence gateway status    # Check gateway status
 aura_intelligence --version
 
+# Avatar commands
+aura_intelligence canvas avatar present  # Show the Aura avatar
+aura_intelligence canvas avatar emotion --emotion happy  # Set happy emotion
+aura_intelligence canvas avatar status --status "Thinking..."  # Update status
+aura_intelligence canvas avatar processing --state true  # Set processing state
 ```
 
 Works with npm, pnpm, or bun.
@@ -143,6 +148,71 @@ Model note: while any model is supported, I strongly recommend **Anthropic Pro/M
 
 - Models config + CLI: [Models](https://docs.auraintelligence.ai/concepts/models)
 - Auth profile rotation (OAuth vs API keys) + fallbacks: [Model failover](https://docs.auraintelligence.ai/concepts/model-failover)
+
+## Aura Avatar System
+
+The Aura avatar is an interactive visual representation that responds to system states, emotions, and environmental inputs. It provides real-time feedback through animated expressions and dynamic behaviors.
+
+### Key Features
+
+**System States:**
+- 🤔 **Thinking**: Animated eye scanning and subtle brow movement
+- ⚡ **Processing**: Calm methodical eye movement
+- ⏳ **Waiting**: Subtle breathing animation
+- 👂 **Listening**: Alert, focused state
+- 🗣️ **Speaking**: Animated mouth movement
+- ❌ **Error**: Red color tint and shaking animation
+- 😐 **Idle**: Neutral state with random blinking
+
+**Emotions:**
+- 😊 **Happy**: Smiling mouth
+- 😢 **Sad**: Frowning mouth with tear animation  
+- 😮 **Surprised**: Open mouth and wide eyes
+- 😠 **Angry**: Angry eyebrows and eyes
+- 😐 **Neutral**: Default state
+
+**Environmental Awareness:**
+- **Light Level**: Pupil dilation/constriction (0-1 scale)
+- **Sound Level**: Surprised expression at high volumes (>0.8)
+
+### How to Run the Avatar
+
+#### Method 1: Direct Browser Access
+```bash
+# Open the avatar directly in your browser
+open file:///path/to/aurora/src/canvas-host/aura-avatar.html
+
+# Or use the canvas host endpoint (when gateway is running)
+open http://localhost:18790/__aura_intelligence__/canvas/avatar
+```
+
+#### Method 2: Using the Test Page
+```bash
+# Open the comprehensive test page
+open file:///path/to/aurora/test-avatar.html
+```
+
+#### Method 3: Node Canvas Command
+```bash
+# Present the avatar on a paired node
+aura_intelligence canvas avatar present
+
+# Set specific emotion
+aura_intelligence canvas avatar emotion --emotion happy
+
+# Set processing state
+aura_intelligence canvas avatar processing --state true
+
+# Update status message
+aura_intelligence canvas avatar status --status "Analyzing..."
+```
+
+### Integration Points
+
+**WebSocket Connection**: Real-time communication with Aura system  
+**Canvas Host**: `/__aura_intelligence__/canvas/avatar` endpoint  
+**CLI Commands**: Full control via `aura_intelligence canvas avatar` commands  
+**Test Page**: Comprehensive testing interface with all features  
 
 ## Install (recommended)
 
@@ -192,10 +262,10 @@ pnpm aura_intelligence onboard
 pnpm  aura_intelligence onboard --install-daemon
 
 # Start gateway in foreground (loopback only)
-pnpm  aura_intelligence gateway run --bind loopback --port 18789 --force
+pnpm  aura_intelligence gateway run --bind loopback --port 18790 --force
 
 # Start gateway in foreground with verbose logging
-pnpm   aura_intelligence gateway run --bind loopback --port 18789 --verbose --force
+pnpm   aura_intelligence gateway run --bind loopback --port 18790 --verbose --force
 
 # Send a message
 pnpm aura_intelligence message send --to +1234567890 --message "Hello from Aura Intelligence"
@@ -347,7 +417,7 @@ WhatsApp / Telegram / Slack / Discord / Google Chat / Signal / iMessage / BlueBu
 ┌───────────────────────────────┐
 │            Gateway            │
 │       (control plane)         │
-│     ws://127.0.0.1:18789      │
+│     ws://127.0.0.1:18790      │
 └──────────────┬────────────────┘
                │
                ├─ Pi agent (RPC)

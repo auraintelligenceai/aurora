@@ -182,7 +182,7 @@ export class MCPManager {
           handler: async (params: any) => {
             logInfo(`Evaluating: ${params.expression}`);
             return {
-              result: eval(params.expression), // This is a simple implementation for demo purposes
+              result: eval(params.expression), // eslint-disable-line no-eval -- This is a simple implementation for demo purposes
             };
           },
         },

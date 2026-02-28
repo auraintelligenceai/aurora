@@ -9,6 +9,7 @@ import {
 } from "../commands/daemon-runtime.js";
 import { healthCommand } from "../commands/health.js";
 import { formatHealthCheckFailure } from "../commands/health-format.js";
+import { pickPrimaryTailnetIPv4, isValidIPv4 } from "../infra/tailnet.js";
 import {
   detectBrowserOpenSupport,
   formatControlUiSshHint,
@@ -163,13 +164,14 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       let installError: string | null = null;
       try {
         progress.update("Preparing Gateway service…");
-        const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
+         const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
           env: process.env,
           port: settings.port,
           token: settings.gatewayToken,
           runtime: daemonRuntime,
           warn: (message, title) => prompter.note(message, title),
           config: nextConfig,
+          force: true,
         });
 
         progress.update("Installing Gateway service…");
@@ -287,7 +289,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
   let controlUiOpened = false;
   let controlUiOpenHint: string | undefined;
   let seededInBackground = false;
-  let hatchChoice: "tui" | "web" | "later" | null = null;
+  let hatchChoice: "tui" | "web" | "avatar" | "later" | null = null;
 
   if (!opts.skipUi && gatewayProbe.ok) {
     if (hasBootstrap) {
@@ -312,17 +314,18 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       "Token",
     );
 
-    hatchChoice = (await prompter.select({
+     hatchChoice = (await prompter.select({
       message: "How do you want to hatch your bot?",
       options: [
         { value: "tui", label: "Hatch in TUI (recommended)" },
         { value: "web", label: "Open the Web UI" },
+        { value: "avatar", label: "Open the Avatar Tool" },
         { value: "later", label: "Do this later" },
       ],
       initialValue: "tui",
-    })) as "tui" | "web" | "later";
+    })) as "tui" | "web" | "avatar" | "later";
 
-    if (hatchChoice === "tui") {
+     if (hatchChoice === "tui") {
       await runTui({
         url: links.wsUrl,
         token: settings.authMode === "token" ? settings.gatewayToken : undefined,
@@ -371,6 +374,48 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
           .filter(Boolean)
           .join("\n"),
         "Dashboard ready",
+      );
+     } else if (hatchChoice === "avatar") {
+      // Canvas host has a fixed base path regardless of control UI base path
+      const host = (() => {
+        if (settings.bind === "custom" && settings.customBindHost && isValidIPv4(settings.customBindHost)) {
+          return settings.customBindHost;
+        }
+        if (settings.bind === "tailnet") {
+          const tailnetIPv4 = pickPrimaryTailnetIPv4();
+          if (tailnetIPv4) return tailnetIPv4;
+        }
+        return "127.0.0.1";
+      })();
+      const avatarUrl = `http://${host}:${settings.port}/__aura_intelligence__/canvas/avatar${tokenParam}`;
+      const browserSupport = await detectBrowserOpenSupport();
+      if (browserSupport.ok) {
+        controlUiOpened = await openUrl(avatarUrl);
+        if (!controlUiOpened) {
+          controlUiOpenHint = formatControlUiSshHint({
+            port: settings.port,
+            basePath: controlUiBasePath,
+            token: settings.gatewayToken,
+          });
+        }
+      } else {
+        controlUiOpenHint = formatControlUiSshHint({
+          port: settings.port,
+          basePath: controlUiBasePath,
+          token: settings.gatewayToken,
+        });
+      }
+      await prompter.note(
+        [
+          `Avatar Tool link (with token): ${avatarUrl}`,
+          controlUiOpened
+            ? "Opened in your browser. Keep that tab to interact with the avatar."
+            : "Copy/paste this URL in a browser on this machine to open the Avatar Tool.",
+          controlUiOpenHint,
+        ]
+          .filter(Boolean)
+          .join("\n"),
+        "Avatar Tool ready",
       );
     } else {
       await prompter.note(

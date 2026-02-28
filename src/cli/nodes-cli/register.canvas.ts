@@ -10,6 +10,7 @@ import { getNodesTheme, runNodesCommand } from "./cli-utils.js";
 import { callGatewayCli, nodesCallOpts, resolveNodeId } from "./rpc.js";
 import type { NodesRpcOpts } from "./types.js";
 import { shortenHomePath } from "../../utils.js";
+import { CANVAS_HOST_PATH } from "../../canvas-host/a2ui.js";
 
 async function invokeCanvas(opts: NodesRpcOpts, command: string, params?: Record<string, unknown>) {
   const nodeId = await resolveNodeId(opts, String(opts.node ?? ""));
@@ -198,6 +199,111 @@ export function registerNodesCanvasCommands(nodes: Command) {
   );
 
   const a2ui = canvas.command("a2ui").description("Render A2UI content on the canvas");
+
+  // Avatar commands
+  const avatar = canvas.command("avatar").description("Control the Aura Intelligence avatar");
+
+  nodesCallOpts(
+    avatar
+      .command("present")
+      .description("Show the Aura Intelligence avatar")
+      .requiredOption("--node <idOrNameOrIp>", "Node id, name, or IP")
+      .option("--invoke-timeout <ms>", "Node invoke timeout in ms (default 20000)", "20000")
+      .action(async (opts: NodesRpcOpts) => {
+        await runNodesCommand("canvas avatar present", async () => {
+          const targetUrl = `${CANVAS_HOST_PATH}/avatar`;
+          await invokeCanvas(opts, "canvas.present", { url: targetUrl });
+          if (!opts.json) {
+            const { ok } = getNodesTheme();
+            defaultRuntime.log(ok("Aura Intelligence avatar present"));
+          }
+        });
+      }),
+  );
+
+  nodesCallOpts(
+    avatar
+      .command("emotion")
+      .description("Set the avatar's emotion (happy|sad|surprised|angry|neutral)")
+      .requiredOption("--node <idOrNameOrIp>", "Node id, name, or IP")
+      .requiredOption("--emotion <emotion>", "Emotion to display (happy|sad|surprised|angry|neutral)")
+      .option("--invoke-timeout <ms>", "Node invoke timeout in ms (default 20000)", "20000")
+      .action(async (opts: NodesRpcOpts) => {
+        await runNodesCommand("canvas avatar emotion", async () => {
+          const emotion = String(opts.emotion ?? "").toLowerCase();
+          const validEmotions = ["happy", "sad", "surprised", "angry", "neutral"];
+          if (!validEmotions.includes(emotion)) {
+            throw new Error(`Invalid emotion: ${emotion}. Valid emotions: ${validEmotions.join(", ")}`);
+          }
+          
+          const js = `
+            if (window.AuraAvatar) {
+              window.AuraAvatar.setEmotion('${emotion}');
+            }
+          `;
+          
+          await invokeCanvas(opts, "canvas.eval", { javaScript: js });
+          if (!opts.json) {
+            const { ok } = getNodesTheme();
+            defaultRuntime.log(ok(`Avatar emotion set to ${emotion}`));
+          }
+        });
+      }),
+  );
+
+  nodesCallOpts(
+    avatar
+      .command("status")
+      .description("Set the avatar's status message")
+      .requiredOption("--node <idOrNameOrIp>", "Node id, name, or IP")
+      .requiredOption("--message <message>", "Status message to display")
+      .option("--invoke-timeout <ms>", "Node invoke timeout in ms (default 20000)", "20000")
+      .action(async (opts: NodesRpcOpts) => {
+        await runNodesCommand("canvas avatar status", async () => {
+          const message = String(opts.message ?? "");
+          const escapedMessage = message.replace(/'/g, "\\'").replace(/"/g, '\\"');
+          
+          const js = `
+            if (window.AuraAvatar) {
+              window.AuraAvatar.setStatus('${escapedMessage}');
+            }
+          `;
+          
+          await invokeCanvas(opts, "canvas.eval", { javaScript: js });
+          if (!opts.json) {
+            const { ok } = getNodesTheme();
+            defaultRuntime.log(ok(`Avatar status set to: ${message}`));
+          }
+        });
+      }),
+  );
+
+  nodesCallOpts(
+    avatar
+      .command("processing")
+      .description("Set the avatar's processing state")
+      .requiredOption("--node <idOrNameOrIp>", "Node id, name, or IP")
+      .requiredOption("--state <state>", "Processing state (true|false)")
+      .option("--invoke-timeout <ms>", "Node invoke timeout in ms (default 20000)", "20000")
+      .action(async (opts: NodesRpcOpts) => {
+        await runNodesCommand("canvas avatar processing", async () => {
+          const state = String(opts.state ?? "false").toLowerCase();
+          const isProcessing = state === "true" || state === "1";
+          
+          const js = `
+            if (window.AuraAvatar) {
+              ${isProcessing ? "window.AuraAvatar.startProcessing();" : "window.AuraAvatar.stopProcessing();"}
+            }
+          `;
+          
+          await invokeCanvas(opts, "canvas.eval", { javaScript: js });
+          if (!opts.json) {
+            const { ok } = getNodesTheme();
+            defaultRuntime.log(ok(`Avatar processing state set to ${isProcessing}`));
+          }
+        });
+      }),
+  );
 
   nodesCallOpts(
     a2ui

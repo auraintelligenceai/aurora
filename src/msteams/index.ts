@@ -1,4 +1,4 @@
-import { logInfo, logWarn, logError } from "../logger.js";
+import { logInfo, logError } from "../logger.js";
 
 export interface TeamsMessage {
   id: string;

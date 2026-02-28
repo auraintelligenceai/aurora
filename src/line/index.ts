@@ -1,4 +1,4 @@
-import { logInfo, logWarn, logError } from "../logger.js";
+import { logInfo, logError } from "../logger.js";
 
 export interface LineMessage {
   type: string;
@@ -152,7 +152,7 @@ export class LineClient {
   /**
    * Verify signature
    */
-  verifySignature(body: string, signature: string): boolean {
+  verifySignature(_body: string, _signature: string): boolean {
     // Implementation would be added here
     return true; // Temporary implementation for testing
   }

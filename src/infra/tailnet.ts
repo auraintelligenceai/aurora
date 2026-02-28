@@ -50,3 +50,11 @@ export function pickPrimaryTailnetIPv4(): string | undefined {
 export function pickPrimaryTailnetIPv6(): string | undefined {
   return listTailnetAddresses().ipv6[0];
 }
+
+export function isValidIPv4(host: string): boolean {
+  const parts = host.split(".");
+  if (parts.length !== 4) return false;
+  const octets = parts.map((p) => Number.parseInt(p, 10));
+  if (octets.some((n) => !Number.isFinite(n) || n < 0 || n > 255)) return false;
+  return true;
+}

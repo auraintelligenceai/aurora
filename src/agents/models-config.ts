@@ -5,11 +5,29 @@ import { type aura_intelligenceConfig, loadConfig } from "../config/config.js";
 import { resolveaura_intelligenceAgentDir } from "./agent-paths.js";
 import {
   normalizeProviders,
-  type ProviderConfig,
   resolveImplicitBedrockProvider,
   resolveImplicitCopilotProvider,
   resolveImplicitProviders,
 } from "./models-config.providers.js";
+
+export interface ModelDefinitionConfig {
+  id: string;
+  name: string;
+  reasoning?: boolean;
+  input: string[];
+  cost?: number | {
+    input: number;
+    output: number;
+    cacheRead?: number;
+    cacheWrite?: number;
+  };
+  contextWindow?: number;
+  maxTokens?: number;
+}
+
+export interface ProviderConfig {
+  models?: ModelDefinitionConfig[];
+}
 
 type ModelsConfig = NonNullable<aura_intelligenceConfig["models"]>;
 
@@ -82,19 +100,19 @@ export async function ensureaura_intelligenceModelsJson(
     : resolveaura_intelligenceAgentDir();
 
   const explicitProviders = (cfg.models?.providers ?? {}) as Record<string, ProviderConfig>;
-  const implicitProviders = await resolveImplicitProviders({ agentDir });
+  const implicitProviders = await resolveImplicitProviders({ _agentDir: agentDir });
   const providers: Record<string, ProviderConfig> = mergeProviders({
     implicit: implicitProviders,
     explicit: explicitProviders,
   });
-  const implicitBedrock = await resolveImplicitBedrockProvider({ agentDir, config: cfg });
+  const implicitBedrock = await resolveImplicitBedrockProvider({ _agentDir: agentDir, _config: cfg });
   if (implicitBedrock) {
     const existing = providers["amazon-bedrock"];
     providers["amazon-bedrock"] = existing
       ? mergeProviderModels(implicitBedrock, existing)
       : implicitBedrock;
   }
-  const implicitCopilot = await resolveImplicitCopilotProvider({ agentDir });
+  const implicitCopilot = await resolveImplicitCopilotProvider({ _agentDir: agentDir });
   if (implicitCopilot && !providers["github-copilot"]) {
     providers["github-copilot"] = implicitCopilot;
   }
@@ -121,7 +139,7 @@ export async function ensureaura_intelligenceModelsJson(
 
   const normalizedProviders = normalizeProviders({
     providers: mergedProviders,
-    agentDir,
+    _agentDir: agentDir,
   });
   const next = `${JSON.stringify({ providers: normalizedProviders }, null, 2)}\n`;
   try {

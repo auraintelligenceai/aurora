@@ -3,8 +3,6 @@ import type { aura_intelligenceConfig } from "../../config/config.js";
 import { isTruthyEnvValue } from "../../infra/env.js";
 import { buildParseArgv, getPrimaryCommand, hasHelpOrVersion } from "../argv.js";
 import { resolveActionArgs } from "./helpers.js";
-import { theme } from "../../terminal/theme.js";
-import { formatDocsLink } from "../../terminal/links.js";
 
 type SubCliRegistrar = (program: Command) => Promise<void> | void;
 

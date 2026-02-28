@@ -366,6 +366,7 @@ export async function getHealthSnapshot(params?: {
   const channelOrder = listChannelPlugins().map((plugin) => plugin.id);
   const channelLabels: Record<string, string> = {};
 
+  // Process each channel with timeout to prevent overall health check from hanging
   for (const plugin of listChannelPlugins()) {
     channelLabels[plugin.id] = plugin.meta.label ?? plugin.id;
     const accountIds = plugin.config.listAccountIds(cfg);
@@ -412,12 +413,18 @@ export async function getHealthSnapshot(params?: {
       let probe: unknown;
       let lastProbeAt: number | null = null;
       if (enabled && configured && doProbe && plugin.status?.probeAccount) {
+        // Add timeout to individual channel probes
+        const probePromise = plugin.status.probeAccount({
+          account,
+          timeoutMs: Math.min(cappedTimeout / 2, 3000), // Limit each probe to 3 seconds
+          cfg,
+        });
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error("Channel probe timeout")), Math.min(cappedTimeout / 2, 3000));
+        });
+        
         try {
-          probe = await plugin.status.probeAccount({
-            account,
-            timeoutMs: cappedTimeout,
-            cfg,
-          });
+          probe = await Promise.race([probePromise, timeoutPromise]);
           lastProbeAt = Date.now();
         } catch (err) {
           probe = { ok: false, error: formatErrorMessage(err) };

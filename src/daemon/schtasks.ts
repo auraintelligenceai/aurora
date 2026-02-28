@@ -31,7 +31,7 @@ export function resolveTaskScriptPath(env: Record<string, string | undefined>): 
 }
 
 function quoteCmdArg(value: string): string {
-  // Ensure Windows paths have proper separators
+  // Ensure Windows paths have proper separators with double backslashes for batch files
   const normalized = value.replace(/\//g, "\\");
   
   if (!/[ \t"]/g.test(normalized)) return normalized;
@@ -185,7 +185,9 @@ function buildTaskScript({
       lines.push(`set ${key}=${escapeBatchVariable(value)}`);
     }
   }
-  const command = programArguments.map(quoteCmdArg).join(" ");
+  // Fix: Ensure all paths in program arguments are properly formatted with backslashes
+  const fixedArguments = programArguments.map(arg => arg.replace(/\//g, "\\"));
+  const command = fixedArguments.map(quoteCmdArg).join(" ");
   lines.push(command);
   return `${lines.join("\r\n")}\r\n`;
 }
@@ -322,12 +324,7 @@ function isTaskNotRunning(res: { stdout: string; stderr: string; code: number })
          detail.includes("the task is not currently running");
 }
 
-function isTaskNotFound(res: { stdout: string; stderr: string; code: number }): boolean {
-  const detail = `${res.stderr || res.stdout}`.toLowerCase();
-  return detail.includes("cannot find the file") || 
-         detail.includes("could not find the task") || 
-         detail.includes("the specified task name was not found");
-}
+
 
 export async function stopScheduledTask({
   stdout,

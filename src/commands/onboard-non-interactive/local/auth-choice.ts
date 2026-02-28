@@ -355,6 +355,16 @@ export async function applyNonInteractiveAuthChoice(params: {
     return applyOpencodeZenConfig(nextConfig);
   }
 
+  if (authChoice === "ollama") {
+    const { applyOllamaConfig } = await import("../../auth-choice.apply.ollama.js");
+    return applyOllamaConfig(nextConfig, "ollama/mistral");
+  }
+
+  if (authChoice === "vllm") {
+    const { applyVllmConfig } = await import("../../auth-choice.apply.vllm.js");
+    return applyVllmConfig(nextConfig);
+  }
+
   if (
     authChoice === "oauth" ||
     authChoice === "chutes" ||

@@ -140,7 +140,7 @@ export async function startGatewayBonjourAdvertiser(
 
   const gateway = responder.createService({
     name: safeServiceName(instanceName),
-    type: "aura_intelligence-gw",
+    type: "aura-gateway",
     protocol: Protocol.TCP,
     port: opts.gatewayPort,
     domain: "local",

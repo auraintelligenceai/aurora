@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Intelligence - aura_embodiment_bridge Avatar</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #000000;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: none; /* Custom cursor behavior for immersion */
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            perspective: 1000px;
+        }
+
+        .aura-svg {
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .head-base { fill: #ffffff; }
+        .eye-circle { fill: #000000; }
+        
+        .feature-stroke { 
+            fill: none; 
+            stroke: #000000; 
+            stroke-width: 15; 
+            stroke-linecap: round;
+            opacity: 0;
+        }
+
+        /* Subtle indicator of current state */
+        .system-meta {
+            position: absolute;
+            bottom: -30px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.2);
+            font-family: monospace;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="avatar-container">
+        <svg class="aura-svg" id="auraHero" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <path class="head-base" d="M250,80 C130,80 60,150 60,250 C60,350 130,420 250,420 C370,420 440,350 440,250 C440,150 370,80 250,80 Z" />
+            <rect class="head-base" x="35" y="210" width="50" height="110" rx="25" />
+            <rect class="head-base" x="415" y="210" width="50" height="110" rx="25" />
+
+            <g id="eyeSystem">
+                <circle class="eye-circle" id="eyeL" cx="185" cy="250" r="45" />
+                <circle class="eye-circle" id="eyeR" cx="315" cy="250" r="45" />
+                <path id="browL" class="feature-stroke" d="M135,210 L215,240" stroke-width="14" />
+                <path id="browR" class="feature-stroke" d="M365,210 L285,240" stroke-width="14" />
+            </g>
+
+            <path class="feature-stroke" id="mouth" d="M190,340 Q250,340 310,340" />
+            <circle id="tear" cx="185" cy="310" r="8" fill="#000" opacity="0" />
+        </svg>
+        <div class="system-meta" id="statusLine">Aura // Ready</div>
+    </div>
+
+    <script>
+        const hero = document.getElementById('auraHero');
+        const eyeSystem = document.getElementById('eyeSystem');
+        const eyeL = document.getElementById('eyeL');
+        const eyeR = document.getElementById('eyeR');
+        const mouth = document.getElementById('mouth');
+        const brows = [document.getElementById('browL'), document.getElementById('browR')];
+        const tear = document.getElementById('tear');
+        const status = document.getElementById('statusLine');
+
+        let isProcessing = false;
+        let mouseX = 0, mouseY = 0;
+        let curX = 0, curY = 0;
+
+        // 1. NEURAL PROCESSING (Thinking Mode)
+        function startProcessing() {
+            isProcessing = true;
+            status.innerText = "Aura // Processing";
+            clearAllStates();
+            
+            // Calm, methodical scanning pattern
+            const tl = gsap.timeline({ repeat: -1 });
+            tl.to(eyeSystem, { x: -20, duration: 1.5, ease: "sine.inOut" })
+              .to(eyeSystem, { x: 20, duration: 1.5, ease: "sine.inOut" });
+            
+            gsap.to([eyeL, eyeR], { r: 38, duration: 1, ease: "sine.inOut" });
+        }
+
+        function stopProcessing() {
+            isProcessing = false;
+            status.innerText = "Aura // Ready";
+            gsap.killTweensOf(eyeSystem);
+            gsap.to([eyeL, eyeR], { r: 45, duration: 0.5 });
+        }
+
+        // 2. DAMPED TRACKING (No Vibration)
+        document.addEventListener('mousemove', (e) => {
+            if (isProcessing) return;
+            const rect = hero.getBoundingClientRect();
+            mouseX = (e.clientX - (rect.left + rect.width / 2)) / 22;
+            mouseY = (e.clientY - (rect.top + rect.height / 2)) / 22;
+        });
+
+        function renderLoop() {
+            if (!isProcessing) {
+                curX += (mouseX - curX) * 0.07;
+                curY += (mouseY - curY) * 0.07;
+                gsap.set(eyeSystem, { x: curX, y: curY });
+            }
+            requestAnimationFrame(renderLoop);
+        }
+        renderLoop();
+
+        // 3. STATE CLEANER (Prevents sticking)
+        function clearAllStates() {
+            gsap.killTweensOf([mouth, eyeL, eyeR, ...brows, tear]);
+            gsap.to('.feature-stroke', { opacity: 0, duration: 0.25 });
+            gsap.to(tear, { opacity: 0, y: 0 });
+            gsap.to([eyeL, eyeR], { r: 45, attr: { cy: 250 }, duration: 0.4 });
+        }
+
+        // 4. PRECISE EMOTION MAP
+        const expressions = {
+            happy: () => gsap.to(mouth, { opacity: 1, attr: { d: "M195,330 Q250,395 305,330" }, duration: 0.5 }),
+            sad: () => {
+                gsap.to(mouth, { opacity: 1, attr: { d: "M210,370 Q250,330 290,370" }, duration: 0.5 });
+                gsap.fromTo(tear, { opacity: 1, y: 0 }, { y: 45, opacity: 0, repeat: -1, duration: 1.8, ease: "none" });
+            },
+            surprised: () => {
+                gsap.to(mouth, { opacity: 1, attr: { d: "M235,360 A15,15 0 1,0 265,360 A15,15 0 1,0 235,360" }, duration: 0.3 });
+                gsap.to([eyeL, eyeR], { r: 52, duration: 0.3 });
+            },
+            angry: () => {
+                gsap.to(brows, { opacity: 1, duration: 0.3 });
+                gsap.to([eyeL, eyeR], { attr: { cy: 265 }, duration: 0.3 });
+            }
+        };
+
+        // UI Interactions
+        const states = ['happy', 'sad', 'surprised', 'angry', 'process', 'idle'];
+        let idx = 0;
+        document.body.addEventListener('click', () => {
+            if (isProcessing) stopProcessing();
+            clearAllStates();
+            
+            const next = states[idx];
+            if (next === 'process') startProcessing();
+            else if (expressions[next]) expressions[next]();
+            
+            idx = (idx + 1) % states.length;
+        });
+
+        // Professional Natural Blink
+        function blink() {
+            if (!isProcessing) {
+                gsap.to([eyeL, eyeR], { scaleY: 0, transformOrigin: "center", duration: 0.1, yoyo: true, repeat: 1 });
+            }
+            setTimeout(blink, 4000 + Math.random() * 3000);
+        }
+        blink();
+
+        // Aura Embodiment Bridge Integration
+        function connectToAuraEmbodimentBridge() {
+            // WebSocket connection to Aura system
+            const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const ws = new WebSocket(`${protocol}//${location.host}/__aura_intelligence/ws`);
+            
+            ws.onopen = () => {
+                console.log('Connected to Aura Embodiment Bridge');
+                status.innerText = "Aura // Connected";
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                // Handle different types of messages from Aura system
+                if (data.type === 'system_state') {
+                    handleSystemState(data.state, data.details);
+                } else if (data.type === 'emotion') {
+                    handleEmotion(data.emotion, data.intensity);
+                } else if (data.type === 'environment') {
+                    handleEnvironment(data.environment);
+                } else if (data.type === 'status') {
+                    status.innerText = `Aura // ${data.status}`;
+                }
+            };
+            
+            ws.onclose = () => {
+                console.log('Disconnected from Aura Embodiment Bridge');
+                status.innerText = "Aura // Disconnected";
+                // Attempt to reconnect after 5 seconds
+                setTimeout(connectToAuraEmbodimentBridge, 5000);
+            };
+            
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+        }
+
+        // System State Handler
+        function handleSystemState(state, details) {
+            clearAllStates();
+            
+            switch (state) {
+                case 'thinking':
+                    startThinking(details);
+                    break;
+                case 'processing':
+                    startProcessing(details);
+                    break;
+                case 'waiting':
+                    startWaiting(details);
+                    break;
+                case 'listening':
+                    startListening(details);
+                    break;
+                case 'speaking':
+                    startSpeaking(details);
+                    break;
+                case 'error':
+                    showError(details);
+                    break;
+                case 'idle':
+                default:
+                    stopProcessing();
+                    break;
+            }
+        }
+
+        // Thinking State
+        function startThinking(details) {
+            isProcessing = true;
+            status.innerText = "Aura // Thinking";
+            
+            // Animated thinking pattern
+            const tl = gsap.timeline({ repeat: -1 });
+            tl.to(eyeSystem, { x: -25, duration: 0.8, ease: "sine.inOut" })
+              .to(eyeSystem, { x: 25, duration: 0.8, ease: "sine.inOut" })
+              .to(eyeSystem, { x: 0, duration: 0.4, ease: "sine.inOut" });
+            
+            gsap.to([eyeL, eyeR], { r: 35, duration: 0.5, ease: "sine.inOut" });
+            
+            // Subtle brow movement
+            gsap.to(brows, { opacity: 0.3, duration: 0.3 });
+        }
+
+        // Processing State
+        function startProcessing(details) {
+            isProcessing = true;
+            status.innerText = "Aura // Processing";
+            
+            // Calm, methodical scanning pattern
+            const tl = gsap.timeline({ repeat: -1 });
+            tl.to(eyeSystem, { x: -20, duration: 1.5, ease: "sine.inOut" })
+              .to(eyeSystem, { x: 20, duration: 1.5, ease: "sine.inOut" });
+            
+            gsap.to([eyeL, eyeR], { r: 38, duration: 1, ease: "sine.inOut" });
+        }
+
+        // Waiting State
+        function startWaiting(details) {
+            isProcessing = false;
+            status.innerText = "Aura // Waiting";
+            
+            // Subtle breathing animation
+            gsap.to([eyeL, eyeR], { 
+                r: 48, 
+                duration: 3, 
+                yoyo: true, 
+                repeat: -1, 
+                ease: "sine.inOut" 
+            });
+        }
+
+        // Listening State
+        function startListening(details) {
+            isProcessing = false;
+            status.innerText = "Aura // Listening";
+            
+            // Alert, focused state
+            gsap.to([eyeL, eyeR], { r: 50, duration: 0.3 });
+            gsap.to(brows, { opacity: 0.5, duration: 0.3 });
+        }
+
+        // Speaking State
+        function startSpeaking(details) {
+            isProcessing = false;
+            status.innerText = "Aura // Speaking";
+            
+            // Animated mouth movement
+            const tl = gsap.timeline({ repeat: -1 });
+            tl.to(mouth, { 
+                opacity: 1, 
+                attr: { d: "M195,330 Q250,395 305,330" }, 
+                duration: 0.2 
+            })
+              .to(mouth, { 
+                opacity: 1, 
+                attr: { d: "M190,340 Q250,340 310,340" }, 
+                duration: 0.2 
+            });
+        }
+
+        // Error State
+        function showError(details) {
+            isProcessing = false;
+            status.innerText = "Aura // Error";
+            
+            // Red color tint and shaking animation
+            gsap.to('.head-base', { 
+                fill: "#ffcccc", 
+                duration: 0.3 
+            });
+            
+            const tl = gsap.timeline({ repeat: 3 });
+            tl.to(hero, { x: -5, duration: 0.05 })
+              .to(hero, { x: 5, duration: 0.05 })
+              .to(hero, { x: 0, duration: 0.05 });
+            
+            // Angry expression
+            gsap.to(brows, { opacity: 1, duration: 0.3 });
+            gsap.to([eyeL, eyeR], { attr: { cy: 265 }, duration: 0.3 });
+            
+            // Reset color after a few seconds
+            setTimeout(() => {
+                gsap.to('.head-base', { fill: "#ffffff", duration: 0.3 });
+            }, 2000);
+        }
+
+        // Emotion Handler
+        function handleEmotion(emotion, intensity = 1) {
+            clearAllStates();
+            
+            if (expressions[emotion]) {
+                expressions[emotion]();
+            }
+            
+            // Adjust intensity based on value (0-1)
+            if (intensity < 0.5) {
+                gsap.to('.feature-stroke', { opacity: 0.5 * intensity, duration: 0.3 });
+            }
+        }
+
+        // Environment Handler
+        function handleEnvironment(environment) {
+            // Handle environmental inputs like light level, sound, etc.
+            if (environment.lightLevel < 0.3) {
+                // Dim lighting - pupil dilation
+                gsap.to([eyeL, eyeR], { r: 55, duration: 0.5 });
+            } else if (environment.lightLevel > 0.7) {
+                // Bright lighting - pupil constriction
+                gsap.to([eyeL, eyeR], { r: 35, duration: 0.5 });
+            }
+            
+            if (environment.soundLevel > 0.8) {
+                // Loud noise - surprised expression
+                handleEmotion('surprised');
+            }
+        }
+
+        // Connect to Aura Embodiment Bridge when page loads
+        window.addEventListener('load', connectToAuraEmbodimentBridge);
+
+        // Expose API for external control
+        window.AuraAvatar = {
+            startProcessing,
+            stopProcessing,
+            setEmotion: (emotion) => {
+                if (expressions[emotion]) {
+                    clearAllStates();
+                    expressions[emotion]();
+                }
+            },
+            setStatus: (statusText) => {
+                status.innerText = statusText;
+            }
+        };
+
+        // Listen for messages from parent window
+        window.addEventListener('message', function(event) {
+            // Accept messages from file:// protocol (null origin) for testing purposes
+            if (event.origin === 'null' || event.origin === window.location.origin) {
+                if (event.data && event.data.type) {
+                    switch(event.data.type) {
+                        case 'system_state':
+                            handleSystemState(event.data.state, event.data.details);
+                            event.source.postMessage({ 
+                                type: 'avatarStatus', 
+                                message: `System state set to ${event.data.state}` 
+                            }, event.origin);
+                            break;
+                        case 'emotion':
+                            handleEmotion(event.data.emotion, event.data.intensity);
+                            event.source.postMessage({ 
+                                type: 'avatarStatus', 
+                                message: `Emotion set to ${event.data.emotion}` 
+                            }, event.origin);
+                            break;
+                        case 'environment':
+                            handleEnvironment(event.data.environment);
+                            event.source.postMessage({ 
+                                type: 'avatarStatus', 
+                                message: 'Environment updated' 
+                            }, event.origin);
+                            break;
+                        case 'status':
+                            status.innerText = event.data.status;
+                            event.source.postMessage({ 
+                                type: 'avatarStatus', 
+                                message: `Status updated to: ${event.data.status}` 
+                            }, event.origin);
+                            break;
+                        case 'blink':
+                            // Trigger blink
+                            gsap.to([eyeL, eyeR], { 
+                                scaleY: 0, 
+                                transformOrigin: "center", 
+                                duration: 0.1, 
+                                yoyo: true, 
+                                repeat: 1 
+                            });
+                            event.source.postMessage({ 
+                                type: 'avatarStatus', 
+                                message: 'Blink performed' 
+                            }, event.origin);
+                            break;
+                        case 'reset':
+                            clearAllStates();
+                            stopProcessing();
+                            event.source.postMessage({ 
+                                type: 'avatarStatus', 
+                                message: 'Avatar reset' 
+                            }, event.origin);
+                            break;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -130,7 +130,7 @@ export function renderApp(state: AppViewState) {
           </button>
           <div class="brand">
             <div class="brand-logo">
-              <img src="https://github.com/auraintelligenceai/aurora/aura-logo.png" alt="Aura Intelligence" />
+              <img src="./aura-logo.png" alt="Aura Intelligence" />
             </div>
             <div class="brand-text">
               <div class="brand-title">Aura Intelligence</div>

@@ -1,13 +1,15 @@
 import type { aura_intelligenceConfig } from "../config/config.js";
 import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
+import { discoverOllamaModels } from "../agents/models-config.providers.js";
+import type { ModelDefinitionConfig } from "../agents/models-config.js";
 
 export const OLLAMA_DEFAULT_MODEL_REF = "ollama/mistral";
 
-export function applyOllamaProviderConfig(cfg: aura_intelligenceConfig): aura_intelligenceConfig {
+export function applyOllamaProviderConfig(cfg: aura_intelligenceConfig, modelRef: string): aura_intelligenceConfig {
   const models = { ...cfg.agents?.defaults?.models };
-  models[OLLAMA_DEFAULT_MODEL_REF] = {
-    ...models[OLLAMA_DEFAULT_MODEL_REF],
-    alias: models[OLLAMA_DEFAULT_MODEL_REF]?.alias ?? "Ollama Llama 3",
+  models[modelRef] = {
+    ...models[modelRef],
+    alias: models[modelRef]?.alias ?? `Ollama ${modelRef.split('/')[1]}`,
   };
 
   return {
@@ -22,8 +24,8 @@ export function applyOllamaProviderConfig(cfg: aura_intelligenceConfig): aura_in
   };
 }
 
-export function applyOllamaConfig(cfg: aura_intelligenceConfig): aura_intelligenceConfig {
-  const next = applyOllamaProviderConfig(cfg);
+export function applyOllamaConfig(cfg: aura_intelligenceConfig, modelRef: string): aura_intelligenceConfig {
+  const next = applyOllamaProviderConfig(cfg, modelRef);
   const existingModel = next.agents?.defaults?.model;
   return {
     ...next,
@@ -37,7 +39,7 @@ export function applyOllamaConfig(cfg: aura_intelligenceConfig): aura_intelligen
                 fallbacks: (existingModel as { fallbacks?: string[] }).fallbacks,
               }
             : undefined),
-          primary: OLLAMA_DEFAULT_MODEL_REF,
+          primary: modelRef,
         },
       },
     },
@@ -64,28 +66,58 @@ export async function applyAuthChoiceOllama(
       "Ollama provides local model execution on your machine.",
       "No API key is required - models run directly on your hardware.",
       "Make sure Ollama is installed and running (https://ollama.com/download)",
-      "",
-      "Default model: Llama 3 (will be downloaded if not available)",
     ].join("\n"),
     "Ollama",
   );
+
+  // Discover available Ollama models
+  const availableModels = await discoverOllamaModels();
+  
+  let selectedModelRef = OLLAMA_DEFAULT_MODEL_REF;
+  
+  if (availableModels.length > 0) {
+    // Prompt user to select a model from the available list
+    const options = availableModels.map((model: ModelDefinitionConfig) => ({
+      value: `ollama/${model.id}`,
+      label: model.id,
+      hint: model.name,
+    }));
+    
+    options.push({
+      value: OLLAMA_DEFAULT_MODEL_REF,
+      label: "mistral (default, will download if not available)",
+      hint: "Mistral model",
+    });
+    
+    selectedModelRef = await params.prompter.select({
+      message: "Select default Ollama model",
+      options,
+      initialValue: OLLAMA_DEFAULT_MODEL_REF,
+    });
+  } else {
+    // No models available, inform user we'll use the default
+    await params.prompter.note(
+      `No Ollama models found. Will use ${OLLAMA_DEFAULT_MODEL_REF} (will be downloaded if not available).`,
+      "Ollama",
+    );
+  }
 
   let nextConfig = params.config;
   
   // Apply Ollama configuration
   if (params.setDefaultModel) {
-    nextConfig = applyOllamaConfig(nextConfig);
+    nextConfig = applyOllamaConfig(nextConfig, selectedModelRef);
     await params.prompter.note(
-      `Default model set to ${OLLAMA_DEFAULT_MODEL_REF}`,
+      `Default model set to ${selectedModelRef}`,
       "Model configured",
     );
   } else {
-    nextConfig = applyOllamaProviderConfig(nextConfig);
-    await noteAgentModel(OLLAMA_DEFAULT_MODEL_REF);
+    nextConfig = applyOllamaProviderConfig(nextConfig, selectedModelRef);
+    await noteAgentModel(selectedModelRef);
   }
 
   return { 
     config: nextConfig, 
-    agentModelOverride: params.setDefaultModel ? undefined : OLLAMA_DEFAULT_MODEL_REF 
+    agentModelOverride: params.setDefaultModel ? undefined : selectedModelRef 
   };
 }

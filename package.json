@@ -87,7 +87,7 @@
     "docs:dev": "cd docs && mint dev",
     "docs:build": "cd docs && pnpm dlx --reporter append-only mint broken-links",
     "canvas:a2ui:bundle": "node scripts/bundle-a2ui.js",
-    "build": "pnpm canvas:a2ui:bundle && tsc -p tsconfig.json && node --import tsx scripts/canvas-a2ui-copy.ts && node --import tsx scripts/copy-hook-metadata.ts && node --import tsx scripts/write-build-info.ts",
+    "build": "node scripts/bundle-a2ui.js && tsc -p tsconfig.json && node --import tsx scripts/canvas-a2ui-copy.ts && node --import tsx scripts/copy-hook-metadata.ts && node --import tsx scripts/write-build-info.ts",
     "plugins:sync": "node --import tsx scripts/sync-plugin-versions.ts",
     "release:check": "node --import tsx scripts/release-check.ts",
     "ui:install": "node scripts/ui.js install",
@@ -144,7 +144,6 @@
     "protocol:gen": "node --import tsx scripts/protocol-gen.ts",
     "protocol:gen:swift": "node --import tsx scripts/protocol-gen-swift.ts",
     "protocol:check": "pnpm protocol:gen && pnpm protocol:gen:swift && git diff --exit-code -- dist/protocol.schema.json apps/macos/Sources/aura_intelligenceProtocol/GatewayModels.swift",
-    "canvas:a2ui:bundle": "bash scripts/bundle-a2ui.sh",
     "check:loc": "node --import tsx scripts/check-ts-max-loc.ts --max 500"
   },
   "keywords": [],

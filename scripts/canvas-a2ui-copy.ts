@@ -1,3 +1,4 @@
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -39,6 +40,19 @@ export async function copyA2uiAssets({
 async function main() {
   const { srcDir, outDir } = getA2uiPaths();
   await copyA2uiAssets({ srcDir, outDir });
+  
+  // Copy the avatar HTML file as well
+  const avatarSrcPath = path.join(repoRoot, "src", "canvas-host", "aura-avatar.html");
+  const avatarDestPath = path.join(repoRoot, "dist", "canvas-host", "aura-avatar.html");
+  
+  try {
+    await fs.stat(avatarSrcPath);
+    await fs.mkdir(path.dirname(avatarDestPath), { recursive: true });
+    await fs.copyFile(avatarSrcPath, avatarDestPath);
+    console.log("Copied aura-avatar.html to dist directory");
+  } catch (err) {
+    console.warn(`Failed to copy aura-avatar.html: ${err}`);
+  }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {

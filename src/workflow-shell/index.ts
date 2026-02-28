@@ -178,16 +178,17 @@ export class SentientWorkflowShell {
   /**
    * Evaluate condition
    */
-  private evaluateCondition(condition: string, context: WorkflowExecutionContext): boolean {
+   private evaluateCondition(condition: string, context: WorkflowExecutionContext): boolean {
     try {
       // Simple expression evaluator - for production use, consider a safe evaluator library
-      const expr = condition
+      const processedCondition = condition
         .replace(/\$\{([^}]+)\}/g, (_, key) => {
           return context.variables[key] || context.stepResults[key] || 'undefined';
         });
 
       // For demo purposes, we'll use a simple evaluation
-      return true;
+      // TODO: Implement proper condition evaluation
+      return processedCondition.includes('true');
     } catch (error) {
       logError(`Failed to evaluate condition: ${(error as Error).message}`);
       return false;
