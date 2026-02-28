@@ -1,4 +1,4 @@
-package bot.molt.android.voice
+package aura.android.voice
 
 import android.Manifest
 import android.content.Context
@@ -20,9 +20,9 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import androidx.core.content.ContextCompat
-import bot.molt.android.gateway.GatewaySession
-import bot.molt.android.isCanonicalMainSessionKey
-import bot.molt.android.normalizeMainKey
+import aura.android.gateway.GatewaySession
+import aura.android.isCanonicalMainSessionKey
+import aura.android.normalizeMainKey
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.UUID

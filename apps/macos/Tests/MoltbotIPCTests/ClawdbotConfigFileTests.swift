@@ -11,7 +11,7 @@ struct aura_intelligenceConfigFileTests {
             .appendingPathComponent("aura_intelligence.json")
             .path
 
-        await TestIsolation.withEnvValues(["CLAWDBOT_CONFIG_PATH": override]) {
+        await TestIsolation.withEnvValues(["AURA_CONFIG_PATH": override]) {
             #expect(aura_intelligenceConfigFile.url().path == override)
         }
     }
@@ -24,7 +24,7 @@ struct aura_intelligenceConfigFileTests {
             .appendingPathComponent("aura_intelligence.json")
             .path
 
-        await TestIsolation.withEnvValues(["CLAWDBOT_CONFIG_PATH": override]) {
+        await TestIsolation.withEnvValues(["AURA_CONFIG_PATH": override]) {
             aura_intelligenceConfigFile.saveDict([
                 "gateway": [
                     "remote": [
@@ -47,7 +47,7 @@ struct aura_intelligenceConfigFileTests {
             .appendingPathComponent("aura_intelligence.json")
             .path
 
-        await TestIsolation.withEnvValues(["CLAWDBOT_CONFIG_PATH": override]) {
+        await TestIsolation.withEnvValues(["AURA_CONFIG_PATH": override]) {
             aura_intelligenceConfigFile.saveDict([
                 "gateway": [
                     "remote": [
@@ -69,8 +69,8 @@ struct aura_intelligenceConfigFileTests {
             .path
 
         await TestIsolation.withEnvValues([
-            "CLAWDBOT_CONFIG_PATH": nil,
-            "CLAWDBOT_STATE_DIR": dir,
+            "AURA_CONFIG_PATH": nil,
+            "AURA_STATE_DIR": dir,
         ]) {
             #expect(aura_intelligenceConfigFile.stateDirURL().path == dir)
             #expect(aura_intelligenceConfigFile.url().path == "\(dir)/aura_intelligence.json")

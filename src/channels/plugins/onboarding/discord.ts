@@ -149,7 +149,10 @@ function setDiscordGuildChannelAllowlist(
   };
 }
 
-function setDiscordAllowFrom(cfg: aura_intelligenceConfig, allowFrom: string[]): aura_intelligenceConfig {
+function setDiscordAllowFrom(
+  cfg: aura_intelligenceConfig,
+  allowFrom: string[],
+): aura_intelligenceConfig {
   return {
     ...cfg,
     channels: {

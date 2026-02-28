@@ -1,4 +1,4 @@
-package bot.molt.android.protocol
+package aura.android.protocol
 
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive

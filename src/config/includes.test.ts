@@ -11,7 +11,7 @@ import {
 
 const ROOT_DIR = path.parse(process.cwd()).root;
 const CONFIG_DIR = path.join(ROOT_DIR, "config");
-const ETC_CLAWDBOT_DIR = path.join(ROOT_DIR, "etc", "aura_intelligence");
+const ETC_AURA_DIR = path.join(ROOT_DIR, "etc", "aura_intelligence");
 const SHARED_DIR = path.join(ROOT_DIR, "shared");
 
 const DEFAULT_BASE_PATH = path.join(CONFIG_DIR, "aura_intelligence.json");
@@ -21,7 +21,7 @@ function configPath(...parts: string[]) {
 }
 
 function etcaura_intelligencePath(...parts: string[]) {
-  return path.join(ETC_CLAWDBOT_DIR, ...parts);
+  return path.join(ETC_AURA_DIR, ...parts);
 }
 
 function sharedPath(...parts: string[]) {

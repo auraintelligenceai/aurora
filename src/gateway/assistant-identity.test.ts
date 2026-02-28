@@ -34,11 +34,11 @@ describe("resolveAssistantIdentity avatar normalization", () => {
     const cfg: aura_intelligenceConfig = {
       ui: {
         assistant: {
-          avatar: "avatars/clawd.png",
+          avatar: "avatars/aura.png",
         },
       },
     };
 
-    expect(resolveAssistantIdentity({ cfg, workspaceDir: "" }).avatar).toBe("avatars/clawd.png");
+    expect(resolveAssistantIdentity({ cfg, workspaceDir: "" }).avatar).toBe("avatars/aura.png");
   });
 });

@@ -1,4 +1,4 @@
-package bot.molt.android.chat
+package aura.android.chat
 
 data class ChatMessage(
   val id: String,

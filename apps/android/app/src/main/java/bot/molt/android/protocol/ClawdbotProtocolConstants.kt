@@ -1,4 +1,4 @@
-package bot.molt.android.protocol
+package aura.android.protocol
 
 enum class aura_intelligenceCapability(val rawValue: String) {
   Canvas("canvas"),

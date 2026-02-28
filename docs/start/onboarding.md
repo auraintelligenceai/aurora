@@ -42,7 +42,7 @@ The macOS app supports Anthropic OAuth (Claude Pro/Max). The flow:
 
 - Opens the browser for OAuth (PKCE)
 - Asks the user to paste the `code#state` value
-- Writes credentials to `~/.clawdbot/credentials/oauth.json`
+- Writes credentials to `~/.aura/credentials/oauth.json`
 
 Other providers (OpenAI, custom APIs) are configured via environment variables
 or config files for now.
@@ -75,7 +75,7 @@ from your normal conversation.
 
 ## Agent bootstrap ritual
 
-On the first agent run, aura_intelligence bootstraps a workspace (default `~/clawd`):
+On the first agent run, aura_intelligence bootstraps a workspace (default `~/aura`):
 
 - Seeds `AGENTS.md`, `BOOTSTRAP.md`, `IDENTITY.md`, `USER.md`
 - Runs a short Q&A ritual (one question at a time)
@@ -97,7 +97,7 @@ See [/automation/gmail-pubsub](/automation/gmail-pubsub) for details.
 When the Gateway runs on another machine, credentials and workspace files live
 **on that host**. If you need OAuth in remote mode, create:
 
-- `~/.clawdbot/credentials/oauth.json`
-- `~/.clawdbot/agents/<agentId>/agent/auth-profiles.json`
+- `~/.aura/credentials/oauth.json`
+- `~/.aura/agents/<agentId>/agent/auth-profiles.json`
 
 on the gateway host.

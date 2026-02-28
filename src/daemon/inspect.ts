@@ -31,7 +31,7 @@ const execFileAsync = promisify(execFile);
 export function renderGatewayServiceCleanupHints(
   env: Record<string, string | undefined> = process.env as Record<string, string | undefined>,
 ): string[] {
-  const profile = env.CLAWDBOT_PROFILE;
+  const profile = env.AURA_PROFILE;
   switch (process.platform) {
     case "darwin": {
       const label = resolveGatewayLaunchAgentLabel(profile);
@@ -78,7 +78,7 @@ function isaura_intelligenceGatewayLaunchdService(label: string, contents: strin
   if (hasGatewayServiceMarker(contents)) return true;
   const lowerContents = contents.toLowerCase();
   if (!lowerContents.includes("gateway")) return false;
-  return label.startsWith("bot.molt.") || label.startsWith("com.clawdbot.");
+  return label.startsWith("aura.") || label.startsWith("com.aura.");
 }
 
 function isaura_intelligenceGatewaySystemdService(name: string, contents: string): boolean {
@@ -103,7 +103,7 @@ function tryExtractPlistLabel(contents: string): string | null {
 function isIgnoredLaunchdLabel(label: string): boolean {
   return (
     label === resolveGatewayLaunchAgentLabel() ||
-    resolveLegacyGatewayLaunchAgentLabels(process.env.CLAWDBOT_PROFILE).includes(label)
+    resolveLegacyGatewayLaunchAgentLabels(process.env.AURA_PROFILE).includes(label)
   );
 }
 

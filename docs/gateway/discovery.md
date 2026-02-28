@@ -12,7 +12,7 @@ aura_intelligence has two distinct problems that look similar on the surface:
 1) **Operator remote control**: the macOS menu bar app controlling a gateway running elsewhere.
 2) **Node pairing**: iOS/Android (and future nodes) finding a gateway and pairing securely.
 
-The design goal is to keep all network discovery/advertising in the **Node Gateway** (`clawd` / `aura_intelligence gateway`) and keep clients (mac app, iOS) as consumers.
+The design goal is to keep all network discovery/advertising in the **Node Gateway** (`aura` / `aura_intelligence gateway`) and keep clients (mac app, iOS) as consumers.
 
 ## Terms
 
@@ -65,11 +65,11 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
   - `tailnetDns=<magicdns>` (optional hint; auto-detected when Tailscale is available)
 
 Disable/override:
-- `CLAWDBOT_DISABLE_BONJOUR=1` disables advertising.
-- `gateway.bind` in `~/.clawdbot/aura_intelligence.json` controls the Gateway bind mode.
-- `CLAWDBOT_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
-- `CLAWDBOT_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
-- `CLAWDBOT_CLI_PATH` overrides the advertised CLI path.
+- `AURA_DISABLE_BONJOUR=1` disables advertising.
+- `gateway.bind` in `~/.aura_intelligence/aura_intelligence.json` controls the Gateway bind mode.
+- `AURA_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
+- `AURA_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
+- `AURA_CLI_PATH` overrides the advertised CLI path.
 
 ### 2) Tailnet (cross-network)
 

@@ -1,13 +1,13 @@
-package bot.molt.android
+package aura.android
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import bot.molt.android.gateway.GatewayEndpoint
-import bot.molt.android.chat.OutgoingAttachment
-import bot.molt.android.node.CameraCaptureManager
-import bot.molt.android.node.CanvasController
-import bot.molt.android.node.ScreenRecordManager
-import bot.molt.android.node.SmsManager
+import aura.android.gateway.GatewayEndpoint
+import aura.android.chat.OutgoingAttachment
+import aura.android.node.CameraCaptureManager
+import aura.android.node.CanvasController
+import aura.android.node.ScreenRecordManager
+import aura.android.node.SmsManager
 import kotlinx.coroutines.flow.StateFlow
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {

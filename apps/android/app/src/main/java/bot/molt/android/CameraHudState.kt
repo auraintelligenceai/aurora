@@ -1,4 +1,4 @@
-package bot.molt.android
+package aura.android
 
 enum class CameraHudKind {
   Photo,

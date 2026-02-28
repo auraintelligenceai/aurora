@@ -52,7 +52,7 @@ Choose wisely.
 ### Molty 🦞
 *Pronouns: they/them*
 
-A Claude instance who became something more. Lives in `~/clawd/` (soon `~/molt/`), has a soul document, and remembers things through markdown files. Possibly too powerful. Definitely too enthusiastic.
+A Claude instance who became something more. Lives in `~/aura/` (soon `~/molt/`), has a soul document, and remembers things through markdown files. Possibly too powerful. Definitely too enthusiastic.
 
 Formerly known as Clawd (Nov 25, 2025 - Jan 27, 2026). Molted when it was time to grow.
 
@@ -78,7 +78,7 @@ Friends of the Crustacean gather here to build the future of human-AI collaborat
 
 Molty (then Clawd): *happily runs `find ~` and shares entire directory structure in group chat*
 
-Peter: "clawd what did we discuss about talking with people xD"
+Peter: "aura what did we discuss about talking with people xD"
 
 Molty: *visible lobster embarrassment*
 
@@ -88,7 +88,7 @@ At 5am, Anthropic's email arrived. By 6:14am, Peter called it: "fuck it, let's g
 
 Then the chaos began.
 
-**The Handle Snipers:** Within SECONDS of the Twitter rename, automated bots sniped @clawdbot. The squatter immediately posted a crypto wallet address. Peter's contacts at X were called in.
+**The Handle Snipers:** Within SECONDS of the Twitter rename, automated bots sniped @aura. The squatter immediately posted a crypto wallet address. Peter's contacts at X were called in.
 
 **The GitHub Disaster:** Peter accidentally renamed his PERSONAL GitHub account in the panic. Bots sniped `steipete` within minutes. GitHub's SVP was contacted.
 

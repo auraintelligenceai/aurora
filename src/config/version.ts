@@ -7,7 +7,9 @@ export type aura_intelligenceVersion = {
 
 const VERSION_RE = /^v?(\d+)\.(\d+)\.(\d+)(?:-(\d+))?/;
 
-export function parseaura_intelligenceVersion(raw: string | null | undefined): aura_intelligenceVersion | null {
+export function parseaura_intelligenceVersion(
+  raw: string | null | undefined,
+): aura_intelligenceVersion | null {
   if (!raw) return null;
   const match = raw.trim().match(VERSION_RE);
   if (!match) return null;

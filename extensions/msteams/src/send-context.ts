@@ -1,4 +1,4 @@
-import { resolveChannelMediaMaxBytes, type aura_intelligenceConfig, type PluginRuntime } from "clawdbot/plugin-sdk";
+import { resolveChannelMediaMaxBytes, type aura_intelligenceConfig, type PluginRuntime } from "aura/plugin-sdk";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
 import type {
   MSTeamsConversationStore,

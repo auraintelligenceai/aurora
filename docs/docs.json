@@ -350,8 +350,8 @@
       "destination": "/nodes/camera"
     },
     {
-      "source": "/clawd",
-      "destination": "/start/clawd"
+      "source": "/aura",
+      "destination": "/start/aura"
     },
     {
       "source": "/clawdhub",
@@ -824,7 +824,7 @@
           "start/wizard",
           "start/setup",
           "start/pairing",
-          "start/clawd",
+          "start/aura",
           "start/showcase",
           "start/hubs",
           "start/onboarding",

@@ -16,9 +16,9 @@ async function withTempHome(run: (home: string) => Promise<void>): Promise<void>
 
 async function writeConfig(
   home: string,
-  dirname: ".aura_intelligence" | ".clawdbot",
+  dirname: ".aura_intelligence" | ".aura",
   port: number,
-  filename: "aura_intelligence.json" | "clawdbot.json" = "aura_intelligence.json",
+  filename: "aura_intelligence.json" | "aura.json" = "aura_intelligence.json",
 ) {
   const dir = path.join(home, dirname);
   await fs.mkdir(dir, { recursive: true });
@@ -31,7 +31,7 @@ describe("config io compat (new + legacy folders)", () => {
   it("prefers ~/.aura_intelligence/aura_intelligence.json when both configs exist", async () => {
     await withTempHome(async (home) => {
       const newConfigPath = await writeConfig(home, ".aura_intelligence", 19001);
-      await writeConfig(home, ".clawdbot", 18789);
+      await writeConfig(home, ".aura", 18789);
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -42,9 +42,9 @@ describe("config io compat (new + legacy folders)", () => {
     });
   });
 
-  it("falls back to ~/.clawdbot/aura_intelligence.json when only legacy exists", async () => {
+  it("falls back to ~/.aura_intelligence/aura_intelligence.json when only legacy exists", async () => {
     await withTempHome(async (home) => {
-      const legacyConfigPath = await writeConfig(home, ".clawdbot", 20001);
+      const legacyConfigPath = await writeConfig(home, ".aura", 20001);
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -56,9 +56,9 @@ describe("config io compat (new + legacy folders)", () => {
     });
   });
 
-  it("falls back to ~/.clawdbot/clawdbot.json when only legacy filename exists", async () => {
+  it("falls back to ~/.aura/aura.json when only legacy filename exists", async () => {
     await withTempHome(async (home) => {
-      const legacyConfigPath = await writeConfig(home, ".clawdbot", 20002, "clawdbot.json");
+      const legacyConfigPath = await writeConfig(home, ".aura", 20002, "aura.json");
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -72,8 +72,8 @@ describe("config io compat (new + legacy folders)", () => {
 
   it("prefers aura_intelligence.json over legacy filename in the same dir", async () => {
     await withTempHome(async (home) => {
-      const preferred = await writeConfig(home, ".clawdbot", 20003, "aura_intelligence.json");
-      await writeConfig(home, ".clawdbot", 20004, "clawdbot.json");
+      const preferred = await writeConfig(home, ".aura", 20003, "aura_intelligence.json");
+      await writeConfig(home, ".aura", 20004, "aura.json");
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -88,10 +88,10 @@ describe("config io compat (new + legacy folders)", () => {
   it("honors explicit legacy config path env override", async () => {
     await withTempHome(async (home) => {
       const newConfigPath = await writeConfig(home, ".aura_intelligence", 19002);
-      const legacyConfigPath = await writeConfig(home, ".clawdbot", 20002);
+      const legacyConfigPath = await writeConfig(home, ".aura", 20002);
 
       const io = createConfigIO({
-        env: { CLAWDBOT_CONFIG_PATH: legacyConfigPath } as NodeJS.ProcessEnv,
+        env: { AURA_CONFIG_PATH: legacyConfigPath } as NodeJS.ProcessEnv,
         homedir: () => home,
       });
 

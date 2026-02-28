@@ -124,7 +124,7 @@ final class ScreenController {
                 let res = try await self.eval(javaScript: """
                 (() => {
                   try {
-                    return !!globalThis.clawdbotA2UI && typeof globalThis.clawdbotA2UI.applyMessages === 'function';
+                    return !!globalThis.auraA2UI && typeof globalThis.auraA2UI.applyMessages === 'function';
                   } catch (_) { return false; }
                 })()
                 """)

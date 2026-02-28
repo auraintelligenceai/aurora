@@ -190,7 +190,7 @@ This setup often removes the *need* for extra host-based firewall rules purely t
 
 ### Still Recommended
 
-- **Credential permissions:** `chmod 700 ~/.clawdbot`
+- **Credential permissions:** `chmod 700 ~/.aura`
 - **Security audit:** `aura_intelligence security audit`
 - **System updates:** `sudo apt update && sudo apt upgrade` regularly
 - **Monitor Tailscale:** Review devices in [Tailscale admin console](https://login.tailscale.com/admin)
@@ -272,12 +272,12 @@ Most npm packages work fine. For binaries, look for `linux-arm64` or `aarch64` r
 ## Persistence
 
 All state lives in:
-- `~/.clawdbot/` — config, credentials, session data
-- `~/clawd/` — workspace (SOUL.md, memory, artifacts)
+- `~/.aura/` — config, credentials, session data
+- `~/aura/` — workspace (SOUL.md, memory, artifacts)
 
 Back up periodically:
 ```bash
-tar -czvf aura_intelligence-backup.tar.gz ~/.clawdbot ~/clawd
+tar -czvf aura_intelligence-backup.tar.gz ~/.aura ~/aura
 ```
 
 ---

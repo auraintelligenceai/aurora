@@ -1,13 +1,13 @@
 ---
-summary: "All configuration options for ~/.clawdbot/aura_intelligence.json with examples"
+summary: "All configuration options for ~/.aura_intelligence/aura_intelligence.json with examples"
 read_when:
   - Adding or modifying config fields
 ---
 # Configuration 🔧
 
-aura_intelligence reads an optional **JSON5** config from `~/.clawdbot/aura_intelligence.json` (comments + trailing commas allowed).
+aura_intelligence reads an optional **JSON5** config from `~/.aura_intelligence/aura_intelligence.json` (comments + trailing commas allowed).
 
-If the file is missing, aura_intelligence uses safe-ish defaults (embedded Pi agent + per-sender sessions + workspace `~/clawd`). You usually only need a config to:
+If the file is missing, aura_intelligence uses safe-ish defaults (embedded Pi agent + per-sender sessions + workspace `~/aura`). You usually only need a config to:
 - restrict who can trigger the bot (`channels.whatsapp.allowFrom`, `channels.telegram.allowFrom`, etc.)
 - control group allowlists + mention behavior (`channels.whatsapp.groups`, `channels.telegram.groups`, `channels.discord.guilds`, `agents.list[].groupChat`)
 - customize message prefixes (`messages`)
@@ -47,7 +47,7 @@ Use `config.apply` to validate + write the full config and restart the Gateway i
 It writes a restart sentinel and pings the last active session after the Gateway comes back.
 
 Warning: `config.apply` replaces the **entire config**. If you want to change only a few keys,
-use `config.patch` or `aura_intelligence config set`. Keep a backup of `~/.clawdbot/aura_intelligence.json`.
+use `config.patch` or `aura_intelligence config set`. Keep a backup of `~/.aura_intelligence/aura_intelligence.json`.
 
 Params:
 - `raw` (string) — JSON5 payload for the entire config
@@ -61,7 +61,7 @@ Example (via `gateway call`):
 ```bash
 aura_intelligence gateway call config.get --params '{}' # capture payload.hash
 aura_intelligence gateway call config.apply --params '{
-  "raw": "{\\n  agents: { defaults: { workspace: \\"~/clawd\\" } }\\n}\\n",
+  "raw": "{\\n  agents: { defaults: { workspace: \\"~/aura\\" } }\\n}\\n",
   "baseHash": "<hash-from-config.get>",
   "sessionKey": "agent:main:whatsapp:dm:+15555550123",
   "restartDelayMs": 1000
@@ -101,7 +101,7 @@ aura_intelligence gateway call config.patch --params '{
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/clawd" } },
+  agents: { defaults: { workspace: "~/aura" } },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } }
 }
 ```
@@ -118,11 +118,11 @@ To prevent the bot from responding to WhatsApp @-mentions in groups (only respon
 ```json5
 {
   agents: {
-    defaults: { workspace: "~/clawd" },
+    defaults: { workspace: "~/aura" },
     list: [
       {
         id: "main",
-        groupChat: { mentionPatterns: ["@clawd", "reisponde"] }
+        groupChat: { mentionPatterns: ["@aura", "reisponde"] }
       }
     ]
   },
@@ -146,7 +146,7 @@ Split your config into multiple files using the `$include` directive. This is us
 ### Basic usage
 
 ```json5
-// ~/.clawdbot/aura_intelligence.json
+// ~/.aura_intelligence/aura_intelligence.json
 {
   gateway: { port: 18789 },
   
@@ -164,11 +164,11 @@ Split your config into multiple files using the `$include` directive. This is us
 ```
 
 ```json5
-// ~/.clawdbot/agents.json5
+// ~/.aura/agents.json5
 {
   defaults: { sandbox: { mode: "all", scope: "session" } },
   list: [
-    { id: "main", workspace: "~/clawd" }
+    { id: "main", workspace: "~/aura" }
   ]
 }
 ```
@@ -221,7 +221,7 @@ Included files can themselves contain `$include` directives (up to 10 levels dee
 ### Example: Multi-client legal setup
 
 ```json5
-// ~/.clawdbot/aura_intelligence.json
+// ~/.aura_intelligence/aura_intelligence.json
 {
   gateway: { port: 18789, auth: { token: "secret" } },
   
@@ -248,7 +248,7 @@ Included files can themselves contain `$include` directives (up to 10 levels dee
 ```
 
 ```json5
-// ~/.clawdbot/clients/mueller/agents.json5
+// ~/.aura/clients/mueller/agents.json5
 [
   { id: "mueller-transcribe", workspace: "~/clients/mueller/transcribe" },
   { id: "mueller-docs", workspace: "~/clients/mueller/docs" }
@@ -256,7 +256,7 @@ Included files can themselves contain `$include` directives (up to 10 levels dee
 ```
 
 ```json5
-// ~/.clawdbot/clients/mueller/broadcast.json5
+// ~/.aura/clients/mueller/broadcast.json5
 {
   "120363403215116621@g.us": ["mueller-transcribe", "mueller-docs"]
 }
@@ -270,7 +270,7 @@ aura_intelligence reads env vars from the parent process (shell, launchd/systemd
 
 Additionally, it loads:
 - `.env` from the current working directory (if present)
-- a global fallback `.env` from `~/.clawdbot/.env` (aka `$CLAWDBOT_STATE_DIR/.env`)
+- a global fallback `.env` from `~/.aura/.env` (aka `$AURA_STATE_DIR/.env`)
 
 Neither `.env` file overrides existing env vars.
 
@@ -307,8 +307,8 @@ This effectively sources your shell profile.
 ```
 
 Env var equivalent:
-- `CLAWDBOT_LOAD_SHELL_ENV=1`
-- `CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000`
+- `AURA_LOAD_SHELL_ENV=1`
+- `AURA_SHELL_ENV_TIMEOUT_MS=15000`
 
 ### Env var substitution in config
 
@@ -326,7 +326,7 @@ You can reference environment variables directly in any config string value usin
   },
   gateway: {
     auth: {
-      token: "${CLAWDBOT_GATEWAY_TOKEN}"
+      token: "${AURA_GATEWAY_TOKEN}"
     }
   }
 }
@@ -355,22 +355,22 @@ You can reference environment variables directly in any config string value usin
 ### Auth storage (OAuth + API keys)
 
 aura_intelligence stores **per-agent** auth profiles (OAuth + API keys) in:
-- `<agentDir>/auth-profiles.json` (default: `~/.clawdbot/agents/<agentId>/agent/auth-profiles.json`)
+- `<agentDir>/auth-profiles.json` (default: `~/.aura/agents/<agentId>/agent/auth-profiles.json`)
 
 See also: [/concepts/oauth](/concepts/oauth)
 
 Legacy OAuth imports:
-- `~/.clawdbot/credentials/oauth.json` (or `$CLAWDBOT_STATE_DIR/credentials/oauth.json`)
+- `~/.aura/credentials/oauth.json` (or `$AURA_STATE_DIR/credentials/oauth.json`)
 
 The embedded Pi agent maintains a runtime cache at:
 - `<agentDir>/auth.json` (managed automatically; don’t edit manually)
 
 Legacy agent dir (pre multi-agent):
-- `~/.clawdbot/agent/*` (migrated by `aura_intelligence doctor` into `~/.clawdbot/agents/<defaultAgentId>/agent/*`)
+- `~/.aura/agent/*` (migrated by `aura_intelligence doctor` into `~/.aura/agents/<defaultAgentId>/agent/*`)
 
 Overrides:
-- OAuth dir (legacy import only): `CLAWDBOT_OAUTH_DIR`
-- Agent dir (default agent root override): `CLAWDBOT_AGENT_DIR` (preferred), `PI_CODING_AGENT_DIR` (legacy)
+- OAuth dir (legacy import only): `AURA_OAUTH_DIR`
+- Agent dir (default agent root override): `AURA_AGENT_DIR` (preferred), `PI_CODING_AGENT_DIR` (legacy)
 
 On first use, aura_intelligence imports `oauth.json` entries into `auth-profiles.json`.
 
@@ -532,8 +532,8 @@ Run multiple WhatsApp accounts in one gateway:
         default: {}, // optional; keeps the default id stable
         personal: {},
         biz: {
-          // Optional override. Default: ~/.clawdbot/credentials/whatsapp/biz
-          // authDir: "~/.clawdbot/credentials/whatsapp/biz",
+          // Optional override. Default: ~/.aura/credentials/whatsapp/biz
+          // authDir: "~/.aura/credentials/whatsapp/biz",
         }
       }
     }
@@ -590,7 +590,7 @@ Group messages default to **require mention** (either metadata mention or regex 
   },
   agents: {
     list: [
-      { id: "main", groupChat: { mentionPatterns: ["@clawd", "aura_intelligence", "clawd"] } }
+      { id: "main", groupChat: { mentionPatterns: ["@aura", "aura_intelligence", "aura"] } }
     ]
   }
 }
@@ -652,7 +652,7 @@ To respond **only** to specific text triggers (ignoring native @-mentions):
         id: "main",
         groupChat: {
           // Only these text patterns will trigger responses
-          mentionPatterns: ["reisponde", "@clawd"]
+          mentionPatterns: ["reisponde", "@aura"]
         }
       }
     ]
@@ -723,8 +723,8 @@ Inbound messages are routed to an agent via bindings.
   - `default`: optional; when multiple are set, the first wins and a warning is logged.
     If none are set, the **first entry** in the list is the default agent.
   - `name`: display name for the agent.
-  - `workspace`: default `~/clawd-<agentId>` (for `main`, falls back to `agents.defaults.workspace`).
-  - `agentDir`: default `~/.clawdbot/agents/<agentId>/agent`.
+  - `workspace`: default `~/aura-<agentId>` (for `main`, falls back to `agents.defaults.workspace`).
+  - `agentDir`: default `~/.aura/agents/<agentId>/agent`.
   - `model`: per-agent default model, overrides `agents.defaults.model` for that agent.
     - string form: `"provider/model"`, overrides only `agents.defaults.model.primary`
     - object form: `{ primary, fallbacks }` (fallbacks override `agents.defaults.model.fallbacks`; `[]` disables global fallbacks for that agent)
@@ -779,7 +779,7 @@ Full access (no sandbox):
     list: [
       {
         id: "personal",
-        workspace: "~/clawd-personal",
+        workspace: "~/aura-personal",
         sandbox: { mode: "off" }
       }
     ]
@@ -794,7 +794,7 @@ Read-only tools + read-only workspace:
     list: [
       {
         id: "family",
-        workspace: "~/clawd-family",
+        workspace: "~/aura-family",
         sandbox: {
           mode: "all",
           scope: "agent",
@@ -817,7 +817,7 @@ No filesystem access (messaging/session tools enabled):
     list: [
       {
         id: "public",
-        workspace: "~/clawd-public",
+        workspace: "~/aura-public",
         sandbox: {
           mode: "all",
           scope: "agent",
@@ -839,8 +839,8 @@ Example: two WhatsApp accounts → two agents:
 {
   agents: {
     list: [
-      { id: "home", default: true, workspace: "~/clawd-home" },
-      { id: "work", workspace: "~/clawd-work" }
+      { id: "home", default: true, workspace: "~/aura-home" },
+      { id: "work", workspace: "~/aura-work" }
     ]
   },
   bindings: [
@@ -1083,11 +1083,11 @@ Multi-account support lives under `channels.discord.accounts` (see the multi-acc
         policy: "pairing",                    // pairing | allowlist | open | disabled
         allowFrom: ["1234567890", "steipete"], // optional DM allowlist ("open" requires ["*"])
         groupEnabled: false,                 // enable group DMs
-        groupChannels: ["clawd-dm"]          // optional group DM allowlist
+        groupChannels: ["aura-dm"]          // optional group DM allowlist
       },
       guilds: {
         "123456789012345678": {               // guild id (preferred) or slug
-          slug: "friends-of-clawd",
+          slug: "friends-of-aura",
           requireMention: false,              // per-guild default
           reactionNotifications: "own",       // off | own | all | allowlist
           users: ["987654321098765432"],      // optional per-guild user allowlist
@@ -1214,7 +1214,7 @@ Slack runs in Socket Mode and requires both a bot token and app token:
       },
       slashCommand: {
         enabled: true,
-        name: "clawd",
+        name: "aura",
         sessionPrefix: "slack:slash",
         ephemeral: true
       },
@@ -1356,11 +1356,11 @@ exec ssh -T gateway-host imsg "$@"
 
 Sets the **single global workspace directory** used by the agent for file operations.
 
-Default: `~/clawd`.
+Default: `~/aura`.
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/clawd" } }
+  agents: { defaults: { workspace: "~/aura" } }
 }
 ```
 
@@ -1514,7 +1514,7 @@ voice notes; other channels send MP3 audio.
       },
       maxTextLength: 4000,
       timeoutMs: 30000,
-      prefsPath: "~/.clawdbot/settings/tts.json",
+      prefsPath: "~/.aura/settings/tts.json",
       elevenlabs: {
         apiKey: "elevenlabs_api_key",
         baseUrl: "https://api.elevenlabs.io",
@@ -2165,7 +2165,7 @@ Defaults (if enabled):
 - scope: `"agent"` (one container + workspace per agent)
 - Debian bookworm-slim based image
 - agent workspace access: `workspaceAccess: "none"` (default)
-  - `"none"`: use a per-scope sandbox workspace under `~/.clawdbot/sandboxes`
+  - `"none"`: use a per-scope sandbox workspace under `~/.aura/sandboxes`
 - `"ro"`: keep the sandbox workspace at `/workspace`, and mount the agent workspace read-only at `/agent` (disables `write`/`edit`/`apply_patch`)
   - `"rw"`: mount the agent workspace read/write at `/workspace`
 - auto-prune: idle > 24h OR age > 7d
@@ -2192,7 +2192,7 @@ For package installs, ensure network egress, a writable root FS, and a root user
         mode: "non-main", // off | non-main | all
         scope: "agent", // session | agent | shared (agent is default)
         workspaceAccess: "none", // none | ro | rw
-        workspaceRoot: "~/.clawdbot/sandboxes",
+        workspaceRoot: "~/.aura/sandboxes",
         docker: {
           image: "aura_intelligence-sandbox:bookworm-slim",
           containerPrefix: "aura_intelligence-sbx-",
@@ -2291,12 +2291,12 @@ Defaults: all allowlists are unset (no restriction). `allowHostControl` defaults
 
 aura_intelligence uses the **pi-coding-agent** model catalog. You can add custom providers
 (LiteLLM, local OpenAI-compatible servers, Anthropic proxies, etc.) by writing
-`~/.clawdbot/agents/<agentId>/agent/models.json` or by defining the same schema inside your
+`~/.aura/agents/<agentId>/agent/models.json` or by defining the same schema inside your
 aura_intelligence config under `models.providers`.
 Provider-by-provider overview + examples: [/concepts/model-providers](/concepts/model-providers).
 
 When `models.providers` is present, aura_intelligence writes/merges a `models.json` into
-`~/.clawdbot/agents/<agentId>/agent/` on startup:
+`~/.aura/agents/<agentId>/agent/` on startup:
 - default behavior: **merge** (keeps existing providers, overrides on name)
 - set `models.mode: "replace"` to overwrite the file contents
 
@@ -2605,8 +2605,8 @@ Notes:
 - Supported APIs: `openai-completions`, `openai-responses`, `anthropic-messages`,
   `google-generative-ai`
 - Use `authHeader: true` + `headers` for custom auth needs.
-- Override the agent config root with `CLAWDBOT_AGENT_DIR` (or `PI_CODING_AGENT_DIR`)
-  if you want `models.json` stored elsewhere (default: `~/.clawdbot/agents/main/agent`).
+- Override the agent config root with `AURA_AGENT_DIR` (or `PI_CODING_AGENT_DIR`)
+  if you want `models.json` stored elsewhere (default: `~/.aura/agents/main/agent`).
 
 ### `session`
 
@@ -2631,9 +2631,9 @@ Controls session scoping, reset policy, reset triggers, and where the session st
       group: { mode: "idle", idleMinutes: 120 }
     },
     resetTriggers: ["/new", "/reset"],
-    // Default is already per-agent under ~/.clawdbot/agents/<agentId>/sessions/sessions.json
+    // Default is already per-agent under ~/.aura/agents/<agentId>/sessions/sessions.json
     // You can override with {agentId} templating:
-    store: "~/.clawdbot/agents/{agentId}/sessions/sessions.json",
+    store: "~/.aura/agents/{agentId}/sessions/sessions.json",
     // Direct chats collapse to agent:<agentId>:<mainKey> (default: "main").
     mainKey: "main",
     agentToAgent: {
@@ -2674,7 +2674,7 @@ Fields:
 ### `skills` (skills config)
 
 Controls bundled allowlist, install preferences, extra skill folders, and per-skill
-overrides. Applies to **bundled** skills and `~/.clawdbot/skills` (workspace skills
+overrides. Applies to **bundled** skills and `~/.aura/skills` (workspace skills
 still win on name conflicts).
 
 Fields:
@@ -2723,7 +2723,7 @@ Example:
 ### `plugins` (extensions)
 
 Controls plugin discovery, allow/deny, and per-plugin config. Plugins are loaded
-from `~/.clawdbot/extensions`, `<workspace>/.clawdbot/extensions`, plus any
+from `~/.aura/extensions`, `<workspace>/.aura/extensions`, plus any
 `plugins.load.paths` entries. **Config changes require a gateway restart.**
 See [/plugin](/plugin) for full usage.
 
@@ -2758,9 +2758,9 @@ Example:
 }
 ```
 
-### `browser` (clawd-managed browser)
+### `browser` (aura-managed browser)
 
-aura_intelligence can start a **dedicated, isolated** Chrome/Brave/Edge/Chromium instance for clawd and expose a small loopback control service.
+aura_intelligence can start a **dedicated, isolated** Chrome/Brave/Edge/Chromium instance for aura and expose a small loopback control service.
 Profiles can point at a **remote** Chromium-based browser via `profiles.<name>.cdpUrl`. Remote
 profiles are attach-only (start/stop/reset are disabled).
 
@@ -2784,7 +2784,7 @@ Defaults:
     // cdpUrl: "http://127.0.0.1:18792", // legacy single-profile override
     defaultProfile: "chrome",
     profiles: {
-      clawd: { cdpPort: 18800, color: "#FF4500" },
+      aura: { cdpPort: 18800, color: "#FF4500" },
       work: { cdpPort: 18801, color: "#0066CC" },
       remote: { cdpUrl: "http://10.0.0.42:9222", color: "#00AA00" }
     },
@@ -2865,7 +2865,7 @@ Notes:
 - `aura_intelligence gateway` refuses to start unless `gateway.mode` is set to `local` (or you pass the override flag).
 - `gateway.port` controls the single multiplexed port used for WebSocket + HTTP (control UI, hooks, A2UI).
 - OpenAI Chat Completions endpoint: **disabled by default**; enable with `gateway.http.endpoints.chatCompletions.enabled: true`.
-- Precedence: `--port` > `CLAWDBOT_GATEWAY_PORT` > `gateway.port` > default `18789`.
+- Precedence: `--port` > `AURA_GATEWAY_PORT` > `gateway.port` > default `18789`.
 - Gateway auth is required by default (token/password or Tailscale Serve identity). Non-loopback binds require a shared token/password.
 - The onboarding wizard generates a gateway token by default (even on loopback).
 - `gateway.remote.token` is **only** for remote CLI calls; it does not enable local gateway auth. `gateway.token` is ignored.
@@ -2874,7 +2874,7 @@ Auth and Tailscale:
 - `gateway.auth.mode` sets the handshake requirements (`token` or `password`). When unset, token auth is assumed.
 - `gateway.auth.token` stores the shared token for token auth (used by the CLI on the same machine).
 - When `gateway.auth.mode` is set, only that method is accepted (plus optional Tailscale headers).
-- `gateway.auth.password` can be set here, or via `CLAWDBOT_GATEWAY_PASSWORD` (recommended).
+- `gateway.auth.password` can be set here, or via `AURA_GATEWAY_PASSWORD` (recommended).
 - `gateway.auth.allowTailscale` allows Tailscale Serve identity headers
   (`tailscale-user-login`) to satisfy auth when the request arrives on loopback
   with `x-forwarded-for`, `x-forwarded-proto`, and `x-forwarded-host`. aura_intelligence
@@ -2893,7 +2893,7 @@ Remote client defaults (CLI):
 - `gateway.remote.password` supplies the password for remote calls (leave unset for no auth).
 
 macOS app behavior:
-- aura_intelligence.app watches `~/.clawdbot/aura_intelligence.json` and switches modes live when `gateway.mode` or `gateway.remote.url` changes.
+- aura_intelligence.app watches `~/.aura_intelligence/aura_intelligence.json` and switches modes live when `gateway.mode` or `gateway.remote.url` changes.
 - If `gateway.mode` is unset but `gateway.remote.url` is set, the macOS app treats it as remote mode.
 - When you change connection mode in the macOS app, it writes `gateway.mode` (and `gateway.remote.url` + `gateway.remote.transport` in remote mode) back to the config file.
 
@@ -2927,7 +2927,7 @@ Direct transport example (macOS app):
 
 ### `gateway.reload` (Config hot reload)
 
-The Gateway watches `~/.clawdbot/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`) and applies changes automatically.
+The Gateway watches `~/.aura_intelligence/aura_intelligence.json` (or `AURA_CONFIG_PATH`) and applies changes automatically.
 
 Modes:
 - `hybrid` (default): hot-apply safe changes; restart the Gateway for critical changes.
@@ -2949,7 +2949,7 @@ Modes:
 #### Hot reload matrix (files + impact)
 
 Files watched:
-- `~/.clawdbot/aura_intelligence.json` (or `CLAWDBOT_CONFIG_PATH`)
+- `~/.aura_intelligence/aura_intelligence.json` (or `AURA_CONFIG_PATH`)
 
 Hot-applied (no full gateway restart):
 - `hooks` (webhook auth/path/mappings) + `hooks.gmail` (Gmail watcher restarted)
@@ -2971,22 +2971,22 @@ Requires full Gateway restart:
 ### Multi-instance isolation
 
 To run multiple gateways on one host (for redundancy or a rescue bot), isolate per-instance state + config and use unique ports:
-- `CLAWDBOT_CONFIG_PATH` (per-instance config)
-- `CLAWDBOT_STATE_DIR` (sessions/creds)
+- `AURA_CONFIG_PATH` (per-instance config)
+- `AURA_STATE_DIR` (sessions/creds)
 - `agents.defaults.workspace` (memories)
 - `gateway.port` (unique per instance)
 
 Convenience flags (CLI):
-- `aura_intelligence --dev …` → uses `~/.clawdbot-dev` + shifts ports from base `19001`
-- `aura_intelligence --profile <name> …` → uses `~/.clawdbot-<name>` (port via config/env/flags)
+- `aura_intelligence --dev …` → uses `~/.aura-dev` + shifts ports from base `19001`
+- `aura_intelligence --profile <name> …` → uses `~/.aura-<name>` (port via config/env/flags)
 
 See [Gateway runbook](/gateway) for the derived port mapping (gateway/browser/canvas).
 See [Multiple gateways](/gateway/multiple-gateways) for browser/CDP port isolation details.
 
 Example:
 ```bash
-CLAWDBOT_CONFIG_PATH=~/.clawdbot/a.json \
-CLAWDBOT_STATE_DIR=~/.clawdbot-a \
+AURA_CONFIG_PATH=~/.aura/a.json \
+AURA_STATE_DIR=~/.aura-a \
 aura_intelligence gateway --port 19001
 ```
 
@@ -3006,7 +3006,7 @@ Defaults:
     token: "shared-secret",
     path: "/hooks",
     presets: ["gmail"],
-    transformsDir: "~/.clawdbot/hooks",
+    transformsDir: "~/.aura/hooks",
     mappings: [
       {
         match: { path: "gmail" },
@@ -3084,7 +3084,7 @@ Model override for Gmail hooks:
 Gateway auto-start:
 - If `hooks.enabled=true` and `hooks.gmail.account` is set, the Gateway starts
   `gog gmail watch serve` on boot and auto-renews the watch.
-- Set `CLAWDBOT_SKIP_GMAIL_WATCHER=1` to disable the auto-start (for manual runs).
+- Set `AURA_SKIP_GMAIL_WATCHER=1` to disable the auto-start (for manual runs).
 - Avoid running a separate `gog gmail watch serve` alongside the Gateway; it will
   fail with `listen tcp 127.0.0.1:8788: bind: address already in use`.
 
@@ -3097,8 +3097,8 @@ If you need the backend to receive the prefixed path, set
 
 The Gateway serves a directory of HTML/CSS/JS over HTTP so iOS/Android nodes can simply `canvas.navigate` to it.
 
-Default root: `~/clawd/canvas`  
-Default port: `18793` (chosen to avoid the clawd browser CDP port `18792`)  
+Default root: `~/aura/canvas`  
+Default port: `18793` (chosen to avoid the aura browser CDP port `18792`)  
 The server listens on the **gateway bind host** (LAN or Tailnet) so nodes can reach it.
 
 The server:
@@ -3115,7 +3115,7 @@ Disable live reload (and file watching) if the directory is large or you hit `EM
 ```json5
 {
   canvasHost: {
-    root: "~/clawd/canvas",
+    root: "~/aura/canvas",
     port: 18793,
     liveReload: true
   }
@@ -3126,7 +3126,7 @@ Changes to `canvasHost.*` require a gateway restart (config reload will restart)
 
 Disable with:
 - config: `canvasHost: { enabled: false }`
-- env: `CLAWDBOT_SKIP_CANVAS_HOST=1`
+- env: `AURA_SKIP_CANVAS_HOST=1`
 
 ### `bridge` (legacy TCP bridge, removed)
 
@@ -3166,9 +3166,9 @@ Auto-generated certs require `openssl` on PATH; if generation fails, the bridge 
     bind: "tailnet",
     tls: {
       enabled: true,
-      // Uses ~/.clawdbot/bridge/tls/bridge-{cert,key}.pem when omitted.
-      // certPath: "~/.clawdbot/bridge/tls/bridge-cert.pem",
-      // keyPath: "~/.clawdbot/bridge/tls/bridge-key.pem"
+      // Uses ~/.aura/bridge/tls/bridge-{cert,key}.pem when omitted.
+      // certPath: "~/.aura/bridge/tls/bridge-cert.pem",
+      // keyPath: "~/.aura/bridge/tls/bridge-key.pem"
     }
   }
 }
@@ -3190,7 +3190,7 @@ Controls LAN mDNS discovery broadcasts (`_aura_intelligence-gw._tcp`).
 
 ### `discovery.wideArea` (Wide-Area Bonjour / unicast DNS‑SD)
 
-When enabled, the Gateway writes a unicast DNS-SD zone for `_aura_intelligence-bridge._tcp` under `~/.clawdbot/dns/` using the standard discovery domain `aura_intelligence.internal.`
+When enabled, the Gateway writes a unicast DNS-SD zone for `_aura_intelligence-bridge._tcp` under `~/.aura/dns/` using the standard discovery domain `aura_intelligence.internal.`
 
 To make iOS/Android discover across networks (Vienna ⇄ London), pair this with:
 - a DNS server on the gateway host serving `aura_intelligence.internal.` (CoreDNS is recommended)

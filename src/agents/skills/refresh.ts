@@ -97,7 +97,10 @@ export function getSkillsSnapshotVersion(workspaceDir?: string): number {
   return Math.max(globalVersion, local);
 }
 
-export function ensureSkillsWatcher(params: { workspaceDir: string; config?: aura_intelligenceConfig }) {
+export function ensureSkillsWatcher(params: {
+  workspaceDir: string;
+  config?: aura_intelligenceConfig;
+}) {
   const workspaceDir = params.workspaceDir.trim();
   if (!workspaceDir) return;
   const watchEnabled = params.config?.skills?.load?.watch !== false;

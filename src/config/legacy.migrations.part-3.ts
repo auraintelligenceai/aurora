@@ -15,6 +15,36 @@ import {
 
 export const LEGACY_CONFIG_MIGRATIONS_PART_3: LegacyConfigMigration[] = [
   {
+    id: "agents.defaults.workspace.clawd->aura",
+    describe: "Update default workspace from ~/clawd to ~/aura",
+    apply: (raw, changes) => {
+      const agents = getRecord(raw.agents);
+      const defaults = getRecord(agents?.defaults);
+      if (!defaults || typeof defaults.workspace !== "string") return;
+      
+      if (defaults.workspace.includes("clawd")) {
+        defaults.workspace = defaults.workspace.replace(/clawd/g, "aura");
+        changes.push("Updated agents.defaults.workspace from clawd to aura.");
+      }
+    },
+  },
+  {
+    id: "agents.list.workspace.clawd->aura",
+    describe: "Update per-agent workspaces from ~/clawd to ~/aura",
+    apply: (raw, changes) => {
+      const agents = getRecord(raw.agents);
+      const list = getAgentsList(agents);
+      if (!list) return;
+      
+      for (const agent of list) {
+        if (typeof agent.workspace === "string" && agent.workspace.includes("clawd")) {
+          agent.workspace = agent.workspace.replace(/clawd/g, "aura");
+          changes.push(`Updated agents.list workspace from clawd to aura.`);
+        }
+      }
+    },
+  },
+  {
     id: "auth.anthropic-claude-cli-mode-oauth",
     describe: "Switch anthropic:claude-cli auth profile mode to oauth",
     apply: (raw, changes) => {

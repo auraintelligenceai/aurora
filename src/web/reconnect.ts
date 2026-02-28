@@ -19,7 +19,10 @@ export const DEFAULT_RECONNECT_POLICY: ReconnectPolicy = {
 
 const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
 
-export function resolveHeartbeatSeconds(cfg: aura_intelligenceConfig, overrideSeconds?: number): number {
+export function resolveHeartbeatSeconds(
+  cfg: aura_intelligenceConfig,
+  overrideSeconds?: number,
+): number {
   const candidate = overrideSeconds ?? cfg.web?.heartbeatSeconds;
   if (typeof candidate === "number" && candidate > 0) return candidate;
   return DEFAULT_HEARTBEAT_SECONDS;

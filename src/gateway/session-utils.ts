@@ -305,7 +305,10 @@ function resolveDefaultStoreAgentId(cfg: aura_intelligenceConfig): string {
   return normalizeAgentId(resolveDefaultAgentId(cfg));
 }
 
-export function resolveSessionStoreKey(params: { cfg: aura_intelligenceConfig; sessionKey: string }): string {
+export function resolveSessionStoreKey(params: {
+  cfg: aura_intelligenceConfig;
+  sessionKey: string;
+}): string {
   const raw = params.sessionKey.trim();
   if (!raw) return raw;
   if (raw === "global" || raw === "unknown") return raw;
@@ -347,7 +350,10 @@ function canonicalizeSpawnedByForAgent(agentId: string, spawnedBy?: string): str
   return `agent:${normalizeAgentId(agentId)}:${raw}`;
 }
 
-export function resolveGatewaySessionStoreTarget(params: { cfg: aura_intelligenceConfig; key: string }): {
+export function resolveGatewaySessionStoreTarget(params: {
+  cfg: aura_intelligenceConfig;
+  key: string;
+}): {
   agentId: string;
   storePath: string;
   canonicalKey: string;

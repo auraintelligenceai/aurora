@@ -21,7 +21,10 @@ function isAccountEnabled(account: unknown): boolean {
   return enabled !== false;
 }
 
-async function isPluginConfigured(plugin: ChannelPlugin, cfg: aura_intelligenceConfig): Promise<boolean> {
+async function isPluginConfigured(
+  plugin: ChannelPlugin,
+  cfg: aura_intelligenceConfig,
+): Promise<boolean> {
   const accountIds = plugin.config.listAccountIds(cfg);
   if (accountIds.length === 0) return false;
 

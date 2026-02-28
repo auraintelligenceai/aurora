@@ -82,7 +82,10 @@ export type WideAreaGatewayZoneOpts = {
 function renderZone(opts: WideAreaGatewayZoneOpts & { serial: number }): string {
   const hostname = os.hostname().split(".")[0] ?? "aura_intelligence";
   const hostLabel = dnsLabel(opts.hostLabel ?? hostname, "aura_intelligence");
-  const instanceLabel = dnsLabel(opts.instanceLabel ?? `${hostname}-gateway`, "aura_intelligence-gw");
+  const instanceLabel = dnsLabel(
+    opts.instanceLabel ?? `${hostname}-gateway`,
+    "aura_intelligence-gw",
+  );
 
   const txt = [
     `displayName=${opts.displayName.trim() || hostname}`,
@@ -120,7 +123,9 @@ function renderZone(opts: WideAreaGatewayZoneOpts & { serial: number }): string 
   }
 
   records.push(`_aura_intelligence-gw._tcp IN PTR ${instanceLabel}._aura_intelligence-gw._tcp`);
-  records.push(`${instanceLabel}._aura_intelligence-gw._tcp IN SRV 0 0 ${opts.gatewayPort} ${hostLabel}`);
+  records.push(
+    `${instanceLabel}._aura_intelligence-gw._tcp IN SRV 0 0 ${opts.gatewayPort} ${hostLabel}`,
+  );
   records.push(`${instanceLabel}._aura_intelligence-gw._tcp IN TXT ${txt.map(txtQuote).join(" ")}`);
 
   const contentBody = `${records.join("\n")}\n`;

@@ -8,7 +8,7 @@ import SwiftUI
 final class VoiceWakeOverlayController {
     static let shared = VoiceWakeOverlayController()
 
-    let logger = Logger(subsystem: "bot.molt", category: "voicewake.overlay")
+    let logger = Logger(subsystem: "aura", category: "voicewake.overlay")
     let enableUI: Bool
 
     /// Keep the voice wake overlay above any other aura_intelligence windows, but below the system’s pop-up menus.

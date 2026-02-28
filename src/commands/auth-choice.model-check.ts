@@ -44,7 +44,7 @@ export async function warnIfModelConfigLooksOff(
     config: configWithModel,
     useCache: false,
   });
-  if (catalog.length > 0) {
+  if (catalog.length > 0 && ref.provider !== "ollama") {
     const known = catalog.some(
       (entry) => entry.provider === ref.provider && entry.id === ref.model,
     );

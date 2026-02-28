@@ -55,7 +55,10 @@ function resolveAccountConfig(
   return accounts[accountId] as SlackAccountConfig | undefined;
 }
 
-function mergeSlackAccountConfig(cfg: aura_intelligenceConfig, accountId: string): SlackAccountConfig {
+function mergeSlackAccountConfig(
+  cfg: aura_intelligenceConfig,
+  accountId: string,
+): SlackAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.slack ?? {}) as SlackAccountConfig & {
     accounts?: unknown;
   };

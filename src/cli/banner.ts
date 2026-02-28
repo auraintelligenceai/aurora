@@ -39,8 +39,8 @@ export function formatCliBannerLine(version: string, options: BannerOptions = {}
   const tagline = pickTagline(options);
   const rich = options.richTty ?? isRich();
   const cliName = resolveCliName(options.argv ?? process.argv, options.env);
-  const title = cliName === "aura_intelligence" ? "🦞 aura_intelligence" : "🦞 aura_intelligence";
-  const prefix = "🦞 ";
+  const title = cliName === "aura_intelligence" ? "✨ Aura Intelligence" : "✨ Aura Intelligence";
+  const prefix = "✨ ";
   const columns = options.columns ?? process.stdout.columns ?? 120;
   const plainFullLine = `${title} ${version} (${commitLabel}) — ${tagline}`;
   const fitsOnOneLine = visibleWidth(plainFullLine) <= columns;
@@ -64,19 +64,20 @@ export function formatCliBannerLine(version: string, options: BannerOptions = {}
   return `${line1}\n${line2}`;
 }
 
-const LOBSTER_ASCII = [
-  "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄",
-  "██░▄▀▄░██░▄▄▄░██░████▄▄░▄▄██░▄▄▀██░▄▄▄░█▄▄░▄▄██",
-  "██░█░█░██░███░██░██████░████░▄▄▀██░███░███░████",
-  "██░███░██░▀▀▀░██░▀▀░███░████░▀▀░██░▀▀▀░███░████",
-  "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀",
-  "               🦞 FRESH DAILY 🦞               ",
+const AURA_ASCII = [
+    " █████╗ ██╗   ██╗██████╗  █████╗ \n",
+    "██╔══██╗██║   ██║██╔══██╗██╔══██╗\n",
+    "███████║██║   ██║██████╔╝███████║\n",
+    "██╔══██║██║   ██║██╔══██╗██╔══██║\n",
+    "██║  ██║╚██████╔╝██║  ██║██║  ██║\n",
+    "╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝",
+  "            ✨ Aura Intelligence ✨            ",
   " ",
 ];
 
 export function formatCliBannerArt(options: BannerOptions = {}): string {
   const rich = options.richTty ?? isRich();
-  if (!rich) return LOBSTER_ASCII.join("\n");
+  if (!rich) return AURA_ASCII.join("\n");
 
   const colorChar = (ch: string) => {
     if (ch === "█") return theme.accentBright(ch);
@@ -85,13 +86,13 @@ export function formatCliBannerArt(options: BannerOptions = {}): string {
     return theme.muted(ch);
   };
 
-  const colored = LOBSTER_ASCII.map((line) => {
-    if (line.includes("FRESH DAILY")) {
+  const colored = AURA_ASCII.map((line) => {
+    if (line.includes("Aura Intelligence")) {
       return (
-        theme.muted("              ") +
-        theme.accent("🦞") +
-        theme.info(" FRESH DAILY ") +
-        theme.accent("🦞")
+        theme.muted("          ") +
+        theme.accent("✨") +
+        theme.info(" Aura Intelligence ") +
+        theme.accent("✨")
       );
     }
     return splitGraphemes(line).map(colorChar).join("");

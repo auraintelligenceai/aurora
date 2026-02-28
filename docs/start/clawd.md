@@ -77,7 +77,7 @@ aura_intelligence channels login
 aura_intelligence gateway --port 18789
 ```
 
-3) Put a minimal config in `~/.clawdbot/aura_intelligence.json`:
+3) Put a minimal config in `~/.aura_intelligence/aura_intelligence.json`:
 
 ```json5
 {
@@ -93,7 +93,7 @@ When onboarding finishes, we auto-open the dashboard with your gateway token and
 
 Clawd reads operating instructions and “memory” from its workspace directory.
 
-By default, aura_intelligence uses `~/clawd` as the agent workspace, and will create it (plus starter `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`) automatically on setup/first agent run. `BOOTSTRAP.md` is only created when the workspace is brand new (it should not come back after you delete it).
+By default, aura_intelligence uses `~/aura` as the agent workspace, and will create it (plus starter `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`) automatically on setup/first agent run. `BOOTSTRAP.md` is only created when the workspace is brand new (it should not come back after you delete it).
 
 Tip: treat this folder like Clawd’s “memory” and make it a git repo (ideally private) so your `AGENTS.md` + memory files are backed up. If git is installed, brand-new workspaces are auto-initialized.
 
@@ -109,7 +109,7 @@ Optional: choose a different workspace with `agents.defaults.workspace` (support
 ```json5
 {
   agent: {
-    workspace: "~/clawd"
+    workspace: "~/aura"
   }
 }
 ```
@@ -138,7 +138,7 @@ Example:
   logging: { level: "info" },
   agent: {
     model: "anthropic/claude-opus-4-5",
-    workspace: "~/clawd",
+    workspace: "~/aura",
     thinkingDefault: "high",
     timeoutSeconds: 1800,
     // Start with 0; enable later.
@@ -154,7 +154,7 @@ Example:
   },
   routing: {
     groupChat: {
-      mentionPatterns: ["@clawd", "clawd"]
+      mentionPatterns: ["@aura", "aura"]
     }
   },
   session: {
@@ -171,8 +171,8 @@ Example:
 
 ## Sessions and memory
 
-- Session files: `~/.clawdbot/agents/<agentId>/sessions/{{SessionId}}.jsonl`
-- Session metadata (token usage, last route, etc): `~/.clawdbot/agents/<agentId>/sessions/sessions.json` (legacy: `~/.clawdbot/sessions/sessions.json`)
+- Session files: `~/.aura/agents/<agentId>/sessions/{{SessionId}}.jsonl`
+- Session metadata (token usage, last route, etc): `~/.aura/agents/<agentId>/sessions/sessions.json` (legacy: `~/.aura/sessions/sessions.json`)
 - `/new` or `/reset` starts a fresh session for that chat (configurable via `resetTriggers`). If sent alone, the agent replies with a short hello to confirm the reset.
 - `/compact [instructions]` compacts the session context and reports the remaining context budget.
 

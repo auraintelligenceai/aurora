@@ -3,7 +3,7 @@ import {
   DEFAULT_ACCOUNT_ID,
   formatPairingApproveHint,
   type ChannelPlugin,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { NostrConfigSchema } from "./config-schema.js";
 import { getNostrRuntime } from "./runtime.js";

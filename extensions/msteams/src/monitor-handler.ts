@@ -1,4 +1,4 @@
-import type { aura_intelligenceConfig, RuntimeEnv } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig, RuntimeEnv } from "aura/plugin-sdk";
 import type { MSTeamsConversationStore } from "./conversation-store.js";
 import {
   buildFileInfoCard,

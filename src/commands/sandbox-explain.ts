@@ -30,7 +30,7 @@ type SandboxExplainOptions = {
   json: boolean;
 };
 
-const SANDBOX_DOCS_URL = "https://docs.molt.bot/sandbox";
+const SANDBOX_DOCS_URL = "https://docs.auraintelligence.ai/sandbox";
 
 function normalizeExplainSessionKey(params: {
   cfg: aura_intelligenceConfig;

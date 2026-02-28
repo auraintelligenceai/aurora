@@ -28,7 +28,10 @@ export function resolveConfigPath(config: aura_intelligenceConfig | undefined, p
   return current;
 }
 
-export function isConfigPathTruthy(config: aura_intelligenceConfig | undefined, pathStr: string): boolean {
+export function isConfigPathTruthy(
+  config: aura_intelligenceConfig | undefined,
+  pathStr: string,
+): boolean {
   const value = resolveConfigPath(config, pathStr);
   if (value === undefined && pathStr in DEFAULT_CONFIG_VALUES) {
     return DEFAULT_CONFIG_VALUES[pathStr] === true;

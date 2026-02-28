@@ -1,18 +1,18 @@
 // Default service labels (for backward compatibility and when no profile specified)
-export const GATEWAY_LAUNCH_AGENT_LABEL = "bot.molt.gateway";
+export const GATEWAY_LAUNCH_AGENT_LABEL = "aura.gateway";
 export const GATEWAY_SYSTEMD_SERVICE_NAME = "aura_intelligence-gateway";
 export const GATEWAY_WINDOWS_TASK_NAME = "aura_intelligence Gateway";
 export const GATEWAY_SERVICE_MARKER = "aura_intelligence";
 export const GATEWAY_SERVICE_KIND = "gateway";
-export const NODE_LAUNCH_AGENT_LABEL = "bot.molt.node";
+export const NODE_LAUNCH_AGENT_LABEL = "aura.node";
 export const NODE_SYSTEMD_SERVICE_NAME = "aura_intelligence-node";
 export const NODE_WINDOWS_TASK_NAME = "aura_intelligence Node";
 export const NODE_SERVICE_MARKER = "aura_intelligence";
 export const NODE_SERVICE_KIND = "node";
 export const NODE_WINDOWS_TASK_SCRIPT_NAME = "node.cmd";
 export const LEGACY_GATEWAY_LAUNCH_AGENT_LABELS = [
-  "com.clawdbot.gateway",
-  "com.steipete.clawdbot.gateway",
+  "com.aura.gateway",
+  "com.steipete.aura.gateway",
 ];
 export const LEGACY_GATEWAY_SYSTEMD_SERVICE_NAMES: string[] = [];
 export const LEGACY_GATEWAY_WINDOWS_TASK_NAMES: string[] = [];
@@ -33,7 +33,7 @@ export function resolveGatewayLaunchAgentLabel(profile?: string): string {
   if (!normalized) {
     return GATEWAY_LAUNCH_AGENT_LABEL;
   }
-  return `bot.molt.${normalized}`;
+  return `aura.${normalized}`;
 }
 
 export function resolveLegacyGatewayLaunchAgentLabels(profile?: string): string[] {
@@ -41,7 +41,7 @@ export function resolveLegacyGatewayLaunchAgentLabels(profile?: string): string[
   if (!normalized) {
     return [...LEGACY_GATEWAY_LAUNCH_AGENT_LABELS];
   }
-  return [...LEGACY_GATEWAY_LAUNCH_AGENT_LABELS, `com.clawdbot.${normalized}`];
+  return [...LEGACY_GATEWAY_LAUNCH_AGENT_LABELS, `com.aura.${normalized}`];
 }
 
 export function resolveGatewaySystemdServiceName(profile?: string): string {

@@ -64,7 +64,10 @@ export function resolveDefaultAgentId(cfg: aura_intelligenceConfig): string {
   return normalizeAgentId(chosen || DEFAULT_AGENT_ID);
 }
 
-export function resolveSessionAgentIds(params: { sessionKey?: string; config?: aura_intelligenceConfig }): {
+export function resolveSessionAgentIds(params: {
+  sessionKey?: string;
+  config?: aura_intelligenceConfig;
+}): {
   defaultAgentId: string;
   sessionAgentId: string;
 } {
@@ -114,7 +117,10 @@ export function resolveAgentConfig(
   };
 }
 
-export function resolveAgentModelPrimary(cfg: aura_intelligenceConfig, agentId: string): string | undefined {
+export function resolveAgentModelPrimary(
+  cfg: aura_intelligenceConfig,
+  agentId: string,
+): string | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.model;
   if (!raw) return undefined;
   if (typeof raw === "string") return raw.trim() || undefined;
@@ -143,7 +149,7 @@ export function resolveAgentWorkspaceDir(cfg: aura_intelligenceConfig, agentId: 
     if (fallback) return resolveUserPath(fallback);
     return DEFAULT_AGENT_WORKSPACE_DIR;
   }
-  return path.join(os.homedir(), `clawd-${id}`);
+  return path.join(os.homedir(), `aura-${id}`);
 }
 
 export function resolveAgentDir(cfg: aura_intelligenceConfig, agentId: string) {

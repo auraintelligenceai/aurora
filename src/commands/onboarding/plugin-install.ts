@@ -49,7 +49,10 @@ function resolveLocalPath(
   return null;
 }
 
-function addPluginLoadPath(cfg: aura_intelligenceConfig, pluginPath: string): aura_intelligenceConfig {
+function addPluginLoadPath(
+  cfg: aura_intelligenceConfig,
+  pluginPath: string,
+): aura_intelligenceConfig {
   const existing = cfg.plugins?.load?.paths ?? [];
   const merged = Array.from(new Set([...existing, pluginPath]));
   return {

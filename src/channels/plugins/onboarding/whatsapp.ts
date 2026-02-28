@@ -20,15 +20,24 @@ import { promptAccountId } from "./helpers.js";
 
 const channel = "whatsapp" as const;
 
-function setWhatsAppDmPolicy(cfg: aura_intelligenceConfig, dmPolicy: DmPolicy): aura_intelligenceConfig {
+function setWhatsAppDmPolicy(
+  cfg: aura_intelligenceConfig,
+  dmPolicy: DmPolicy,
+): aura_intelligenceConfig {
   return mergeWhatsAppConfig(cfg, { dmPolicy });
 }
 
-function setWhatsAppAllowFrom(cfg: aura_intelligenceConfig, allowFrom?: string[]): aura_intelligenceConfig {
+function setWhatsAppAllowFrom(
+  cfg: aura_intelligenceConfig,
+  allowFrom?: string[],
+): aura_intelligenceConfig {
   return mergeWhatsAppConfig(cfg, { allowFrom }, { unsetOnUndefined: ["allowFrom"] });
 }
 
-function setWhatsAppSelfChatMode(cfg: aura_intelligenceConfig, selfChatMode: boolean): aura_intelligenceConfig {
+function setWhatsAppSelfChatMode(
+  cfg: aura_intelligenceConfig,
+  selfChatMode: boolean,
+): aura_intelligenceConfig {
   return mergeWhatsAppConfig(cfg, { selfChatMode });
 }
 
@@ -41,7 +50,10 @@ async function pathExists(filePath: string): Promise<boolean> {
   }
 }
 
-async function detectWhatsAppLinked(cfg: aura_intelligenceConfig, accountId: string): Promise<boolean> {
+async function detectWhatsAppLinked(
+  cfg: aura_intelligenceConfig,
+  accountId: string,
+): Promise<boolean> {
   const { authDir } = resolveWhatsAppAuthDir({ cfg, accountId });
   const credsPath = path.join(authDir, "creds.json");
   return await pathExists(credsPath);

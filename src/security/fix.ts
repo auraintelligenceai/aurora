@@ -193,9 +193,9 @@ function setGroupPolicyAllowlist(params: {
   policyFlips: Set<string>;
 }): void {
   if (!params.cfg.channels) return;
-  const section = params.cfg.channels[params.channel as keyof aura_intelligenceConfig["channels"]] as
-    | Record<string, unknown>
-    | undefined;
+  const section = params.cfg.channels[
+    params.channel as keyof aura_intelligenceConfig["channels"]
+  ] as Record<string, unknown> | undefined;
   if (!section || typeof section !== "object") return;
 
   const topPolicy = section.groupPolicy;

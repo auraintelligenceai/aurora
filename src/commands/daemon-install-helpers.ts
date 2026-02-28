@@ -33,6 +33,7 @@ export async function buildGatewayInstallPlan(params: {
   devMode?: boolean;
   nodePath?: string;
   warn?: WarnFn;
+  force?: boolean;
   /** Full config to extract env vars from (env vars + inline env keys). */
   config?: aura_intelligenceConfig;
 }): Promise<GatewayInstallPlan> {
@@ -48,6 +49,7 @@ export async function buildGatewayInstallPlan(params: {
     dev: devMode,
     runtime: params.runtime,
     nodePath,
+    force: params.force,
   });
   if (params.runtime === "node") {
     const systemNode = await resolveSystemNodeInfo({ env: params.env });
@@ -60,7 +62,7 @@ export async function buildGatewayInstallPlan(params: {
     token: params.token,
     launchdLabel:
       process.platform === "darwin"
-        ? resolveGatewayLaunchAgentLabel(params.env.CLAWDBOT_PROFILE)
+        ? resolveGatewayLaunchAgentLabel(params.env.AURA_PROFILE)
         : undefined,
   });
 

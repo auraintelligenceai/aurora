@@ -13,7 +13,7 @@ describe("media store", () => {
   const envSnapshot: Record<string, string | undefined> = {};
 
   const snapshotEnv = () => {
-    for (const key of ["HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH", "CLAWDBOT_STATE_DIR"]) {
+    for (const key of ["HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH", "AURA_STATE_DIR"]) {
       envSnapshot[key] = process.env[key];
     }
   };
@@ -30,7 +30,7 @@ describe("media store", () => {
     home = await fs.mkdtemp(path.join(os.tmpdir(), "aura_intelligence-test-home-"));
     process.env.HOME = home;
     process.env.USERPROFILE = home;
-    process.env.CLAWDBOT_STATE_DIR = path.join(home, ".clawdbot");
+    process.env.AURA_STATE_DIR = path.join(home, ".aura");
     if (process.platform === "win32") {
       const match = home.match(/^([A-Za-z]:)(.*)$/);
       if (match) {
@@ -38,7 +38,7 @@ describe("media store", () => {
         process.env.HOMEPATH = match[2] || "\\";
       }
     }
-    await fs.mkdir(path.join(home, ".clawdbot"), { recursive: true });
+    await fs.mkdir(path.join(home, ".aura"), { recursive: true });
     store = await import("./store.js");
   });
 
@@ -61,7 +61,7 @@ describe("media store", () => {
     await withTempStore(async (store, home) => {
       const dir = await store.ensureMediaDir();
       expect(isPathWithinBase(home, dir)).toBe(true);
-      expect(path.normalize(dir)).toContain(`${path.sep}.clawdbot${path.sep}media`);
+      expect(path.normalize(dir)).toContain(`${path.sep}.aura${path.sep}media`);
       const stat = await fs.stat(dir);
       expect(stat.isDirectory()).toBe(true);
     });

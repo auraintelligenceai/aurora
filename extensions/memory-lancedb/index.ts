@@ -10,8 +10,8 @@ import { Type } from "@sinclair/typebox";
 import * as lancedb from "@lancedb/lancedb";
 import OpenAI from "openai";
 import { randomUUID } from "node:crypto";
-import type { aura_intelligencePluginApi } from "clawdbot/plugin-sdk";
-import { stringEnum } from "clawdbot/plugin-sdk";
+import type { aura_intelligencePluginApi } from "aura/plugin-sdk";
+import { stringEnum } from "aura/plugin-sdk";
 
 import {
   MEMORY_CATEGORIES,

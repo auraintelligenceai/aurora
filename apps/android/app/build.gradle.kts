@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-  namespace = "bot.molt.android"
+  namespace = "aura.android"
   compileSdk = 36
 
   sourceSets {
@@ -18,7 +18,7 @@ android {
   }
 
   defaultConfig {
-    applicationId = "bot.molt.android"
+    applicationId = "aura.android"
     minSdk = 31
     targetSdk = 36
     versionCode = 202601260

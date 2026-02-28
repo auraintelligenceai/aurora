@@ -79,7 +79,10 @@ function normalizeWsUrl(value: string): string | null {
   return trimmed;
 }
 
-export function resolveTargets(cfg: aura_intelligenceConfig, explicitUrl?: string): GatewayStatusTarget[] {
+export function resolveTargets(
+  cfg: aura_intelligenceConfig,
+  explicitUrl?: string,
+): GatewayStatusTarget[] {
   const targets: GatewayStatusTarget[] = [];
   const add = (t: GatewayStatusTarget) => {
     if (!targets.some((x) => x.url === t.url)) targets.push(t);
@@ -145,8 +148,8 @@ export function resolveAuthForTarget(
     };
   }
 
-  const envToken = process.env.CLAWDBOT_GATEWAY_TOKEN?.trim() || "";
-  const envPassword = process.env.CLAWDBOT_GATEWAY_PASSWORD?.trim() || "";
+  const envToken = process.env.AURA_GATEWAY_TOKEN?.trim() || "";
+  const envPassword = process.env.AURA_GATEWAY_PASSWORD?.trim() || "";
   const cfgToken =
     typeof cfg.gateway?.auth?.token === "string" ? cfg.gateway.auth.token.trim() : "";
   const cfgPassword =

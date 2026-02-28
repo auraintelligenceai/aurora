@@ -10,8 +10,8 @@ import { NodeSDK } from "@opentelemetry/sdk-node";
 import { ParentBasedSampler, TraceIdRatioBasedSampler } from "@opentelemetry/sdk-trace-base";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 
-import type { aura_intelligencePluginService, DiagnosticEventPayload } from "clawdbot/plugin-sdk";
-import { onDiagnosticEvent, registerLogTransport } from "clawdbot/plugin-sdk";
+import type { aura_intelligencePluginService, DiagnosticEventPayload } from "aura/plugin-sdk";
+import { onDiagnosticEvent, registerLogTransport } from "aura/plugin-sdk";
 
 const DEFAULT_SERVICE_NAME = "aura_intelligence";
 

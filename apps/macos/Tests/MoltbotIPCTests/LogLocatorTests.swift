@@ -9,9 +9,9 @@ import Testing
         let baseDir = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         let logDir = baseDir.appendingPathComponent("aura_intelligence-tests-\(UUID().uuidString)")
 
-        setenv("CLAWDBOT_LOG_DIR", logDir.path, 1)
+        setenv("AURA_LOG_DIR", logDir.path, 1)
         defer {
-            unsetenv("CLAWDBOT_LOG_DIR")
+            unsetenv("AURA_LOG_DIR")
             try? fm.removeItem(at: logDir)
         }
 

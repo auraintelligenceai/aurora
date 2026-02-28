@@ -1,4 +1,4 @@
-package bot.molt.android
+package aura.android
 
 import android.Manifest
 import android.content.pm.ApplicationInfo
@@ -18,8 +18,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import bot.molt.android.ui.RootScreen
-import bot.molt.android.ui.aura_intelligenceTheme
+import aura.android.ui.RootScreen
+import aura.android.ui.aura_intelligenceTheme
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {

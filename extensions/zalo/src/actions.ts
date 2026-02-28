@@ -2,8 +2,8 @@ import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
   aura_intelligenceConfig,
-} from "clawdbot/plugin-sdk";
-import { jsonResult, readStringParam } from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
+import { jsonResult, readStringParam } from "aura/plugin-sdk";
 
 import { listEnabledZaloAccounts } from "./accounts.js";
 import { sendMessageZalo } from "./send.js";

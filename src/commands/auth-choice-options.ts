@@ -20,7 +20,9 @@ export type AuthChoiceGroupId =
   | "minimax"
   | "synthetic"
   | "venice"
-  | "qwen";
+  | "qwen"
+  | "ollama"
+  | "vllm";
 
 export type AuthChoiceGroup = {
   value: AuthChoiceGroupId;
@@ -35,6 +37,18 @@ const AUTH_CHOICE_GROUP_DEFS: {
   hint?: string;
   choices: AuthChoice[];
 }[] = [
+  {
+    value: "ollama",
+    label: "Ollama",
+    hint: "Local models (no API key required)",
+    choices: ["ollama"],
+  },
+  {
+    value: "vllm",
+    label: "vLLM",
+    hint: "Local LLM serving (no API key required)",
+    choices: ["vllm"],
+  },
   {
     value: "openai",
     label: "OpenAI",
@@ -121,6 +135,17 @@ export function buildAuthChoiceOptions(params: {
 }): AuthChoiceOption[] {
   void params.store;
   const options: AuthChoiceOption[] = [];
+
+  options.push({
+    value: "ollama",
+    label: "Ollama (local models)",
+    hint: "No API key required - runs models locally",
+  });
+  options.push({
+    value: "vllm",
+    label: "vLLM (local serving)",
+    hint: "No API key required - local LLM serving",
+  });
 
   options.push({
     value: "token",

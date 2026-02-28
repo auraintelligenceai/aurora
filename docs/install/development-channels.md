@@ -44,7 +44,7 @@ This updates via the corresponding npm dist-tag (`latest`, `beta`, `dev`).
 When you **explicitly** switch channels with `--channel`, aura_intelligence also aligns
 the install method:
 
-- `dev` ensures a git checkout (default `~/aura_intelligence`, override with `CLAWDBOT_GIT_DIR`),
+- `dev` ensures a git checkout (default `~/aura_intelligence`, override with `AURA_GIT_DIR`),
   updates it, and installs the global CLI from that checkout.
 - `stable`/`beta` installs from npm using the matching dist-tag.
 

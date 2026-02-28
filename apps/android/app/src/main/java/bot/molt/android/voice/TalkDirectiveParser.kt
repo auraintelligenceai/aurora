@@ -1,4 +1,4 @@
-package bot.molt.android.voice
+package aura.android.voice
 
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement

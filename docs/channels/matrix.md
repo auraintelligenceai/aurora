@@ -61,7 +61,7 @@ Details: [Plugins](/plugin)
 
    - Replace `matrix.example.org` with your homeserver URL.
    - Or set `channels.matrix.userId` + `channels.matrix.password`: aura_intelligence calls the same
-     login endpoint, stores the access token in `~/.clawdbot/credentials/matrix/credentials.json`,
+     login endpoint, stores the access token in `~/.aura/credentials/matrix/credentials.json`,
      and reuses it on next start.
 4) Configure credentials:
    - Env: `MATRIX_HOMESERVER`, `MATRIX_ACCESS_TOKEN` (or `MATRIX_USER_ID` + `MATRIX_PASSWORD`)
@@ -123,7 +123,7 @@ Enable with `channels.matrix.encryption: true`:
   `node node_modules/@matrix-org/matrix-sdk-crypto-nodejs/download-lib.js`.
 
 Crypto state is stored per account + access token in
-`~/.clawdbot/matrix/accounts/<account>/<homeserver>__<user>/<token-hash>/crypto/`
+`~/.aura/matrix/accounts/<account>/<homeserver>__<user>/<token-hash>/crypto/`
 (SQLite database). Sync state lives alongside it in `bot-storage.json`.
 If the access token (device) changes, a new store is created and the bot must be
 re-verified for encrypted rooms.

@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package bot.molt.android
+package aura.android
 
 import android.content.Context
 import androidx.core.content.edit
@@ -16,7 +16,7 @@ import java.util.UUID
 
 class SecurePrefs(context: Context) {
   companion object {
-    val defaultWakeWords: List<String> = listOf("clawd", "claude")
+    val defaultWakeWords: List<String> = listOf("aura", "claude")
     private const val displayNameKey = "node.displayName"
     private const val voiceWakeModeKey = "voiceWake.mode"
   }

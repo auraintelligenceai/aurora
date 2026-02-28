@@ -9,7 +9,8 @@ metadata:
         "emoji": "🚀",
         "events": ["gateway:startup"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with aura_intelligence" }],
+        "install":
+          [{ "id": "bundled", "kind": "bundled", "label": "Bundled with aura_intelligence" }],
       },
   }
 ---

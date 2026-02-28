@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 
-declare const __CLAWDBOT_VERSION__: string | undefined;
+declare const __AURA_VERSION__: string | undefined;
 
 function readVersionFromPackageJson(): string | null {
   try {
@@ -16,7 +16,7 @@ function readVersionFromPackageJson(): string | null {
 // - Embedded/bundled builds: injected define or env var.
 // - Dev/npm builds: package.json.
 export const VERSION =
-  (typeof __CLAWDBOT_VERSION__ === "string" && __CLAWDBOT_VERSION__) ||
-  process.env.CLAWDBOT_BUNDLED_VERSION ||
+  (typeof __AURA_VERSION__ === "string" && __AURA_VERSION__) ||
+  process.env.AURA_BUNDLED_VERSION ||
   readVersionFromPackageJson() ||
   "0.0.0";

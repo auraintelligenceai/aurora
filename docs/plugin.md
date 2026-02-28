@@ -91,12 +91,12 @@ aura_intelligence scans, in order:
 - `plugins.load.paths` (file or directory)
 
 2) Workspace extensions
-- `<workspace>/.clawdbot/extensions/*.ts`
-- `<workspace>/.clawdbot/extensions/*/index.ts`
+- `<workspace>/.aura/extensions/*.ts`
+- `<workspace>/.aura/extensions/*/index.ts`
 
 3) Global extensions
-- `~/.clawdbot/extensions/*.ts`
-- `~/.clawdbot/extensions/*/index.ts`
+- `~/.aura/extensions/*.ts`
+- `~/.aura/extensions/*/index.ts`
 
 4) Bundled extensions (shipped with aura_intelligence, **disabled by default**)
 - `<aura_intelligence>/extensions/*`
@@ -164,11 +164,11 @@ Example:
 
 aura_intelligence can also merge **external channel catalogs** (for example, an MPM
 registry export). Drop a JSON file at one of:
-- `~/.clawdbot/mpm/plugins.json`
-- `~/.clawdbot/mpm/catalog.json`
-- `~/.clawdbot/plugins/catalog.json`
+- `~/.aura/mpm/plugins.json`
+- `~/.aura/mpm/catalog.json`
+- `~/.aura/plugins/catalog.json`
 
-Or point `CLAWDBOT_PLUGIN_CATALOG_PATHS` (or `CLAWDBOT_MPM_CATALOG_PATHS`) at
+Or point `AURA_PLUGIN_CATALOG_PATHS` (or `AURA_MPM_CATALOG_PATHS`) at
 one or more JSON files (comma/semicolon/`PATH`-delimited). Each file should
 contain `{ "entries": [ { "name": "@scope/pkg", "aura_intelligence": { "channel": {...}, "install": {...} } } ] }`.
 
@@ -271,7 +271,7 @@ Example:
 ```bash
 aura_intelligence plugins list
 aura_intelligence plugins info <id>
-aura_intelligence plugins install <path>                 # copy a local file/dir into ~/.clawdbot/extensions/<id>
+aura_intelligence plugins install <path>                 # copy a local file/dir into ~/.aura/extensions/<id>
 aura_intelligence plugins install ./extensions/voice-call # relative path ok
 aura_intelligence plugins install ./plugin.tgz           # install from a local tarball
 aura_intelligence plugins install ./plugin.zip           # install from a local zip
@@ -605,7 +605,7 @@ Publishing contract:
 
 - Plugin `package.json` must include `aura_intelligence.extensions` with one or more entry files.
 - Entry files can be `.js` or `.ts` (jiti loads TS at runtime).
-- `aura_intelligence plugins install <npm-spec>` uses `npm pack`, extracts into `~/.clawdbot/extensions/<id>/`, and enables it in config.
+- `aura_intelligence plugins install <npm-spec>` uses `npm pack`, extracts into `~/.aura/extensions/<id>/`, and enables it in config.
 - Config key stability: scoped packages are normalized to the **unscoped** id for `plugins.entries.*`.
 
 ## Example plugin: Voice Call

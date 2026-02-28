@@ -54,8 +54,8 @@ aura_intelligence persists sessions in two layers:
 
 Per agent, on the Gateway host:
 
-- Store: `~/.clawdbot/agents/<agentId>/sessions/sessions.json`
-- Transcripts: `~/.clawdbot/agents/<agentId>/sessions/<sessionId>.jsonl`
+- Store: `~/.aura/agents/<agentId>/sessions/sessions.json`
+- Transcripts: `~/.aura/agents/<agentId>/sessions/<sessionId>.jsonl`
   - Telegram topic sessions: `.../<sessionId>-topic-<threadId>.jsonl`
 
 aura_intelligence resolves these via `src/config/sessions.ts`.

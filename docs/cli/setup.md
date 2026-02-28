@@ -7,7 +7,7 @@ read_when:
 
 # `aura_intelligence setup`
 
-Initialize `~/.clawdbot/aura_intelligence.json` and the agent workspace.
+Initialize `~/.aura_intelligence/aura_intelligence.json` and the agent workspace.
 
 Related:
 - Getting started: [Getting started](/start/getting-started)
@@ -17,7 +17,7 @@ Related:
 
 ```bash
 aura_intelligence setup
-aura_intelligence setup --workspace ~/clawd
+aura_intelligence setup --workspace ~/aura
 ```
 
 To run the wizard via setup:

@@ -354,7 +354,7 @@ describe("buildStatusMessage", () => {
         const sessionId = "sess-1";
         const logPath = path.join(
           dir,
-          ".clawdbot",
+          ".aura",
           "agents",
           "main",
           "sessions",

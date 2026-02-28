@@ -13,7 +13,10 @@ function shouldSandboxSession(cfg: SandboxConfig, sessionKey: string, mainSessio
   return sessionKey.trim() !== mainSessionKey.trim();
 }
 
-function resolveMainSessionKeyForSandbox(params: { cfg?: aura_intelligenceConfig; agentId: string }): string {
+function resolveMainSessionKeyForSandbox(params: {
+  cfg?: aura_intelligenceConfig;
+  agentId: string;
+}): string {
   if (params.cfg?.session?.scope === "global") return "global";
   return resolveAgentMainSessionKey({
     cfg: params.cfg,
@@ -33,7 +36,10 @@ function resolveComparableSessionKeyForSandbox(params: {
   });
 }
 
-export function resolveSandboxRuntimeStatus(params: { cfg?: aura_intelligenceConfig; sessionKey?: string }): {
+export function resolveSandboxRuntimeStatus(params: {
+  cfg?: aura_intelligenceConfig;
+  sessionKey?: string;
+}): {
   agentId: string;
   sessionKey: string;
   mainSessionKey: string;

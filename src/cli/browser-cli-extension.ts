@@ -33,7 +33,9 @@ export async function installChromeExtension(opts?: {
 }): Promise<{ path: string }> {
   const src = opts?.sourceDir ?? bundledExtensionRootDir();
   if (!hasManifest(src)) {
-    throw new Error("Bundled Chrome extension is missing. Reinstall aura_intelligence and try again.");
+    throw new Error(
+      "Bundled Chrome extension is missing. Reinstall aura_intelligence and try again.",
+    );
   }
 
   const stateDir = opts?.stateDir ?? STATE_DIR;

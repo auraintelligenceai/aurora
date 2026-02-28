@@ -142,12 +142,12 @@ Common flags:
 
 Equivalent env vars (useful for automation):
 
-- `CLAWDBOT_INSTALL_METHOD=git|npm`
-- `CLAWDBOT_GIT_DIR=...`
-- `CLAWDBOT_GIT_UPDATE=0|1`
-- `CLAWDBOT_NO_PROMPT=1`
-- `CLAWDBOT_DRY_RUN=1`
-- `CLAWDBOT_NO_ONBOARD=1`
+- `AURA_INSTALL_METHOD=git|npm`
+- `AURA_GIT_DIR=...`
+- `AURA_GIT_UPDATE=0|1`
+- `AURA_NO_PROMPT=1`
+- `AURA_DRY_RUN=1`
+- `AURA_NO_ONBOARD=1`
 - `SHARP_IGNORE_GLOBAL_LIBVIPS=0|1` (default: `1`; avoids `sharp` building against system libvips)
 
 ## Troubleshooting: `aura_intelligence` not found (PATH)

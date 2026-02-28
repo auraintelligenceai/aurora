@@ -33,7 +33,10 @@ import { shouldIncludeHook } from "./config.js";
  * console.log(`Loaded ${count} hook handlers`);
  * ```
  */
-export async function loadInternalHooks(cfg: aura_intelligenceConfig, workspaceDir: string): Promise<number> {
+export async function loadInternalHooks(
+  cfg: aura_intelligenceConfig,
+  workspaceDir: string,
+): Promise<number> {
   // Check if hooks are enabled
   if (!cfg.hooks?.internal?.enabled) {
     return 0;

@@ -5,8 +5,8 @@
  * This is the primary entry point for the Twitch channel integration.
  */
 
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
-import { buildChannelConfigSchema } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
+import { buildChannelConfigSchema } from "aura/plugin-sdk";
 import { twitchMessageActions } from "./actions.js";
 import { TwitchConfigSchema } from "./config-schema.js";
 import { DEFAULT_ACCOUNT_ID, getAccountConfig, listAccountIds } from "./config.js";

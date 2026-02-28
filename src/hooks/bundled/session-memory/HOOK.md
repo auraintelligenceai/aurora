@@ -9,7 +9,8 @@ metadata:
         "emoji": "💾",
         "events": ["command:new"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with aura_intelligence" }],
+        "install":
+          [{ "id": "bundled", "kind": "bundled", "label": "Bundled with aura_intelligence" }],
       },
   }
 ---
@@ -82,7 +83,7 @@ Example configuration:
 
 The hook automatically:
 
-- Uses your workspace directory (`~/clawd` by default)
+- Uses your workspace directory (`~/aura` by default)
 - Uses your configured LLM for slug generation
 - Falls back to timestamp slugs if LLM is unavailable
 

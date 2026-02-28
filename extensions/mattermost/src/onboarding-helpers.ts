@@ -1,5 +1,5 @@
-import type { aura_intelligenceConfig, WizardPrompter } from "clawdbot/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig, WizardPrompter } from "aura/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "aura/plugin-sdk";
 
 type PromptAccountIdParams = {
   cfg: aura_intelligenceConfig;

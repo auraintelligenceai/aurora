@@ -411,7 +411,8 @@ export type CronPayload =
         | "slack"
         | "signal"
         | "imessage"
-        | "msteams";
+        | "msteams"
+        | "line";
       to?: string;
       bestEffortDeliver?: boolean;
     };

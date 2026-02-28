@@ -1,7 +1,9 @@
 import { OPENCODE_ZEN_DEFAULT_MODEL_REF } from "../agents/opencode-zen-models.js";
 import type { aura_intelligenceConfig } from "../config/config.js";
 
-export function applyOpencodeZenProviderConfig(cfg: aura_intelligenceConfig): aura_intelligenceConfig {
+export function applyOpencodeZenProviderConfig(
+  cfg: aura_intelligenceConfig,
+): aura_intelligenceConfig {
   // Use the built-in opencode provider from pi-ai; only seed the allowlist alias.
   const models = { ...cfg.agents?.defaults?.models };
   models[OPENCODE_ZEN_DEFAULT_MODEL_REF] = {

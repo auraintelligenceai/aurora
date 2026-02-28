@@ -19,7 +19,9 @@ export function getBearerToken(req: IncomingMessage): string | undefined {
 
 export function resolveAgentIdFromHeader(req: IncomingMessage): string | undefined {
   const raw =
-    getHeader(req, "x-aura_intelligence-agent-id")?.trim() || getHeader(req, "x-aura_intelligence-agent")?.trim() || "";
+    getHeader(req, "x-aura_intelligence-agent-id")?.trim() ||
+    getHeader(req, "x-aura_intelligence-agent")?.trim() ||
+    "";
   if (!raw) return undefined;
   return normalizeAgentId(raw);
 }

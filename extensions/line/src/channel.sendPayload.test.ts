@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { aura_intelligenceConfig, PluginRuntime } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig, PluginRuntime } from "aura/plugin-sdk";
 import { linePlugin } from "./channel.js";
 import { setLineRuntime } from "./runtime.js";
 

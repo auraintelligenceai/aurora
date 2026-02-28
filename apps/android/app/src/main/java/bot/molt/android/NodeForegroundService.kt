@@ -1,4 +1,4 @@
-package bot.molt.android
+package aura.android
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -163,7 +163,7 @@ class NodeForegroundService : Service() {
     private const val CHANNEL_ID = "connection"
     private const val NOTIFICATION_ID = 1
 
-    private const val ACTION_STOP = "bot.molt.android.action.STOP"
+    private const val ACTION_STOP = "aura.android.action.STOP"
 
     fun start(context: Context) {
       val intent = Intent(context, NodeForegroundService::class.java)

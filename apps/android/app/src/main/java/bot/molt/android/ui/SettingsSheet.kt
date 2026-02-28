@@ -1,4 +1,4 @@
-package bot.molt.android.ui
+package aura.android.ui
 
 import android.Manifest
 import android.content.Context
@@ -58,12 +58,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import bot.molt.android.BuildConfig
-import bot.molt.android.LocationMode
-import bot.molt.android.MainViewModel
-import bot.molt.android.NodeForegroundService
-import bot.molt.android.VoiceWakeMode
-import bot.molt.android.WakeWords
+import aura.android.BuildConfig
+import aura.android.LocationMode
+import aura.android.MainViewModel
+import aura.android.NodeForegroundService
+import aura.android.VoiceWakeMode
+import aura.android.WakeWords
 
 @Composable
 fun SettingsSheet(viewModel: MainViewModel) {

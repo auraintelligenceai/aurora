@@ -73,7 +73,7 @@ export function getCommandPath(argv: string[], depth = 2): string[] {
 
 export function getPrimaryCommand(argv: string[]): string | null {
   const [primary] = getCommandPath(argv, 1);
-  return primary ?? null;
+  return primary === "chat" ? "tui" : primary ?? null;
 }
 
 export function buildParseArgv(params: {

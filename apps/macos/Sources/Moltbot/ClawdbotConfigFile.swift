@@ -2,7 +2,7 @@ import aura_intelligenceProtocol
 import Foundation
 
 enum aura_intelligenceConfigFile {
-    private static let logger = Logger(subsystem: "bot.molt", category: "config")
+    private static let logger = Logger(subsystem: "aura", category: "config")
 
     static func url() -> URL {
         aura_intelligencePaths.configURL

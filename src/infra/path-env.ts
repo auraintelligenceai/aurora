@@ -95,8 +95,8 @@ function candidateBinDirs(opts: Ensureaura_intelligencePathOpts): string[] {
  * under launchd/minimal environments (and inside the macOS app bundle).
  */
 export function ensureaura_intelligenceCliOnPath(opts: Ensureaura_intelligencePathOpts = {}) {
-  if (isTruthyEnvValue(process.env.CLAWDBOT_PATH_BOOTSTRAPPED)) return;
-  process.env.CLAWDBOT_PATH_BOOTSTRAPPED = "1";
+  if (isTruthyEnvValue(process.env.AURA_PATH_BOOTSTRAPPED)) return;
+  process.env.AURA_PATH_BOOTSTRAPPED = "1";
 
   const existing = opts.pathEnv ?? process.env.PATH ?? "";
   const prepend = candidateBinDirs(opts);

@@ -11,7 +11,7 @@ Use tmux only when you need an interactive TTY. Prefer exec background mode for 
 ## Quickstart (isolated socket, exec tool)
 
 ```bash
-SOCKET_DIR="${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/aura_intelligence-tmux-sockets}"
+SOCKET_DIR="${AURA_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/aura_intelligence-tmux-sockets}"
 mkdir -p "$SOCKET_DIR"
 SOCKET="$SOCKET_DIR/aura_intelligence.sock"
 SESSION=aura_intelligence-python
@@ -31,8 +31,8 @@ To monitor:
 
 ## Socket convention
 
-- Use `CLAWDBOT_TMUX_SOCKET_DIR` (default `${TMPDIR:-/tmp}/aura_intelligence-tmux-sockets`).
-- Default socket path: `"$CLAWDBOT_TMUX_SOCKET_DIR/aura_intelligence.sock"`.
+- Use `AURA_TMUX_SOCKET_DIR` (default `${TMPDIR:-/tmp}/aura_intelligence-tmux-sockets`).
+- Default socket path: `"$AURA_TMUX_SOCKET_DIR/aura_intelligence.sock"`.
 
 ## Targeting panes and naming
 
@@ -43,7 +43,7 @@ To monitor:
 ## Finding sessions
 
 - List sessions on your socket: `{baseDir}/scripts/find-sessions.sh -S "$SOCKET"`.
-- Scan all sockets: `{baseDir}/scripts/find-sessions.sh --all` (uses `CLAWDBOT_TMUX_SOCKET_DIR`).
+- Scan all sockets: `{baseDir}/scripts/find-sessions.sh --all` (uses `AURA_TMUX_SOCKET_DIR`).
 
 ## Sending input safely
 

@@ -75,7 +75,7 @@ const saveSessionToMemory: HookHandler = async (event) => {
     const agentId = resolveAgentIdFromSessionKey(event.sessionKey);
     const workspaceDir = cfg
       ? resolveAgentWorkspaceDir(cfg, agentId)
-      : path.join(os.homedir(), "clawd");
+      : path.join(os.homedir(), "aura");
     const memoryDir = path.join(workspaceDir, "memory");
     await fs.mkdir(memoryDir, { recursive: true });
 
@@ -117,7 +117,10 @@ const saveSessionToMemory: HookHandler = async (event) => {
         // Dynamically import the LLM slug generator (avoids module caching issues)
         // When compiled, handler is at dist/hooks/bundled/session-memory/handler.js
         // Going up ../.. puts us at dist/hooks/, so just add llm-slug-generator.js
-        const aura_intelligenceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+        const aura_intelligenceRoot = path.resolve(
+          path.dirname(fileURLToPath(import.meta.url)),
+          "../..",
+        );
         const slugGenPath = path.join(aura_intelligenceRoot, "llm-slug-generator.js");
         const { generateSlugViaLLM } = await import(slugGenPath);
 

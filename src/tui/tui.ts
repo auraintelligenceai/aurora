@@ -6,6 +6,7 @@ import {
   Text,
   TUI,
 } from "@mariozechner/pi-tui";
+import chalk from "chalk";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { loadConfig } from "../config/config.js";
 import {
@@ -78,6 +79,24 @@ export function createEditorSubmitHandler(params: {
 export async function runTui(opts: TuiOptions) {
   const config = loadConfig();
   const initialSessionInput = (opts.session ?? "").trim();
+  
+  // Display ASCII art banner with color
+  const banner = `
+${chalk.hex("#4CC9F0").bold("╔══════════════════════════════════════════════════════╗")}
+${chalk.hex("#4CC9F0").bold("║                                                      ║")}
+${chalk.hex("#4CC9F0").bold("║          █████╗ ██╗   ██╗██████╗  █████╗             ║")}
+${chalk.hex("#4CC9F0").bold("║         ██╔══██╗██║   ██║██╔══██╗██╔══██╗            ║")}
+${chalk.hex("#4CC9F0").bold("║         ███████║██║   ██║██████╔╝███████║            ║")}
+${chalk.hex("#4CC9F0").bold("║         ██╔══██║██║   ██║██╔══██╗██╔══██║            ║")}
+${chalk.hex("#4CC9F0").bold("║         ██║  ██║╚██████╔╝██║  ██║██║  ██║            ║")}
+${chalk.hex("#4CC9F0").bold("║         ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝            ║")}
+${chalk.hex("#4CC9F0").bold("║                                                      ║")}
+${chalk.hex("#51CF66").bold("║         The Last Personal Assistant                  ║")}
+${chalk.hex("#51CF66").bold("║              You Will Ever Need                      ║")}
+${chalk.hex("#4CC9F0").bold("║                                                      ║")}
+${chalk.hex("#4CC9F0").bold("╚══════════════════════════════════════════════════════╝")}
+  `;
+  console.log(banner);
   let sessionScope: SessionScope = (config.session?.scope ?? "per-sender") as SessionScope;
   let sessionMainKey = normalizeMainKey(config.session?.mainKey);
   let agentDefaultId = resolveDefaultAgentId(config);

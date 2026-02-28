@@ -28,7 +28,7 @@ Contents (examples):
 - Docs link helper: `formatDocsLink`.
 
 Delivery:
-- Publish as `@clawdbot/plugin-sdk` (or export from core under `clawdbot/plugin-sdk`).
+- Publish as `@aura/plugin-sdk` (or export from core under `aura/plugin-sdk`).
 - Semver with explicit stability guarantees.
 
 ### 2) Plugin Runtime (execution surface, injected)
@@ -136,7 +136,7 @@ Notes:
 ## Migration plan (phased, safe)
 
 ### Phase 0: scaffolding
-- Introduce `@clawdbot/plugin-sdk`.
+- Introduce `@aura/plugin-sdk`.
 - Add `api.runtime` to `aura_intelligencePluginApi` with the surface above.
 - Maintain existing imports during a transition window (deprecation warnings).
 

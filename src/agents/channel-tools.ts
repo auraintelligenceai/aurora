@@ -42,7 +42,9 @@ export function listAllChannelSupportedActions(params: {
   return Array.from(actions);
 }
 
-export function listChannelAgentTools(params: { cfg?: aura_intelligenceConfig }): ChannelAgentTool[] {
+export function listChannelAgentTools(params: {
+  cfg?: aura_intelligenceConfig;
+}): ChannelAgentTool[] {
   // Channel docking: aggregate channel-owned tools (login, etc.).
   const tools: ChannelAgentTool[] = [];
   for (const plugin of listChannelPlugins()) {

@@ -1,4 +1,4 @@
-package bot.molt.android.protocol
+package aura.android.protocol
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

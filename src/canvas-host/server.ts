@@ -3,6 +3,7 @@ import http, { type IncomingMessage, type Server, type ServerResponse } from "no
 import type { Socket } from "node:net";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { Duplex } from "node:stream";
 
 import chokidar from "chokidar";
@@ -103,25 +104,25 @@ function defaultIndexHTML() {
       window.webkit &&
       window.webkit.messageHandlers &&
       (window.webkit.messageHandlers.aura_intelligenceCanvasA2UIAction ||
-        window.webkit.messageHandlers.clawdbotCanvasA2UIAction)
+        window.webkit.messageHandlers.auraCanvasA2UIAction)
     );
   const hasAndroid = () =>
     !!(
       (window.aura_intelligenceCanvasA2UIAction &&
         typeof window.aura_intelligenceCanvasA2UIAction.postMessage === "function") ||
-      (window.clawdbotCanvasA2UIAction &&
-        typeof window.clawdbotCanvasA2UIAction.postMessage === "function")
+      (window.auraCanvasA2UIAction &&
+        typeof window.auraCanvasA2UIAction.postMessage === "function")
     );
-  const legacySend = typeof window.clawdbotSendUserAction === "function" ? window.clawdbotSendUserAction : undefined;
+  const legacySend = typeof window.auraSendUserAction === "function" ? window.auraSendUserAction : undefined;
   if (!window.aura_intelligenceSendUserAction && legacySend) {
     window.aura_intelligenceSendUserAction = legacySend;
   }
-  if (!window.clawdbotSendUserAction && typeof window.aura_intelligenceSendUserAction === "function") {
-    window.clawdbotSendUserAction = window.aura_intelligenceSendUserAction;
+  if (!window.auraSendUserAction && typeof window.aura_intelligenceSendUserAction === "function") {
+    window.auraSendUserAction = window.aura_intelligenceSendUserAction;
   }
   const hasHelper = () =>
     typeof window.aura_intelligenceSendUserAction === "function" ||
-    typeof window.clawdbotSendUserAction === "function";
+    typeof window.auraSendUserAction === "function";
   statusEl.innerHTML =
     "Bridge: " +
     (hasHelper() ? "<span class='ok'>ready</span>" : "<span class='bad'>missing</span>") +
@@ -141,7 +142,7 @@ function defaultIndexHTML() {
     const sendUserAction =
       typeof window.aura_intelligenceSendUserAction === "function"
         ? window.aura_intelligenceSendUserAction
-        : window.clawdbotSendUserAction;
+        : window.auraSendUserAction;
     const ok = sendUserAction({
       name,
       surfaceId: "main",
@@ -199,7 +200,7 @@ async function resolveFilePath(rootReal: string, urlPath: string) {
 }
 
 function isDisabledByEnv() {
-  if (isTruthyEnvValue(process.env.CLAWDBOT_SKIP_CANVAS_HOST)) return true;
+  if (isTruthyEnvValue(process.env.AURA_SKIP_CANVAS_HOST)) return true;
   if (process.env.NODE_ENV === "test") return true;
   if (process.env.VITEST) return true;
   return false;
@@ -242,7 +243,7 @@ export async function createCanvasHostHandler(
     };
   }
 
-  const rootDir = resolveUserPath(opts.rootDir ?? path.join(os.homedir(), "clawd", "canvas"));
+  const rootDir = resolveUserPath(opts.rootDir ?? path.join(os.homedir(), "aura", "canvas"));
   const rootReal = await prepareCanvasRoot(rootDir);
 
   const liveReload = opts.liveReload !== false;
@@ -335,6 +336,15 @@ export async function createCanvasHostHandler(
         res.statusCode = 405;
         res.setHeader("Content-Type", "text/plain; charset=utf-8");
         res.end("Method Not Allowed");
+        return true;
+      }
+
+      // Serve Aura Avatar page
+      if (urlPath === "/avatar" || urlPath === "/avatar/") {
+        const avatarHtml = await fs.readFile(path.join(path.dirname(fileURLToPath(import.meta.url)), "aura-avatar.html"), "utf8");
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        res.end(liveReload ? injectCanvasLiveReload(avatarHtml) : avatarHtml);
         return true;
       }
 

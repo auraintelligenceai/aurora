@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import process from "node:process";
 
-declare const __CLAWDBOT_VERSION__: string | undefined;
+declare const __AURA_VERSION__: string | undefined;
 
 const BUNDLED_VERSION =
-  (typeof __CLAWDBOT_VERSION__ === "string" && __CLAWDBOT_VERSION__) ||
-  process.env.CLAWDBOT_BUNDLED_VERSION ||
+  (typeof __AURA_VERSION__ === "string" && __AURA_VERSION__) ||
+  process.env.AURA_BUNDLED_VERSION ||
   "0.0.0";
 
 function hasFlag(args: string[], flag: string): boolean {
@@ -72,6 +72,9 @@ async function main() {
 }
 
 void main().catch((err) => {
-  console.error("[aura_intelligence] Relay failed:", err instanceof Error ? (err.stack ?? err.message) : err);
+  console.error(
+    "[aura_intelligence] Relay failed:",
+    err instanceof Error ? (err.stack ?? err.message) : err,
+  );
   process.exit(1);
 });

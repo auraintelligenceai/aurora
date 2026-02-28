@@ -6,7 +6,7 @@ describe("matchesMentionWithExplicit", () => {
 
   it("checks mentionPatterns even when explicit mention is available", () => {
     const result = matchesMentionWithExplicit({
-      text: "@clawd hello",
+      text: "@aura hello",
       mentionRegexes,
       explicit: {
         hasAnyMention: true,
@@ -45,7 +45,7 @@ describe("matchesMentionWithExplicit", () => {
 
   it("falls back to regex matching when explicit mention cannot be resolved", () => {
     const result = matchesMentionWithExplicit({
-      text: "clawd please",
+      text: "aura please",
       mentionRegexes,
       explicit: {
         hasAnyMention: true,

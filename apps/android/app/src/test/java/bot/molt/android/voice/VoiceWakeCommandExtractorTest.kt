@@ -1,4 +1,4 @@
-package bot.molt.android.voice
+package aura.android.voice
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -7,13 +7,13 @@ import org.junit.Test
 class VoiceWakeCommandExtractorTest {
   @Test
   fun extractsCommandAfterTriggerWord() {
-    val res = VoiceWakeCommandExtractor.extractCommand("Claude take a photo", listOf("clawd", "claude"))
+    val res = VoiceWakeCommandExtractor.extractCommand("Claude take a photo", listOf("aura", "claude"))
     assertEquals("take a photo", res)
   }
 
   @Test
   fun extractsCommandWithPunctuation() {
-    val res = VoiceWakeCommandExtractor.extractCommand("hey clawd, what's the weather?", listOf("clawd"))
+    val res = VoiceWakeCommandExtractor.extractCommand("hey aura, what's the weather?", listOf("aura"))
     assertEquals("what's the weather?", res)
   }
 

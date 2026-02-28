@@ -188,12 +188,15 @@ export const resetTestPluginRegistry = () => {
 };
 
 const testConfigRoot = {
-  value: path.join(os.tmpdir(), `aura_intelligence-gateway-test-${process.pid}-${crypto.randomUUID()}`),
+  value: path.join(
+    os.tmpdir(),
+    `aura_intelligence-gateway-test-${process.pid}-${crypto.randomUUID()}`,
+  ),
 };
 
 export const setTestConfigRoot = (root: string) => {
   testConfigRoot.value = root;
-  process.env.CLAWDBOT_CONFIG_PATH = path.join(root, "aura_intelligence.json");
+  process.env.AURA_CONFIG_PATH = path.join(root, "aura_intelligence.json");
 };
 
 export const testTailnetIPv4 = hoisted.testTailnetIPv4;
@@ -389,7 +392,7 @@ vi.mock("../config/config.js", async () => {
           : {};
       const defaults = {
         model: { primary: "anthropic/claude-opus-4-5" },
-        workspace: path.join(os.tmpdir(), "clawd-gateway-test"),
+        workspace: path.join(os.tmpdir(), "aura-gateway-test"),
         ...fileDefaults,
         ...testState.agentConfig,
       };
@@ -560,5 +563,5 @@ vi.mock("../cli/deps.js", async () => {
   };
 });
 
-process.env.CLAWDBOT_SKIP_CHANNELS = "1";
-process.env.CLAWDBOT_SKIP_CRON = "1";
+process.env.AURA_SKIP_CHANNELS = "1";
+process.env.AURA_SKIP_CRON = "1";

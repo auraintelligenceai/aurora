@@ -189,7 +189,10 @@ function hasExplicitHeartbeatAgents(cfg: aura_intelligenceConfig) {
   return list.some((entry) => Boolean(entry?.heartbeat));
 }
 
-export function isHeartbeatEnabledForAgent(cfg: aura_intelligenceConfig, agentId?: string): boolean {
+export function isHeartbeatEnabledForAgent(
+  cfg: aura_intelligenceConfig,
+  agentId?: string,
+): boolean {
   const resolvedAgentId = normalizeAgentId(agentId ?? resolveDefaultAgentId(cfg));
   const list = cfg.agents?.list ?? [];
   const hasExplicit = hasExplicitHeartbeatAgents(cfg);
@@ -201,7 +204,10 @@ export function isHeartbeatEnabledForAgent(cfg: aura_intelligenceConfig, agentId
   return resolvedAgentId === resolveDefaultAgentId(cfg);
 }
 
-function resolveHeartbeatConfig(cfg: aura_intelligenceConfig, agentId?: string): HeartbeatConfig | undefined {
+function resolveHeartbeatConfig(
+  cfg: aura_intelligenceConfig,
+  agentId?: string,
+): HeartbeatConfig | undefined {
   const defaults = cfg.agents?.defaults?.heartbeat;
   if (!agentId) return defaults;
   const overrides = resolveAgentConfig(cfg, agentId)?.heartbeat;

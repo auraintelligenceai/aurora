@@ -1,4 +1,4 @@
-import type { aura_intelligenceConfig, DmPolicy } from "clawdbot/plugin-sdk";
+import type { aura_intelligenceConfig, DmPolicy } from "aura/plugin-sdk";
 import {
   addWildcardAllowFrom,
   formatDocsLink,
@@ -9,7 +9,7 @@ import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   migrateBaseNameToDefaultAccount,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import {
   listGoogleChatAccountIds,

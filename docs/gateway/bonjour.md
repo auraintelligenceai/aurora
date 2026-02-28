@@ -44,13 +44,13 @@ aura_intelligence dns setup --apply
 
 This installs CoreDNS and configures it to:
 - listen on port 53 only on the gateway’s Tailscale interfaces
-- serve `aura_intelligence.internal.` from `~/.clawdbot/dns/aura_intelligence.internal.db`
+- serve `aura_intelligence.internal.` from `~/.aura/dns/aura_intelligence.internal.db`
 
 Validate from a tailnet‑connected machine:
 
 ```bash
 dns-sd -B _aura_intelligence-gw._tcp aura_intelligence.internal.
-dig @<TAILNET_IPV4> -p 53 _aura_intelligence-gw._tcp.clawdbot.internal PTR +short
+dig @<TAILNET_IPV4> -p 53 _aura_intelligence-gw._tcp.aura.internal PTR +short
 ```
 
 ### Tailscale DNS settings
@@ -69,7 +69,7 @@ The Gateway WS port (default `18789`) binds to loopback by default. For LAN/tail
 access, bind explicitly and keep auth enabled.
 
 For tailnet‑only setups:
-- Set `gateway.bind: "tailnet"` in `~/.clawdbot/aura_intelligence.json`.
+- Set `gateway.bind: "tailnet"` in `~/.aura_intelligence/aura_intelligence.json`.
 - Restart the Gateway (or restart the macOS menubar app).
 
 ## What advertises
@@ -150,11 +150,11 @@ sequences (e.g. spaces become `\032`).
 
 ## Disabling / configuration
 
-- `CLAWDBOT_DISABLE_BONJOUR=1` disables advertising.
-- `gateway.bind` in `~/.clawdbot/aura_intelligence.json` controls the Gateway bind mode.
-- `CLAWDBOT_SSH_PORT` overrides the SSH port advertised in TXT.
-- `CLAWDBOT_TAILNET_DNS` publishes a MagicDNS hint in TXT.
-- `CLAWDBOT_CLI_PATH` overrides the advertised CLI path.
+- `AURA_DISABLE_BONJOUR=1` disables advertising.
+- `gateway.bind` in `~/.aura_intelligence/aura_intelligence.json` controls the Gateway bind mode.
+- `AURA_SSH_PORT` overrides the SSH port advertised in TXT.
+- `AURA_TAILNET_DNS` publishes a MagicDNS hint in TXT.
+- `AURA_CLI_PATH` overrides the advertised CLI path.
 
 ## Related docs
 

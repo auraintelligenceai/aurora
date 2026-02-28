@@ -2,8 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { EventEmitter } from "node:events";
 
-import { removeAckReactionAfterReply, shouldAckReaction } from "clawdbot/plugin-sdk";
-import type { aura_intelligenceConfig, PluginRuntime } from "clawdbot/plugin-sdk";
+import { removeAckReactionAfterReply, shouldAckReaction } from "aura/plugin-sdk";
+import type { aura_intelligenceConfig, PluginRuntime } from "aura/plugin-sdk";
 import {
   handleBlueBubblesWebhookRequest,
   registerBlueBubblesWebhookTarget,

@@ -250,16 +250,16 @@ export async function launchClawdChrome(
         name: profile.name,
         color: profile.color,
       });
-      log.info(`🦞 clawd browser profile decorated (${profile.color})`);
+      log.info(`🦞 aura browser profile decorated (${profile.color})`);
     } catch (err) {
-      log.warn(`clawd browser profile decoration failed: ${String(err)}`);
+      log.warn(`aura browser profile decoration failed: ${String(err)}`);
     }
   }
 
   try {
     ensureProfileCleanExit(userDataDir);
   } catch (err) {
-    log.warn(`clawd browser clean-exit prefs failed: ${String(err)}`);
+    log.warn(`aura browser clean-exit prefs failed: ${String(err)}`);
   }
 
   const proc = spawnOnce();
@@ -283,7 +283,7 @@ export async function launchClawdChrome(
 
   const pid = proc.pid ?? -1;
   log.info(
-    `🦞 clawd browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
+    `🦞 aura browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
   );
 
   return {

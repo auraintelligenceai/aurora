@@ -47,12 +47,21 @@ export type ChannelConfigAdapter<ResolvedAccount> = {
     accountId: string;
     enabled: boolean;
   }) => aura_intelligenceConfig;
-  deleteAccount?: (params: { cfg: aura_intelligenceConfig; accountId: string }) => aura_intelligenceConfig;
+  deleteAccount?: (params: {
+    cfg: aura_intelligenceConfig;
+    accountId: string;
+  }) => aura_intelligenceConfig;
   isEnabled?: (account: ResolvedAccount, cfg: aura_intelligenceConfig) => boolean;
   disabledReason?: (account: ResolvedAccount, cfg: aura_intelligenceConfig) => string;
-  isConfigured?: (account: ResolvedAccount, cfg: aura_intelligenceConfig) => boolean | Promise<boolean>;
+  isConfigured?: (
+    account: ResolvedAccount,
+    cfg: aura_intelligenceConfig,
+  ) => boolean | Promise<boolean>;
   unconfiguredReason?: (account: ResolvedAccount, cfg: aura_intelligenceConfig) => string;
-  describeAccount?: (account: ResolvedAccount, cfg: aura_intelligenceConfig) => ChannelAccountSnapshot;
+  describeAccount?: (
+    account: ResolvedAccount,
+    cfg: aura_intelligenceConfig,
+  ) => ChannelAccountSnapshot;
   resolveAllowFrom?: (params: {
     cfg: aura_intelligenceConfig;
     accountId?: string | null;
@@ -223,7 +232,10 @@ export type ChannelHeartbeatAdapter = {
     accountId?: string | null;
     deps?: ChannelHeartbeatDeps;
   }) => Promise<{ ok: boolean; reason: string }>;
-  resolveRecipients?: (params: { cfg: aura_intelligenceConfig; opts?: { to?: string; all?: boolean } }) => {
+  resolveRecipients?: (params: {
+    cfg: aura_intelligenceConfig;
+    opts?: { to?: string; all?: boolean };
+  }) => {
     recipients: string[];
     source: string;
   };

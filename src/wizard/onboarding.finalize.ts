@@ -9,6 +9,7 @@ import {
 } from "../commands/daemon-runtime.js";
 import { healthCommand } from "../commands/health.js";
 import { formatHealthCheckFailure } from "../commands/health-format.js";
+import { pickPrimaryTailnetIPv4, isValidIPv4 } from "../infra/tailnet.js";
 import {
   detectBrowserOpenSupport,
   formatControlUiSshHint,
@@ -163,13 +164,14 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       let installError: string | null = null;
       try {
         progress.update("Preparing Gateway service…");
-        const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
+         const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
           env: process.env,
           port: settings.port,
           token: settings.gatewayToken,
           runtime: daemonRuntime,
           warn: (message, title) => prompter.note(message, title),
           config: nextConfig,
+          force: true,
         });
 
         progress.update("Installing Gateway service…");
@@ -214,8 +216,8 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       await prompter.note(
         [
           "Docs:",
-          "https://docs.molt.bot/gateway/health",
-          "https://docs.molt.bot/gateway/troubleshooting",
+          "https://docs.auraintelligence.ai/gateway/health",
+          "https://docs.auraintelligence.ai/gateway/troubleshooting",
         ].join("\n"),
         "Health check help",
       );
@@ -277,7 +279,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       tokenParam ? `Web UI (with token): ${authedUrl}` : undefined,
       `Gateway WS: ${links.wsUrl}`,
       gatewayStatusLine,
-      "Docs: https://docs.molt.bot/web/control-ui",
+      "Docs: https://docs.auraintelligence.ai/web/control-ui",
     ]
       .filter(Boolean)
       .join("\n"),
@@ -287,7 +289,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
   let controlUiOpened = false;
   let controlUiOpenHint: string | undefined;
   let seededInBackground = false;
-  let hatchChoice: "tui" | "web" | "later" | null = null;
+  let hatchChoice: "tui" | "web" | "avatar" | "later" | null = null;
 
   if (!opts.skipUi && gatewayProbe.ok) {
     if (hasBootstrap) {
@@ -305,24 +307,25 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
     await prompter.note(
       [
         "Gateway token: shared auth for the Gateway + Control UI.",
-        "Stored in: ~/.clawdbot/aura_intelligence.json (gateway.auth.token) or CLAWDBOT_GATEWAY_TOKEN.",
+        "Stored in: ~/.aura_intelligence/aura_intelligence.json (gateway.auth.token) or AURA_GATEWAY_TOKEN.",
         "Web UI stores a copy in this browser's localStorage (aura_intelligence.control.settings.v1).",
         `Get the tokenized link anytime: ${formatCliCommand("aura_intelligence dashboard --no-open")}`,
       ].join("\n"),
       "Token",
     );
 
-    hatchChoice = (await prompter.select({
+     hatchChoice = (await prompter.select({
       message: "How do you want to hatch your bot?",
       options: [
         { value: "tui", label: "Hatch in TUI (recommended)" },
         { value: "web", label: "Open the Web UI" },
+        { value: "avatar", label: "Open the Avatar Tool" },
         { value: "later", label: "Do this later" },
       ],
       initialValue: "tui",
-    })) as "tui" | "web" | "later";
+    })) as "tui" | "web" | "avatar" | "later";
 
-    if (hatchChoice === "tui") {
+     if (hatchChoice === "tui") {
       await runTui({
         url: links.wsUrl,
         token: settings.authMode === "token" ? settings.gatewayToken : undefined,
@@ -372,6 +375,48 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
           .join("\n"),
         "Dashboard ready",
       );
+     } else if (hatchChoice === "avatar") {
+      // Canvas host has a fixed base path regardless of control UI base path
+      const host = (() => {
+        if (settings.bind === "custom" && settings.customBindHost && isValidIPv4(settings.customBindHost)) {
+          return settings.customBindHost;
+        }
+        if (settings.bind === "tailnet") {
+          const tailnetIPv4 = pickPrimaryTailnetIPv4();
+          if (tailnetIPv4) return tailnetIPv4;
+        }
+        return "127.0.0.1";
+      })();
+      const avatarUrl = `http://${host}:${settings.port}/__aura_intelligence__/canvas/avatar${tokenParam}`;
+      const browserSupport = await detectBrowserOpenSupport();
+      if (browserSupport.ok) {
+        controlUiOpened = await openUrl(avatarUrl);
+        if (!controlUiOpened) {
+          controlUiOpenHint = formatControlUiSshHint({
+            port: settings.port,
+            basePath: controlUiBasePath,
+            token: settings.gatewayToken,
+          });
+        }
+      } else {
+        controlUiOpenHint = formatControlUiSshHint({
+          port: settings.port,
+          basePath: controlUiBasePath,
+          token: settings.gatewayToken,
+        });
+      }
+      await prompter.note(
+        [
+          `Avatar Tool link (with token): ${avatarUrl}`,
+          controlUiOpened
+            ? "Opened in your browser. Keep that tab to interact with the avatar."
+            : "Copy/paste this URL in a browser on this machine to open the Avatar Tool.",
+          controlUiOpenHint,
+        ]
+          .filter(Boolean)
+          .join("\n"),
+        "Avatar Tool ready",
+      );
     } else {
       await prompter.note(
         `When you're ready: ${formatCliCommand("aura_intelligence dashboard --no-open")}`,
@@ -383,14 +428,14 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
   }
 
   await prompter.note(
-    ["Back up your agent workspace.", "Docs: https://docs.molt.bot/concepts/agent-workspace"].join(
+    ["Back up your agent workspace.", "Docs: https://docs.auraintelligence.ai/concepts/agent-workspace"].join(
       "\n",
     ),
     "Workspace backup",
   );
 
   await prompter.note(
-    "Running agents on your computer is risky — harden your setup: https://docs.molt.bot/security",
+    "Running agents on your computer is risky — harden your setup: https://docs.auraintelligence.ai/security",
     "Security",
   );
 
@@ -443,33 +488,33 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
           webSearchKey
             ? "API key: stored in config (tools.web.search.apiKey)."
             : "API key: provided via BRAVE_API_KEY env var (Gateway environment).",
-          "Docs: https://docs.molt.bot/tools/web",
+          "Docs: https://docs.auraintelligence.ai/tools/web",
         ].join("\n")
       : [
           "If you want your agent to be able to search the web, you’ll need an API key.",
           "",
-          "aura_intelligence uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
+          "Aura Intelligence uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
           "",
           "Set it up interactively:",
           `- Run: ${formatCliCommand("aura_intelligence configure --section web")}`,
           "- Enable web_search and paste your Brave Search API key",
           "",
           "Alternative: set BRAVE_API_KEY in the Gateway environment (no config changes).",
-          "Docs: https://docs.molt.bot/tools/web",
+          "Docs: https://docs.auraintelligence.ai/tools/web",
         ].join("\n"),
     "Web search (optional)",
   );
 
   await prompter.note(
-    'What now: https://molt.bot/showcase ("What People Are Building").',
+    'What now: https://auraintelligence.ai/showcase ("What People Are Building").',
     "What now",
   );
 
   await prompter.outro(
     controlUiOpened
-      ? "Onboarding complete. Dashboard opened with your token; keep that tab to control aura_intelligence."
+      ? "Onboarding complete. Dashboard opened with your token; keep that tab to control Aura Intelligence."
       : seededInBackground
         ? "Onboarding complete. Web UI seeded in the background; open it anytime with the tokenized link above."
-        : "Onboarding complete. Use the tokenized dashboard link above to control aura_intelligence.",
+        : "Onboarding complete. Use the tokenized dashboard link above to control Aura Intelligence.",
   );
 }

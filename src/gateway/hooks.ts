@@ -54,7 +54,9 @@ export function extractHookToken(req: IncomingMessage, url: URL): HookTokenResul
     if (token) return { token, fromQuery: false };
   }
   const headerToken =
-    typeof req.headers["x-aura_intelligence-token"] === "string" ? req.headers["x-aura_intelligence-token"].trim() : "";
+    typeof req.headers["x-aura_intelligence-token"] === "string"
+      ? req.headers["x-aura_intelligence-token"].trim()
+      : "";
   if (headerToken) return { token: headerToken, fromQuery: false };
   const queryToken = url.searchParams.get("token");
   if (queryToken) return { token: queryToken.trim(), fromQuery: true };

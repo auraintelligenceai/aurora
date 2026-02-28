@@ -1,6 +1,9 @@
 import type { App } from "@slack/bolt";
 import type { HistoryEntry } from "../../auto-reply/reply/history.js";
-import type { aura_intelligenceConfig, SlackReactionNotificationMode } from "../../config/config.js";
+import type {
+  aura_intelligenceConfig,
+  SlackReactionNotificationMode,
+} from "../../config/config.js";
 import { resolveSessionKey, type SessionScope } from "../../config/sessions.js";
 import type { DmPolicy, GroupPolicy } from "../../config/types.js";
 import { logVerbose } from "../../globals.js";

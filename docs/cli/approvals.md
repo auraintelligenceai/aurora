@@ -45,4 +45,4 @@ aura_intelligence approvals allowlist remove "~/Projects/**/bin/rg"
 - `--node` uses the same resolver as `aura_intelligence nodes` (id, name, ip, or id prefix).
 - `--agent` defaults to `"*"`, which applies to all agents.
 - The node host must advertise `system.execApprovals.get/set` (macOS app or headless node host).
-- Approvals files are stored per host at `~/.clawdbot/exec-approvals.json`.
+- Approvals files are stored per host at `~/.aura/exec-approvals.json`.

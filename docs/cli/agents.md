@@ -16,16 +16,16 @@ Related:
 
 ```bash
 aura_intelligence agents list
-aura_intelligence agents add work --workspace ~/clawd-work
-aura_intelligence agents set-identity --workspace ~/clawd --from-identity
-aura_intelligence agents set-identity --agent main --avatar avatars/clawd.png
+aura_intelligence agents add work --workspace ~/aura-work
+aura_intelligence agents set-identity --workspace ~/aura --from-identity
+aura_intelligence agents set-identity --agent main --avatar avatars/aura.png
 aura_intelligence agents delete work
 ```
 
 ## Identity files
 
 Each agent workspace can include an `IDENTITY.md` at the workspace root:
-- Example path: `~/clawd/IDENTITY.md`
+- Example path: `~/aura/IDENTITY.md`
 - `set-identity --from-identity` reads from the workspace root (or an explicit `--identity-file`)
 
 Avatar paths resolve relative to the workspace root.
@@ -41,13 +41,13 @@ Avatar paths resolve relative to the workspace root.
 Load from `IDENTITY.md`:
 
 ```bash
-aura_intelligence agents set-identity --workspace ~/clawd --from-identity
+aura_intelligence agents set-identity --workspace ~/aura --from-identity
 ```
 
 Override fields explicitly:
 
 ```bash
-aura_intelligence agents set-identity --agent main --name "Clawd" --emoji "🦞" --avatar avatars/clawd.png
+aura_intelligence agents set-identity --agent main --name "Clawd" --emoji "🦞" --avatar avatars/aura.png
 ```
 
 Config sample:
@@ -62,7 +62,7 @@ Config sample:
           name: "Clawd",
           theme: "space lobster",
           emoji: "🦞",
-          avatar: "avatars/clawd.png"
+          avatar: "avatars/aura.png"
         }
       }
     ]

@@ -21,24 +21,24 @@ describe("hooks install (e2e)", () => {
     workspaceDir = path.join(baseDir, "workspace");
     await fs.mkdir(workspaceDir, { recursive: true });
 
-    prevStateDir = process.env.CLAWDBOT_STATE_DIR;
-    prevBundledDir = process.env.CLAWDBOT_BUNDLED_HOOKS_DIR;
-    process.env.CLAWDBOT_STATE_DIR = path.join(baseDir, "state");
-    process.env.CLAWDBOT_BUNDLED_HOOKS_DIR = path.join(baseDir, "bundled-none");
+    prevStateDir = process.env.AURA_STATE_DIR;
+    prevBundledDir = process.env.AURA_BUNDLED_HOOKS_DIR;
+    process.env.AURA_STATE_DIR = path.join(baseDir, "state");
+    process.env.AURA_BUNDLED_HOOKS_DIR = path.join(baseDir, "bundled-none");
     vi.resetModules();
   });
 
   afterEach(async () => {
     if (prevStateDir === undefined) {
-      delete process.env.CLAWDBOT_STATE_DIR;
+      delete process.env.AURA_STATE_DIR;
     } else {
-      process.env.CLAWDBOT_STATE_DIR = prevStateDir;
+      process.env.AURA_STATE_DIR = prevStateDir;
     }
 
     if (prevBundledDir === undefined) {
-      delete process.env.CLAWDBOT_BUNDLED_HOOKS_DIR;
+      delete process.env.AURA_BUNDLED_HOOKS_DIR;
     } else {
-      process.env.CLAWDBOT_BUNDLED_HOOKS_DIR = prevBundledDir;
+      process.env.AURA_BUNDLED_HOOKS_DIR = prevBundledDir;
     }
 
     vi.resetModules();

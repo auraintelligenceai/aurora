@@ -6,8 +6,8 @@
  * Multi-instance: callers may pass an explicit range to avoid collisions.
  *
  * Reserved ports (do not use for CDP):
- *   18789 - Gateway WebSocket
- *   18790 - Bridge
+ *   18790 - Gateway WebSocket
+ *   18791 - Bridge
  *   18791 - Browser control server
  *   18792-18799 - Reserved for future one-off services (canvas at 18793)
  */
@@ -69,7 +69,7 @@ export function getUsedPorts(
 }
 
 export const PROFILE_COLORS = [
-  "#FF4500", // Orange-red (clawd default)
+  "#FF4500", // Orange-red (aura default)
   "#0066CC", // Blue
   "#00AA00", // Green
   "#9933FF", // Purple

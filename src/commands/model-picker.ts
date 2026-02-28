@@ -41,6 +41,9 @@ function hasAuthForProvider(
   cfg: aura_intelligenceConfig,
   store: ReturnType<typeof ensureAuthProfileStore>,
 ) {
+  // Ollama doesn't require an API key for local usage
+  if (provider.toLowerCase() === "ollama") return true;
+  
   if (listProfilesForProvider(store, provider).length > 0) return true;
   if (resolveEnvApiKey(provider)) return true;
   if (getCustomProviderApiKey(cfg, provider)) return true;
@@ -387,7 +390,10 @@ export async function promptModelAllowlist(params: {
   return { models: [] };
 }
 
-export function applyPrimaryModel(cfg: aura_intelligenceConfig, model: string): aura_intelligenceConfig {
+export function applyPrimaryModel(
+  cfg: aura_intelligenceConfig,
+  model: string,
+): aura_intelligenceConfig {
   const defaults = cfg.agents?.defaults;
   const existingModel = defaults?.model;
   const existingModels = defaults?.models;
@@ -414,7 +420,10 @@ export function applyPrimaryModel(cfg: aura_intelligenceConfig, model: string): 
   };
 }
 
-export function applyModelAllowlist(cfg: aura_intelligenceConfig, models: string[]): aura_intelligenceConfig {
+export function applyModelAllowlist(
+  cfg: aura_intelligenceConfig,
+  models: string[],
+): aura_intelligenceConfig {
   const defaults = cfg.agents?.defaults;
   const normalized = normalizeModelKeys(models);
   if (normalized.length === 0) {

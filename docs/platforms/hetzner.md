@@ -20,7 +20,7 @@ Hetzner pricing changes; pick the smallest Debian/Ubuntu VPS and scale up if you
 - Rent a small Linux server (Hetzner VPS)
 - Install Docker (isolated app runtime)
 - Start the aura_intelligence Gateway in Docker
-- Persist `~/.clawdbot` + `~/clawd` on the host (survives restarts/rebuilds)
+- Persist `~/.aura` + `~/aura` on the host (survives restarts/rebuilds)
 - Access the Control UI from your laptop via an SSH tunnel
 
 The Gateway can be accessed via:
@@ -110,12 +110,12 @@ Docker containers are ephemeral.
 All long-lived state must live on the host.
 
 ```bash
-mkdir -p /root/.clawdbot
-mkdir -p /root/clawd
+mkdir -p /root/.aura
+mkdir -p /root/aura
 
 # Set ownership to the container user (uid 1000):
-chown -R 1000:1000 /root/.clawdbot
-chown -R 1000:1000 /root/clawd
+chown -R 1000:1000 /root/.aura
+chown -R 1000:1000 /root/aura
 ```
 
 ---
@@ -125,16 +125,16 @@ chown -R 1000:1000 /root/clawd
 Create `.env` in the repository root.
 
 ```bash
-CLAWDBOT_IMAGE=aura_intelligence:latest
-CLAWDBOT_GATEWAY_TOKEN=change-me-now
-CLAWDBOT_GATEWAY_BIND=lan
-CLAWDBOT_GATEWAY_PORT=18789
+AURA_IMAGE=aura_intelligence:latest
+AURA_GATEWAY_TOKEN=change-me-now
+AURA_GATEWAY_BIND=lan
+AURA_GATEWAY_PORT=18789
 
-CLAWDBOT_CONFIG_DIR=/root/.clawdbot
-CLAWDBOT_WORKSPACE_DIR=/root/clawd
+AURA_CONFIG_DIR=/root/.aura
+AURA_WORKSPACE_DIR=/root/aura
 
 GOG_KEYRING_PASSWORD=change-me-now
-XDG_CONFIG_HOME=/home/node/.clawdbot
+XDG_CONFIG_HOME=/home/node/.aura
 ```
 
 Generate strong secrets:
@@ -154,7 +154,7 @@ Create or update `docker-compose.yml`.
 ```yaml
 services:
   aura_intelligence-gateway:
-    image: ${CLAWDBOT_IMAGE}
+    image: ${AURA_IMAGE}
     build: .
     restart: unless-stopped
     env_file:
@@ -163,19 +163,19 @@ services:
       - HOME=/home/node
       - NODE_ENV=production
       - TERM=xterm-256color
-      - CLAWDBOT_GATEWAY_BIND=${CLAWDBOT_GATEWAY_BIND}
-      - CLAWDBOT_GATEWAY_PORT=${CLAWDBOT_GATEWAY_PORT}
-      - CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN}
+      - AURA_GATEWAY_BIND=${AURA_GATEWAY_BIND}
+      - AURA_GATEWAY_PORT=${AURA_GATEWAY_PORT}
+      - AURA_GATEWAY_TOKEN=${AURA_GATEWAY_TOKEN}
       - GOG_KEYRING_PASSWORD=${GOG_KEYRING_PASSWORD}
       - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
       - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.clawdbot
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/clawd
+      - ${AURA_CONFIG_DIR}:/home/node/.aura
+      - ${AURA_WORKSPACE_DIR}:/home/node/aura
     ports:
       # Recommended: keep the Gateway loopback-only on the VPS; access via SSH tunnel.
       # To expose it publicly, remove the `127.0.0.1:` prefix and firewall accordingly.
-      - "127.0.0.1:${CLAWDBOT_GATEWAY_PORT}:18789"
+      - "127.0.0.1:${AURA_GATEWAY_PORT}:18789"
 
       # Optional: only if you run iOS/Android nodes against this VPS and need Canvas host.
       # If you expose this publicly, read /gateway/security and firewall accordingly.
@@ -186,9 +186,9 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${CLAWDBOT_GATEWAY_BIND}",
+        "${AURA_GATEWAY_BIND}",
         "--port",
-        "${CLAWDBOT_GATEWAY_PORT}"
+        "${AURA_GATEWAY_PORT}"
       ]
 ```
 
@@ -313,12 +313,12 @@ All long-lived state must survive restarts, rebuilds, and reboots.
 
 | Component | Location | Persistence mechanism | Notes |
 |---|---|---|---|
-| Gateway config | `/home/node/.clawdbot/` | Host volume mount | Includes `aura_intelligence.json`, tokens |
-| Model auth profiles | `/home/node/.clawdbot/` | Host volume mount | OAuth tokens, API keys |
-| Skill configs | `/home/node/.clawdbot/skills/` | Host volume mount | Skill-level state |
-| Agent workspace | `/home/node/clawd/` | Host volume mount | Code and agent artifacts |
-| WhatsApp session | `/home/node/.clawdbot/` | Host volume mount | Preserves QR login |
-| Gmail keyring | `/home/node/.clawdbot/` | Host volume + password | Requires `GOG_KEYRING_PASSWORD` |
+| Gateway config | `/home/node/.aura/` | Host volume mount | Includes `aura_intelligence.json`, tokens |
+| Model auth profiles | `/home/node/.aura/` | Host volume mount | OAuth tokens, API keys |
+| Skill configs | `/home/node/.aura/skills/` | Host volume mount | Skill-level state |
+| Agent workspace | `/home/node/aura/` | Host volume mount | Code and agent artifacts |
+| WhatsApp session | `/home/node/.aura/` | Host volume mount | Preserves QR login |
+| Gmail keyring | `/home/node/.aura/` | Host volume + password | Requires `GOG_KEYRING_PASSWORD` |
 | External binaries | `/usr/local/bin/` | Docker image | Must be baked at build time |
 | Node runtime | Container filesystem | Docker image | Rebuilt every image build |
 | OS packages | Container filesystem | Docker image | Do not install at runtime |

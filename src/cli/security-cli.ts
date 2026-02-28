@@ -68,7 +68,9 @@ export function registerSecurityCli(program: Command) {
       const lines: string[] = [];
       lines.push(heading("aura_intelligence security audit"));
       lines.push(muted(`Summary: ${formatSummary(report.summary)}`));
-      lines.push(muted(`Run deeper: ${formatCliCommand("aura_intelligence security audit --deep")}`));
+      lines.push(
+        muted(`Run deeper: ${formatCliCommand("aura_intelligence security audit --deep")}`),
+      );
 
       if (opts.fix) {
         lines.push(muted(`Fix: ${formatCliCommand("aura_intelligence security audit --fix")}`));

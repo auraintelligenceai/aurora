@@ -83,7 +83,9 @@ export function resetBaileysMocks() {
 }
 
 export function getLastSocket(): MockBaileysSocket {
-  const getter = (globalThis as Record<PropertyKey, unknown>)[Symbol.for("aura_intelligence:lastSocket")];
+  const getter = (globalThis as Record<PropertyKey, unknown>)[
+    Symbol.for("aura_intelligence:lastSocket")
+  ];
   if (typeof getter === "function") return (getter as () => MockBaileysSocket)();
   if (!getter) throw new Error("Baileys mock not initialized");
   throw new Error("Invalid Baileys socket getter");

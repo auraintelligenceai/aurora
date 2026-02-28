@@ -18,7 +18,7 @@ Use these hubs to discover every page, including deep dives and reference docs t
 - [Help](/help)
 - [Configuration](/gateway/configuration)
 - [Configuration examples](/gateway/configuration-examples)
-- [aura_intelligence assistant (Clawd)](/start/clawd)
+- [aura_intelligence assistant (Clawd)](/start/aura)
 - [Showcase](/start/showcase)
 - [Lore](/start/lore)
 

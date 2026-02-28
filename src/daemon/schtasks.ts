@@ -17,22 +17,25 @@ const formatLine = (label: string, value: string) => {
 };
 
 function resolveTaskName(env: Record<string, string | undefined>): string {
-  const override = env.CLAWDBOT_WINDOWS_TASK_NAME?.trim();
+  const override = env.AURA_WINDOWS_TASK_NAME?.trim();
   if (override) return override;
-  return resolveGatewayWindowsTaskName(env.CLAWDBOT_PROFILE);
+  return resolveGatewayWindowsTaskName(env.AURA_PROFILE);
 }
 
 export function resolveTaskScriptPath(env: Record<string, string | undefined>): string {
-  const override = env.CLAWDBOT_TASK_SCRIPT?.trim();
+  const override = env.AURA_TASK_SCRIPT?.trim();
   if (override) return override;
-  const scriptName = env.CLAWDBOT_TASK_SCRIPT_NAME?.trim() || "gateway.cmd";
+  const scriptName = env.AURA_TASK_SCRIPT_NAME?.trim() || "gateway.cmd";
   const stateDir = resolveGatewayStateDir(env);
   return path.join(stateDir, scriptName);
 }
 
 function quoteCmdArg(value: string): string {
-  if (!/[ \t"]/g.test(value)) return value;
-  return `"${value.replace(/"/g, '\\"')}"`;
+  // Ensure Windows paths have proper separators with double backslashes for batch files
+  const normalized = value.replace(/\//g, "\\");
+  
+  if (!/[ \t"]/g.test(normalized)) return normalized;
+  return `"${normalized.replace(/"/g, '\\"')}"`;
 }
 
 function resolveTaskUser(env: Record<string, string | undefined>): string | null {
@@ -139,6 +142,22 @@ export function parseSchtasksQuery(output: string): ScheduledTaskInfo {
   return info;
 }
 
+function escapeBatchVariable(value: string): string {
+  // Escape special characters for batch files: !, ^, &, |, <, >, (, ), etc.
+  return value.replace(/([!^&|<>()])/g, '^$1');
+}
+
+function isValidWindowsPath(path: string): boolean {
+  // Basic validation for Windows paths
+  const windowsPathRegex = /^[a-zA-Z]:[\\/](?:[^<>:"|?*]+[\\/])*[^<>:"|?*]*$/;
+  return windowsPathRegex.test(path);
+}
+
+function escapeBatchPath(path: string): string {
+  // Escape special characters in paths for batch files
+  return path.replace(/([!^&|<>()])/g, '^$1');
+}
+
 function buildTaskScript({
   description,
   programArguments,
@@ -155,15 +174,20 @@ function buildTaskScript({
     lines.push(`rem ${description.trim()}`);
   }
   if (workingDirectory) {
-    lines.push(`cd /d ${quoteCmdArg(workingDirectory)}`);
+    if (!isValidWindowsPath(workingDirectory)) {
+      throw new Error(`Invalid working directory path: ${workingDirectory}`);
+    }
+    lines.push(`cd /d ${quoteCmdArg(escapeBatchPath(workingDirectory))}`);
   }
   if (environment) {
     for (const [key, value] of Object.entries(environment)) {
       if (!value) continue;
-      lines.push(`set ${key}=${value}`);
+      lines.push(`set ${key}=${escapeBatchVariable(value)}`);
     }
   }
-  const command = programArguments.map(quoteCmdArg).join(" ");
+  // Fix: Ensure all paths in program arguments are properly formatted with backslashes
+  const fixedArguments = programArguments.map(arg => arg.replace(/\//g, "\\"));
+  const command = fixedArguments.map(quoteCmdArg).join(" ");
   lines.push(command);
   return `${lines.join("\r\n")}\r\n`;
 }
@@ -225,8 +249,8 @@ export async function installScheduledTask({
   const taskDescription =
     description ??
     formatGatewayServiceDescription({
-      profile: env.CLAWDBOT_PROFILE,
-      version: environment?.CLAWDBOT_SERVICE_VERSION ?? env.CLAWDBOT_SERVICE_VERSION,
+      profile: env.AURA_PROFILE,
+      version: environment?.AURA_SERVICE_VERSION ?? env.AURA_SERVICE_VERSION,
     });
   const script = buildTaskScript({
     description: taskDescription,
@@ -295,8 +319,12 @@ export async function uninstallScheduledTask({
 
 function isTaskNotRunning(res: { stdout: string; stderr: string; code: number }): boolean {
   const detail = `${res.stderr || res.stdout}`.toLowerCase();
-  return detail.includes("not running");
+  return detail.includes("not running") || 
+         detail.includes("could not find the task") || 
+         detail.includes("the task is not currently running");
 }
+
+
 
 export async function stopScheduledTask({
   stdout,

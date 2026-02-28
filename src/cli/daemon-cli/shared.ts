@@ -53,11 +53,11 @@ export function pickProbeHostForBind(
 const SAFE_DAEMON_ENV_KEYS = [
   "aura_intelligence_STATE_DIR",
   "aura_intelligence_CONFIG_PATH",
-  "CLAWDBOT_PROFILE",
-  "CLAWDBOT_STATE_DIR",
-  "CLAWDBOT_CONFIG_PATH",
-  "CLAWDBOT_GATEWAY_PORT",
-  "CLAWDBOT_NIX_MODE",
+  "AURA_PROFILE",
+  "AURA_STATE_DIR",
+  "AURA_CONFIG_PATH",
+  "AURA_GATEWAY_PORT",
+  "AURA_NIX_MODE",
 ];
 
 export function filterDaemonEnv(env: Record<string, string> | undefined): Record<string, string> {
@@ -131,7 +131,9 @@ export function renderRuntimeHints(
     }
   })();
   if (runtime.missingUnit) {
-    hints.push(`Service not installed. Run: ${formatCliCommand("aura_intelligence gateway install", env)}`);
+    hints.push(
+      `Service not installed. Run: ${formatCliCommand("aura_intelligence gateway install", env)}`,
+    );
     if (fileLog) hints.push(`File logs: ${fileLog}`);
     return hints;
   }
@@ -142,10 +144,10 @@ export function renderRuntimeHints(
       hints.push(`Launchd stdout (if installed): ${logs.stdoutPath}`);
       hints.push(`Launchd stderr (if installed): ${logs.stderrPath}`);
     } else if (process.platform === "linux") {
-      const unit = resolveGatewaySystemdServiceName(env.CLAWDBOT_PROFILE);
+      const unit = resolveGatewaySystemdServiceName(env.AURA_PROFILE);
       hints.push(`Logs: journalctl --user -u ${unit}.service -n 200 --no-pager`);
     } else if (process.platform === "win32") {
-      const task = resolveGatewayWindowsTaskName(env.CLAWDBOT_PROFILE);
+      const task = resolveGatewayWindowsTaskName(env.AURA_PROFILE);
       hints.push(`Logs: schtasks /Query /TN "${task}" /V /FO LIST`);
     }
   }
@@ -157,7 +159,7 @@ export function renderGatewayServiceStartHints(env: NodeJS.ProcessEnv = process.
     formatCliCommand("aura_intelligence gateway install", env),
     formatCliCommand("aura_intelligence gateway", env),
   ];
-  const profile = env.CLAWDBOT_PROFILE;
+  const profile = env.AURA_PROFILE;
   switch (process.platform) {
     case "darwin": {
       const label = resolveGatewayLaunchAgentLabel(profile);

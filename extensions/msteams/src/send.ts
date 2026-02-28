@@ -1,5 +1,5 @@
-import { loadWebMedia, resolveChannelMediaMaxBytes } from "clawdbot/plugin-sdk";
-import type { aura_intelligenceConfig } from "clawdbot/plugin-sdk";
+import { loadWebMedia, resolveChannelMediaMaxBytes } from "aura/plugin-sdk";
+import type { aura_intelligenceConfig } from "aura/plugin-sdk";
 import { createMSTeamsConversationStoreFs } from "./conversation-store-fs.js";
 import {
   classifyMSTeamsSendError,

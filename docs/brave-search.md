@@ -7,7 +7,7 @@ read_when:
 
 # Brave Search API
 
-aura_intelligence uses Brave Search as the default provider for `web_search`.
+Aura Intelligence uses Brave Search as the default provider for `web_search`.
 
 ## Get an API key
 

@@ -103,7 +103,13 @@ const routeMemoryStatus: RouteSpec = {
   },
 };
 
+import { registerOllamaCommand } from "./register.ollama.js";
+
 export const commandRegistry: CommandRegistration[] = [
+  {
+    id: "ollama",
+    register: ({ program }) => registerOllamaCommand(program),
+  },
   {
     id: "setup",
     register: ({ program }) => registerSetupCommand(program),

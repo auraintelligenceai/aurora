@@ -47,7 +47,7 @@ For beta installs:
 curl -fsSL https://molt.bot/install.sh | bash -s -- --beta --verbose
 ```
 
-You can also set `CLAWDBOT_VERBOSE=1` instead of the flag.
+You can also set `AURA_VERBOSE=1` instead of the flag.
 
 ### Gateway “unauthorized”, can’t connect, or keeps reconnecting
 

@@ -1,5 +1,5 @@
-import type { ChannelOnboardingAdapter, aura_intelligenceConfig, WizardPrompter } from "clawdbot/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "clawdbot/plugin-sdk";
+import type { ChannelOnboardingAdapter, aura_intelligenceConfig, WizardPrompter } from "aura/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "aura/plugin-sdk";
 
 import {
   listMattermostAccountIds,

@@ -25,7 +25,7 @@ import {
   type ChannelPlugin,
   type aura_intelligenceConfig,
   type ResolvedTelegramAccount,
-} from "clawdbot/plugin-sdk";
+} from "aura/plugin-sdk";
 
 import { getTelegramRuntime } from "./runtime.js";
 

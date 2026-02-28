@@ -9,8 +9,8 @@ import Testing
         let plist: [String: Any] = [
             "ProgramArguments": ["aura_intelligence", "gateway-daemon", "--port", "18789", "--bind", "loopback"],
             "EnvironmentVariables": [
-                "CLAWDBOT_GATEWAY_TOKEN": " secret ",
-                "CLAWDBOT_GATEWAY_PASSWORD": "pw",
+                "AURA_GATEWAY_TOKEN": " secret ",
+                "AURA_GATEWAY_PASSWORD": "pw",
             ],
         ]
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)

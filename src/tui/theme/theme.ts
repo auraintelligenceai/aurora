@@ -10,27 +10,27 @@ import type { SearchableSelectListTheme } from "../components/searchable-select-
 import { createSyntaxTheme } from "./syntax-theme.js";
 
 const palette = {
-  text: "#E8E3D5",
-  dim: "#7B7F87",
-  accent: "#F6C453",
-  accentSoft: "#F2A65A",
-  border: "#3C414B",
-  userBg: "#2B2F36",
-  userText: "#F3EEE0",
-  systemText: "#9BA3B2",
-  toolPendingBg: "#1F2A2F",
-  toolSuccessBg: "#1E2D23",
-  toolErrorBg: "#2F1F1F",
-  toolTitle: "#F6C453",
-  toolOutput: "#E1DACB",
-  quote: "#8CC8FF",
-  quoteBorder: "#3B4D6B",
-  code: "#F0C987",
-  codeBlock: "#1E232A",
-  codeBorder: "#343A45",
-  link: "#7DD3A5",
-  error: "#F97066",
-  success: "#7DD3A5",
+  text: "#F8F9FA",
+  dim: "#ADB5BD",
+  accent: "#4CC9F0",
+  accentSoft: "#4895EF",
+  border: "#495057",
+  userBg: "#212529",
+  userText: "#F8F9FA",
+  systemText: "#CED4DA",
+  toolPendingBg: "#1A1D21",
+  toolSuccessBg: "#1A2821",
+  toolErrorBg: "#3A1A1A",
+  toolTitle: "#4CC9F0",
+  toolOutput: "#E9ECEF",
+  quote: "#56C0E0",
+  quoteBorder: "#3B5F7A",
+  code: "#FFD43B",
+  codeBlock: "#1A1D21",
+  codeBorder: "#495057",
+  link: "#51CF66",
+  error: "#FF6B6B",
+  success: "#51CF66",
 };
 
 const fg = (hex: string) => (text: string) => chalk.hex(hex)(text);
@@ -78,6 +78,10 @@ export const theme = {
   border: fg(palette.border),
   bold: (text: string) => chalk.bold(text),
   italic: (text: string) => chalk.italic(text),
+  // New: Vibrant colors for better visibility
+  warning: fg("#FFB86C"),
+  info: fg("#8BE9FD"),
+  banner: (text: string) => chalk.bold(fg(palette.accent)(text)),
 };
 
 export const markdownTheme: MarkdownTheme = {

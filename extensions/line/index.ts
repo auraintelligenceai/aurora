@@ -1,5 +1,5 @@
-import type { aura_intelligencePluginApi } from "clawdbot/plugin-sdk";
-import { emptyPluginConfigSchema } from "clawdbot/plugin-sdk";
+import type { aura_intelligencePluginApi } from "aura/plugin-sdk";
+import { emptyPluginConfigSchema } from "aura/plugin-sdk";
 
 import { linePlugin } from "./src/channel.js";
 import { registerLineCardCommand } from "./src/card-command.js";

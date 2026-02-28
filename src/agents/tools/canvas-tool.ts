@@ -18,6 +18,10 @@ const CANVAS_ACTIONS = [
   "snapshot",
   "a2ui_push",
   "a2ui_reset",
+  "avatar_present",
+  "avatar_emotion",
+  "avatar_status",
+  "avatar_processing",
 ] as const;
 
 const CANVAS_SNAPSHOT_FORMATS = ["png", "jpg", "jpeg"] as const;

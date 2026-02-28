@@ -69,7 +69,9 @@ function summarizeGroupPolicy(cfg: aura_intelligenceConfig): {
   return { open, allowlist, other };
 }
 
-export function collectAttackSurfaceSummaryFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectAttackSurfaceSummaryFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const group = summarizeGroupPolicy(cfg);
   const elevated = cfg.tools?.elevated?.enabled !== false;
   const hooksEnabled = cfg.hooks?.enabled === true;
@@ -116,7 +118,7 @@ export function collectSyncedFolderFindings(params: {
       severity: "warn",
       title: "State/config path looks like a synced folder",
       detail: `stateDir=${params.stateDir}, configPath=${params.configPath}. Synced folders (iCloud/Dropbox/OneDrive/Google Drive) can leak tokens and transcripts onto other devices.`,
-      remediation: `Keep CLAWDBOT_STATE_DIR on a local-only volume and re-run "${formatCliCommand("aura_intelligence security audit --fix")}".`,
+      remediation: `Keep AURA_STATE_DIR on a local-only volume and re-run "${formatCliCommand("aura_intelligence security audit --fix")}".`,
     });
   }
   return findings;
@@ -127,7 +129,9 @@ function looksLikeEnvRef(value: string): boolean {
   return v.startsWith("${") && v.endsWith("}");
 }
 
-export function collectSecretsInConfigFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectSecretsInConfigFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const password =
     typeof cfg.gateway?.auth?.password === "string" ? cfg.gateway.auth.password.trim() : "";
@@ -139,7 +143,7 @@ export function collectSecretsInConfigFindings(cfg: aura_intelligenceConfig): Se
       detail:
         "gateway.auth.password is set in the config file; prefer environment variables for secrets when possible.",
       remediation:
-        "Prefer CLAWDBOT_GATEWAY_PASSWORD (env) and remove gateway.auth.password from disk.",
+        "Prefer AURA_GATEWAY_PASSWORD (env) and remove gateway.auth.password from disk.",
     });
   }
 
@@ -157,7 +161,9 @@ export function collectSecretsInConfigFindings(cfg: aura_intelligenceConfig): Se
   return findings;
 }
 
-export function collectHooksHardeningFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectHooksHardeningFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   if (cfg.hooks?.enabled !== true) return findings;
 
@@ -280,10 +286,11 @@ function isClaudeModel(id: string): boolean {
 }
 
 function isClaude45OrHigher(id: string): boolean {
-  // Match claude-*-4-5, claude-*-45, claude-*4.5, or opus-4-5/opus-45 variants
+  // Match claude-*-4-5, claude-*-45, claude-*4.5, claude-3-7, claude-3.7, or opus-4-5/opus-45 variants
   // Examples that should match:
-  //   claude-opus-4-5, claude-opus-45, claude-4.5, venice/claude-opus-45
-  return /\bclaude-[^\s/]*?(?:-4-?5\b|4\.5\b)/i.test(id);
+  //   claude-opus-4-5, claude-opus-45, claude-4.5, venice/claude-opus-45,
+  //   claude-3-7, claude-3.7, claude-sonnet-4-6, claude-sonnet-4.6
+  return /\bclaude-[^\s/]*?(?:-4-?[56]\b|4\.[56]\b|-3-?7\b|3\.7\b)/i.test(id);
 }
 
 export function collectModelHygieneFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
@@ -926,7 +933,9 @@ function listGroupPolicyOpen(cfg: aura_intelligenceConfig): string[] {
   return out;
 }
 
-export function collectExposureMatrixFindings(cfg: aura_intelligenceConfig): SecurityAuditFinding[] {
+export function collectExposureMatrixFindings(
+  cfg: aura_intelligenceConfig,
+): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const openGroups = listGroupPolicyOpen(cfg);
   if (openGroups.length === 0) return findings;

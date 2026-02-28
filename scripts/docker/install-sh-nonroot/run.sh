@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-INSTALL_URL="${CLAWDBOT_INSTALL_URL:-https://molt.bot/install.sh}"
+INSTALL_URL="${AURA_INSTALL_URL:-https://molt.bot/install.sh}"
 DEFAULT_PACKAGE="aura_intelligence"
-if [[ -z "${CLAWDBOT_INSTALL_PACKAGE:-}" && "$INSTALL_URL" == *"clawd.bot"* ]]; then
-  DEFAULT_PACKAGE="clawdbot"
+if [[ -z "${AURA_INSTALL_PACKAGE:-}" && "$INSTALL_URL" == *"aura.bot"* ]]; then
+  DEFAULT_PACKAGE="aura"
 fi
-PACKAGE_NAME="${CLAWDBOT_INSTALL_PACKAGE:-$DEFAULT_PACKAGE}"
+PACKAGE_NAME="${AURA_INSTALL_PACKAGE:-$DEFAULT_PACKAGE}"
 if [[ "$PACKAGE_NAME" == "aura_intelligence" ]]; then
-  ALT_PACKAGE_NAME="clawdbot"
+  ALT_PACKAGE_NAME="aura"
 else
   ALT_PACKAGE_NAME="aura_intelligence"
 fi
@@ -28,7 +28,7 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 echo "==> Verify git installed"
 command -v git >/dev/null
 
-EXPECTED_VERSION="${CLAWDBOT_INSTALL_EXPECT_VERSION:-}"
+EXPECTED_VERSION="${AURA_INSTALL_EXPECT_VERSION:-}"
 if [[ -n "$EXPECTED_VERSION" ]]; then
   LATEST_VERSION="$EXPECTED_VERSION"
 else
